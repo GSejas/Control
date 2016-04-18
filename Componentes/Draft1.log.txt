@@ -1,3 +1,0 @@
-Fatal Error: Trouble converting to curly brace notation:
- Mismatched single quotes in
-  "<!-- </textarea> --><!-- {"` --><form accept-charset="UTF-8" action="/pepaslabs/LTSpice-parts/search" class="js-site-search-form" data-scoped-search-url="/pepaslabs/LTSpice-parts/search" data-unscoped-search-url="/search" method="get"><div style="margin:0"
