@@ -1,0 +1,7 @@
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|8b7c07f3-54c7-460e-8214-0a8dd38c0216
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|b81b6e23-b257-4ba2-9747-17fae2678a83
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|21b3901b-9916-424c-acd2-9c4f3847c27c
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|f5ee72b5-b66d-4b1f-b9ae-868b219550bc
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|99942c8b-5f00-4c3b-b294-cb689a64af97
+G:\Documentos\PSoC Creator\PWM_BasicTest01\PWM_BasicTest02.cydsn\PWM_BasicTest02.cyprj|9f8e8fe2-54fc-4964-b442-e1896defa068
+G:\Documentos\PSoC Creator\PWM_BasicTest01\HelloWorld_Blinky01.cydsn\HelloWorld_Blinky01.cyprj|393eac84-c333-474e-9f71-30bd71969c0b

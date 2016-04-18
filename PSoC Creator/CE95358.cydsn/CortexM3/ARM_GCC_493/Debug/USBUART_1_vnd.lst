@@ -1,0 +1,767 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"USBUART_1_vnd.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.USBUART_1_HandleVendorRqst,"ax",%progbits
+  19              		.align	2
+  20              		.global	USBUART_1_HandleVendorRqst
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	USBUART_1_HandleVendorRqst, %function
+  24              	USBUART_1_HandleVendorRqst:
+  25              	.LFB0:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\USBUART_1_vnd.c"
+   1:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * File Name: USBUART_1_vnd.c
+   3:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Version 2.70
+   4:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+   5:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Description:
+   6:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  USB vendor request handler.
+   7:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+   8:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Note:
+   9:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+  10:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** ********************************************************************************
+  11:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * You may use this file only in accordance with the license, terms, conditions,
+  13:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  14:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *******************************************************************************/
+  16:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  17:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** #include "USBUART_1.h"
+  18:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** #include "USBUART_1_pvt.h"
+  19:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  20:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** #if(USBUART_1_EXTERN_VND == USBUART_1_FALSE)
+  21:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  22:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  23:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** /***************************************
+  24:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Vendor Specific Declarations
+  25:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** ***************************************/
+  26:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  27:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** /* `#START VENDOR_SPECIFIC_DECLARATIONS` Place your declaration here */
+  28:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  29:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** /* `#END` */
+  30:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  31:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** /*******************************************************************************
+  33:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Function Name: USBUART_1_HandleVendorRqst
+  34:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** ********************************************************************************
+  35:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+  36:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Summary:
+  37:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  This routine provide users with a method to implement vendor specific
+  38:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  requests.
+  39:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+  40:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  To implement vendor specific requests, add your code in this function to
+  41:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  decode and disposition the request.  If the request is handled, your code
+  42:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  must set the variable "requestHandled" to TRUE, indicating that the
+  43:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  request has been handled.
+  44:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+  45:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Parameters:
+  46:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  None.
+  47:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+  48:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Return:
+  49:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  requestHandled.
+  50:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+  51:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** * Reentrant:
+  52:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *  No.
+  53:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *
+  54:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** *******************************************************************************/
+  55:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** uint8 USBUART_1_HandleVendorRqst(void) 
+  56:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** {
+  27              		.loc 1 56 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 8
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31 0000 80B5     		push	{r7, lr}
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 7, -8
+  34              		.cfi_offset 14, -4
+  35 0002 82B0     		sub	sp, sp, #8
+  36              		.cfi_def_cfa_offset 16
+  37 0004 00AF     		add	r7, sp, #0
+  38              		.cfi_def_cfa_register 7
+  57:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****     uint8 requestHandled = USBUART_1_FALSE;
+  39              		.loc 1 57 0
+  40 0006 0023     		movs	r3, #0
+  41 0008 FB71     		strb	r3, [r7, #7]
+  58:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  59:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****     if ((CY_GET_REG8(USBUART_1_bmRequestType) & USBUART_1_RQST_DIR_MASK) == USBUART_1_RQST_DIR_D2H)
+  42              		.loc 1 59 0
+  43 000a 0F4B     		ldr	r3, .L6
+  44 000c 1B78     		ldrb	r3, [r3]
+  45 000e DBB2     		uxtb	r3, r3
+  46 0010 DBB2     		uxtb	r3, r3
+  47 0012 5BB2     		sxtb	r3, r3
+  48 0014 002B     		cmp	r3, #0
+  49 0016 12DA     		bge	.L2
+  60:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****     {
+  61:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****         /* Control Read */
+  62:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****         switch (CY_GET_REG8(USBUART_1_bRequest))
+  50              		.loc 1 62 0
+  51 0018 0C4B     		ldr	r3, .L6+4
+  52 001a 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 3
+
+
+  53 001c DBB2     		uxtb	r3, r3
+  54 001e 012B     		cmp	r3, #1
+  55 0020 00D0     		beq	.L4
+  63:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****         {
+  64:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****             case USBUART_1_GET_EXTENDED_CONFIG_DESCRIPTOR:
+  65:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                 #if defined(USBUART_1_ENABLE_MSOS_STRING)
+  66:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                     USBUART_1_currentTD.pData = (volatile uint8 *)&USBUART_1_MSOS_CONFIGURATION_DES
+  67:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                     USBUART_1_currentTD.count = USBUART_1_MSOS_CONFIGURATION_DESCR[0u];
+  68:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                     requestHandled  = USBUART_1_InitControlRead();
+  69:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                 #endif /*  USBUART_1_ENABLE_MSOS_STRING */
+  70:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                 break;
+  71:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****             default:
+  72:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                 break;
+  56              		.loc 1 72 0
+  57 0022 0CE0     		b	.L2
+  58              	.L4:
+  66:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                     USBUART_1_currentTD.count = USBUART_1_MSOS_CONFIGURATION_DESCR[0u];
+  59              		.loc 1 66 0
+  60 0024 0A4B     		ldr	r3, .L6+8
+  61 0026 0B4A     		ldr	r2, .L6+12
+  62 0028 5A60     		str	r2, [r3, #4]
+  67:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                     requestHandled  = USBUART_1_InitControlRead();
+  63              		.loc 1 67 0
+  64 002a 0A4B     		ldr	r3, .L6+12
+  65 002c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  66 002e 9AB2     		uxth	r2, r3
+  67 0030 074B     		ldr	r3, .L6+8
+  68 0032 1A80     		strh	r2, [r3]	@ movhi
+  68:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****                 #endif /*  USBUART_1_ENABLE_MSOS_STRING */
+  69              		.loc 1 68 0
+  70 0034 FFF7FEFF 		bl	USBUART_1_InitControlRead
+  71 0038 0346     		mov	r3, r0
+  72 003a FB71     		strb	r3, [r7, #7]
+  70:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****             default:
+  73              		.loc 1 70 0
+  74 003c 00BF     		nop
+  75              	.L2:
+  73:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****         }
+  74:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****     }
+  75:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  76:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****     /* `#START VENDOR_SPECIFIC_CODE` Place your vendor specific request here */
+  77:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  78:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****     /* `#END` */
+  79:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** 
+  80:.\Generated_Source\PSoC5/USBUART_1_vnd.c ****     return(requestHandled);
+  76              		.loc 1 80 0
+  77 003e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  81:.\Generated_Source\PSoC5/USBUART_1_vnd.c **** }
+  78              		.loc 1 81 0
+  79 0040 1846     		mov	r0, r3
+  80 0042 0837     		adds	r7, r7, #8
+  81              		.cfi_def_cfa_offset 8
+  82 0044 BD46     		mov	sp, r7
+  83              		.cfi_def_cfa_register 13
+  84              		@ sp needed
+  85 0046 80BD     		pop	{r7, pc}
+  86              	.L7:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 4
+
+
+  87              		.align	2
+  88              	.L6:
+  89 0048 00600040 		.word	1073766400
+  90 004c 01600040 		.word	1073766401
+  91 0050 00000000 		.word	USBUART_1_currentTD
+  92 0054 00000000 		.word	USBUART_1_MSOS_CONFIGURATION_DESCR
+  93              		.cfi_endproc
+  94              	.LFE0:
+  95              		.size	USBUART_1_HandleVendorRqst, .-USBUART_1_HandleVendorRqst
+  96              		.text
+  97              	.Letext0:
+  98              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+  99              		.file 3 ".\\Generated_Source\\PSoC5\\USBUART_1.h"
+ 100              		.file 4 ".\\Generated_Source\\PSoC5\\USBUART_1_pvt.h"
+ 101              		.section	.debug_info,"",%progbits
+ 102              	.Ldebug_info0:
+ 103 0000 72010000 		.4byte	0x172
+ 104 0004 0400     		.2byte	0x4
+ 105 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 106 000a 04       		.byte	0x4
+ 107 000b 01       		.uleb128 0x1
+ 108 000c 9C000000 		.4byte	.LASF25
+ 109 0010 01       		.byte	0x1
+ 110 0011 16020000 		.4byte	.LASF26
+ 111 0015 73000000 		.4byte	.LASF27
+ 112 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 113 001d 00000000 		.4byte	0
+ 114 0021 00000000 		.4byte	.Ldebug_line0
+ 115 0025 02       		.uleb128 0x2
+ 116 0026 01       		.byte	0x1
+ 117 0027 06       		.byte	0x6
+ 118 0028 E7010000 		.4byte	.LASF0
+ 119 002c 02       		.uleb128 0x2
+ 120 002d 01       		.byte	0x1
+ 121 002e 08       		.byte	0x8
+ 122 002f 48000000 		.4byte	.LASF1
+ 123 0033 02       		.uleb128 0x2
+ 124 0034 02       		.byte	0x2
+ 125 0035 05       		.byte	0x5
+ 126 0036 B1010000 		.4byte	.LASF2
+ 127 003a 02       		.uleb128 0x2
+ 128 003b 02       		.byte	0x2
+ 129 003c 07       		.byte	0x7
+ 130 003d 22000000 		.4byte	.LASF3
+ 131 0041 02       		.uleb128 0x2
+ 132 0042 04       		.byte	0x4
+ 133 0043 05       		.byte	0x5
+ 134 0044 CA010000 		.4byte	.LASF4
+ 135 0048 02       		.uleb128 0x2
+ 136 0049 04       		.byte	0x4
+ 137 004a 07       		.byte	0x7
+ 138 004b 5B000000 		.4byte	.LASF5
+ 139 004f 02       		.uleb128 0x2
+ 140 0050 08       		.byte	0x8
+ 141 0051 05       		.byte	0x5
+ 142 0052 80010000 		.4byte	.LASF6
+ 143 0056 02       		.uleb128 0x2
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 5
+
+
+ 144 0057 08       		.byte	0x8
+ 145 0058 07       		.byte	0x7
+ 146 0059 45010000 		.4byte	.LASF7
+ 147 005d 03       		.uleb128 0x3
+ 148 005e 04       		.byte	0x4
+ 149 005f 05       		.byte	0x5
+ 150 0060 696E7400 		.ascii	"int\000"
+ 151 0064 02       		.uleb128 0x2
+ 152 0065 04       		.byte	0x4
+ 153 0066 07       		.byte	0x7
+ 154 0067 38010000 		.4byte	.LASF8
+ 155 006b 04       		.uleb128 0x4
+ 156 006c 6D000000 		.4byte	.LASF9
+ 157 0070 02       		.byte	0x2
+ 158 0071 5B       		.byte	0x5b
+ 159 0072 2C000000 		.4byte	0x2c
+ 160 0076 04       		.uleb128 0x4
+ 161 0077 31010000 		.4byte	.LASF10
+ 162 007b 02       		.byte	0x2
+ 163 007c 5C       		.byte	0x5c
+ 164 007d 3A000000 		.4byte	0x3a
+ 165 0081 02       		.uleb128 0x2
+ 166 0082 04       		.byte	0x4
+ 167 0083 04       		.byte	0x4
+ 168 0084 42000000 		.4byte	.LASF11
+ 169 0088 02       		.uleb128 0x2
+ 170 0089 08       		.byte	0x8
+ 171 008a 04       		.byte	0x4
+ 172 008b 2A010000 		.4byte	.LASF12
+ 173 008f 02       		.uleb128 0x2
+ 174 0090 01       		.byte	0x1
+ 175 0091 08       		.byte	0x8
+ 176 0092 8E010000 		.4byte	.LASF13
+ 177 0096 04       		.uleb128 0x4
+ 178 0097 56000000 		.4byte	.LASF14
+ 179 009b 02       		.byte	0x2
+ 180 009c F0       		.byte	0xf0
+ 181 009d A1000000 		.4byte	0xa1
+ 182 00a1 05       		.uleb128 0x5
+ 183 00a2 6B000000 		.4byte	0x6b
+ 184 00a6 02       		.uleb128 0x2
+ 185 00a7 04       		.byte	0x4
+ 186 00a8 07       		.byte	0x7
+ 187 00a9 77010000 		.4byte	.LASF15
+ 188 00ad 06       		.uleb128 0x6
+ 189 00ae 04       		.byte	0x4
+ 190 00af 03       		.byte	0x3
+ 191 00b0 94       		.byte	0x94
+ 192 00b1 CE000000 		.4byte	0xce
+ 193 00b5 07       		.uleb128 0x7
+ 194 00b6 35000000 		.4byte	.LASF16
+ 195 00ba 03       		.byte	0x3
+ 196 00bb 96       		.byte	0x96
+ 197 00bc 6B000000 		.4byte	0x6b
+ 198 00c0 00       		.byte	0
+ 199 00c1 07       		.uleb128 0x7
+ 200 00c2 3F020000 		.4byte	.LASF17
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 6
+
+
+ 201 00c6 03       		.byte	0x3
+ 202 00c7 97       		.byte	0x97
+ 203 00c8 76000000 		.4byte	0x76
+ 204 00cc 02       		.byte	0x2
+ 205 00cd 00       		.byte	0
+ 206 00ce 04       		.uleb128 0x4
+ 207 00cf 93010000 		.4byte	.LASF18
+ 208 00d3 03       		.byte	0x3
+ 209 00d4 98       		.byte	0x98
+ 210 00d5 AD000000 		.4byte	0xad
+ 211 00d9 06       		.uleb128 0x6
+ 212 00da 0C       		.byte	0xc
+ 213 00db 03       		.byte	0x3
+ 214 00dc 9A       		.byte	0x9a
+ 215 00dd 06010000 		.4byte	0x106
+ 216 00e1 07       		.uleb128 0x7
+ 217 00e2 1C000000 		.4byte	.LASF19
+ 218 00e6 03       		.byte	0x3
+ 219 00e7 9C       		.byte	0x9c
+ 220 00e8 76000000 		.4byte	0x76
+ 221 00ec 00       		.byte	0
+ 222 00ed 07       		.uleb128 0x7
+ 223 00ee 3C000000 		.4byte	.LASF20
+ 224 00f2 03       		.byte	0x3
+ 225 00f3 9D       		.byte	0x9d
+ 226 00f4 06010000 		.4byte	0x106
+ 227 00f8 04       		.byte	0x4
+ 228 00f9 07       		.uleb128 0x7
+ 229 00fa 00000000 		.4byte	.LASF21
+ 230 00fe 03       		.byte	0x3
+ 231 00ff 9E       		.byte	0x9e
+ 232 0100 0C010000 		.4byte	0x10c
+ 233 0104 08       		.byte	0x8
+ 234 0105 00       		.byte	0
+ 235 0106 08       		.uleb128 0x8
+ 236 0107 04       		.byte	0x4
+ 237 0108 A1000000 		.4byte	0xa1
+ 238 010c 08       		.uleb128 0x8
+ 239 010d 04       		.byte	0x4
+ 240 010e CE000000 		.4byte	0xce
+ 241 0112 04       		.uleb128 0x4
+ 242 0113 0D000000 		.4byte	.LASF22
+ 243 0117 03       		.byte	0x3
+ 244 0118 9F       		.byte	0x9f
+ 245 0119 D9000000 		.4byte	0xd9
+ 246 011d 09       		.uleb128 0x9
+ 247 011e 5C010000 		.4byte	.LASF28
+ 248 0122 01       		.byte	0x1
+ 249 0123 37       		.byte	0x37
+ 250 0124 6B000000 		.4byte	0x6b
+ 251 0128 00000000 		.4byte	.LFB0
+ 252 012c 58000000 		.4byte	.LFE0-.LFB0
+ 253 0130 01       		.uleb128 0x1
+ 254 0131 9C       		.byte	0x9c
+ 255 0132 45010000 		.4byte	0x145
+ 256 0136 0A       		.uleb128 0xa
+ 257 0137 BB010000 		.4byte	.LASF29
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 7
+
+
+ 258 013b 01       		.byte	0x1
+ 259 013c 39       		.byte	0x39
+ 260 013d 6B000000 		.4byte	0x6b
+ 261 0141 02       		.uleb128 0x2
+ 262 0142 91       		.byte	0x91
+ 263 0143 77       		.sleb128 -9
+ 264 0144 00       		.byte	0
+ 265 0145 0B       		.uleb128 0xb
+ 266 0146 6B000000 		.4byte	0x6b
+ 267 014a 55010000 		.4byte	0x155
+ 268 014e 0C       		.uleb128 0xc
+ 269 014f A6000000 		.4byte	0xa6
+ 270 0153 27       		.byte	0x27
+ 271 0154 00       		.byte	0
+ 272 0155 0D       		.uleb128 0xd
+ 273 0156 F3010000 		.4byte	.LASF23
+ 274 015a 04       		.byte	0x4
+ 275 015b 29       		.byte	0x29
+ 276 015c 60010000 		.4byte	0x160
+ 277 0160 0E       		.uleb128 0xe
+ 278 0161 45010000 		.4byte	0x145
+ 279 0165 0D       		.uleb128 0xd
+ 280 0166 D3010000 		.4byte	.LASF24
+ 281 016a 04       		.byte	0x4
+ 282 016b 36       		.byte	0x36
+ 283 016c 70010000 		.4byte	0x170
+ 284 0170 05       		.uleb128 0x5
+ 285 0171 12010000 		.4byte	0x112
+ 286 0175 00       		.byte	0
+ 287              		.section	.debug_abbrev,"",%progbits
+ 288              	.Ldebug_abbrev0:
+ 289 0000 01       		.uleb128 0x1
+ 290 0001 11       		.uleb128 0x11
+ 291 0002 01       		.byte	0x1
+ 292 0003 25       		.uleb128 0x25
+ 293 0004 0E       		.uleb128 0xe
+ 294 0005 13       		.uleb128 0x13
+ 295 0006 0B       		.uleb128 0xb
+ 296 0007 03       		.uleb128 0x3
+ 297 0008 0E       		.uleb128 0xe
+ 298 0009 1B       		.uleb128 0x1b
+ 299 000a 0E       		.uleb128 0xe
+ 300 000b 55       		.uleb128 0x55
+ 301 000c 17       		.uleb128 0x17
+ 302 000d 11       		.uleb128 0x11
+ 303 000e 01       		.uleb128 0x1
+ 304 000f 10       		.uleb128 0x10
+ 305 0010 17       		.uleb128 0x17
+ 306 0011 00       		.byte	0
+ 307 0012 00       		.byte	0
+ 308 0013 02       		.uleb128 0x2
+ 309 0014 24       		.uleb128 0x24
+ 310 0015 00       		.byte	0
+ 311 0016 0B       		.uleb128 0xb
+ 312 0017 0B       		.uleb128 0xb
+ 313 0018 3E       		.uleb128 0x3e
+ 314 0019 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 8
+
+
+ 315 001a 03       		.uleb128 0x3
+ 316 001b 0E       		.uleb128 0xe
+ 317 001c 00       		.byte	0
+ 318 001d 00       		.byte	0
+ 319 001e 03       		.uleb128 0x3
+ 320 001f 24       		.uleb128 0x24
+ 321 0020 00       		.byte	0
+ 322 0021 0B       		.uleb128 0xb
+ 323 0022 0B       		.uleb128 0xb
+ 324 0023 3E       		.uleb128 0x3e
+ 325 0024 0B       		.uleb128 0xb
+ 326 0025 03       		.uleb128 0x3
+ 327 0026 08       		.uleb128 0x8
+ 328 0027 00       		.byte	0
+ 329 0028 00       		.byte	0
+ 330 0029 04       		.uleb128 0x4
+ 331 002a 16       		.uleb128 0x16
+ 332 002b 00       		.byte	0
+ 333 002c 03       		.uleb128 0x3
+ 334 002d 0E       		.uleb128 0xe
+ 335 002e 3A       		.uleb128 0x3a
+ 336 002f 0B       		.uleb128 0xb
+ 337 0030 3B       		.uleb128 0x3b
+ 338 0031 0B       		.uleb128 0xb
+ 339 0032 49       		.uleb128 0x49
+ 340 0033 13       		.uleb128 0x13
+ 341 0034 00       		.byte	0
+ 342 0035 00       		.byte	0
+ 343 0036 05       		.uleb128 0x5
+ 344 0037 35       		.uleb128 0x35
+ 345 0038 00       		.byte	0
+ 346 0039 49       		.uleb128 0x49
+ 347 003a 13       		.uleb128 0x13
+ 348 003b 00       		.byte	0
+ 349 003c 00       		.byte	0
+ 350 003d 06       		.uleb128 0x6
+ 351 003e 13       		.uleb128 0x13
+ 352 003f 01       		.byte	0x1
+ 353 0040 0B       		.uleb128 0xb
+ 354 0041 0B       		.uleb128 0xb
+ 355 0042 3A       		.uleb128 0x3a
+ 356 0043 0B       		.uleb128 0xb
+ 357 0044 3B       		.uleb128 0x3b
+ 358 0045 0B       		.uleb128 0xb
+ 359 0046 01       		.uleb128 0x1
+ 360 0047 13       		.uleb128 0x13
+ 361 0048 00       		.byte	0
+ 362 0049 00       		.byte	0
+ 363 004a 07       		.uleb128 0x7
+ 364 004b 0D       		.uleb128 0xd
+ 365 004c 00       		.byte	0
+ 366 004d 03       		.uleb128 0x3
+ 367 004e 0E       		.uleb128 0xe
+ 368 004f 3A       		.uleb128 0x3a
+ 369 0050 0B       		.uleb128 0xb
+ 370 0051 3B       		.uleb128 0x3b
+ 371 0052 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 9
+
+
+ 372 0053 49       		.uleb128 0x49
+ 373 0054 13       		.uleb128 0x13
+ 374 0055 38       		.uleb128 0x38
+ 375 0056 0B       		.uleb128 0xb
+ 376 0057 00       		.byte	0
+ 377 0058 00       		.byte	0
+ 378 0059 08       		.uleb128 0x8
+ 379 005a 0F       		.uleb128 0xf
+ 380 005b 00       		.byte	0
+ 381 005c 0B       		.uleb128 0xb
+ 382 005d 0B       		.uleb128 0xb
+ 383 005e 49       		.uleb128 0x49
+ 384 005f 13       		.uleb128 0x13
+ 385 0060 00       		.byte	0
+ 386 0061 00       		.byte	0
+ 387 0062 09       		.uleb128 0x9
+ 388 0063 2E       		.uleb128 0x2e
+ 389 0064 01       		.byte	0x1
+ 390 0065 3F       		.uleb128 0x3f
+ 391 0066 19       		.uleb128 0x19
+ 392 0067 03       		.uleb128 0x3
+ 393 0068 0E       		.uleb128 0xe
+ 394 0069 3A       		.uleb128 0x3a
+ 395 006a 0B       		.uleb128 0xb
+ 396 006b 3B       		.uleb128 0x3b
+ 397 006c 0B       		.uleb128 0xb
+ 398 006d 27       		.uleb128 0x27
+ 399 006e 19       		.uleb128 0x19
+ 400 006f 49       		.uleb128 0x49
+ 401 0070 13       		.uleb128 0x13
+ 402 0071 11       		.uleb128 0x11
+ 403 0072 01       		.uleb128 0x1
+ 404 0073 12       		.uleb128 0x12
+ 405 0074 06       		.uleb128 0x6
+ 406 0075 40       		.uleb128 0x40
+ 407 0076 18       		.uleb128 0x18
+ 408 0077 9642     		.uleb128 0x2116
+ 409 0079 19       		.uleb128 0x19
+ 410 007a 01       		.uleb128 0x1
+ 411 007b 13       		.uleb128 0x13
+ 412 007c 00       		.byte	0
+ 413 007d 00       		.byte	0
+ 414 007e 0A       		.uleb128 0xa
+ 415 007f 34       		.uleb128 0x34
+ 416 0080 00       		.byte	0
+ 417 0081 03       		.uleb128 0x3
+ 418 0082 0E       		.uleb128 0xe
+ 419 0083 3A       		.uleb128 0x3a
+ 420 0084 0B       		.uleb128 0xb
+ 421 0085 3B       		.uleb128 0x3b
+ 422 0086 0B       		.uleb128 0xb
+ 423 0087 49       		.uleb128 0x49
+ 424 0088 13       		.uleb128 0x13
+ 425 0089 02       		.uleb128 0x2
+ 426 008a 18       		.uleb128 0x18
+ 427 008b 00       		.byte	0
+ 428 008c 00       		.byte	0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 10
+
+
+ 429 008d 0B       		.uleb128 0xb
+ 430 008e 01       		.uleb128 0x1
+ 431 008f 01       		.byte	0x1
+ 432 0090 49       		.uleb128 0x49
+ 433 0091 13       		.uleb128 0x13
+ 434 0092 01       		.uleb128 0x1
+ 435 0093 13       		.uleb128 0x13
+ 436 0094 00       		.byte	0
+ 437 0095 00       		.byte	0
+ 438 0096 0C       		.uleb128 0xc
+ 439 0097 21       		.uleb128 0x21
+ 440 0098 00       		.byte	0
+ 441 0099 49       		.uleb128 0x49
+ 442 009a 13       		.uleb128 0x13
+ 443 009b 2F       		.uleb128 0x2f
+ 444 009c 0B       		.uleb128 0xb
+ 445 009d 00       		.byte	0
+ 446 009e 00       		.byte	0
+ 447 009f 0D       		.uleb128 0xd
+ 448 00a0 34       		.uleb128 0x34
+ 449 00a1 00       		.byte	0
+ 450 00a2 03       		.uleb128 0x3
+ 451 00a3 0E       		.uleb128 0xe
+ 452 00a4 3A       		.uleb128 0x3a
+ 453 00a5 0B       		.uleb128 0xb
+ 454 00a6 3B       		.uleb128 0x3b
+ 455 00a7 0B       		.uleb128 0xb
+ 456 00a8 49       		.uleb128 0x49
+ 457 00a9 13       		.uleb128 0x13
+ 458 00aa 3F       		.uleb128 0x3f
+ 459 00ab 19       		.uleb128 0x19
+ 460 00ac 3C       		.uleb128 0x3c
+ 461 00ad 19       		.uleb128 0x19
+ 462 00ae 00       		.byte	0
+ 463 00af 00       		.byte	0
+ 464 00b0 0E       		.uleb128 0xe
+ 465 00b1 26       		.uleb128 0x26
+ 466 00b2 00       		.byte	0
+ 467 00b3 49       		.uleb128 0x49
+ 468 00b4 13       		.uleb128 0x13
+ 469 00b5 00       		.byte	0
+ 470 00b6 00       		.byte	0
+ 471 00b7 00       		.byte	0
+ 472              		.section	.debug_aranges,"",%progbits
+ 473 0000 1C000000 		.4byte	0x1c
+ 474 0004 0200     		.2byte	0x2
+ 475 0006 00000000 		.4byte	.Ldebug_info0
+ 476 000a 04       		.byte	0x4
+ 477 000b 00       		.byte	0
+ 478 000c 0000     		.2byte	0
+ 479 000e 0000     		.2byte	0
+ 480 0010 00000000 		.4byte	.LFB0
+ 481 0014 58000000 		.4byte	.LFE0-.LFB0
+ 482 0018 00000000 		.4byte	0
+ 483 001c 00000000 		.4byte	0
+ 484              		.section	.debug_ranges,"",%progbits
+ 485              	.Ldebug_ranges0:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 11
+
+
+ 486 0000 00000000 		.4byte	.LFB0
+ 487 0004 58000000 		.4byte	.LFE0
+ 488 0008 00000000 		.4byte	0
+ 489 000c 00000000 		.4byte	0
+ 490              		.section	.debug_line,"",%progbits
+ 491              	.Ldebug_line0:
+ 492 0000 93000000 		.section	.debug_str,"MS",%progbits,1
+ 492      02006E00 
+ 492      00000201 
+ 492      FB0E0D00 
+ 492      01010101 
+ 493              	.LASF21:
+ 494 0000 70537461 		.ascii	"pStatusBlock\000"
+ 494      74757342 
+ 494      6C6F636B 
+ 494      00
+ 495              	.LASF22:
+ 496 000d 545F5553 		.ascii	"T_USBUART_1_TD\000"
+ 496      42554152 
+ 496      545F315F 
+ 496      544400
+ 497              	.LASF19:
+ 498 001c 636F756E 		.ascii	"count\000"
+ 498      7400
+ 499              	.LASF3:
+ 500 0022 73686F72 		.ascii	"short unsigned int\000"
+ 500      7420756E 
+ 500      7369676E 
+ 500      65642069 
+ 500      6E7400
+ 501              	.LASF16:
+ 502 0035 73746174 		.ascii	"status\000"
+ 502      757300
+ 503              	.LASF20:
+ 504 003c 70446174 		.ascii	"pData\000"
+ 504      6100
+ 505              	.LASF11:
+ 506 0042 666C6F61 		.ascii	"float\000"
+ 506      7400
+ 507              	.LASF1:
+ 508 0048 756E7369 		.ascii	"unsigned char\000"
+ 508      676E6564 
+ 508      20636861 
+ 508      7200
+ 509              	.LASF14:
+ 510 0056 72656738 		.ascii	"reg8\000"
+ 510      00
+ 511              	.LASF5:
+ 512 005b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 512      20756E73 
+ 512      69676E65 
+ 512      6420696E 
+ 512      7400
+ 513              	.LASF9:
+ 514 006d 75696E74 		.ascii	"uint8\000"
+ 514      3800
+ 515              	.LASF27:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 12
+
+
+ 516 0073 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\CE95358.cydsn\000"
+ 516      6F63756D 
+ 516      656E746F 
+ 516      735C5053 
+ 516      6F432043 
+ 517              	.LASF25:
+ 518 009c 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 518      4320342E 
+ 518      392E3320 
+ 518      32303135 
+ 518      30333033 
+ 519 00cf 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 519      20726576 
+ 519      6973696F 
+ 519      6E203232 
+ 519      31323230 
+ 520 0102 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 520      66756E63 
+ 520      74696F6E 
+ 520      2D736563 
+ 520      74696F6E 
+ 521              	.LASF12:
+ 522 012a 646F7562 		.ascii	"double\000"
+ 522      6C6500
+ 523              	.LASF10:
+ 524 0131 75696E74 		.ascii	"uint16\000"
+ 524      313600
+ 525              	.LASF8:
+ 526 0138 756E7369 		.ascii	"unsigned int\000"
+ 526      676E6564 
+ 526      20696E74 
+ 526      00
+ 527              	.LASF7:
+ 528 0145 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 528      206C6F6E 
+ 528      6720756E 
+ 528      7369676E 
+ 528      65642069 
+ 529              	.LASF28:
+ 530 015c 55534255 		.ascii	"USBUART_1_HandleVendorRqst\000"
+ 530      4152545F 
+ 530      315F4861 
+ 530      6E646C65 
+ 530      56656E64 
+ 531              	.LASF15:
+ 532 0177 73697A65 		.ascii	"sizetype\000"
+ 532      74797065 
+ 532      00
+ 533              	.LASF6:
+ 534 0180 6C6F6E67 		.ascii	"long long int\000"
+ 534      206C6F6E 
+ 534      6720696E 
+ 534      7400
+ 535              	.LASF13:
+ 536 018e 63686172 		.ascii	"char\000"
+ 536      00
+ 537              	.LASF18:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccy9NtHY.s 			page 13
+
+
+ 538 0193 545F5553 		.ascii	"T_USBUART_1_XFER_STATUS_BLOCK\000"
+ 538      42554152 
+ 538      545F315F 
+ 538      58464552 
+ 538      5F535441 
+ 539              	.LASF2:
+ 540 01b1 73686F72 		.ascii	"short int\000"
+ 540      7420696E 
+ 540      7400
+ 541              	.LASF29:
+ 542 01bb 72657175 		.ascii	"requestHandled\000"
+ 542      65737448 
+ 542      616E646C 
+ 542      656400
+ 543              	.LASF4:
+ 544 01ca 6C6F6E67 		.ascii	"long int\000"
+ 544      20696E74 
+ 544      00
+ 545              	.LASF24:
+ 546 01d3 55534255 		.ascii	"USBUART_1_currentTD\000"
+ 546      4152545F 
+ 546      315F6375 
+ 546      7272656E 
+ 546      74544400 
+ 547              	.LASF0:
+ 548 01e7 7369676E 		.ascii	"signed char\000"
+ 548      65642063 
+ 548      68617200 
+ 549              	.LASF23:
+ 550 01f3 55534255 		.ascii	"USBUART_1_MSOS_CONFIGURATION_DESCR\000"
+ 550      4152545F 
+ 550      315F4D53 
+ 550      4F535F43 
+ 550      4F4E4649 
+ 551              	.LASF26:
+ 552 0216 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\USBUART_1_vnd.c\000"
+ 552      6E657261 
+ 552      7465645F 
+ 552      536F7572 
+ 552      63655C50 
+ 553              	.LASF17:
+ 554 023f 6C656E67 		.ascii	"length\000"
+ 554      746800
+ 555              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

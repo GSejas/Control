@@ -1,0 +1,3855 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"LCD.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.LCD_WrCntrlNib,"ax",%progbits
+  19              		.align	1
+  20              		.thumb
+  21              		.thumb_func
+  22              		.type	LCD_WrCntrlNib, %function
+  23              	LCD_WrCntrlNib:
+  24              	.LFB11:
+  25              		.file 1 ".\\Generated_Source\\PSoC5\\LCD.c"
+   1:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/LCD.c **** * File Name: LCD.c
+   3:.\Generated_Source\PSoC5/LCD.c **** * Version 1.90
+   4:.\Generated_Source\PSoC5/LCD.c **** *
+   5:.\Generated_Source\PSoC5/LCD.c **** * Description:
+   6:.\Generated_Source\PSoC5/LCD.c **** *  This file provides source code for the Character LCD component's API.
+   7:.\Generated_Source\PSoC5/LCD.c **** *
+   8:.\Generated_Source\PSoC5/LCD.c **** * Note:
+   9:.\Generated_Source\PSoC5/LCD.c **** *
+  10:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+  11:.\Generated_Source\PSoC5/LCD.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC5/LCD.c **** * You may use this file only in accordance with the license, terms, conditions,
+  13:.\Generated_Source\PSoC5/LCD.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  14:.\Generated_Source\PSoC5/LCD.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+  16:.\Generated_Source\PSoC5/LCD.c **** 
+  17:.\Generated_Source\PSoC5/LCD.c **** #include "CyLib.h"
+  18:.\Generated_Source\PSoC5/LCD.c **** #include "LCD.h"
+  19:.\Generated_Source\PSoC5/LCD.c **** 
+  20:.\Generated_Source\PSoC5/LCD.c **** 
+  21:.\Generated_Source\PSoC5/LCD.c **** static void LCD_WrDatNib(uint8 nibble) ;
+  22:.\Generated_Source\PSoC5/LCD.c **** static void LCD_WrCntrlNib(uint8 nibble) ;
+  23:.\Generated_Source\PSoC5/LCD.c **** 
+  24:.\Generated_Source\PSoC5/LCD.c **** /* Stores the state of conponent. Indicates wherewer component is 
+  25:.\Generated_Source\PSoC5/LCD.c **** * in enable state or not.
+  26:.\Generated_Source\PSoC5/LCD.c **** */
+  27:.\Generated_Source\PSoC5/LCD.c **** uint8 LCD_enableState = 0u;
+  28:.\Generated_Source\PSoC5/LCD.c **** 
+  29:.\Generated_Source\PSoC5/LCD.c **** uint8 LCD_initVar = 0u;
+  30:.\Generated_Source\PSoC5/LCD.c **** 
+  31:.\Generated_Source\PSoC5/LCD.c **** 
+  32:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 2
+
+
+  33:.\Generated_Source\PSoC5/LCD.c **** * Function Name: LCD_Init
+  34:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+  35:.\Generated_Source\PSoC5/LCD.c **** *
+  36:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+  37:.\Generated_Source\PSoC5/LCD.c **** *  Perform initialization required for components normal work.
+  38:.\Generated_Source\PSoC5/LCD.c **** *  This function initializes the LCD hardware module as follows:
+  39:.\Generated_Source\PSoC5/LCD.c **** *        Enable 4-bit interface
+  40:.\Generated_Source\PSoC5/LCD.c **** *        Clear the display
+  41:.\Generated_Source\PSoC5/LCD.c **** *        Enable auto cursor increment
+  42:.\Generated_Source\PSoC5/LCD.c **** *        Resets the cursor to start position
+  43:.\Generated_Source\PSoC5/LCD.c **** *  Also loads custom character set to LCD if it was defined in the customizer.
+  44:.\Generated_Source\PSoC5/LCD.c **** *
+  45:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+  46:.\Generated_Source\PSoC5/LCD.c **** *  None.
+  47:.\Generated_Source\PSoC5/LCD.c **** *
+  48:.\Generated_Source\PSoC5/LCD.c **** * Return:
+  49:.\Generated_Source\PSoC5/LCD.c **** *  None.
+  50:.\Generated_Source\PSoC5/LCD.c **** *
+  51:.\Generated_Source\PSoC5/LCD.c **** * Reentrant:
+  52:.\Generated_Source\PSoC5/LCD.c **** *  No.
+  53:.\Generated_Source\PSoC5/LCD.c **** *
+  54:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+  55:.\Generated_Source\PSoC5/LCD.c **** void LCD_Init(void) 
+  56:.\Generated_Source\PSoC5/LCD.c **** {
+  57:.\Generated_Source\PSoC5/LCD.c ****     /* INIT CODE */
+  58:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(40u);                                                        /* Delay 40 ms */
+  59:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(LCD_DISPLAY_8_BIT_INIT);    /* Selects 8-bit mode */
+  60:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(5u);                                                         /* Delay 5 ms */
+  61:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(LCD_DISPLAY_8_BIT_INIT);    /* Selects 8-bit mode */
+  62:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(15u);                                                        /* Delay 15 ms */
+  63:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(LCD_DISPLAY_8_BIT_INIT);    /* Selects 8-bit mode */
+  64:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(1u);                                                         /* Delay 1 ms */
+  65:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(LCD_DISPLAY_4_BIT_INIT);    /* Selects 4-bit mode */
+  66:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(5u);                                                         /* Delay 5 ms */
+  67:.\Generated_Source\PSoC5/LCD.c **** 
+  68:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_CURSOR_AUTO_INCR_ON);    /* Incr Cursor After Writes */
+  69:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_DISPLAY_CURSOR_ON);      /* Turn Display, Cursor ON */
+  70:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_DISPLAY_2_LINES_5x10);   /* 2 Lines by 5x10 Characters */
+  71:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_DISPLAY_CURSOR_OFF);     /* Turn Display, Cursor OFF */
+  72:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_CLEAR_DISPLAY);          /* Clear LCD Screen */
+  73:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_DISPLAY_ON_CURSOR_OFF);  /* Turn Display ON, Cursor OFF */
+  74:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_RESET_CURSOR_POSITION);  /* Set Cursor to 0,0 */
+  75:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(5u);
+  76:.\Generated_Source\PSoC5/LCD.c **** 
+  77:.\Generated_Source\PSoC5/LCD.c ****     #if(LCD_CUSTOM_CHAR_SET != LCD_NONE)
+  78:.\Generated_Source\PSoC5/LCD.c ****         LCD_LoadCustomFonts(LCD_customFonts);
+  79:.\Generated_Source\PSoC5/LCD.c ****     #endif /* LCD_CUSTOM_CHAR_SET != LCD_NONE */
+  80:.\Generated_Source\PSoC5/LCD.c **** }
+  81:.\Generated_Source\PSoC5/LCD.c **** 
+  82:.\Generated_Source\PSoC5/LCD.c **** 
+  83:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+  84:.\Generated_Source\PSoC5/LCD.c **** * Function Name: LCD_Enable
+  85:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+  86:.\Generated_Source\PSoC5/LCD.c **** *
+  87:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+  88:.\Generated_Source\PSoC5/LCD.c **** *  Turns on the display.
+  89:.\Generated_Source\PSoC5/LCD.c **** *
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 3
+
+
+  90:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+  91:.\Generated_Source\PSoC5/LCD.c **** *  None.
+  92:.\Generated_Source\PSoC5/LCD.c **** *
+  93:.\Generated_Source\PSoC5/LCD.c **** * Return:
+  94:.\Generated_Source\PSoC5/LCD.c **** *  None.
+  95:.\Generated_Source\PSoC5/LCD.c **** *
+  96:.\Generated_Source\PSoC5/LCD.c **** * Reentrant:
+  97:.\Generated_Source\PSoC5/LCD.c **** *  No.
+  98:.\Generated_Source\PSoC5/LCD.c **** *
+  99:.\Generated_Source\PSoC5/LCD.c **** * Theory:
+ 100:.\Generated_Source\PSoC5/LCD.c **** *  This finction has no effect when it called first time as
+ 101:.\Generated_Source\PSoC5/LCD.c **** *  LCD_Init() turns on the LCD.
+ 102:.\Generated_Source\PSoC5/LCD.c **** *
+ 103:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 104:.\Generated_Source\PSoC5/LCD.c **** void LCD_Enable(void) 
+ 105:.\Generated_Source\PSoC5/LCD.c **** {
+ 106:.\Generated_Source\PSoC5/LCD.c ****     LCD_DisplayOn();
+ 107:.\Generated_Source\PSoC5/LCD.c ****     LCD_enableState = 1u;
+ 108:.\Generated_Source\PSoC5/LCD.c **** }
+ 109:.\Generated_Source\PSoC5/LCD.c **** 
+ 110:.\Generated_Source\PSoC5/LCD.c **** 
+ 111:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 112:.\Generated_Source\PSoC5/LCD.c **** * Function Name: LCD_Start
+ 113:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 114:.\Generated_Source\PSoC5/LCD.c **** *
+ 115:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 116:.\Generated_Source\PSoC5/LCD.c **** *  Perform initialization required for components normal work.
+ 117:.\Generated_Source\PSoC5/LCD.c **** *  This function initializes the LCD hardware module as follows:
+ 118:.\Generated_Source\PSoC5/LCD.c **** *        Enable 4-bit interface
+ 119:.\Generated_Source\PSoC5/LCD.c **** *        Clear the display
+ 120:.\Generated_Source\PSoC5/LCD.c **** *        Enable auto cursor increment
+ 121:.\Generated_Source\PSoC5/LCD.c **** *        Resets the cursor to start position
+ 122:.\Generated_Source\PSoC5/LCD.c **** *  Also loads custom character set to LCD if it was defined in the customizer.
+ 123:.\Generated_Source\PSoC5/LCD.c **** *  If it was not the first call in this project then it just turns on the
+ 124:.\Generated_Source\PSoC5/LCD.c **** *  display
+ 125:.\Generated_Source\PSoC5/LCD.c **** *
+ 126:.\Generated_Source\PSoC5/LCD.c **** *
+ 127:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 128:.\Generated_Source\PSoC5/LCD.c **** *  LCD_initVar - global variable.
+ 129:.\Generated_Source\PSoC5/LCD.c **** *
+ 130:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 131:.\Generated_Source\PSoC5/LCD.c **** *  LCD_initVar - global variable.
+ 132:.\Generated_Source\PSoC5/LCD.c **** *
+ 133:.\Generated_Source\PSoC5/LCD.c **** * Reentrant:
+ 134:.\Generated_Source\PSoC5/LCD.c **** *  No.
+ 135:.\Generated_Source\PSoC5/LCD.c **** *
+ 136:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 137:.\Generated_Source\PSoC5/LCD.c **** void LCD_Start(void) 
+ 138:.\Generated_Source\PSoC5/LCD.c **** {
+ 139:.\Generated_Source\PSoC5/LCD.c ****     /* If not initialized then perform initialization */
+ 140:.\Generated_Source\PSoC5/LCD.c ****     if(LCD_initVar == 0u)
+ 141:.\Generated_Source\PSoC5/LCD.c ****     {
+ 142:.\Generated_Source\PSoC5/LCD.c ****         LCD_Init();
+ 143:.\Generated_Source\PSoC5/LCD.c ****         LCD_initVar = 1u;
+ 144:.\Generated_Source\PSoC5/LCD.c ****     }
+ 145:.\Generated_Source\PSoC5/LCD.c **** 
+ 146:.\Generated_Source\PSoC5/LCD.c ****     /* Turn on the LCD */
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 4
+
+
+ 147:.\Generated_Source\PSoC5/LCD.c ****     LCD_Enable();
+ 148:.\Generated_Source\PSoC5/LCD.c **** }
+ 149:.\Generated_Source\PSoC5/LCD.c **** 
+ 150:.\Generated_Source\PSoC5/LCD.c **** 
+ 151:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 152:.\Generated_Source\PSoC5/LCD.c **** * Function Name: LCD_Stop
+ 153:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 154:.\Generated_Source\PSoC5/LCD.c **** *
+ 155:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 156:.\Generated_Source\PSoC5/LCD.c **** *  Turns off the display of the LCD screen.
+ 157:.\Generated_Source\PSoC5/LCD.c **** *
+ 158:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 159:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 160:.\Generated_Source\PSoC5/LCD.c **** *
+ 161:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 162:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 163:.\Generated_Source\PSoC5/LCD.c **** *
+ 164:.\Generated_Source\PSoC5/LCD.c **** * Reentrant:
+ 165:.\Generated_Source\PSoC5/LCD.c **** *  No.
+ 166:.\Generated_Source\PSoC5/LCD.c **** *
+ 167:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 168:.\Generated_Source\PSoC5/LCD.c **** void LCD_Stop(void) 
+ 169:.\Generated_Source\PSoC5/LCD.c **** {
+ 170:.\Generated_Source\PSoC5/LCD.c ****     /* Calls LCD Off Macro */
+ 171:.\Generated_Source\PSoC5/LCD.c ****     LCD_DisplayOff();
+ 172:.\Generated_Source\PSoC5/LCD.c ****     LCD_enableState = 0u;
+ 173:.\Generated_Source\PSoC5/LCD.c **** }
+ 174:.\Generated_Source\PSoC5/LCD.c **** 
+ 175:.\Generated_Source\PSoC5/LCD.c **** 
+ 176:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 177:.\Generated_Source\PSoC5/LCD.c **** *  Function Name: LCD_Position
+ 178:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 179:.\Generated_Source\PSoC5/LCD.c **** *
+ 180:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 181:.\Generated_Source\PSoC5/LCD.c **** *  Moves active cursor location to a point specified by the input arguments
+ 182:.\Generated_Source\PSoC5/LCD.c **** *
+ 183:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 184:.\Generated_Source\PSoC5/LCD.c **** *  row:     Specific row of LCD module to be written
+ 185:.\Generated_Source\PSoC5/LCD.c **** *  column:  Column of LCD module to be written
+ 186:.\Generated_Source\PSoC5/LCD.c **** *
+ 187:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 188:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 189:.\Generated_Source\PSoC5/LCD.c **** *
+ 190:.\Generated_Source\PSoC5/LCD.c **** * Note:
+ 191:.\Generated_Source\PSoC5/LCD.c **** *  This only applies for LCD displays which use the 2X40 address mode.
+ 192:.\Generated_Source\PSoC5/LCD.c **** *  This results in Row 2 offset from row one by 0x28.
+ 193:.\Generated_Source\PSoC5/LCD.c **** *  When there are more than 2 rows, each row must be fewer than 20 characters.
+ 194:.\Generated_Source\PSoC5/LCD.c **** *
+ 195:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 196:.\Generated_Source\PSoC5/LCD.c **** void LCD_Position(uint8 row, uint8 column) 
+ 197:.\Generated_Source\PSoC5/LCD.c **** {
+ 198:.\Generated_Source\PSoC5/LCD.c ****     switch (row)
+ 199:.\Generated_Source\PSoC5/LCD.c ****     {
+ 200:.\Generated_Source\PSoC5/LCD.c ****         case (uint8)0:
+ 201:.\Generated_Source\PSoC5/LCD.c ****             LCD_WriteControl(LCD_ROW_0_START + column);
+ 202:.\Generated_Source\PSoC5/LCD.c ****             break;
+ 203:.\Generated_Source\PSoC5/LCD.c ****         case (uint8) 1:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 5
+
+
+ 204:.\Generated_Source\PSoC5/LCD.c ****             LCD_WriteControl(LCD_ROW_1_START + column);
+ 205:.\Generated_Source\PSoC5/LCD.c ****             break;
+ 206:.\Generated_Source\PSoC5/LCD.c ****         case (uint8) 2:
+ 207:.\Generated_Source\PSoC5/LCD.c ****             LCD_WriteControl(LCD_ROW_2_START + column);
+ 208:.\Generated_Source\PSoC5/LCD.c ****             break;
+ 209:.\Generated_Source\PSoC5/LCD.c ****         case (uint8) 3:
+ 210:.\Generated_Source\PSoC5/LCD.c ****             LCD_WriteControl(LCD_ROW_3_START + column);
+ 211:.\Generated_Source\PSoC5/LCD.c ****             break;
+ 212:.\Generated_Source\PSoC5/LCD.c ****         default:
+ 213:.\Generated_Source\PSoC5/LCD.c ****             /* if default case is hit, invalid row argument was passed.*/
+ 214:.\Generated_Source\PSoC5/LCD.c ****             break;
+ 215:.\Generated_Source\PSoC5/LCD.c ****     }
+ 216:.\Generated_Source\PSoC5/LCD.c **** }
+ 217:.\Generated_Source\PSoC5/LCD.c **** 
+ 218:.\Generated_Source\PSoC5/LCD.c **** 
+ 219:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 220:.\Generated_Source\PSoC5/LCD.c **** * Function Name: LCD_PrintString
+ 221:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 222:.\Generated_Source\PSoC5/LCD.c **** *
+ 223:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 224:.\Generated_Source\PSoC5/LCD.c **** *  Writes a zero terminated string to the LCD.
+ 225:.\Generated_Source\PSoC5/LCD.c **** *
+ 226:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 227:.\Generated_Source\PSoC5/LCD.c **** *  string:  pointer to head of char8 array to be written to the LCD module
+ 228:.\Generated_Source\PSoC5/LCD.c **** *
+ 229:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 230:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 231:.\Generated_Source\PSoC5/LCD.c **** *
+ 232:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 233:.\Generated_Source\PSoC5/LCD.c **** void LCD_PrintString(char8 const string[]) 
+ 234:.\Generated_Source\PSoC5/LCD.c **** {
+ 235:.\Generated_Source\PSoC5/LCD.c ****     uint8 indexU8 = 1u;
+ 236:.\Generated_Source\PSoC5/LCD.c ****     char8 current = *string;
+ 237:.\Generated_Source\PSoC5/LCD.c **** 
+ 238:.\Generated_Source\PSoC5/LCD.c ****     /* Until null is reached, print next character */
+ 239:.\Generated_Source\PSoC5/LCD.c ****     while((char8) '\0' != current)
+ 240:.\Generated_Source\PSoC5/LCD.c ****     {
+ 241:.\Generated_Source\PSoC5/LCD.c ****         LCD_WriteData((uint8)current);
+ 242:.\Generated_Source\PSoC5/LCD.c ****         current = string[indexU8];
+ 243:.\Generated_Source\PSoC5/LCD.c ****         indexU8++;
+ 244:.\Generated_Source\PSoC5/LCD.c ****     }
+ 245:.\Generated_Source\PSoC5/LCD.c **** }
+ 246:.\Generated_Source\PSoC5/LCD.c **** 
+ 247:.\Generated_Source\PSoC5/LCD.c **** 
+ 248:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 249:.\Generated_Source\PSoC5/LCD.c **** *  Function Name: LCD_PutChar
+ 250:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 251:.\Generated_Source\PSoC5/LCD.c **** *
+ 252:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 253:.\Generated_Source\PSoC5/LCD.c **** *  Writes a single character to the current cursor position of the LCD module.
+ 254:.\Generated_Source\PSoC5/LCD.c **** *  Custom character names (_CUSTOM_0 through
+ 255:.\Generated_Source\PSoC5/LCD.c **** *  _CUSTOM_7) are acceptable as inputs.
+ 256:.\Generated_Source\PSoC5/LCD.c **** *
+ 257:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 258:.\Generated_Source\PSoC5/LCD.c **** *  character:  character to be written to the LCD
+ 259:.\Generated_Source\PSoC5/LCD.c **** *
+ 260:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 6
+
+
+ 261:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 262:.\Generated_Source\PSoC5/LCD.c **** *
+ 263:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 264:.\Generated_Source\PSoC5/LCD.c **** void LCD_PutChar(char8 character) 
+ 265:.\Generated_Source\PSoC5/LCD.c **** {
+ 266:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteData((uint8)character);
+ 267:.\Generated_Source\PSoC5/LCD.c **** }
+ 268:.\Generated_Source\PSoC5/LCD.c **** 
+ 269:.\Generated_Source\PSoC5/LCD.c **** 
+ 270:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 271:.\Generated_Source\PSoC5/LCD.c **** *  Function Name: LCD_WriteData
+ 272:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 273:.\Generated_Source\PSoC5/LCD.c **** *
+ 274:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 275:.\Generated_Source\PSoC5/LCD.c **** *  Writes a data byte to the LCD module's Data Display RAM.
+ 276:.\Generated_Source\PSoC5/LCD.c **** *
+ 277:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 278:.\Generated_Source\PSoC5/LCD.c **** *  dByte:  byte to be written to LCD module.
+ 279:.\Generated_Source\PSoC5/LCD.c **** *
+ 280:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 281:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 282:.\Generated_Source\PSoC5/LCD.c **** *
+ 283:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 284:.\Generated_Source\PSoC5/LCD.c **** void LCD_WriteData(uint8 dByte) 
+ 285:.\Generated_Source\PSoC5/LCD.c **** {
+ 286:.\Generated_Source\PSoC5/LCD.c ****     uint8 nibble;
+ 287:.\Generated_Source\PSoC5/LCD.c **** 
+ 288:.\Generated_Source\PSoC5/LCD.c ****     LCD_IsReady();
+ 289:.\Generated_Source\PSoC5/LCD.c ****     nibble = dByte >> LCD_NIBBLE_SHIFT;
+ 290:.\Generated_Source\PSoC5/LCD.c **** 
+ 291:.\Generated_Source\PSoC5/LCD.c ****     /* Write high nibble */
+ 292:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrDatNib(nibble);
+ 293:.\Generated_Source\PSoC5/LCD.c **** 
+ 294:.\Generated_Source\PSoC5/LCD.c ****     nibble = dByte & LCD_NIBBLE_MASK;
+ 295:.\Generated_Source\PSoC5/LCD.c ****     /* Write low nibble */
+ 296:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrDatNib(nibble);
+ 297:.\Generated_Source\PSoC5/LCD.c **** }
+ 298:.\Generated_Source\PSoC5/LCD.c **** 
+ 299:.\Generated_Source\PSoC5/LCD.c **** 
+ 300:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 301:.\Generated_Source\PSoC5/LCD.c **** *  Function Name: LCD_WriteControl
+ 302:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 303:.\Generated_Source\PSoC5/LCD.c **** *
+ 304:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 305:.\Generated_Source\PSoC5/LCD.c **** *  Writes a command byte to the LCD module.
+ 306:.\Generated_Source\PSoC5/LCD.c **** *
+ 307:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 308:.\Generated_Source\PSoC5/LCD.c **** *  cByte:   byte to be written to LCD module.
+ 309:.\Generated_Source\PSoC5/LCD.c **** *
+ 310:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 311:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 312:.\Generated_Source\PSoC5/LCD.c **** *
+ 313:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 314:.\Generated_Source\PSoC5/LCD.c **** void LCD_WriteControl(uint8 cByte) 
+ 315:.\Generated_Source\PSoC5/LCD.c **** {
+ 316:.\Generated_Source\PSoC5/LCD.c ****     uint8 nibble;
+ 317:.\Generated_Source\PSoC5/LCD.c **** 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 7
+
+
+ 318:.\Generated_Source\PSoC5/LCD.c ****     LCD_IsReady();
+ 319:.\Generated_Source\PSoC5/LCD.c **** 
+ 320:.\Generated_Source\PSoC5/LCD.c ****     nibble = cByte >> LCD_NIBBLE_SHIFT;
+ 321:.\Generated_Source\PSoC5/LCD.c ****     
+ 322:.\Generated_Source\PSoC5/LCD.c ****     /* WrCntrlNib(High Nibble) */
+ 323:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(nibble);
+ 324:.\Generated_Source\PSoC5/LCD.c ****     nibble = cByte & LCD_NIBBLE_MASK;
+ 325:.\Generated_Source\PSoC5/LCD.c **** 
+ 326:.\Generated_Source\PSoC5/LCD.c ****     /* WrCntrlNib(Low Nibble) */
+ 327:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(nibble);
+ 328:.\Generated_Source\PSoC5/LCD.c **** }
+ 329:.\Generated_Source\PSoC5/LCD.c **** 
+ 330:.\Generated_Source\PSoC5/LCD.c **** 
+ 331:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 332:.\Generated_Source\PSoC5/LCD.c **** * Function Name: LCD_IsReady
+ 333:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 334:.\Generated_Source\PSoC5/LCD.c **** *
+ 335:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 336:.\Generated_Source\PSoC5/LCD.c **** *  Polls LCD until the ready bit is set.
+ 337:.\Generated_Source\PSoC5/LCD.c **** *
+ 338:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 339:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 340:.\Generated_Source\PSoC5/LCD.c **** *
+ 341:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 342:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 343:.\Generated_Source\PSoC5/LCD.c **** *
+ 344:.\Generated_Source\PSoC5/LCD.c **** * Note:
+ 345:.\Generated_Source\PSoC5/LCD.c **** *  Changes pins to High-Z.
+ 346:.\Generated_Source\PSoC5/LCD.c **** *
+ 347:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 348:.\Generated_Source\PSoC5/LCD.c **** void LCD_IsReady(void) 
+ 349:.\Generated_Source\PSoC5/LCD.c **** {
+ 350:.\Generated_Source\PSoC5/LCD.c ****     uint8 value;
+ 351:.\Generated_Source\PSoC5/LCD.c **** 
+ 352:.\Generated_Source\PSoC5/LCD.c ****     /* Clear the LCD port*/
+ 353:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_PORT_MASK));
+ 354:.\Generated_Source\PSoC5/LCD.c **** 
+ 355:.\Generated_Source\PSoC5/LCD.c ****     /* PSoC4 has a bit different port/pin organization for setting Drive Modes than
+ 356:.\Generated_Source\PSoC5/LCD.c ****     * PSoC3/5.
+ 357:.\Generated_Source\PSoC5/LCD.c ****     */
+ 358:.\Generated_Source\PSoC5/LCD.c ****     #if (CY_PSOC4)
+ 359:.\Generated_Source\PSoC5/LCD.c ****         
+ 360:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear old values out */
+ 361:.\Generated_Source\PSoC5/LCD.c ****         value = LCD_PORT_PC_REG & ((uint32) (~ LCD_DM_DATA_MASK));
+ 362:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 363:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_PC_REG = value | LCD_HIGH_Z_DATA_DM;
+ 364:.\Generated_Source\PSoC5/LCD.c **** 
+ 365:.\Generated_Source\PSoC5/LCD.c ****     #else
+ 366:.\Generated_Source\PSoC5/LCD.c ****     
+ 367:.\Generated_Source\PSoC5/LCD.c ****         /* Change Port to High-Z Status on data pins */
+ 368:.\Generated_Source\PSoC5/LCD.c **** 
+ 369:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear old values out */
+ 370:.\Generated_Source\PSoC5/LCD.c ****         value = LCD_PORT_DM0_REG & ((uint8)(~LCD_DATA_MASK));
+ 371:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 372:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DM0_REG = value | (LCD_HIGH_Z_DM0 & LCD_DATA_MASK);
+ 373:.\Generated_Source\PSoC5/LCD.c **** 
+ 374:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear old values out */
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 8
+
+
+ 375:.\Generated_Source\PSoC5/LCD.c ****         value = LCD_PORT_DM1_REG & ((uint8)(~LCD_DATA_MASK));
+ 376:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 377:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DM1_REG = value;
+ 378:.\Generated_Source\PSoC5/LCD.c **** 
+ 379:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear old values out */
+ 380:.\Generated_Source\PSoC5/LCD.c ****         value = LCD_PORT_DM2_REG & ((uint8)(~LCD_DATA_MASK));
+ 381:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 382:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DM2_REG = value;
+ 383:.\Generated_Source\PSoC5/LCD.c ****     
+ 384:.\Generated_Source\PSoC5/LCD.c ****     #endif /* CY_PSOC4 */
+ 385:.\Generated_Source\PSoC5/LCD.c ****     
+ 386:.\Generated_Source\PSoC5/LCD.c ****     /* Make sure RS is low */
+ 387:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_RS));
+ 388:.\Generated_Source\PSoC5/LCD.c **** 
+ 389:.\Generated_Source\PSoC5/LCD.c ****     /* Set R/W high to read */
+ 390:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG |= LCD_RW;
+ 391:.\Generated_Source\PSoC5/LCD.c **** 
+ 392:.\Generated_Source\PSoC5/LCD.c ****     do
+ 393:.\Generated_Source\PSoC5/LCD.c ****     {
+ 394:.\Generated_Source\PSoC5/LCD.c ****         /* 40 ns delay required before rising Enable and 500ns between neighbour Enables */
+ 395:.\Generated_Source\PSoC5/LCD.c ****         CyDelayUs(0u);
+ 396:.\Generated_Source\PSoC5/LCD.c **** 
+ 397:.\Generated_Source\PSoC5/LCD.c ****         /* Set E high */
+ 398:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DR_REG |= LCD_E;
+ 399:.\Generated_Source\PSoC5/LCD.c **** 
+ 400:.\Generated_Source\PSoC5/LCD.c ****         /* 360 ns delay the setup time for data pins */
+ 401:.\Generated_Source\PSoC5/LCD.c ****         CyDelayUs(1u);
+ 402:.\Generated_Source\PSoC5/LCD.c **** 
+ 403:.\Generated_Source\PSoC5/LCD.c ****         /* Get port state */
+ 404:.\Generated_Source\PSoC5/LCD.c ****         value = LCD_PORT_PS_REG;
+ 405:.\Generated_Source\PSoC5/LCD.c **** 
+ 406:.\Generated_Source\PSoC5/LCD.c ****         /* Set enable low */
+ 407:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DR_REG &= ((uint8)(~LCD_E));
+ 408:.\Generated_Source\PSoC5/LCD.c **** 
+ 409:.\Generated_Source\PSoC5/LCD.c ****         /* This gives a true delay between disably Enable bit and poling Ready bit */
+ 410:.\Generated_Source\PSoC5/LCD.c ****         CyDelayUs(0u);
+ 411:.\Generated_Source\PSoC5/LCD.c **** 
+ 412:.\Generated_Source\PSoC5/LCD.c ****         /* Extract ready bit */
+ 413:.\Generated_Source\PSoC5/LCD.c ****         value &= LCD_READY_BIT;
+ 414:.\Generated_Source\PSoC5/LCD.c **** 
+ 415:.\Generated_Source\PSoC5/LCD.c ****         /* Set E high as we in 4-bit interface we need extra oparation */
+ 416:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DR_REG |= LCD_E;
+ 417:.\Generated_Source\PSoC5/LCD.c **** 
+ 418:.\Generated_Source\PSoC5/LCD.c ****         /* 360 ns delay the setup time for data pins */
+ 419:.\Generated_Source\PSoC5/LCD.c ****         CyDelayUs(1u);
+ 420:.\Generated_Source\PSoC5/LCD.c **** 
+ 421:.\Generated_Source\PSoC5/LCD.c ****         /* Set enable low */
+ 422:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DR_REG &= ((uint8)(~LCD_E));
+ 423:.\Generated_Source\PSoC5/LCD.c **** 
+ 424:.\Generated_Source\PSoC5/LCD.c ****         /* Repeat until bit 4 is not zero. */
+ 425:.\Generated_Source\PSoC5/LCD.c **** 
+ 426:.\Generated_Source\PSoC5/LCD.c ****     } while (value != 0u);
+ 427:.\Generated_Source\PSoC5/LCD.c **** 
+ 428:.\Generated_Source\PSoC5/LCD.c ****     /* Set R/W low to write */
+ 429:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_RW));
+ 430:.\Generated_Source\PSoC5/LCD.c **** 
+ 431:.\Generated_Source\PSoC5/LCD.c ****     /* Clear the LCD port*/
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 9
+
+
+ 432:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_PORT_MASK));
+ 433:.\Generated_Source\PSoC5/LCD.c **** 
+ 434:.\Generated_Source\PSoC5/LCD.c ****     #if (CY_PSOC4)
+ 435:.\Generated_Source\PSoC5/LCD.c ****         
+ 436:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear old values out */
+ 437:.\Generated_Source\PSoC5/LCD.c ****         value = LCD_PORT_PC_REG & ((uint32)(~ LCD_DM_DATA_MASK));
+ 438:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 439:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_PC_REG = value | LCD_STRONG_DATA_DM;
+ 440:.\Generated_Source\PSoC5/LCD.c **** 
+ 441:.\Generated_Source\PSoC5/LCD.c ****     #else
+ 442:.\Generated_Source\PSoC5/LCD.c **** 
+ 443:.\Generated_Source\PSoC5/LCD.c ****         /* Change Port to Output (Strong) on data pins */
+ 444:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear high z values out. Configure data pins 
+ 445:.\Generated_Source\PSoC5/LCD.c ****         * to Strong Drive, others unchanged.
+ 446:.\Generated_Source\PSoC5/LCD.c ****         */
+ 447:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DM0_REG &= ((uint8)(~LCD_DATA_MASK));
+ 448:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear high z values out */
+ 449:.\Generated_Source\PSoC5/LCD.c ****         value = LCD_PORT_DM1_REG & ((uint8)(~LCD_DATA_MASK));
+ 450:.\Generated_Source\PSoC5/LCD.c ****         /* Configure data pins to Strong Drive, others unchanged */
+ 451:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DM1_REG = value | (LCD_STRONG_DM1 & LCD_DATA_MASK);
+ 452:.\Generated_Source\PSoC5/LCD.c **** 
+ 453:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear high z values out */
+ 454:.\Generated_Source\PSoC5/LCD.c ****         value = LCD_PORT_DM2_REG & ((uint8)(~LCD_DATA_MASK));
+ 455:.\Generated_Source\PSoC5/LCD.c ****         /* Configure data pins to Strong Drive, others unchanged */
+ 456:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DM2_REG = value | (LCD_STRONG_DM2 & LCD_DATA_MASK);
+ 457:.\Generated_Source\PSoC5/LCD.c ****     
+ 458:.\Generated_Source\PSoC5/LCD.c ****     #endif /* CY_PSOC4 */
+ 459:.\Generated_Source\PSoC5/LCD.c **** }
+ 460:.\Generated_Source\PSoC5/LCD.c **** 
+ 461:.\Generated_Source\PSoC5/LCD.c **** 
+ 462:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 463:.\Generated_Source\PSoC5/LCD.c **** *  Function Name: LCD_WrDatNib
+ 464:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 465:.\Generated_Source\PSoC5/LCD.c **** *
+ 466:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 467:.\Generated_Source\PSoC5/LCD.c **** *  Writes a data nibble to the LCD module.
+ 468:.\Generated_Source\PSoC5/LCD.c **** *
+ 469:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 470:.\Generated_Source\PSoC5/LCD.c **** *  nibble:  byte containing nibble in least significant nibble to be written
+ 471:.\Generated_Source\PSoC5/LCD.c **** *           to LCD module.
+ 472:.\Generated_Source\PSoC5/LCD.c **** *
+ 473:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 474:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 475:.\Generated_Source\PSoC5/LCD.c **** *
+ 476:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 477:.\Generated_Source\PSoC5/LCD.c **** static void LCD_WrDatNib(uint8 nibble) 
+ 478:.\Generated_Source\PSoC5/LCD.c **** {
+ 479:.\Generated_Source\PSoC5/LCD.c ****     LCD_IsReady();
+ 480:.\Generated_Source\PSoC5/LCD.c **** 
+ 481:.\Generated_Source\PSoC5/LCD.c ****     /* RS shoul be low to select data register */
+ 482:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG |= LCD_RS;
+ 483:.\Generated_Source\PSoC5/LCD.c ****     /* Reset RW for write operation */
+ 484:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_RW));
+ 485:.\Generated_Source\PSoC5/LCD.c **** 
+ 486:.\Generated_Source\PSoC5/LCD.c ****     /* Two following lines of code will provide us with 40ns delay */
+ 487:.\Generated_Source\PSoC5/LCD.c ****     /* Clear data pins */
+ 488:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_DATA_MASK));
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 10
+
+
+ 489:.\Generated_Source\PSoC5/LCD.c **** 
+ 490:.\Generated_Source\PSoC5/LCD.c ****     /* Write in data, bring E high*/
+ 491:.\Generated_Source\PSoC5/LCD.c ****     #if(0u != LCD_PORT_SHIFT) /* MISRA forbids shift by 0 so need to handle that */
+ 492:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DR_REG |= 
+ 493:.\Generated_Source\PSoC5/LCD.c ****             (LCD_E | ((uint8)(((uint8) nibble) << LCD_PORT_SHIFT)));
+ 494:.\Generated_Source\PSoC5/LCD.c ****     #else
+ 495:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DR_REG |= (LCD_E | nibble);
+ 496:.\Generated_Source\PSoC5/LCD.c ****     #endif /* (0u != LCD_PORT_SHIFT) */
+ 497:.\Generated_Source\PSoC5/LCD.c **** 
+ 498:.\Generated_Source\PSoC5/LCD.c ****     /* Minimum of 230 ns delay */
+ 499:.\Generated_Source\PSoC5/LCD.c ****     CyDelayUs(1u);
+ 500:.\Generated_Source\PSoC5/LCD.c **** 
+ 501:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_E));
+ 502:.\Generated_Source\PSoC5/LCD.c **** }
+ 503:.\Generated_Source\PSoC5/LCD.c **** 
+ 504:.\Generated_Source\PSoC5/LCD.c **** 
+ 505:.\Generated_Source\PSoC5/LCD.c **** /*******************************************************************************
+ 506:.\Generated_Source\PSoC5/LCD.c **** *  Function Name: LCD_WrCntrlNib
+ 507:.\Generated_Source\PSoC5/LCD.c **** ********************************************************************************
+ 508:.\Generated_Source\PSoC5/LCD.c **** *
+ 509:.\Generated_Source\PSoC5/LCD.c **** * Summary:
+ 510:.\Generated_Source\PSoC5/LCD.c **** *  Writes a control nibble to the LCD module.
+ 511:.\Generated_Source\PSoC5/LCD.c **** *
+ 512:.\Generated_Source\PSoC5/LCD.c **** * Parameters:
+ 513:.\Generated_Source\PSoC5/LCD.c **** *  nibble:  byte containing nibble in least significant nibble to be written
+ 514:.\Generated_Source\PSoC5/LCD.c **** *           to LCD module.
+ 515:.\Generated_Source\PSoC5/LCD.c **** *
+ 516:.\Generated_Source\PSoC5/LCD.c **** * Return:
+ 517:.\Generated_Source\PSoC5/LCD.c **** *  None.
+ 518:.\Generated_Source\PSoC5/LCD.c **** *
+ 519:.\Generated_Source\PSoC5/LCD.c **** *******************************************************************************/
+ 520:.\Generated_Source\PSoC5/LCD.c **** static void LCD_WrCntrlNib(uint8 nibble) 
+ 521:.\Generated_Source\PSoC5/LCD.c **** {
+  26              		.loc 1 521 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              	.LVL0:
+  31 0000 10B5     		push	{r4, lr}
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 4, -8
+  34              		.cfi_offset 14, -4
+ 522:.\Generated_Source\PSoC5/LCD.c ****     /* RS and RW shoul be low to select instruction register and  write operation respectively */
+ 523:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~(LCD_RS | LCD_RW)));
+  35              		.loc 1 523 0
+  36 0002 0B4C     		ldr	r4, .L2
+  37 0004 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  38 0006 03F09F03 		and	r3, r3, #159
+  39 000a 2370     		strb	r3, [r4]
+ 524:.\Generated_Source\PSoC5/LCD.c **** 
+ 525:.\Generated_Source\PSoC5/LCD.c ****     /* Two following lines of code will give provide ua with 40ns delay */
+ 526:.\Generated_Source\PSoC5/LCD.c ****     /* Clear data pins */
+ 527:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_DATA_MASK));
+  40              		.loc 1 527 0
+  41 000c 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  42 000e 03F0F003 		and	r3, r3, #240
+  43 0012 2370     		strb	r3, [r4]
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 11
+
+
+ 528:.\Generated_Source\PSoC5/LCD.c **** 
+ 529:.\Generated_Source\PSoC5/LCD.c ****     /* Write control data and set enable signal */
+ 530:.\Generated_Source\PSoC5/LCD.c ****     #if(0u != LCD_PORT_SHIFT) /* MISRA forbids shift by 0 so need to handle that */
+ 531:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DR_REG |= 
+ 532:.\Generated_Source\PSoC5/LCD.c ****             (LCD_E | ((uint8)(((uint8) nibble) << LCD_PORT_SHIFT)));
+ 533:.\Generated_Source\PSoC5/LCD.c ****     #else
+ 534:.\Generated_Source\PSoC5/LCD.c ****         LCD_PORT_DR_REG |= (LCD_E | nibble);
+  44              		.loc 1 534 0
+  45 0014 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  46 0016 43F01003 		orr	r3, r3, #16
+  47 001a 1843     		orrs	r0, r0, r3
+  48              	.LVL1:
+  49 001c 2070     		strb	r0, [r4]
+ 535:.\Generated_Source\PSoC5/LCD.c ****     #endif /* (0u != LCD_PORT_SHIFT) */
+ 536:.\Generated_Source\PSoC5/LCD.c **** 
+ 537:.\Generated_Source\PSoC5/LCD.c ****     /* Minimum of 230 ns delay */
+ 538:.\Generated_Source\PSoC5/LCD.c ****     CyDelayUs(1u);
+  50              		.loc 1 538 0
+  51 001e 0120     		movs	r0, #1
+  52 0020 FFF7FEFF 		bl	CyDelayUs
+  53              	.LVL2:
+ 539:.\Generated_Source\PSoC5/LCD.c **** 
+ 540:.\Generated_Source\PSoC5/LCD.c ****     LCD_PORT_DR_REG &= ((uint8)(~LCD_E));
+  54              		.loc 1 540 0
+  55 0024 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  56 0026 03F0EF03 		and	r3, r3, #239
+  57 002a 2370     		strb	r3, [r4]
+  58 002c 10BD     		pop	{r4, pc}
+  59              	.L3:
+  60 002e 00BF     		.align	2
+  61              	.L2:
+  62 0030 20510040 		.word	1073762592
+  63              		.cfi_endproc
+  64              	.LFE11:
+  65              		.size	LCD_WrCntrlNib, .-LCD_WrCntrlNib
+  66              		.section	.text.LCD_IsReady,"ax",%progbits
+  67              		.align	1
+  68              		.global	LCD_IsReady
+  69              		.thumb
+  70              		.thumb_func
+  71              		.type	LCD_IsReady, %function
+  72              	LCD_IsReady:
+  73              	.LFB9:
+ 349:.\Generated_Source\PSoC5/LCD.c ****     uint8 value;
+  74              		.loc 1 349 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 0, uses_anonymous_args = 0
+  78 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+  79              		.cfi_def_cfa_offset 32
+  80              		.cfi_offset 3, -32
+  81              		.cfi_offset 4, -28
+  82              		.cfi_offset 5, -24
+  83              		.cfi_offset 6, -20
+  84              		.cfi_offset 7, -16
+  85              		.cfi_offset 8, -12
+  86              		.cfi_offset 9, -8
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 12
+
+
+  87              		.cfi_offset 14, -4
+ 353:.\Generated_Source\PSoC5/LCD.c **** 
+  88              		.loc 1 353 0
+  89 0004 314C     		ldr	r4, .L8
+ 370:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+  90              		.loc 1 370 0
+  91 0006 324F     		ldr	r7, .L8+4
+ 353:.\Generated_Source\PSoC5/LCD.c **** 
+  92              		.loc 1 353 0
+  93 0008 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 375:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+  94              		.loc 1 375 0
+  95 000a 324E     		ldr	r6, .L8+8
+ 353:.\Generated_Source\PSoC5/LCD.c **** 
+  96              		.loc 1 353 0
+  97 000c 03F08003 		and	r3, r3, #128
+  98 0010 DBB2     		uxtb	r3, r3
+  99 0012 2370     		strb	r3, [r4]
+ 370:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 100              		.loc 1 370 0
+ 101 0014 3B78     		ldrb	r3, [r7]	@ zero_extendqisi2
+ 102              	.LVL3:
+ 380:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 103              		.loc 1 380 0
+ 104 0016 304D     		ldr	r5, .L8+12
+ 370:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 105              		.loc 1 370 0
+ 106 0018 03F0F003 		and	r3, r3, #240
+ 107              	.LVL4:
+ 372:.\Generated_Source\PSoC5/LCD.c **** 
+ 108              		.loc 1 372 0
+ 109 001c 43F00F03 		orr	r3, r3, #15
+ 110 0020 3B70     		strb	r3, [r7]
+ 375:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 111              		.loc 1 375 0
+ 112 0022 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 113 0024 03F0F003 		and	r3, r3, #240
+ 114              	.LVL5:
+ 377:.\Generated_Source\PSoC5/LCD.c **** 
+ 115              		.loc 1 377 0
+ 116 0028 3370     		strb	r3, [r6]
+ 380:.\Generated_Source\PSoC5/LCD.c ****         /* Load in high Z values for data pins, others unchanged */
+ 117              		.loc 1 380 0
+ 118 002a 2B78     		ldrb	r3, [r5]	@ zero_extendqisi2
+ 119              	.LVL6:
+ 120 002c 03F0F003 		and	r3, r3, #240
+ 121              	.LVL7:
+ 382:.\Generated_Source\PSoC5/LCD.c ****     
+ 122              		.loc 1 382 0
+ 123 0030 2B70     		strb	r3, [r5]
+ 387:.\Generated_Source\PSoC5/LCD.c **** 
+ 124              		.loc 1 387 0
+ 125 0032 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 126              	.LVL8:
+ 127 0034 03F0DF03 		and	r3, r3, #223
+ 128 0038 2370     		strb	r3, [r4]
+ 129              	.LVL9:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 13
+
+
+ 390:.\Generated_Source\PSoC5/LCD.c **** 
+ 130              		.loc 1 390 0
+ 131 003a 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 132 003c 43F04003 		orr	r3, r3, #64
+ 133 0040 2370     		strb	r3, [r4]
+ 134              	.L5:
+ 395:.\Generated_Source\PSoC5/LCD.c **** 
+ 135              		.loc 1 395 0 discriminator 1
+ 136 0042 0020     		movs	r0, #0
+ 137 0044 FFF7FEFF 		bl	CyDelayUs
+ 138              	.LVL10:
+ 398:.\Generated_Source\PSoC5/LCD.c **** 
+ 139              		.loc 1 398 0 discriminator 1
+ 140 0048 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 401:.\Generated_Source\PSoC5/LCD.c **** 
+ 141              		.loc 1 401 0 discriminator 1
+ 142 004a 0120     		movs	r0, #1
+ 398:.\Generated_Source\PSoC5/LCD.c **** 
+ 143              		.loc 1 398 0 discriminator 1
+ 144 004c 43F01003 		orr	r3, r3, #16
+ 145 0050 2370     		strb	r3, [r4]
+ 401:.\Generated_Source\PSoC5/LCD.c **** 
+ 146              		.loc 1 401 0 discriminator 1
+ 147 0052 FFF7FEFF 		bl	CyDelayUs
+ 148              	.LVL11:
+ 404:.\Generated_Source\PSoC5/LCD.c **** 
+ 149              		.loc 1 404 0 discriminator 1
+ 150 0056 214B     		ldr	r3, .L8+16
+ 410:.\Generated_Source\PSoC5/LCD.c **** 
+ 151              		.loc 1 410 0 discriminator 1
+ 152 0058 0020     		movs	r0, #0
+ 404:.\Generated_Source\PSoC5/LCD.c **** 
+ 153              		.loc 1 404 0 discriminator 1
+ 154 005a 93F80090 		ldrb	r9, [r3]	@ zero_extendqisi2
+ 407:.\Generated_Source\PSoC5/LCD.c **** 
+ 155              		.loc 1 407 0 discriminator 1
+ 156 005e 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 404:.\Generated_Source\PSoC5/LCD.c **** 
+ 157              		.loc 1 404 0 discriminator 1
+ 158 0060 5FFA89F9 		uxtb	r9, r9
+ 159              	.LVL12:
+ 407:.\Generated_Source\PSoC5/LCD.c **** 
+ 160              		.loc 1 407 0 discriminator 1
+ 161 0064 03F0EF03 		and	r3, r3, #239
+ 162 0068 2370     		strb	r3, [r4]
+ 410:.\Generated_Source\PSoC5/LCD.c **** 
+ 163              		.loc 1 410 0 discriminator 1
+ 164 006a FFF7FEFF 		bl	CyDelayUs
+ 165              	.LVL13:
+ 416:.\Generated_Source\PSoC5/LCD.c **** 
+ 166              		.loc 1 416 0 discriminator 1
+ 167 006e 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 419:.\Generated_Source\PSoC5/LCD.c **** 
+ 168              		.loc 1 419 0 discriminator 1
+ 169 0070 0120     		movs	r0, #1
+ 416:.\Generated_Source\PSoC5/LCD.c **** 
+ 170              		.loc 1 416 0 discriminator 1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 14
+
+
+ 171 0072 43F01003 		orr	r3, r3, #16
+ 172 0076 2370     		strb	r3, [r4]
+ 419:.\Generated_Source\PSoC5/LCD.c **** 
+ 173              		.loc 1 419 0 discriminator 1
+ 174 0078 FFF7FEFF 		bl	CyDelayUs
+ 175              	.LVL14:
+ 422:.\Generated_Source\PSoC5/LCD.c **** 
+ 176              		.loc 1 422 0 discriminator 1
+ 177 007c 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 426:.\Generated_Source\PSoC5/LCD.c **** 
+ 178              		.loc 1 426 0 discriminator 1
+ 179 007e 19F0080F 		tst	r9, #8
+ 422:.\Generated_Source\PSoC5/LCD.c **** 
+ 180              		.loc 1 422 0 discriminator 1
+ 181 0082 03F0EF03 		and	r3, r3, #239
+ 398:.\Generated_Source\PSoC5/LCD.c **** 
+ 182              		.loc 1 398 0 discriminator 1
+ 183 0086 DFF84480 		ldr	r8, .L8
+ 422:.\Generated_Source\PSoC5/LCD.c **** 
+ 184              		.loc 1 422 0 discriminator 1
+ 185 008a 2370     		strb	r3, [r4]
+ 426:.\Generated_Source\PSoC5/LCD.c **** 
+ 186              		.loc 1 426 0 discriminator 1
+ 187 008c D9D1     		bne	.L5
+ 429:.\Generated_Source\PSoC5/LCD.c **** 
+ 188              		.loc 1 429 0
+ 189 008e 98F80030 		ldrb	r3, [r8]	@ zero_extendqisi2
+ 190 0092 03F0BF03 		and	r3, r3, #191
+ 191 0096 88F80030 		strb	r3, [r8]
+ 432:.\Generated_Source\PSoC5/LCD.c **** 
+ 192              		.loc 1 432 0
+ 193 009a 98F80030 		ldrb	r3, [r8]	@ zero_extendqisi2
+ 194 009e 03F08003 		and	r3, r3, #128
+ 195 00a2 DBB2     		uxtb	r3, r3
+ 196 00a4 88F80030 		strb	r3, [r8]
+ 447:.\Generated_Source\PSoC5/LCD.c ****         /* Mask off data pins to clear high z values out */
+ 197              		.loc 1 447 0
+ 198 00a8 3B78     		ldrb	r3, [r7]	@ zero_extendqisi2
+ 199 00aa 03F0F003 		and	r3, r3, #240
+ 200 00ae 3B70     		strb	r3, [r7]
+ 449:.\Generated_Source\PSoC5/LCD.c ****         /* Configure data pins to Strong Drive, others unchanged */
+ 201              		.loc 1 449 0
+ 202 00b0 3378     		ldrb	r3, [r6]	@ zero_extendqisi2
+ 203              	.LVL15:
+ 204 00b2 03F0F003 		and	r3, r3, #240
+ 205              	.LVL16:
+ 451:.\Generated_Source\PSoC5/LCD.c **** 
+ 206              		.loc 1 451 0
+ 207 00b6 43F00F03 		orr	r3, r3, #15
+ 208 00ba 3370     		strb	r3, [r6]
+ 454:.\Generated_Source\PSoC5/LCD.c ****         /* Configure data pins to Strong Drive, others unchanged */
+ 209              		.loc 1 454 0
+ 210 00bc 2B78     		ldrb	r3, [r5]	@ zero_extendqisi2
+ 211              	.LVL17:
+ 212 00be 03F0F003 		and	r3, r3, #240
+ 213              	.LVL18:
+ 456:.\Generated_Source\PSoC5/LCD.c ****     
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 15
+
+
+ 214              		.loc 1 456 0
+ 215 00c2 43F00F03 		orr	r3, r3, #15
+ 216 00c6 2B70     		strb	r3, [r5]
+ 217 00c8 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 218              	.L9:
+ 219              		.align	2
+ 220              	.L8:
+ 221 00cc 20510040 		.word	1073762592
+ 222 00d0 22510040 		.word	1073762594
+ 223 00d4 23510040 		.word	1073762595
+ 224 00d8 24510040 		.word	1073762596
+ 225 00dc 21510040 		.word	1073762593
+ 226              		.cfi_endproc
+ 227              	.LFE9:
+ 228              		.size	LCD_IsReady, .-LCD_IsReady
+ 229              		.section	.text.LCD_WrDatNib,"ax",%progbits
+ 230              		.align	1
+ 231              		.thumb
+ 232              		.thumb_func
+ 233              		.type	LCD_WrDatNib, %function
+ 234              	LCD_WrDatNib:
+ 235              	.LFB10:
+ 478:.\Generated_Source\PSoC5/LCD.c ****     LCD_IsReady();
+ 236              		.loc 1 478 0
+ 237              		.cfi_startproc
+ 238              		@ args = 0, pretend = 0, frame = 0
+ 239              		@ frame_needed = 0, uses_anonymous_args = 0
+ 240              	.LVL19:
+ 241 0000 38B5     		push	{r3, r4, r5, lr}
+ 242              		.cfi_def_cfa_offset 16
+ 243              		.cfi_offset 3, -16
+ 244              		.cfi_offset 4, -12
+ 245              		.cfi_offset 5, -8
+ 246              		.cfi_offset 14, -4
+ 478:.\Generated_Source\PSoC5/LCD.c ****     LCD_IsReady();
+ 247              		.loc 1 478 0
+ 248 0002 0546     		mov	r5, r0
+ 482:.\Generated_Source\PSoC5/LCD.c ****     /* Reset RW for write operation */
+ 249              		.loc 1 482 0
+ 250 0004 0E4C     		ldr	r4, .L11
+ 479:.\Generated_Source\PSoC5/LCD.c **** 
+ 251              		.loc 1 479 0
+ 252 0006 FFF7FEFF 		bl	LCD_IsReady
+ 253              	.LVL20:
+ 482:.\Generated_Source\PSoC5/LCD.c ****     /* Reset RW for write operation */
+ 254              		.loc 1 482 0
+ 255 000a 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 256 000c 43F02003 		orr	r3, r3, #32
+ 257 0010 2370     		strb	r3, [r4]
+ 484:.\Generated_Source\PSoC5/LCD.c **** 
+ 258              		.loc 1 484 0
+ 259 0012 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 260 0014 03F0BF03 		and	r3, r3, #191
+ 261 0018 2370     		strb	r3, [r4]
+ 488:.\Generated_Source\PSoC5/LCD.c **** 
+ 262              		.loc 1 488 0
+ 263 001a 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 16
+
+
+ 264 001c 03F0F003 		and	r3, r3, #240
+ 265 0020 2370     		strb	r3, [r4]
+ 495:.\Generated_Source\PSoC5/LCD.c ****     #endif /* (0u != LCD_PORT_SHIFT) */
+ 266              		.loc 1 495 0
+ 267 0022 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 268 0024 43F01003 		orr	r3, r3, #16
+ 269 0028 45EA0300 		orr	r0, r5, r3
+ 270 002c 2070     		strb	r0, [r4]
+ 499:.\Generated_Source\PSoC5/LCD.c **** 
+ 271              		.loc 1 499 0
+ 272 002e 0120     		movs	r0, #1
+ 273 0030 FFF7FEFF 		bl	CyDelayUs
+ 274              	.LVL21:
+ 501:.\Generated_Source\PSoC5/LCD.c **** }
+ 275              		.loc 1 501 0
+ 276 0034 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 277 0036 03F0EF03 		and	r3, r3, #239
+ 278 003a 2370     		strb	r3, [r4]
+ 279 003c 38BD     		pop	{r3, r4, r5, pc}
+ 280              	.L12:
+ 281 003e 00BF     		.align	2
+ 282              	.L11:
+ 283 0040 20510040 		.word	1073762592
+ 284              		.cfi_endproc
+ 285              	.LFE10:
+ 286              		.size	LCD_WrDatNib, .-LCD_WrDatNib
+ 287              		.section	.text.LCD_WriteData,"ax",%progbits
+ 288              		.align	1
+ 289              		.global	LCD_WriteData
+ 290              		.thumb
+ 291              		.thumb_func
+ 292              		.type	LCD_WriteData, %function
+ 293              	LCD_WriteData:
+ 294              	.LFB7:
+ 285:.\Generated_Source\PSoC5/LCD.c ****     uint8 nibble;
+ 295              		.loc 1 285 0
+ 296              		.cfi_startproc
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 299              	.LVL22:
+ 300 0000 10B5     		push	{r4, lr}
+ 301              		.cfi_def_cfa_offset 8
+ 302              		.cfi_offset 4, -8
+ 303              		.cfi_offset 14, -4
+ 285:.\Generated_Source\PSoC5/LCD.c ****     uint8 nibble;
+ 304              		.loc 1 285 0
+ 305 0002 0446     		mov	r4, r0
+ 288:.\Generated_Source\PSoC5/LCD.c ****     nibble = dByte >> LCD_NIBBLE_SHIFT;
+ 306              		.loc 1 288 0
+ 307 0004 FFF7FEFF 		bl	LCD_IsReady
+ 308              	.LVL23:
+ 292:.\Generated_Source\PSoC5/LCD.c **** 
+ 309              		.loc 1 292 0
+ 310 0008 2009     		lsrs	r0, r4, #4
+ 311 000a FFF7FEFF 		bl	LCD_WrDatNib
+ 312              	.LVL24:
+ 296:.\Generated_Source\PSoC5/LCD.c **** }
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 17
+
+
+ 313              		.loc 1 296 0
+ 314 000e 04F00F00 		and	r0, r4, #15
+ 297:.\Generated_Source\PSoC5/LCD.c **** 
+ 315              		.loc 1 297 0
+ 316 0012 BDE81040 		pop	{r4, lr}
+ 317              		.cfi_restore 14
+ 318              		.cfi_restore 4
+ 319              		.cfi_def_cfa_offset 0
+ 320              	.LVL25:
+ 296:.\Generated_Source\PSoC5/LCD.c **** }
+ 321              		.loc 1 296 0
+ 322 0016 FFF7FEBF 		b	LCD_WrDatNib
+ 323              	.LVL26:
+ 324              		.cfi_endproc
+ 325              	.LFE7:
+ 326              		.size	LCD_WriteData, .-LCD_WriteData
+ 327              		.section	.text.LCD_PrintString,"ax",%progbits
+ 328              		.align	1
+ 329              		.global	LCD_PrintString
+ 330              		.thumb
+ 331              		.thumb_func
+ 332              		.type	LCD_PrintString, %function
+ 333              	LCD_PrintString:
+ 334              	.LFB5:
+ 234:.\Generated_Source\PSoC5/LCD.c ****     uint8 indexU8 = 1u;
+ 335              		.loc 1 234 0
+ 336              		.cfi_startproc
+ 337              		@ args = 0, pretend = 0, frame = 0
+ 338              		@ frame_needed = 0, uses_anonymous_args = 0
+ 339              	.LVL27:
+ 340 0000 38B5     		push	{r3, r4, r5, lr}
+ 341              		.cfi_def_cfa_offset 16
+ 342              		.cfi_offset 3, -16
+ 343              		.cfi_offset 4, -12
+ 344              		.cfi_offset 5, -8
+ 345              		.cfi_offset 14, -4
+ 234:.\Generated_Source\PSoC5/LCD.c ****     uint8 indexU8 = 1u;
+ 346              		.loc 1 234 0
+ 347 0002 0546     		mov	r5, r0
+ 236:.\Generated_Source\PSoC5/LCD.c **** 
+ 348              		.loc 1 236 0
+ 349 0004 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 350              	.LVL28:
+ 235:.\Generated_Source\PSoC5/LCD.c ****     char8 current = *string;
+ 351              		.loc 1 235 0
+ 352 0006 0124     		movs	r4, #1
+ 353              	.LVL29:
+ 354              	.L15:
+ 239:.\Generated_Source\PSoC5/LCD.c ****     {
+ 355              		.loc 1 239 0
+ 356 0008 28B1     		cbz	r0, .L17
+ 241:.\Generated_Source\PSoC5/LCD.c ****         current = string[indexU8];
+ 357              		.loc 1 241 0
+ 358 000a FFF7FEFF 		bl	LCD_WriteData
+ 359              	.LVL30:
+ 242:.\Generated_Source\PSoC5/LCD.c ****         indexU8++;
+ 360              		.loc 1 242 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 18
+
+
+ 361 000e 285D     		ldrb	r0, [r5, r4]	@ zero_extendqisi2
+ 362              	.LVL31:
+ 243:.\Generated_Source\PSoC5/LCD.c ****     }
+ 363              		.loc 1 243 0
+ 364 0010 0134     		adds	r4, r4, #1
+ 365              	.LVL32:
+ 366 0012 E4B2     		uxtb	r4, r4
+ 367              	.LVL33:
+ 368 0014 F8E7     		b	.L15
+ 369              	.L17:
+ 245:.\Generated_Source\PSoC5/LCD.c **** 
+ 370              		.loc 1 245 0
+ 371 0016 38BD     		pop	{r3, r4, r5, pc}
+ 372              		.cfi_endproc
+ 373              	.LFE5:
+ 374              		.size	LCD_PrintString, .-LCD_PrintString
+ 375              		.section	.text.LCD_PutChar,"ax",%progbits
+ 376              		.align	1
+ 377              		.global	LCD_PutChar
+ 378              		.thumb
+ 379              		.thumb_func
+ 380              		.type	LCD_PutChar, %function
+ 381              	LCD_PutChar:
+ 382              	.LFB6:
+ 265:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteData((uint8)character);
+ 383              		.loc 1 265 0
+ 384              		.cfi_startproc
+ 385              		@ args = 0, pretend = 0, frame = 0
+ 386              		@ frame_needed = 0, uses_anonymous_args = 0
+ 387              		@ link register save eliminated.
+ 388              	.LVL34:
+ 266:.\Generated_Source\PSoC5/LCD.c **** }
+ 389              		.loc 1 266 0
+ 390 0000 FFF7FEBF 		b	LCD_WriteData
+ 391              	.LVL35:
+ 392              		.cfi_endproc
+ 393              	.LFE6:
+ 394              		.size	LCD_PutChar, .-LCD_PutChar
+ 395              		.section	.text.LCD_WriteControl,"ax",%progbits
+ 396              		.align	1
+ 397              		.global	LCD_WriteControl
+ 398              		.thumb
+ 399              		.thumb_func
+ 400              		.type	LCD_WriteControl, %function
+ 401              	LCD_WriteControl:
+ 402              	.LFB8:
+ 315:.\Generated_Source\PSoC5/LCD.c ****     uint8 nibble;
+ 403              		.loc 1 315 0
+ 404              		.cfi_startproc
+ 405              		@ args = 0, pretend = 0, frame = 0
+ 406              		@ frame_needed = 0, uses_anonymous_args = 0
+ 407              	.LVL36:
+ 408 0000 10B5     		push	{r4, lr}
+ 409              		.cfi_def_cfa_offset 8
+ 410              		.cfi_offset 4, -8
+ 411              		.cfi_offset 14, -4
+ 315:.\Generated_Source\PSoC5/LCD.c ****     uint8 nibble;
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 19
+
+
+ 412              		.loc 1 315 0
+ 413 0002 0446     		mov	r4, r0
+ 318:.\Generated_Source\PSoC5/LCD.c **** 
+ 414              		.loc 1 318 0
+ 415 0004 FFF7FEFF 		bl	LCD_IsReady
+ 416              	.LVL37:
+ 323:.\Generated_Source\PSoC5/LCD.c ****     nibble = cByte & LCD_NIBBLE_MASK;
+ 417              		.loc 1 323 0
+ 418 0008 2009     		lsrs	r0, r4, #4
+ 419 000a FFF7FEFF 		bl	LCD_WrCntrlNib
+ 420              	.LVL38:
+ 327:.\Generated_Source\PSoC5/LCD.c **** }
+ 421              		.loc 1 327 0
+ 422 000e 04F00F00 		and	r0, r4, #15
+ 328:.\Generated_Source\PSoC5/LCD.c **** 
+ 423              		.loc 1 328 0
+ 424 0012 BDE81040 		pop	{r4, lr}
+ 425              		.cfi_restore 14
+ 426              		.cfi_restore 4
+ 427              		.cfi_def_cfa_offset 0
+ 428              	.LVL39:
+ 327:.\Generated_Source\PSoC5/LCD.c **** }
+ 429              		.loc 1 327 0
+ 430 0016 FFF7FEBF 		b	LCD_WrCntrlNib
+ 431              	.LVL40:
+ 432              		.cfi_endproc
+ 433              	.LFE8:
+ 434              		.size	LCD_WriteControl, .-LCD_WriteControl
+ 435              		.section	.text.LCD_Init,"ax",%progbits
+ 436              		.align	1
+ 437              		.global	LCD_Init
+ 438              		.thumb
+ 439              		.thumb_func
+ 440              		.type	LCD_Init, %function
+ 441              	LCD_Init:
+ 442              	.LFB0:
+  56:.\Generated_Source\PSoC5/LCD.c ****     /* INIT CODE */
+ 443              		.loc 1 56 0
+ 444              		.cfi_startproc
+ 445              		@ args = 0, pretend = 0, frame = 0
+ 446              		@ frame_needed = 0, uses_anonymous_args = 0
+ 447 0000 08B5     		push	{r3, lr}
+ 448              		.cfi_def_cfa_offset 8
+ 449              		.cfi_offset 3, -8
+ 450              		.cfi_offset 14, -4
+  58:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(LCD_DISPLAY_8_BIT_INIT);    /* Selects 8-bit mode */
+ 451              		.loc 1 58 0
+ 452 0002 2820     		movs	r0, #40
+ 453 0004 FFF7FEFF 		bl	CyDelay
+ 454              	.LVL41:
+  59:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(5u);                                                         /* Delay 5 ms */
+ 455              		.loc 1 59 0
+ 456 0008 0320     		movs	r0, #3
+ 457 000a FFF7FEFF 		bl	LCD_WrCntrlNib
+ 458              	.LVL42:
+  60:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(LCD_DISPLAY_8_BIT_INIT);    /* Selects 8-bit mode */
+ 459              		.loc 1 60 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 20
+
+
+ 460 000e 0520     		movs	r0, #5
+ 461 0010 FFF7FEFF 		bl	CyDelay
+ 462              	.LVL43:
+  61:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(15u);                                                        /* Delay 15 ms */
+ 463              		.loc 1 61 0
+ 464 0014 0320     		movs	r0, #3
+ 465 0016 FFF7FEFF 		bl	LCD_WrCntrlNib
+ 466              	.LVL44:
+  62:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(LCD_DISPLAY_8_BIT_INIT);    /* Selects 8-bit mode */
+ 467              		.loc 1 62 0
+ 468 001a 0F20     		movs	r0, #15
+ 469 001c FFF7FEFF 		bl	CyDelay
+ 470              	.LVL45:
+  63:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(1u);                                                         /* Delay 1 ms */
+ 471              		.loc 1 63 0
+ 472 0020 0320     		movs	r0, #3
+ 473 0022 FFF7FEFF 		bl	LCD_WrCntrlNib
+ 474              	.LVL46:
+  64:.\Generated_Source\PSoC5/LCD.c ****     LCD_WrCntrlNib(LCD_DISPLAY_4_BIT_INIT);    /* Selects 4-bit mode */
+ 475              		.loc 1 64 0
+ 476 0026 0120     		movs	r0, #1
+ 477 0028 FFF7FEFF 		bl	CyDelay
+ 478              	.LVL47:
+  65:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(5u);                                                         /* Delay 5 ms */
+ 479              		.loc 1 65 0
+ 480 002c 0220     		movs	r0, #2
+ 481 002e FFF7FEFF 		bl	LCD_WrCntrlNib
+ 482              	.LVL48:
+  66:.\Generated_Source\PSoC5/LCD.c **** 
+ 483              		.loc 1 66 0
+ 484 0032 0520     		movs	r0, #5
+ 485 0034 FFF7FEFF 		bl	CyDelay
+ 486              	.LVL49:
+  68:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_DISPLAY_CURSOR_ON);      /* Turn Display, Cursor ON */
+ 487              		.loc 1 68 0
+ 488 0038 0620     		movs	r0, #6
+ 489 003a FFF7FEFF 		bl	LCD_WriteControl
+ 490              	.LVL50:
+  69:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_DISPLAY_2_LINES_5x10);   /* 2 Lines by 5x10 Characters */
+ 491              		.loc 1 69 0
+ 492 003e 0E20     		movs	r0, #14
+ 493 0040 FFF7FEFF 		bl	LCD_WriteControl
+ 494              	.LVL51:
+  70:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_DISPLAY_CURSOR_OFF);     /* Turn Display, Cursor OFF */
+ 495              		.loc 1 70 0
+ 496 0044 2C20     		movs	r0, #44
+ 497 0046 FFF7FEFF 		bl	LCD_WriteControl
+ 498              	.LVL52:
+  71:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_CLEAR_DISPLAY);          /* Clear LCD Screen */
+ 499              		.loc 1 71 0
+ 500 004a 0820     		movs	r0, #8
+ 501 004c FFF7FEFF 		bl	LCD_WriteControl
+ 502              	.LVL53:
+  72:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_DISPLAY_ON_CURSOR_OFF);  /* Turn Display ON, Cursor OFF */
+ 503              		.loc 1 72 0
+ 504 0050 0120     		movs	r0, #1
+ 505 0052 FFF7FEFF 		bl	LCD_WriteControl
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 21
+
+
+ 506              	.LVL54:
+  73:.\Generated_Source\PSoC5/LCD.c ****     LCD_WriteControl(LCD_RESET_CURSOR_POSITION);  /* Set Cursor to 0,0 */
+ 507              		.loc 1 73 0
+ 508 0056 0C20     		movs	r0, #12
+ 509 0058 FFF7FEFF 		bl	LCD_WriteControl
+ 510              	.LVL55:
+  74:.\Generated_Source\PSoC5/LCD.c ****     CyDelay(5u);
+ 511              		.loc 1 74 0
+ 512 005c 0320     		movs	r0, #3
+ 513 005e FFF7FEFF 		bl	LCD_WriteControl
+ 514              	.LVL56:
+  80:.\Generated_Source\PSoC5/LCD.c **** 
+ 515              		.loc 1 80 0
+ 516 0062 BDE80840 		pop	{r3, lr}
+ 517              		.cfi_restore 14
+ 518              		.cfi_restore 3
+ 519              		.cfi_def_cfa_offset 0
+  75:.\Generated_Source\PSoC5/LCD.c **** 
+ 520              		.loc 1 75 0
+ 521 0066 0520     		movs	r0, #5
+ 522 0068 FFF7FEBF 		b	CyDelay
+ 523              	.LVL57:
+ 524              		.cfi_endproc
+ 525              	.LFE0:
+ 526              		.size	LCD_Init, .-LCD_Init
+ 527              		.section	.text.LCD_Enable,"ax",%progbits
+ 528              		.align	1
+ 529              		.global	LCD_Enable
+ 530              		.thumb
+ 531              		.thumb_func
+ 532              		.type	LCD_Enable, %function
+ 533              	LCD_Enable:
+ 534              	.LFB1:
+ 105:.\Generated_Source\PSoC5/LCD.c ****     LCD_DisplayOn();
+ 535              		.loc 1 105 0
+ 536              		.cfi_startproc
+ 537              		@ args = 0, pretend = 0, frame = 0
+ 538              		@ frame_needed = 0, uses_anonymous_args = 0
+ 539 0000 08B5     		push	{r3, lr}
+ 540              		.cfi_def_cfa_offset 8
+ 541              		.cfi_offset 3, -8
+ 542              		.cfi_offset 14, -4
+ 106:.\Generated_Source\PSoC5/LCD.c ****     LCD_enableState = 1u;
+ 543              		.loc 1 106 0
+ 544 0002 0C20     		movs	r0, #12
+ 545 0004 FFF7FEFF 		bl	LCD_WriteControl
+ 546              	.LVL58:
+ 107:.\Generated_Source\PSoC5/LCD.c **** }
+ 547              		.loc 1 107 0
+ 548 0008 014B     		ldr	r3, .L22
+ 549 000a 0122     		movs	r2, #1
+ 550 000c 1A70     		strb	r2, [r3]
+ 551 000e 08BD     		pop	{r3, pc}
+ 552              	.L23:
+ 553              		.align	2
+ 554              	.L22:
+ 555 0010 00000000 		.word	.LANCHOR0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 22
+
+
+ 556              		.cfi_endproc
+ 557              	.LFE1:
+ 558              		.size	LCD_Enable, .-LCD_Enable
+ 559              		.section	.text.LCD_Start,"ax",%progbits
+ 560              		.align	1
+ 561              		.global	LCD_Start
+ 562              		.thumb
+ 563              		.thumb_func
+ 564              		.type	LCD_Start, %function
+ 565              	LCD_Start:
+ 566              	.LFB2:
+ 138:.\Generated_Source\PSoC5/LCD.c ****     /* If not initialized then perform initialization */
+ 567              		.loc 1 138 0
+ 568              		.cfi_startproc
+ 569              		@ args = 0, pretend = 0, frame = 0
+ 570              		@ frame_needed = 0, uses_anonymous_args = 0
+ 571 0000 10B5     		push	{r4, lr}
+ 572              		.cfi_def_cfa_offset 8
+ 573              		.cfi_offset 4, -8
+ 574              		.cfi_offset 14, -4
+ 140:.\Generated_Source\PSoC5/LCD.c ****     {
+ 575              		.loc 1 140 0
+ 576 0002 054C     		ldr	r4, .L26
+ 577 0004 6378     		ldrb	r3, [r4, #1]	@ zero_extendqisi2
+ 578 0006 1BB9     		cbnz	r3, .L25
+ 142:.\Generated_Source\PSoC5/LCD.c ****         LCD_initVar = 1u;
+ 579              		.loc 1 142 0
+ 580 0008 FFF7FEFF 		bl	LCD_Init
+ 581              	.LVL59:
+ 143:.\Generated_Source\PSoC5/LCD.c ****     }
+ 582              		.loc 1 143 0
+ 583 000c 0123     		movs	r3, #1
+ 584 000e 6370     		strb	r3, [r4, #1]
+ 585              	.L25:
+ 148:.\Generated_Source\PSoC5/LCD.c **** 
+ 586              		.loc 1 148 0
+ 587 0010 BDE81040 		pop	{r4, lr}
+ 588              		.cfi_restore 14
+ 589              		.cfi_restore 4
+ 590              		.cfi_def_cfa_offset 0
+ 147:.\Generated_Source\PSoC5/LCD.c **** }
+ 591              		.loc 1 147 0
+ 592 0014 FFF7FEBF 		b	LCD_Enable
+ 593              	.LVL60:
+ 594              	.L27:
+ 595              		.align	2
+ 596              	.L26:
+ 597 0018 00000000 		.word	.LANCHOR0
+ 598              		.cfi_endproc
+ 599              	.LFE2:
+ 600              		.size	LCD_Start, .-LCD_Start
+ 601              		.section	.text.LCD_Stop,"ax",%progbits
+ 602              		.align	1
+ 603              		.global	LCD_Stop
+ 604              		.thumb
+ 605              		.thumb_func
+ 606              		.type	LCD_Stop, %function
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 23
+
+
+ 607              	LCD_Stop:
+ 608              	.LFB3:
+ 169:.\Generated_Source\PSoC5/LCD.c ****     /* Calls LCD Off Macro */
+ 609              		.loc 1 169 0
+ 610              		.cfi_startproc
+ 611              		@ args = 0, pretend = 0, frame = 0
+ 612              		@ frame_needed = 0, uses_anonymous_args = 0
+ 613 0000 08B5     		push	{r3, lr}
+ 614              		.cfi_def_cfa_offset 8
+ 615              		.cfi_offset 3, -8
+ 616              		.cfi_offset 14, -4
+ 171:.\Generated_Source\PSoC5/LCD.c ****     LCD_enableState = 0u;
+ 617              		.loc 1 171 0
+ 618 0002 0820     		movs	r0, #8
+ 619 0004 FFF7FEFF 		bl	LCD_WriteControl
+ 620              	.LVL61:
+ 172:.\Generated_Source\PSoC5/LCD.c **** }
+ 621              		.loc 1 172 0
+ 622 0008 014B     		ldr	r3, .L29
+ 623 000a 0022     		movs	r2, #0
+ 624 000c 1A70     		strb	r2, [r3]
+ 625 000e 08BD     		pop	{r3, pc}
+ 626              	.L30:
+ 627              		.align	2
+ 628              	.L29:
+ 629 0010 00000000 		.word	.LANCHOR0
+ 630              		.cfi_endproc
+ 631              	.LFE3:
+ 632              		.size	LCD_Stop, .-LCD_Stop
+ 633              		.section	.text.LCD_Position,"ax",%progbits
+ 634              		.align	1
+ 635              		.global	LCD_Position
+ 636              		.thumb
+ 637              		.thumb_func
+ 638              		.type	LCD_Position, %function
+ 639              	LCD_Position:
+ 640              	.LFB4:
+ 197:.\Generated_Source\PSoC5/LCD.c ****     switch (row)
+ 641              		.loc 1 197 0
+ 642              		.cfi_startproc
+ 643              		@ args = 0, pretend = 0, frame = 0
+ 644              		@ frame_needed = 0, uses_anonymous_args = 0
+ 645              		@ link register save eliminated.
+ 646              	.LVL62:
+ 198:.\Generated_Source\PSoC5/LCD.c ****     {
+ 647              		.loc 1 198 0
+ 648 0000 0328     		cmp	r0, #3
+ 649 0002 11D8     		bhi	.L31
+ 650 0004 DFE800F0 		tbb	[pc, r0]
+ 651              	.L34:
+ 652 0008 02       		.byte	(.L33-.L34)/2
+ 653 0009 05       		.byte	(.L35-.L34)/2
+ 654 000a 08       		.byte	(.L36-.L34)/2
+ 655 000b 0B       		.byte	(.L37-.L34)/2
+ 656              		.p2align 1
+ 657              	.L33:
+ 201:.\Generated_Source\PSoC5/LCD.c ****             break;
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 24
+
+
+ 658              		.loc 1 201 0
+ 659 000c 81F08000 		eor	r0, r1, #128
+ 660              	.LVL63:
+ 661 0010 08E0     		b	.L38
+ 662              	.LVL64:
+ 663              	.L35:
+ 204:.\Generated_Source\PSoC5/LCD.c ****             break;
+ 664              		.loc 1 204 0
+ 665 0012 A1F14000 		sub	r0, r1, #64
+ 666              	.LVL65:
+ 667 0016 04E0     		b	.L39
+ 668              	.LVL66:
+ 669              	.L36:
+ 207:.\Generated_Source\PSoC5/LCD.c ****             break;
+ 670              		.loc 1 207 0
+ 671 0018 A1F16C00 		sub	r0, r1, #108
+ 672              	.LVL67:
+ 673 001c 01E0     		b	.L39
+ 674              	.LVL68:
+ 675              	.L37:
+ 210:.\Generated_Source\PSoC5/LCD.c ****             break;
+ 676              		.loc 1 210 0
+ 677 001e A1F12C00 		sub	r0, r1, #44
+ 678              	.LVL69:
+ 679              	.L39:
+ 680 0022 C0B2     		uxtb	r0, r0
+ 681              	.L38:
+ 682 0024 FFF7FEBF 		b	LCD_WriteControl
+ 683              	.LVL70:
+ 684              	.L31:
+ 685 0028 7047     		bx	lr
+ 686              		.cfi_endproc
+ 687              	.LFE4:
+ 688              		.size	LCD_Position, .-LCD_Position
+ 689              		.section	.text.LCD_PrintInt8,"ax",%progbits
+ 690              		.align	1
+ 691              		.global	LCD_PrintInt8
+ 692              		.thumb
+ 693              		.thumb_func
+ 694              		.type	LCD_PrintInt8, %function
+ 695              	LCD_PrintInt8:
+ 696              	.LFB12:
+ 541:.\Generated_Source\PSoC5/LCD.c **** }
+ 542:.\Generated_Source\PSoC5/LCD.c **** 
+ 543:.\Generated_Source\PSoC5/LCD.c **** 
+ 544:.\Generated_Source\PSoC5/LCD.c **** #if(LCD_CONVERSION_ROUTINES == 1u)
+ 545:.\Generated_Source\PSoC5/LCD.c **** 
+ 546:.\Generated_Source\PSoC5/LCD.c ****     /*******************************************************************************
+ 547:.\Generated_Source\PSoC5/LCD.c ****     *  Function Name: LCD_PrintInt8
+ 548:.\Generated_Source\PSoC5/LCD.c ****     ********************************************************************************
+ 549:.\Generated_Source\PSoC5/LCD.c ****     *
+ 550:.\Generated_Source\PSoC5/LCD.c ****     * Summary:
+ 551:.\Generated_Source\PSoC5/LCD.c ****     *  Print a byte as two ASCII characters.
+ 552:.\Generated_Source\PSoC5/LCD.c ****     *
+ 553:.\Generated_Source\PSoC5/LCD.c ****     * Parameters:
+ 554:.\Generated_Source\PSoC5/LCD.c ****     *  value:  The byte to be printed out as ASCII characters.
+ 555:.\Generated_Source\PSoC5/LCD.c ****     *
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 25
+
+
+ 556:.\Generated_Source\PSoC5/LCD.c ****     * Return:
+ 557:.\Generated_Source\PSoC5/LCD.c ****     *  None.
+ 558:.\Generated_Source\PSoC5/LCD.c ****     *
+ 559:.\Generated_Source\PSoC5/LCD.c ****     *******************************************************************************/
+ 560:.\Generated_Source\PSoC5/LCD.c ****     void LCD_PrintInt8(uint8 value) 
+ 561:.\Generated_Source\PSoC5/LCD.c ****     {
+ 697              		.loc 1 561 0
+ 698              		.cfi_startproc
+ 699              		@ args = 0, pretend = 0, frame = 0
+ 700              		@ frame_needed = 0, uses_anonymous_args = 0
+ 701              	.LVL71:
+ 702 0000 38B5     		push	{r3, r4, r5, lr}
+ 703              		.cfi_def_cfa_offset 16
+ 704              		.cfi_offset 3, -16
+ 705              		.cfi_offset 4, -12
+ 706              		.cfi_offset 5, -8
+ 707              		.cfi_offset 14, -4
+ 708              		.loc 1 561 0
+ 709 0002 0446     		mov	r4, r0
+ 562:.\Generated_Source\PSoC5/LCD.c ****         static char8 const CYCODE LCD_hex[16u] = "0123456789ABCDEF";
+ 563:.\Generated_Source\PSoC5/LCD.c ****         
+ 564:.\Generated_Source\PSoC5/LCD.c ****         LCD_PutChar((char8) LCD_hex[value >> LCD_BYTE_UPPER_NIBBLE_SHIFT]);
+ 710              		.loc 1 564 0
+ 711 0004 054D     		ldr	r5, .L41
+ 712 0006 0309     		lsrs	r3, r0, #4
+ 713              	.LBB6:
+ 714              	.LBB7:
+ 266:.\Generated_Source\PSoC5/LCD.c **** }
+ 715              		.loc 1 266 0
+ 716 0008 E85C     		ldrb	r0, [r5, r3]	@ zero_extendqisi2
+ 717              	.LVL72:
+ 718              	.LBE7:
+ 719              	.LBE6:
+ 565:.\Generated_Source\PSoC5/LCD.c ****         LCD_PutChar((char8) LCD_hex[value & LCD_BYTE_LOWER_NIBBLE_MASK]);
+ 720              		.loc 1 565 0
+ 721 000a 04F00F04 		and	r4, r4, #15
+ 722              	.LBB9:
+ 723              	.LBB8:
+ 266:.\Generated_Source\PSoC5/LCD.c **** }
+ 724              		.loc 1 266 0
+ 725 000e FFF7FEFF 		bl	LCD_WriteData
+ 726              	.LVL73:
+ 727              	.LBE8:
+ 728              	.LBE9:
+ 729              	.LBB10:
+ 730              	.LBB11:
+ 731 0012 285D     		ldrb	r0, [r5, r4]	@ zero_extendqisi2
+ 732              	.LBE11:
+ 733              	.LBE10:
+ 566:.\Generated_Source\PSoC5/LCD.c ****     }
+ 734              		.loc 1 566 0
+ 735 0014 BDE83840 		pop	{r3, r4, r5, lr}
+ 736              		.cfi_restore 14
+ 737              		.cfi_restore 5
+ 738              		.cfi_restore 4
+ 739              		.cfi_restore 3
+ 740              		.cfi_def_cfa_offset 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 26
+
+
+ 741              	.LBB13:
+ 742              	.LBB12:
+ 266:.\Generated_Source\PSoC5/LCD.c **** }
+ 743              		.loc 1 266 0
+ 744 0018 FFF7FEBF 		b	LCD_WriteData
+ 745              	.LVL74:
+ 746              	.L42:
+ 747              		.align	2
+ 748              	.L41:
+ 749 001c 00000000 		.word	.LANCHOR1
+ 750              	.LBE12:
+ 751              	.LBE13:
+ 752              		.cfi_endproc
+ 753              	.LFE12:
+ 754              		.size	LCD_PrintInt8, .-LCD_PrintInt8
+ 755              		.section	.text.LCD_PrintInt16,"ax",%progbits
+ 756              		.align	1
+ 757              		.global	LCD_PrintInt16
+ 758              		.thumb
+ 759              		.thumb_func
+ 760              		.type	LCD_PrintInt16, %function
+ 761              	LCD_PrintInt16:
+ 762              	.LFB13:
+ 567:.\Generated_Source\PSoC5/LCD.c **** 
+ 568:.\Generated_Source\PSoC5/LCD.c **** 
+ 569:.\Generated_Source\PSoC5/LCD.c ****     /*******************************************************************************
+ 570:.\Generated_Source\PSoC5/LCD.c ****     *  Function Name: LCD_PrintInt16
+ 571:.\Generated_Source\PSoC5/LCD.c ****     ********************************************************************************
+ 572:.\Generated_Source\PSoC5/LCD.c ****     *
+ 573:.\Generated_Source\PSoC5/LCD.c ****     * Summary:
+ 574:.\Generated_Source\PSoC5/LCD.c ****     *  Print a uint16 as four ASCII characters.
+ 575:.\Generated_Source\PSoC5/LCD.c ****     *
+ 576:.\Generated_Source\PSoC5/LCD.c ****     * Parameters:
+ 577:.\Generated_Source\PSoC5/LCD.c ****     *  value:   The uint16 to be printed out as ASCII characters.
+ 578:.\Generated_Source\PSoC5/LCD.c ****     *
+ 579:.\Generated_Source\PSoC5/LCD.c ****     * Return:
+ 580:.\Generated_Source\PSoC5/LCD.c ****     *  None.
+ 581:.\Generated_Source\PSoC5/LCD.c ****     *
+ 582:.\Generated_Source\PSoC5/LCD.c ****     *******************************************************************************/
+ 583:.\Generated_Source\PSoC5/LCD.c ****     void LCD_PrintInt16(uint16 value) 
+ 584:.\Generated_Source\PSoC5/LCD.c ****     {
+ 763              		.loc 1 584 0
+ 764              		.cfi_startproc
+ 765              		@ args = 0, pretend = 0, frame = 0
+ 766              		@ frame_needed = 0, uses_anonymous_args = 0
+ 767              	.LVL75:
+ 768 0000 10B5     		push	{r4, lr}
+ 769              		.cfi_def_cfa_offset 8
+ 770              		.cfi_offset 4, -8
+ 771              		.cfi_offset 14, -4
+ 772              		.loc 1 584 0
+ 773 0002 0446     		mov	r4, r0
+ 585:.\Generated_Source\PSoC5/LCD.c ****         LCD_PrintInt8((uint8)(value >> LCD_U16_UPPER_BYTE_SHIFT));
+ 774              		.loc 1 585 0
+ 775 0004 000A     		lsrs	r0, r0, #8
+ 776              	.LVL76:
+ 777 0006 FFF7FEFF 		bl	LCD_PrintInt8
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 27
+
+
+ 778              	.LVL77:
+ 586:.\Generated_Source\PSoC5/LCD.c ****         LCD_PrintInt8((uint8)(value & LCD_U16_LOWER_BYTE_MASK));
+ 779              		.loc 1 586 0
+ 780 000a E0B2     		uxtb	r0, r4
+ 587:.\Generated_Source\PSoC5/LCD.c ****     }
+ 781              		.loc 1 587 0
+ 782 000c BDE81040 		pop	{r4, lr}
+ 783              		.cfi_restore 14
+ 784              		.cfi_restore 4
+ 785              		.cfi_def_cfa_offset 0
+ 586:.\Generated_Source\PSoC5/LCD.c ****         LCD_PrintInt8((uint8)(value & LCD_U16_LOWER_BYTE_MASK));
+ 786              		.loc 1 586 0
+ 787 0010 FFF7FEBF 		b	LCD_PrintInt8
+ 788              	.LVL78:
+ 789              		.cfi_endproc
+ 790              	.LFE13:
+ 791              		.size	LCD_PrintInt16, .-LCD_PrintInt16
+ 792              		.section	.text.LCD_PrintNumber,"ax",%progbits
+ 793              		.align	1
+ 794              		.global	LCD_PrintNumber
+ 795              		.thumb
+ 796              		.thumb_func
+ 797              		.type	LCD_PrintNumber, %function
+ 798              	LCD_PrintNumber:
+ 799              	.LFB14:
+ 588:.\Generated_Source\PSoC5/LCD.c **** 
+ 589:.\Generated_Source\PSoC5/LCD.c **** 
+ 590:.\Generated_Source\PSoC5/LCD.c ****     /*******************************************************************************
+ 591:.\Generated_Source\PSoC5/LCD.c ****     *  Function Name: LCD_PrintNumber
+ 592:.\Generated_Source\PSoC5/LCD.c ****     ********************************************************************************
+ 593:.\Generated_Source\PSoC5/LCD.c ****     *
+ 594:.\Generated_Source\PSoC5/LCD.c ****     * Summary:
+ 595:.\Generated_Source\PSoC5/LCD.c ****     *  Print an uint32 value as a left-justified decimal value.
+ 596:.\Generated_Source\PSoC5/LCD.c ****     *
+ 597:.\Generated_Source\PSoC5/LCD.c ****     * Parameters:
+ 598:.\Generated_Source\PSoC5/LCD.c ****     *  value:  The byte to be printed out as ASCII characters.
+ 599:.\Generated_Source\PSoC5/LCD.c ****     *
+ 600:.\Generated_Source\PSoC5/LCD.c ****     * Return:
+ 601:.\Generated_Source\PSoC5/LCD.c ****     *  None.
+ 602:.\Generated_Source\PSoC5/LCD.c ****     *
+ 603:.\Generated_Source\PSoC5/LCD.c ****     *******************************************************************************/
+ 604:.\Generated_Source\PSoC5/LCD.c ****     void LCD_PrintNumber(uint16 value) 
+ 605:.\Generated_Source\PSoC5/LCD.c ****     {
+ 800              		.loc 1 605 0
+ 801              		.cfi_startproc
+ 802              		@ args = 0, pretend = 0, frame = 16
+ 803              		@ frame_needed = 0, uses_anonymous_args = 0
+ 804              	.LVL79:
+ 805 0000 7FB5     		push	{r0, r1, r2, r3, r4, r5, r6, lr}
+ 806              		.cfi_def_cfa_offset 32
+ 807              		.cfi_offset 4, -16
+ 808              		.cfi_offset 5, -12
+ 809              		.cfi_offset 6, -8
+ 810              		.cfi_offset 14, -4
+ 606:.\Generated_Source\PSoC5/LCD.c **** 
+ 607:.\Generated_Source\PSoC5/LCD.c ****         char8 number[LCD_NUMBER_OF_REMAINDERS];
+ 608:.\Generated_Source\PSoC5/LCD.c ****         char8 temp[LCD_NUMBER_OF_REMAINDERS];
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 28
+
+
+ 609:.\Generated_Source\PSoC5/LCD.c **** 
+ 610:.\Generated_Source\PSoC5/LCD.c ****         uint8 digIndex = 0u;
+ 611:.\Generated_Source\PSoC5/LCD.c ****         uint8 numDigits;
+ 612:.\Generated_Source\PSoC5/LCD.c **** 
+ 613:.\Generated_Source\PSoC5/LCD.c ****         /* Load these in reverse order */
+ 614:.\Generated_Source\PSoC5/LCD.c ****         while(value >= LCD_TEN)
+ 811              		.loc 1 614 0
+ 812 0002 0022     		movs	r2, #0
+ 813              	.LVL80:
+ 814              	.L45:
+ 815 0004 D3B2     		uxtb	r3, r2
+ 816              	.LVL81:
+ 817 0006 511C     		adds	r1, r2, #1
+ 818 0008 0928     		cmp	r0, #9
+ 819 000a 04AA     		add	r2, sp, #16
+ 820 000c 02EB0306 		add	r6, r2, r3
+ 821 0010 4FF00A02 		mov	r2, #10
+ 822 0014 09D9     		bls	.L49
+ 615:.\Generated_Source\PSoC5/LCD.c ****         {
+ 616:.\Generated_Source\PSoC5/LCD.c ****             temp[digIndex] = (value % LCD_TEN) + '0';
+ 823              		.loc 1 616 0
+ 824 0016 B0FBF2F3 		udiv	r3, r0, r2
+ 825              	.LVL82:
+ 826 001a 02FB1302 		mls	r2, r2, r3, r0
+ 827 001e 3032     		adds	r2, r2, #48
+ 828 0020 06F8082C 		strb	r2, [r6, #-8]
+ 617:.\Generated_Source\PSoC5/LCD.c ****             value /= LCD_TEN;
+ 829              		.loc 1 617 0
+ 830 0024 98B2     		uxth	r0, r3
+ 831              	.LVL83:
+ 832 0026 0A46     		mov	r2, r1
+ 833 0028 ECE7     		b	.L45
+ 834              	.LVL84:
+ 835              	.L49:
+ 618:.\Generated_Source\PSoC5/LCD.c ****             digIndex++;
+ 619:.\Generated_Source\PSoC5/LCD.c ****         }
+ 620:.\Generated_Source\PSoC5/LCD.c **** 
+ 621:.\Generated_Source\PSoC5/LCD.c ****         temp[digIndex] = (value % LCD_TEN) + '0';
+ 836              		.loc 1 621 0
+ 837 002a B0FBF2F1 		udiv	r1, r0, r2
+ 838 002e 1D46     		mov	r5, r3
+ 839 0030 1C46     		mov	r4, r3
+ 840 0032 02FB1102 		mls	r2, r2, r1, r0
+ 841 0036 3032     		adds	r2, r2, #48
+ 842 0038 06F8082C 		strb	r2, [r6, #-8]
+ 843              	.LVL85:
+ 844              	.L47:
+ 622:.\Generated_Source\PSoC5/LCD.c ****         numDigits = digIndex;
+ 623:.\Generated_Source\PSoC5/LCD.c **** 
+ 624:.\Generated_Source\PSoC5/LCD.c ****         /* While index is greater than or equal to zero copy number
+ 625:.\Generated_Source\PSoC5/LCD.c ****         * from temporary array to number[].
+ 626:.\Generated_Source\PSoC5/LCD.c ****         */
+ 627:.\Generated_Source\PSoC5/LCD.c ****         while (digIndex != 0u)
+ 845              		.loc 1 627 0
+ 846 003c 53B1     		cbz	r3, .L50
+ 628:.\Generated_Source\PSoC5/LCD.c ****         {
+ 629:.\Generated_Source\PSoC5/LCD.c ****             number[numDigits - digIndex] = temp[digIndex];
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 29
+
+
+ 847              		.loc 1 629 0
+ 848 003e E21A     		subs	r2, r4, r3
+ 849 0040 04A9     		add	r1, sp, #16
+ 850 0042 0A44     		add	r2, r2, r1
+ 851 0044 1944     		add	r1, r1, r3
+ 852 0046 11F8081C 		ldrb	r1, [r1, #-8]	@ zero_extendqisi2
+ 630:.\Generated_Source\PSoC5/LCD.c ****             digIndex--;
+ 853              		.loc 1 630 0
+ 854 004a 013B     		subs	r3, r3, #1
+ 855              	.LVL86:
+ 629:.\Generated_Source\PSoC5/LCD.c ****             digIndex--;
+ 856              		.loc 1 629 0
+ 857 004c 02F8101C 		strb	r1, [r2, #-16]
+ 858              		.loc 1 630 0
+ 859 0050 DBB2     		uxtb	r3, r3
+ 860              	.LVL87:
+ 861 0052 F3E7     		b	.L47
+ 862              	.L50:
+ 631:.\Generated_Source\PSoC5/LCD.c ****         }
+ 632:.\Generated_Source\PSoC5/LCD.c ****         
+ 633:.\Generated_Source\PSoC5/LCD.c ****         /* Copy last digit */
+ 634:.\Generated_Source\PSoC5/LCD.c ****         number[numDigits] = temp[0u];
+ 863              		.loc 1 634 0
+ 864 0054 04AA     		add	r2, sp, #16
+ 865 0056 1444     		add	r4, r4, r2
+ 866              	.LVL88:
+ 867 0058 9DF80820 		ldrb	r2, [sp, #8]	@ zero_extendqisi2
+ 635:.\Generated_Source\PSoC5/LCD.c **** 
+ 636:.\Generated_Source\PSoC5/LCD.c ****         /* Null Termination */
+ 637:.\Generated_Source\PSoC5/LCD.c ****         number[numDigits + 1u] = (char8) '\0';
+ 638:.\Generated_Source\PSoC5/LCD.c **** 
+ 639:.\Generated_Source\PSoC5/LCD.c ****         /* Print out number */
+ 640:.\Generated_Source\PSoC5/LCD.c ****         LCD_PrintString(&number[0u]);
+ 868              		.loc 1 640 0
+ 869 005c 6846     		mov	r0, sp
+ 870              	.LVL89:
+ 634:.\Generated_Source\PSoC5/LCD.c **** 
+ 871              		.loc 1 634 0
+ 872 005e 04F8102C 		strb	r2, [r4, #-16]
+ 637:.\Generated_Source\PSoC5/LCD.c **** 
+ 873              		.loc 1 637 0
+ 874 0062 04AA     		add	r2, sp, #16
+ 875 0064 2A44     		add	r2, r2, r5
+ 876 0066 02F80F3C 		strb	r3, [r2, #-15]
+ 877              		.loc 1 640 0
+ 878 006a FFF7FEFF 		bl	LCD_PrintString
+ 879              	.LVL90:
+ 641:.\Generated_Source\PSoC5/LCD.c ****     }
+ 880              		.loc 1 641 0
+ 881 006e 04B0     		add	sp, sp, #16
+ 882              		.cfi_def_cfa_offset 16
+ 883              		@ sp needed
+ 884 0070 70BD     		pop	{r4, r5, r6, pc}
+ 885              		.cfi_endproc
+ 886              	.LFE14:
+ 887              		.size	LCD_PrintNumber, .-LCD_PrintNumber
+ 888              		.global	LCD_initVar
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 30
+
+
+ 889              		.global	LCD_enableState
+ 890              		.section	.rodata
+ 891              		.set	.LANCHOR1,. + 0
+ 892              		.type	LCD_hex.4900, %object
+ 893              		.size	LCD_hex.4900, 16
+ 894              	LCD_hex.4900:
+ 895 0000 30313233 		.ascii	"0123456789ABCDEF"
+ 895      34353637 
+ 895      38394142 
+ 895      43444546 
+ 896              		.bss
+ 897              		.set	.LANCHOR0,. + 0
+ 898              		.type	LCD_enableState, %object
+ 899              		.size	LCD_enableState, 1
+ 900              	LCD_enableState:
+ 901 0000 00       		.space	1
+ 902              		.type	LCD_initVar, %object
+ 903              		.size	LCD_initVar, 1
+ 904              	LCD_initVar:
+ 905 0001 00       		.space	1
+ 906              		.text
+ 907              	.Letext0:
+ 908              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 909              		.file 3 ".\\Generated_Source\\PSoC5\\CyLib.h"
+ 910              		.section	.debug_info,"",%progbits
+ 911              	.Ldebug_info0:
+ 912 0000 A3060000 		.4byte	0x6a3
+ 913 0004 0400     		.2byte	0x4
+ 914 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 915 000a 04       		.byte	0x4
+ 916 000b 01       		.uleb128 0x1
+ 917 000c 17020000 		.4byte	.LASF49
+ 918 0010 01       		.byte	0x1
+ 919 0011 E0020000 		.4byte	.LASF50
+ 920 0015 61010000 		.4byte	.LASF51
+ 921 0019 30000000 		.4byte	.Ldebug_ranges0+0x30
+ 922 001d 00000000 		.4byte	0
+ 923 0021 00000000 		.4byte	.Ldebug_line0
+ 924 0025 02       		.uleb128 0x2
+ 925 0026 04       		.byte	0x4
+ 926 0027 05       		.byte	0x5
+ 927 0028 696E7400 		.ascii	"int\000"
+ 928 002c 03       		.uleb128 0x3
+ 929 002d 04       		.byte	0x4
+ 930 002e 07       		.byte	0x7
+ 931 002f 3D010000 		.4byte	.LASF0
+ 932 0033 03       		.uleb128 0x3
+ 933 0034 01       		.byte	0x1
+ 934 0035 06       		.byte	0x6
+ 935 0036 BE020000 		.4byte	.LASF1
+ 936 003a 03       		.uleb128 0x3
+ 937 003b 01       		.byte	0x1
+ 938 003c 08       		.byte	0x8
+ 939 003d AF000000 		.4byte	.LASF2
+ 940 0041 03       		.uleb128 0x3
+ 941 0042 02       		.byte	0x2
+ 942 0043 05       		.byte	0x5
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 31
+
+
+ 943 0044 0D020000 		.4byte	.LASF3
+ 944 0048 03       		.uleb128 0x3
+ 945 0049 02       		.byte	0x2
+ 946 004a 07       		.byte	0x7
+ 947 004b 4D000000 		.4byte	.LASF4
+ 948 004f 03       		.uleb128 0x3
+ 949 0050 04       		.byte	0x4
+ 950 0051 05       		.byte	0x5
+ 951 0052 B5020000 		.4byte	.LASF5
+ 952 0056 03       		.uleb128 0x3
+ 953 0057 04       		.byte	0x4
+ 954 0058 07       		.byte	0x7
+ 955 0059 CC000000 		.4byte	.LASF6
+ 956 005d 03       		.uleb128 0x3
+ 957 005e 08       		.byte	0x8
+ 958 005f 05       		.byte	0x5
+ 959 0060 D7010000 		.4byte	.LASF7
+ 960 0064 03       		.uleb128 0x3
+ 961 0065 08       		.byte	0x8
+ 962 0066 07       		.byte	0x7
+ 963 0067 4A010000 		.4byte	.LASF8
+ 964 006b 03       		.uleb128 0x3
+ 965 006c 04       		.byte	0x4
+ 966 006d 07       		.byte	0x7
+ 967 006e C8010000 		.4byte	.LASF9
+ 968 0072 03       		.uleb128 0x3
+ 969 0073 01       		.byte	0x1
+ 970 0074 08       		.byte	0x8
+ 971 0075 EF010000 		.4byte	.LASF10
+ 972 0079 04       		.uleb128 0x4
+ 973 007a E3000000 		.4byte	.LASF11
+ 974 007e 02       		.byte	0x2
+ 975 007f 3801     		.2byte	0x138
+ 976 0081 3A000000 		.4byte	0x3a
+ 977 0085 04       		.uleb128 0x4
+ 978 0086 1A010000 		.4byte	.LASF12
+ 979 008a 02       		.byte	0x2
+ 980 008b 3901     		.2byte	0x139
+ 981 008d 48000000 		.4byte	0x48
+ 982 0091 04       		.uleb128 0x4
+ 983 0092 2D010000 		.4byte	.LASF13
+ 984 0096 02       		.byte	0x2
+ 985 0097 3A01     		.2byte	0x13a
+ 986 0099 56000000 		.4byte	0x56
+ 987 009d 03       		.uleb128 0x3
+ 988 009e 04       		.byte	0x4
+ 989 009f 04       		.byte	0x4
+ 990 00a0 9F000000 		.4byte	.LASF14
+ 991 00a4 03       		.uleb128 0x3
+ 992 00a5 08       		.byte	0x8
+ 993 00a6 04       		.byte	0x4
+ 994 00a7 F8000000 		.4byte	.LASF15
+ 995 00ab 04       		.uleb128 0x4
+ 996 00ac D1010000 		.4byte	.LASF16
+ 997 00b0 02       		.byte	0x2
+ 998 00b1 4901     		.2byte	0x149
+ 999 00b3 72000000 		.4byte	0x72
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 32
+
+
+ 1000 00b7 04       		.uleb128 0x4
+ 1001 00b8 BD000000 		.4byte	.LASF17
+ 1002 00bc 02       		.byte	0x2
+ 1003 00bd E201     		.2byte	0x1e2
+ 1004 00bf C3000000 		.4byte	0xc3
+ 1005 00c3 05       		.uleb128 0x5
+ 1006 00c4 79000000 		.4byte	0x79
+ 1007 00c8 06       		.uleb128 0x6
+ 1008 00c9 B5010000 		.4byte	.LASF47
+ 1009 00cd 01       		.byte	0x1
+ 1010 00ce 0801     		.2byte	0x108
+ 1011 00d0 01       		.byte	0x1
+ 1012 00d1 E2000000 		.4byte	0xe2
+ 1013 00d5 07       		.uleb128 0x7
+ 1014 00d6 20000000 		.4byte	.LASF52
+ 1015 00da 01       		.byte	0x1
+ 1016 00db 0801     		.2byte	0x108
+ 1017 00dd AB000000 		.4byte	0xab
+ 1018 00e1 00       		.byte	0
+ 1019 00e2 08       		.uleb128 0x8
+ 1020 00e3 E9000000 		.4byte	.LASF18
+ 1021 00e7 01       		.byte	0x1
+ 1022 00e8 0802     		.2byte	0x208
+ 1023 00ea 00000000 		.4byte	.LFB11
+ 1024 00ee 34000000 		.4byte	.LFE11-.LFB11
+ 1025 00f2 01       		.uleb128 0x1
+ 1026 00f3 9C       		.byte	0x9c
+ 1027 00f4 18010000 		.4byte	0x118
+ 1028 00f8 09       		.uleb128 0x9
+ 1029 00f9 05030000 		.4byte	.LASF20
+ 1030 00fd 01       		.byte	0x1
+ 1031 00fe 0802     		.2byte	0x208
+ 1032 0100 79000000 		.4byte	0x79
+ 1033 0104 00000000 		.4byte	.LLST0
+ 1034 0108 0A       		.uleb128 0xa
+ 1035 0109 24000000 		.4byte	.LVL2
+ 1036 010d 88060000 		.4byte	0x688
+ 1037 0111 0B       		.uleb128 0xb
+ 1038 0112 01       		.uleb128 0x1
+ 1039 0113 50       		.byte	0x50
+ 1040 0114 01       		.uleb128 0x1
+ 1041 0115 31       		.byte	0x31
+ 1042 0116 00       		.byte	0
+ 1043 0117 00       		.byte	0
+ 1044 0118 0C       		.uleb128 0xc
+ 1045 0119 21010000 		.4byte	.LASF21
+ 1046 011d 01       		.byte	0x1
+ 1047 011e 5C01     		.2byte	0x15c
+ 1048 0120 00000000 		.4byte	.LFB9
+ 1049 0124 E0000000 		.4byte	.LFE9-.LFB9
+ 1050 0128 01       		.uleb128 0x1
+ 1051 0129 9C       		.byte	0x9c
+ 1052 012a 87010000 		.4byte	0x187
+ 1053 012e 0D       		.uleb128 0xd
+ 1054 012f 33000000 		.4byte	.LASF24
+ 1055 0133 01       		.byte	0x1
+ 1056 0134 5E01     		.2byte	0x15e
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 33
+
+
+ 1057 0136 79000000 		.4byte	0x79
+ 1058 013a 21000000 		.4byte	.LLST1
+ 1059 013e 0E       		.uleb128 0xe
+ 1060 013f 48000000 		.4byte	.LVL10
+ 1061 0143 88060000 		.4byte	0x688
+ 1062 0147 51010000 		.4byte	0x151
+ 1063 014b 0B       		.uleb128 0xb
+ 1064 014c 01       		.uleb128 0x1
+ 1065 014d 50       		.byte	0x50
+ 1066 014e 01       		.uleb128 0x1
+ 1067 014f 30       		.byte	0x30
+ 1068 0150 00       		.byte	0
+ 1069 0151 0E       		.uleb128 0xe
+ 1070 0152 56000000 		.4byte	.LVL11
+ 1071 0156 88060000 		.4byte	0x688
+ 1072 015a 64010000 		.4byte	0x164
+ 1073 015e 0B       		.uleb128 0xb
+ 1074 015f 01       		.uleb128 0x1
+ 1075 0160 50       		.byte	0x50
+ 1076 0161 01       		.uleb128 0x1
+ 1077 0162 31       		.byte	0x31
+ 1078 0163 00       		.byte	0
+ 1079 0164 0E       		.uleb128 0xe
+ 1080 0165 6E000000 		.4byte	.LVL13
+ 1081 0169 88060000 		.4byte	0x688
+ 1082 016d 77010000 		.4byte	0x177
+ 1083 0171 0B       		.uleb128 0xb
+ 1084 0172 01       		.uleb128 0x1
+ 1085 0173 50       		.byte	0x50
+ 1086 0174 01       		.uleb128 0x1
+ 1087 0175 30       		.byte	0x30
+ 1088 0176 00       		.byte	0
+ 1089 0177 0A       		.uleb128 0xa
+ 1090 0178 7C000000 		.4byte	.LVL14
+ 1091 017c 88060000 		.4byte	0x688
+ 1092 0180 0B       		.uleb128 0xb
+ 1093 0181 01       		.uleb128 0x1
+ 1094 0182 50       		.byte	0x50
+ 1095 0183 01       		.uleb128 0x1
+ 1096 0184 31       		.byte	0x31
+ 1097 0185 00       		.byte	0
+ 1098 0186 00       		.byte	0
+ 1099 0187 08       		.uleb128 0x8
+ 1100 0188 7D000000 		.4byte	.LASF19
+ 1101 018c 01       		.byte	0x1
+ 1102 018d DD01     		.2byte	0x1dd
+ 1103 018f 00000000 		.4byte	.LFB10
+ 1104 0193 44000000 		.4byte	.LFE10-.LFB10
+ 1105 0197 01       		.uleb128 0x1
+ 1106 0198 9C       		.byte	0x9c
+ 1107 0199 C6010000 		.4byte	0x1c6
+ 1108 019d 09       		.uleb128 0x9
+ 1109 019e 05030000 		.4byte	.LASF20
+ 1110 01a2 01       		.byte	0x1
+ 1111 01a3 DD01     		.2byte	0x1dd
+ 1112 01a5 79000000 		.4byte	0x79
+ 1113 01a9 A1000000 		.4byte	.LLST2
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 34
+
+
+ 1114 01ad 0F       		.uleb128 0xf
+ 1115 01ae 0A000000 		.4byte	.LVL20
+ 1116 01b2 18010000 		.4byte	0x118
+ 1117 01b6 0A       		.uleb128 0xa
+ 1118 01b7 34000000 		.4byte	.LVL21
+ 1119 01bb 88060000 		.4byte	0x688
+ 1120 01bf 0B       		.uleb128 0xb
+ 1121 01c0 01       		.uleb128 0x1
+ 1122 01c1 50       		.byte	0x50
+ 1123 01c2 01       		.uleb128 0x1
+ 1124 01c3 31       		.byte	0x31
+ 1125 01c4 00       		.byte	0
+ 1126 01c5 00       		.byte	0
+ 1127 01c6 0C       		.uleb128 0xc
+ 1128 01c7 91000000 		.4byte	.LASF22
+ 1129 01cb 01       		.byte	0x1
+ 1130 01cc 1C01     		.2byte	0x11c
+ 1131 01ce 00000000 		.4byte	.LFB7
+ 1132 01d2 1A000000 		.4byte	.LFE7-.LFB7
+ 1133 01d6 01       		.uleb128 0x1
+ 1134 01d7 9C       		.byte	0x9c
+ 1135 01d8 25020000 		.4byte	0x225
+ 1136 01dc 09       		.uleb128 0x9
+ 1137 01dd CA020000 		.4byte	.LASF23
+ 1138 01e1 01       		.byte	0x1
+ 1139 01e2 1C01     		.2byte	0x11c
+ 1140 01e4 79000000 		.4byte	0x79
+ 1141 01e8 C2000000 		.4byte	.LLST3
+ 1142 01ec 0D       		.uleb128 0xd
+ 1143 01ed 05030000 		.4byte	.LASF20
+ 1144 01f1 01       		.byte	0x1
+ 1145 01f2 1E01     		.2byte	0x11e
+ 1146 01f4 79000000 		.4byte	0x79
+ 1147 01f8 E3000000 		.4byte	.LLST4
+ 1148 01fc 0F       		.uleb128 0xf
+ 1149 01fd 08000000 		.4byte	.LVL23
+ 1150 0201 18010000 		.4byte	0x118
+ 1151 0205 0E       		.uleb128 0xe
+ 1152 0206 0E000000 		.4byte	.LVL24
+ 1153 020a 87010000 		.4byte	0x187
+ 1154 020e 1B020000 		.4byte	0x21b
+ 1155 0212 0B       		.uleb128 0xb
+ 1156 0213 01       		.uleb128 0x1
+ 1157 0214 50       		.byte	0x50
+ 1158 0215 04       		.uleb128 0x4
+ 1159 0216 74       		.byte	0x74
+ 1160 0217 00       		.sleb128 0
+ 1161 0218 34       		.byte	0x34
+ 1162 0219 25       		.byte	0x25
+ 1163 021a 00       		.byte	0
+ 1164 021b 10       		.uleb128 0x10
+ 1165 021c 1A000000 		.4byte	.LVL26
+ 1166 0220 87010000 		.4byte	0x187
+ 1167 0224 00       		.byte	0
+ 1168 0225 11       		.uleb128 0x11
+ 1169 0226 0A010000 		.4byte	.LASF25
+ 1170 022a 01       		.byte	0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 35
+
+
+ 1171 022b E9       		.byte	0xe9
+ 1172 022c 00000000 		.4byte	.LFB5
+ 1173 0230 18000000 		.4byte	.LFE5-.LFB5
+ 1174 0234 01       		.uleb128 0x1
+ 1175 0235 9C       		.byte	0x9c
+ 1176 0236 71020000 		.4byte	0x271
+ 1177 023a 12       		.uleb128 0x12
+ 1178 023b 76000000 		.4byte	.LASF26
+ 1179 023f 01       		.byte	0x1
+ 1180 0240 E9       		.byte	0xe9
+ 1181 0241 71020000 		.4byte	0x271
+ 1182 0245 09010000 		.4byte	.LLST5
+ 1183 0249 13       		.uleb128 0x13
+ 1184 024a 6E000000 		.4byte	.LASF27
+ 1185 024e 01       		.byte	0x1
+ 1186 024f EB       		.byte	0xeb
+ 1187 0250 79000000 		.4byte	0x79
+ 1188 0254 27010000 		.4byte	.LLST6
+ 1189 0258 13       		.uleb128 0x13
+ 1190 0259 A5020000 		.4byte	.LASF28
+ 1191 025d 01       		.byte	0x1
+ 1192 025e EC       		.byte	0xec
+ 1193 025f AB000000 		.4byte	0xab
+ 1194 0263 51010000 		.4byte	.LLST7
+ 1195 0267 0F       		.uleb128 0xf
+ 1196 0268 0E000000 		.4byte	.LVL30
+ 1197 026c C6010000 		.4byte	0x1c6
+ 1198 0270 00       		.byte	0
+ 1199 0271 14       		.uleb128 0x14
+ 1200 0272 04       		.byte	0x4
+ 1201 0273 77020000 		.4byte	0x277
+ 1202 0277 15       		.uleb128 0x15
+ 1203 0278 AB000000 		.4byte	0xab
+ 1204 027c 16       		.uleb128 0x16
+ 1205 027d C8000000 		.4byte	0xc8
+ 1206 0281 00000000 		.4byte	.LFB6
+ 1207 0285 04000000 		.4byte	.LFE6-.LFB6
+ 1208 0289 01       		.uleb128 0x1
+ 1209 028a 9C       		.byte	0x9c
+ 1210 028b A2020000 		.4byte	0x2a2
+ 1211 028f 17       		.uleb128 0x17
+ 1212 0290 D5000000 		.4byte	0xd5
+ 1213 0294 6F010000 		.4byte	.LLST8
+ 1214 0298 10       		.uleb128 0x10
+ 1215 0299 04000000 		.4byte	.LVL35
+ 1216 029d C6010000 		.4byte	0x1c6
+ 1217 02a1 00       		.byte	0
+ 1218 02a2 0C       		.uleb128 0xc
+ 1219 02a3 0F000000 		.4byte	.LASF29
+ 1220 02a7 01       		.byte	0x1
+ 1221 02a8 3A01     		.2byte	0x13a
+ 1222 02aa 00000000 		.4byte	.LFB8
+ 1223 02ae 1A000000 		.4byte	.LFE8-.LFB8
+ 1224 02b2 01       		.uleb128 0x1
+ 1225 02b3 9C       		.byte	0x9c
+ 1226 02b4 01030000 		.4byte	0x301
+ 1227 02b8 09       		.uleb128 0x9
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 36
+
+
+ 1228 02b9 FF020000 		.4byte	.LASF30
+ 1229 02bd 01       		.byte	0x1
+ 1230 02be 3A01     		.2byte	0x13a
+ 1231 02c0 79000000 		.4byte	0x79
+ 1232 02c4 90010000 		.4byte	.LLST9
+ 1233 02c8 0D       		.uleb128 0xd
+ 1234 02c9 05030000 		.4byte	.LASF20
+ 1235 02cd 01       		.byte	0x1
+ 1236 02ce 3C01     		.2byte	0x13c
+ 1237 02d0 79000000 		.4byte	0x79
+ 1238 02d4 B1010000 		.4byte	.LLST10
+ 1239 02d8 0F       		.uleb128 0xf
+ 1240 02d9 08000000 		.4byte	.LVL37
+ 1241 02dd 18010000 		.4byte	0x118
+ 1242 02e1 0E       		.uleb128 0xe
+ 1243 02e2 0E000000 		.4byte	.LVL38
+ 1244 02e6 E2000000 		.4byte	0xe2
+ 1245 02ea F7020000 		.4byte	0x2f7
+ 1246 02ee 0B       		.uleb128 0xb
+ 1247 02ef 01       		.uleb128 0x1
+ 1248 02f0 50       		.byte	0x50
+ 1249 02f1 04       		.uleb128 0x4
+ 1250 02f2 74       		.byte	0x74
+ 1251 02f3 00       		.sleb128 0
+ 1252 02f4 34       		.byte	0x34
+ 1253 02f5 25       		.byte	0x25
+ 1254 02f6 00       		.byte	0
+ 1255 02f7 10       		.uleb128 0x10
+ 1256 02f8 1A000000 		.4byte	.LVL40
+ 1257 02fc E2000000 		.4byte	0xe2
+ 1258 0300 00       		.byte	0
+ 1259 0301 11       		.uleb128 0x11
+ 1260 0302 04020000 		.4byte	.LASF31
+ 1261 0306 01       		.byte	0x1
+ 1262 0307 37       		.byte	0x37
+ 1263 0308 00000000 		.4byte	.LFB0
+ 1264 030c 6C000000 		.4byte	.LFE0-.LFB0
+ 1265 0310 01       		.uleb128 0x1
+ 1266 0311 9C       		.byte	0x9c
+ 1267 0312 58040000 		.4byte	0x458
+ 1268 0316 0E       		.uleb128 0xe
+ 1269 0317 08000000 		.4byte	.LVL41
+ 1270 031b 99060000 		.4byte	0x699
+ 1271 031f 2A030000 		.4byte	0x32a
+ 1272 0323 0B       		.uleb128 0xb
+ 1273 0324 01       		.uleb128 0x1
+ 1274 0325 50       		.byte	0x50
+ 1275 0326 02       		.uleb128 0x2
+ 1276 0327 08       		.byte	0x8
+ 1277 0328 28       		.byte	0x28
+ 1278 0329 00       		.byte	0
+ 1279 032a 0E       		.uleb128 0xe
+ 1280 032b 0E000000 		.4byte	.LVL42
+ 1281 032f E2000000 		.4byte	0xe2
+ 1282 0333 3D030000 		.4byte	0x33d
+ 1283 0337 0B       		.uleb128 0xb
+ 1284 0338 01       		.uleb128 0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 37
+
+
+ 1285 0339 50       		.byte	0x50
+ 1286 033a 01       		.uleb128 0x1
+ 1287 033b 33       		.byte	0x33
+ 1288 033c 00       		.byte	0
+ 1289 033d 0E       		.uleb128 0xe
+ 1290 033e 14000000 		.4byte	.LVL43
+ 1291 0342 99060000 		.4byte	0x699
+ 1292 0346 50030000 		.4byte	0x350
+ 1293 034a 0B       		.uleb128 0xb
+ 1294 034b 01       		.uleb128 0x1
+ 1295 034c 50       		.byte	0x50
+ 1296 034d 01       		.uleb128 0x1
+ 1297 034e 35       		.byte	0x35
+ 1298 034f 00       		.byte	0
+ 1299 0350 0E       		.uleb128 0xe
+ 1300 0351 1A000000 		.4byte	.LVL44
+ 1301 0355 E2000000 		.4byte	0xe2
+ 1302 0359 63030000 		.4byte	0x363
+ 1303 035d 0B       		.uleb128 0xb
+ 1304 035e 01       		.uleb128 0x1
+ 1305 035f 50       		.byte	0x50
+ 1306 0360 01       		.uleb128 0x1
+ 1307 0361 33       		.byte	0x33
+ 1308 0362 00       		.byte	0
+ 1309 0363 0E       		.uleb128 0xe
+ 1310 0364 20000000 		.4byte	.LVL45
+ 1311 0368 99060000 		.4byte	0x699
+ 1312 036c 76030000 		.4byte	0x376
+ 1313 0370 0B       		.uleb128 0xb
+ 1314 0371 01       		.uleb128 0x1
+ 1315 0372 50       		.byte	0x50
+ 1316 0373 01       		.uleb128 0x1
+ 1317 0374 3F       		.byte	0x3f
+ 1318 0375 00       		.byte	0
+ 1319 0376 0E       		.uleb128 0xe
+ 1320 0377 26000000 		.4byte	.LVL46
+ 1321 037b E2000000 		.4byte	0xe2
+ 1322 037f 89030000 		.4byte	0x389
+ 1323 0383 0B       		.uleb128 0xb
+ 1324 0384 01       		.uleb128 0x1
+ 1325 0385 50       		.byte	0x50
+ 1326 0386 01       		.uleb128 0x1
+ 1327 0387 33       		.byte	0x33
+ 1328 0388 00       		.byte	0
+ 1329 0389 0E       		.uleb128 0xe
+ 1330 038a 2C000000 		.4byte	.LVL47
+ 1331 038e 99060000 		.4byte	0x699
+ 1332 0392 9C030000 		.4byte	0x39c
+ 1333 0396 0B       		.uleb128 0xb
+ 1334 0397 01       		.uleb128 0x1
+ 1335 0398 50       		.byte	0x50
+ 1336 0399 01       		.uleb128 0x1
+ 1337 039a 31       		.byte	0x31
+ 1338 039b 00       		.byte	0
+ 1339 039c 0E       		.uleb128 0xe
+ 1340 039d 32000000 		.4byte	.LVL48
+ 1341 03a1 E2000000 		.4byte	0xe2
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 38
+
+
+ 1342 03a5 AF030000 		.4byte	0x3af
+ 1343 03a9 0B       		.uleb128 0xb
+ 1344 03aa 01       		.uleb128 0x1
+ 1345 03ab 50       		.byte	0x50
+ 1346 03ac 01       		.uleb128 0x1
+ 1347 03ad 32       		.byte	0x32
+ 1348 03ae 00       		.byte	0
+ 1349 03af 0E       		.uleb128 0xe
+ 1350 03b0 38000000 		.4byte	.LVL49
+ 1351 03b4 99060000 		.4byte	0x699
+ 1352 03b8 C2030000 		.4byte	0x3c2
+ 1353 03bc 0B       		.uleb128 0xb
+ 1354 03bd 01       		.uleb128 0x1
+ 1355 03be 50       		.byte	0x50
+ 1356 03bf 01       		.uleb128 0x1
+ 1357 03c0 35       		.byte	0x35
+ 1358 03c1 00       		.byte	0
+ 1359 03c2 0E       		.uleb128 0xe
+ 1360 03c3 3E000000 		.4byte	.LVL50
+ 1361 03c7 A2020000 		.4byte	0x2a2
+ 1362 03cb D5030000 		.4byte	0x3d5
+ 1363 03cf 0B       		.uleb128 0xb
+ 1364 03d0 01       		.uleb128 0x1
+ 1365 03d1 50       		.byte	0x50
+ 1366 03d2 01       		.uleb128 0x1
+ 1367 03d3 36       		.byte	0x36
+ 1368 03d4 00       		.byte	0
+ 1369 03d5 0E       		.uleb128 0xe
+ 1370 03d6 44000000 		.4byte	.LVL51
+ 1371 03da A2020000 		.4byte	0x2a2
+ 1372 03de E8030000 		.4byte	0x3e8
+ 1373 03e2 0B       		.uleb128 0xb
+ 1374 03e3 01       		.uleb128 0x1
+ 1375 03e4 50       		.byte	0x50
+ 1376 03e5 01       		.uleb128 0x1
+ 1377 03e6 3E       		.byte	0x3e
+ 1378 03e7 00       		.byte	0
+ 1379 03e8 0E       		.uleb128 0xe
+ 1380 03e9 4A000000 		.4byte	.LVL52
+ 1381 03ed A2020000 		.4byte	0x2a2
+ 1382 03f1 FC030000 		.4byte	0x3fc
+ 1383 03f5 0B       		.uleb128 0xb
+ 1384 03f6 01       		.uleb128 0x1
+ 1385 03f7 50       		.byte	0x50
+ 1386 03f8 02       		.uleb128 0x2
+ 1387 03f9 08       		.byte	0x8
+ 1388 03fa 2C       		.byte	0x2c
+ 1389 03fb 00       		.byte	0
+ 1390 03fc 0E       		.uleb128 0xe
+ 1391 03fd 50000000 		.4byte	.LVL53
+ 1392 0401 A2020000 		.4byte	0x2a2
+ 1393 0405 0F040000 		.4byte	0x40f
+ 1394 0409 0B       		.uleb128 0xb
+ 1395 040a 01       		.uleb128 0x1
+ 1396 040b 50       		.byte	0x50
+ 1397 040c 01       		.uleb128 0x1
+ 1398 040d 38       		.byte	0x38
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 39
+
+
+ 1399 040e 00       		.byte	0
+ 1400 040f 0E       		.uleb128 0xe
+ 1401 0410 56000000 		.4byte	.LVL54
+ 1402 0414 A2020000 		.4byte	0x2a2
+ 1403 0418 22040000 		.4byte	0x422
+ 1404 041c 0B       		.uleb128 0xb
+ 1405 041d 01       		.uleb128 0x1
+ 1406 041e 50       		.byte	0x50
+ 1407 041f 01       		.uleb128 0x1
+ 1408 0420 31       		.byte	0x31
+ 1409 0421 00       		.byte	0
+ 1410 0422 0E       		.uleb128 0xe
+ 1411 0423 5C000000 		.4byte	.LVL55
+ 1412 0427 A2020000 		.4byte	0x2a2
+ 1413 042b 35040000 		.4byte	0x435
+ 1414 042f 0B       		.uleb128 0xb
+ 1415 0430 01       		.uleb128 0x1
+ 1416 0431 50       		.byte	0x50
+ 1417 0432 01       		.uleb128 0x1
+ 1418 0433 3C       		.byte	0x3c
+ 1419 0434 00       		.byte	0
+ 1420 0435 0E       		.uleb128 0xe
+ 1421 0436 62000000 		.4byte	.LVL56
+ 1422 043a A2020000 		.4byte	0x2a2
+ 1423 043e 48040000 		.4byte	0x448
+ 1424 0442 0B       		.uleb128 0xb
+ 1425 0443 01       		.uleb128 0x1
+ 1426 0444 50       		.byte	0x50
+ 1427 0445 01       		.uleb128 0x1
+ 1428 0446 33       		.byte	0x33
+ 1429 0447 00       		.byte	0
+ 1430 0448 18       		.uleb128 0x18
+ 1431 0449 6C000000 		.4byte	.LVL57
+ 1432 044d 99060000 		.4byte	0x699
+ 1433 0451 0B       		.uleb128 0xb
+ 1434 0452 01       		.uleb128 0x1
+ 1435 0453 50       		.byte	0x50
+ 1436 0454 01       		.uleb128 0x1
+ 1437 0455 35       		.byte	0x35
+ 1438 0456 00       		.byte	0
+ 1439 0457 00       		.byte	0
+ 1440 0458 11       		.uleb128 0x11
+ 1441 0459 FF000000 		.4byte	.LASF32
+ 1442 045d 01       		.byte	0x1
+ 1443 045e 68       		.byte	0x68
+ 1444 045f 00000000 		.4byte	.LFB1
+ 1445 0463 14000000 		.4byte	.LFE1-.LFB1
+ 1446 0467 01       		.uleb128 0x1
+ 1447 0468 9C       		.byte	0x9c
+ 1448 0469 7D040000 		.4byte	0x47d
+ 1449 046d 0A       		.uleb128 0xa
+ 1450 046e 08000000 		.4byte	.LVL58
+ 1451 0472 A2020000 		.4byte	0x2a2
+ 1452 0476 0B       		.uleb128 0xb
+ 1453 0477 01       		.uleb128 0x1
+ 1454 0478 50       		.byte	0x50
+ 1455 0479 01       		.uleb128 0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 40
+
+
+ 1456 047a 3C       		.byte	0x3c
+ 1457 047b 00       		.byte	0
+ 1458 047c 00       		.byte	0
+ 1459 047d 11       		.uleb128 0x11
+ 1460 047e A5000000 		.4byte	.LASF33
+ 1461 0482 01       		.byte	0x1
+ 1462 0483 89       		.byte	0x89
+ 1463 0484 00000000 		.4byte	.LFB2
+ 1464 0488 1C000000 		.4byte	.LFE2-.LFB2
+ 1465 048c 01       		.uleb128 0x1
+ 1466 048d 9C       		.byte	0x9c
+ 1467 048e A5040000 		.4byte	0x4a5
+ 1468 0492 0F       		.uleb128 0xf
+ 1469 0493 0C000000 		.4byte	.LVL59
+ 1470 0497 01030000 		.4byte	0x301
+ 1471 049b 10       		.uleb128 0x10
+ 1472 049c 18000000 		.4byte	.LVL60
+ 1473 04a0 58040000 		.4byte	0x458
+ 1474 04a4 00       		.byte	0
+ 1475 04a5 11       		.uleb128 0x11
+ 1476 04a6 2A000000 		.4byte	.LASF34
+ 1477 04aa 01       		.byte	0x1
+ 1478 04ab A8       		.byte	0xa8
+ 1479 04ac 00000000 		.4byte	.LFB3
+ 1480 04b0 14000000 		.4byte	.LFE3-.LFB3
+ 1481 04b4 01       		.uleb128 0x1
+ 1482 04b5 9C       		.byte	0x9c
+ 1483 04b6 CA040000 		.4byte	0x4ca
+ 1484 04ba 0A       		.uleb128 0xa
+ 1485 04bb 08000000 		.4byte	.LVL61
+ 1486 04bf A2020000 		.4byte	0x2a2
+ 1487 04c3 0B       		.uleb128 0xb
+ 1488 04c4 01       		.uleb128 0x1
+ 1489 04c5 50       		.byte	0x50
+ 1490 04c6 01       		.uleb128 0x1
+ 1491 04c7 38       		.byte	0x38
+ 1492 04c8 00       		.byte	0
+ 1493 04c9 00       		.byte	0
+ 1494 04ca 11       		.uleb128 0x11
+ 1495 04cb A8010000 		.4byte	.LASF35
+ 1496 04cf 01       		.byte	0x1
+ 1497 04d0 C4       		.byte	0xc4
+ 1498 04d1 00000000 		.4byte	.LFB4
+ 1499 04d5 2A000000 		.4byte	.LFE4-.LFB4
+ 1500 04d9 01       		.uleb128 0x1
+ 1501 04da 9C       		.byte	0x9c
+ 1502 04db 07050000 		.4byte	0x507
+ 1503 04df 19       		.uleb128 0x19
+ 1504 04e0 726F7700 		.ascii	"row\000"
+ 1505 04e4 01       		.byte	0x1
+ 1506 04e5 C4       		.byte	0xc4
+ 1507 04e6 79000000 		.4byte	0x79
+ 1508 04ea D7010000 		.4byte	.LLST11
+ 1509 04ee 12       		.uleb128 0x12
+ 1510 04ef 8A000000 		.4byte	.LASF36
+ 1511 04f3 01       		.byte	0x1
+ 1512 04f4 C4       		.byte	0xc4
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 41
+
+
+ 1513 04f5 79000000 		.4byte	0x79
+ 1514 04f9 4E020000 		.4byte	.LLST12
+ 1515 04fd 10       		.uleb128 0x10
+ 1516 04fe 28000000 		.4byte	.LVL70
+ 1517 0502 A2020000 		.4byte	0x2a2
+ 1518 0506 00       		.byte	0
+ 1519 0507 0C       		.uleb128 0xc
+ 1520 0508 60000000 		.4byte	.LASF37
+ 1521 050c 01       		.byte	0x1
+ 1522 050d 3002     		.2byte	0x230
+ 1523 050f 00000000 		.4byte	.LFB12
+ 1524 0513 20000000 		.4byte	.LFE12-.LFB12
+ 1525 0517 01       		.uleb128 0x1
+ 1526 0518 9C       		.byte	0x9c
+ 1527 0519 86050000 		.4byte	0x586
+ 1528 051d 09       		.uleb128 0x9
+ 1529 051e 33000000 		.4byte	.LASF24
+ 1530 0522 01       		.byte	0x1
+ 1531 0523 3002     		.2byte	0x230
+ 1532 0525 79000000 		.4byte	0x79
+ 1533 0529 7A020000 		.4byte	.LLST13
+ 1534 052d 1A       		.uleb128 0x1a
+ 1535 052e 45000000 		.4byte	.LASF38
+ 1536 0532 01       		.byte	0x1
+ 1537 0533 3202     		.2byte	0x232
+ 1538 0535 96050000 		.4byte	0x596
+ 1539 0539 05       		.uleb128 0x5
+ 1540 053a 03       		.byte	0x3
+ 1541 053b 00000000 		.4byte	LCD_hex.4900
+ 1542 053f 1B       		.uleb128 0x1b
+ 1543 0540 C8000000 		.4byte	0xc8
+ 1544 0544 08000000 		.4byte	.LBB6
+ 1545 0548 00000000 		.4byte	.Ldebug_ranges0+0
+ 1546 054c 01       		.byte	0x1
+ 1547 054d 3402     		.2byte	0x234
+ 1548 054f 66050000 		.4byte	0x566
+ 1549 0553 17       		.uleb128 0x17
+ 1550 0554 D5000000 		.4byte	0xd5
+ 1551 0558 9B020000 		.4byte	.LLST14
+ 1552 055c 0F       		.uleb128 0xf
+ 1553 055d 12000000 		.4byte	.LVL73
+ 1554 0561 C6010000 		.4byte	0x1c6
+ 1555 0565 00       		.byte	0
+ 1556 0566 1C       		.uleb128 0x1c
+ 1557 0567 C8000000 		.4byte	0xc8
+ 1558 056b 12000000 		.4byte	.LBB10
+ 1559 056f 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 1560 0573 01       		.byte	0x1
+ 1561 0574 3502     		.2byte	0x235
+ 1562 0576 1D       		.uleb128 0x1d
+ 1563 0577 D5000000 		.4byte	0xd5
+ 1564 057b 10       		.uleb128 0x10
+ 1565 057c 1C000000 		.4byte	.LVL74
+ 1566 0580 C6010000 		.4byte	0x1c6
+ 1567 0584 00       		.byte	0
+ 1568 0585 00       		.byte	0
+ 1569 0586 1E       		.uleb128 0x1e
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 42
+
+
+ 1570 0587 AB000000 		.4byte	0xab
+ 1571 058b 96050000 		.4byte	0x596
+ 1572 058f 1F       		.uleb128 0x1f
+ 1573 0590 6B000000 		.4byte	0x6b
+ 1574 0594 0F       		.byte	0xf
+ 1575 0595 00       		.byte	0
+ 1576 0596 15       		.uleb128 0x15
+ 1577 0597 86050000 		.4byte	0x586
+ 1578 059b 0C       		.uleb128 0xc
+ 1579 059c 00000000 		.4byte	.LASF39
+ 1580 05a0 01       		.byte	0x1
+ 1581 05a1 4702     		.2byte	0x247
+ 1582 05a3 00000000 		.4byte	.LFB13
+ 1583 05a7 14000000 		.4byte	.LFE13-.LFB13
+ 1584 05ab 01       		.uleb128 0x1
+ 1585 05ac 9C       		.byte	0x9c
+ 1586 05ad E1050000 		.4byte	0x5e1
+ 1587 05b1 09       		.uleb128 0x9
+ 1588 05b2 33000000 		.4byte	.LASF24
+ 1589 05b6 01       		.byte	0x1
+ 1590 05b7 4702     		.2byte	0x247
+ 1591 05b9 85000000 		.4byte	0x85
+ 1592 05bd D2020000 		.4byte	.LLST15
+ 1593 05c1 0E       		.uleb128 0xe
+ 1594 05c2 0A000000 		.4byte	.LVL77
+ 1595 05c6 07050000 		.4byte	0x507
+ 1596 05ca D7050000 		.4byte	0x5d7
+ 1597 05ce 0B       		.uleb128 0xb
+ 1598 05cf 01       		.uleb128 0x1
+ 1599 05d0 50       		.byte	0x50
+ 1600 05d1 04       		.uleb128 0x4
+ 1601 05d2 74       		.byte	0x74
+ 1602 05d3 00       		.sleb128 0
+ 1603 05d4 38       		.byte	0x38
+ 1604 05d5 25       		.byte	0x25
+ 1605 05d6 00       		.byte	0
+ 1606 05d7 10       		.uleb128 0x10
+ 1607 05d8 14000000 		.4byte	.LVL78
+ 1608 05dc 07050000 		.4byte	0x507
+ 1609 05e0 00       		.byte	0
+ 1610 05e1 0C       		.uleb128 0xc
+ 1611 05e2 D0020000 		.4byte	.LASF40
+ 1612 05e6 01       		.byte	0x1
+ 1613 05e7 5C02     		.2byte	0x25c
+ 1614 05e9 00000000 		.4byte	.LFB14
+ 1615 05ed 72000000 		.4byte	.LFE14-.LFB14
+ 1616 05f1 01       		.uleb128 0x1
+ 1617 05f2 9C       		.byte	0x9c
+ 1618 05f3 56060000 		.4byte	0x656
+ 1619 05f7 09       		.uleb128 0x9
+ 1620 05f8 33000000 		.4byte	.LASF24
+ 1621 05fc 01       		.byte	0x1
+ 1622 05fd 5C02     		.2byte	0x25c
+ 1623 05ff 85000000 		.4byte	0x85
+ 1624 0603 F3020000 		.4byte	.LLST16
+ 1625 0607 1A       		.uleb128 0x1a
+ 1626 0608 C1010000 		.4byte	.LASF41
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 43
+
+
+ 1627 060c 01       		.byte	0x1
+ 1628 060d 5F02     		.2byte	0x25f
+ 1629 060f 56060000 		.4byte	0x656
+ 1630 0613 02       		.uleb128 0x2
+ 1631 0614 91       		.byte	0x91
+ 1632 0615 60       		.sleb128 -32
+ 1633 0616 1A       		.uleb128 0x1a
+ 1634 0617 DE000000 		.4byte	.LASF42
+ 1635 061b 01       		.byte	0x1
+ 1636 061c 6002     		.2byte	0x260
+ 1637 061e 56060000 		.4byte	0x656
+ 1638 0622 02       		.uleb128 0x2
+ 1639 0623 91       		.byte	0x91
+ 1640 0624 68       		.sleb128 -24
+ 1641 0625 0D       		.uleb128 0xd
+ 1642 0626 34010000 		.4byte	.LASF43
+ 1643 062a 01       		.byte	0x1
+ 1644 062b 6202     		.2byte	0x262
+ 1645 062d 79000000 		.4byte	0x79
+ 1646 0631 11030000 		.4byte	.LLST17
+ 1647 0635 0D       		.uleb128 0xd
+ 1648 0636 C2000000 		.4byte	.LASF44
+ 1649 063a 01       		.byte	0x1
+ 1650 063b 6302     		.2byte	0x263
+ 1651 063d 79000000 		.4byte	0x79
+ 1652 0641 51030000 		.4byte	.LLST18
+ 1653 0645 0A       		.uleb128 0xa
+ 1654 0646 6E000000 		.4byte	.LVL90
+ 1655 064a 25020000 		.4byte	0x225
+ 1656 064e 0B       		.uleb128 0xb
+ 1657 064f 01       		.uleb128 0x1
+ 1658 0650 50       		.byte	0x50
+ 1659 0651 02       		.uleb128 0x2
+ 1660 0652 7D       		.byte	0x7d
+ 1661 0653 00       		.sleb128 0
+ 1662 0654 00       		.byte	0
+ 1663 0655 00       		.byte	0
+ 1664 0656 1E       		.uleb128 0x1e
+ 1665 0657 AB000000 		.4byte	0xab
+ 1666 065b 66060000 		.4byte	0x666
+ 1667 065f 1F       		.uleb128 0x1f
+ 1668 0660 6B000000 		.4byte	0x6b
+ 1669 0664 04       		.byte	0x4
+ 1670 0665 00       		.byte	0
+ 1671 0666 20       		.uleb128 0x20
+ 1672 0667 39000000 		.4byte	.LASF45
+ 1673 066b 01       		.byte	0x1
+ 1674 066c 1D       		.byte	0x1d
+ 1675 066d 79000000 		.4byte	0x79
+ 1676 0671 05       		.uleb128 0x5
+ 1677 0672 03       		.byte	0x3
+ 1678 0673 00000000 		.4byte	LCD_initVar
+ 1679 0677 20       		.uleb128 0x20
+ 1680 0678 F4010000 		.4byte	.LASF46
+ 1681 067c 01       		.byte	0x1
+ 1682 067d 1B       		.byte	0x1b
+ 1683 067e 79000000 		.4byte	0x79
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 44
+
+
+ 1684 0682 05       		.uleb128 0x5
+ 1685 0683 03       		.byte	0x3
+ 1686 0684 00000000 		.4byte	LCD_enableState
+ 1687 0688 21       		.uleb128 0x21
+ 1688 0689 E5010000 		.4byte	.LASF48
+ 1689 068d 03       		.byte	0x3
+ 1690 068e 78       		.byte	0x78
+ 1691 068f 99060000 		.4byte	0x699
+ 1692 0693 22       		.uleb128 0x22
+ 1693 0694 85000000 		.4byte	0x85
+ 1694 0698 00       		.byte	0
+ 1695 0699 23       		.uleb128 0x23
+ 1696 069a AD020000 		.4byte	.LASF53
+ 1697 069e 03       		.byte	0x3
+ 1698 069f 77       		.byte	0x77
+ 1699 06a0 22       		.uleb128 0x22
+ 1700 06a1 91000000 		.4byte	0x91
+ 1701 06a5 00       		.byte	0
+ 1702 06a6 00       		.byte	0
+ 1703              		.section	.debug_abbrev,"",%progbits
+ 1704              	.Ldebug_abbrev0:
+ 1705 0000 01       		.uleb128 0x1
+ 1706 0001 11       		.uleb128 0x11
+ 1707 0002 01       		.byte	0x1
+ 1708 0003 25       		.uleb128 0x25
+ 1709 0004 0E       		.uleb128 0xe
+ 1710 0005 13       		.uleb128 0x13
+ 1711 0006 0B       		.uleb128 0xb
+ 1712 0007 03       		.uleb128 0x3
+ 1713 0008 0E       		.uleb128 0xe
+ 1714 0009 1B       		.uleb128 0x1b
+ 1715 000a 0E       		.uleb128 0xe
+ 1716 000b 55       		.uleb128 0x55
+ 1717 000c 17       		.uleb128 0x17
+ 1718 000d 11       		.uleb128 0x11
+ 1719 000e 01       		.uleb128 0x1
+ 1720 000f 10       		.uleb128 0x10
+ 1721 0010 17       		.uleb128 0x17
+ 1722 0011 00       		.byte	0
+ 1723 0012 00       		.byte	0
+ 1724 0013 02       		.uleb128 0x2
+ 1725 0014 24       		.uleb128 0x24
+ 1726 0015 00       		.byte	0
+ 1727 0016 0B       		.uleb128 0xb
+ 1728 0017 0B       		.uleb128 0xb
+ 1729 0018 3E       		.uleb128 0x3e
+ 1730 0019 0B       		.uleb128 0xb
+ 1731 001a 03       		.uleb128 0x3
+ 1732 001b 08       		.uleb128 0x8
+ 1733 001c 00       		.byte	0
+ 1734 001d 00       		.byte	0
+ 1735 001e 03       		.uleb128 0x3
+ 1736 001f 24       		.uleb128 0x24
+ 1737 0020 00       		.byte	0
+ 1738 0021 0B       		.uleb128 0xb
+ 1739 0022 0B       		.uleb128 0xb
+ 1740 0023 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 45
+
+
+ 1741 0024 0B       		.uleb128 0xb
+ 1742 0025 03       		.uleb128 0x3
+ 1743 0026 0E       		.uleb128 0xe
+ 1744 0027 00       		.byte	0
+ 1745 0028 00       		.byte	0
+ 1746 0029 04       		.uleb128 0x4
+ 1747 002a 16       		.uleb128 0x16
+ 1748 002b 00       		.byte	0
+ 1749 002c 03       		.uleb128 0x3
+ 1750 002d 0E       		.uleb128 0xe
+ 1751 002e 3A       		.uleb128 0x3a
+ 1752 002f 0B       		.uleb128 0xb
+ 1753 0030 3B       		.uleb128 0x3b
+ 1754 0031 05       		.uleb128 0x5
+ 1755 0032 49       		.uleb128 0x49
+ 1756 0033 13       		.uleb128 0x13
+ 1757 0034 00       		.byte	0
+ 1758 0035 00       		.byte	0
+ 1759 0036 05       		.uleb128 0x5
+ 1760 0037 35       		.uleb128 0x35
+ 1761 0038 00       		.byte	0
+ 1762 0039 49       		.uleb128 0x49
+ 1763 003a 13       		.uleb128 0x13
+ 1764 003b 00       		.byte	0
+ 1765 003c 00       		.byte	0
+ 1766 003d 06       		.uleb128 0x6
+ 1767 003e 2E       		.uleb128 0x2e
+ 1768 003f 01       		.byte	0x1
+ 1769 0040 3F       		.uleb128 0x3f
+ 1770 0041 19       		.uleb128 0x19
+ 1771 0042 03       		.uleb128 0x3
+ 1772 0043 0E       		.uleb128 0xe
+ 1773 0044 3A       		.uleb128 0x3a
+ 1774 0045 0B       		.uleb128 0xb
+ 1775 0046 3B       		.uleb128 0x3b
+ 1776 0047 05       		.uleb128 0x5
+ 1777 0048 27       		.uleb128 0x27
+ 1778 0049 19       		.uleb128 0x19
+ 1779 004a 20       		.uleb128 0x20
+ 1780 004b 0B       		.uleb128 0xb
+ 1781 004c 01       		.uleb128 0x1
+ 1782 004d 13       		.uleb128 0x13
+ 1783 004e 00       		.byte	0
+ 1784 004f 00       		.byte	0
+ 1785 0050 07       		.uleb128 0x7
+ 1786 0051 05       		.uleb128 0x5
+ 1787 0052 00       		.byte	0
+ 1788 0053 03       		.uleb128 0x3
+ 1789 0054 0E       		.uleb128 0xe
+ 1790 0055 3A       		.uleb128 0x3a
+ 1791 0056 0B       		.uleb128 0xb
+ 1792 0057 3B       		.uleb128 0x3b
+ 1793 0058 05       		.uleb128 0x5
+ 1794 0059 49       		.uleb128 0x49
+ 1795 005a 13       		.uleb128 0x13
+ 1796 005b 00       		.byte	0
+ 1797 005c 00       		.byte	0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 46
+
+
+ 1798 005d 08       		.uleb128 0x8
+ 1799 005e 2E       		.uleb128 0x2e
+ 1800 005f 01       		.byte	0x1
+ 1801 0060 03       		.uleb128 0x3
+ 1802 0061 0E       		.uleb128 0xe
+ 1803 0062 3A       		.uleb128 0x3a
+ 1804 0063 0B       		.uleb128 0xb
+ 1805 0064 3B       		.uleb128 0x3b
+ 1806 0065 05       		.uleb128 0x5
+ 1807 0066 27       		.uleb128 0x27
+ 1808 0067 19       		.uleb128 0x19
+ 1809 0068 11       		.uleb128 0x11
+ 1810 0069 01       		.uleb128 0x1
+ 1811 006a 12       		.uleb128 0x12
+ 1812 006b 06       		.uleb128 0x6
+ 1813 006c 40       		.uleb128 0x40
+ 1814 006d 18       		.uleb128 0x18
+ 1815 006e 9742     		.uleb128 0x2117
+ 1816 0070 19       		.uleb128 0x19
+ 1817 0071 01       		.uleb128 0x1
+ 1818 0072 13       		.uleb128 0x13
+ 1819 0073 00       		.byte	0
+ 1820 0074 00       		.byte	0
+ 1821 0075 09       		.uleb128 0x9
+ 1822 0076 05       		.uleb128 0x5
+ 1823 0077 00       		.byte	0
+ 1824 0078 03       		.uleb128 0x3
+ 1825 0079 0E       		.uleb128 0xe
+ 1826 007a 3A       		.uleb128 0x3a
+ 1827 007b 0B       		.uleb128 0xb
+ 1828 007c 3B       		.uleb128 0x3b
+ 1829 007d 05       		.uleb128 0x5
+ 1830 007e 49       		.uleb128 0x49
+ 1831 007f 13       		.uleb128 0x13
+ 1832 0080 02       		.uleb128 0x2
+ 1833 0081 17       		.uleb128 0x17
+ 1834 0082 00       		.byte	0
+ 1835 0083 00       		.byte	0
+ 1836 0084 0A       		.uleb128 0xa
+ 1837 0085 898201   		.uleb128 0x4109
+ 1838 0088 01       		.byte	0x1
+ 1839 0089 11       		.uleb128 0x11
+ 1840 008a 01       		.uleb128 0x1
+ 1841 008b 31       		.uleb128 0x31
+ 1842 008c 13       		.uleb128 0x13
+ 1843 008d 00       		.byte	0
+ 1844 008e 00       		.byte	0
+ 1845 008f 0B       		.uleb128 0xb
+ 1846 0090 8A8201   		.uleb128 0x410a
+ 1847 0093 00       		.byte	0
+ 1848 0094 02       		.uleb128 0x2
+ 1849 0095 18       		.uleb128 0x18
+ 1850 0096 9142     		.uleb128 0x2111
+ 1851 0098 18       		.uleb128 0x18
+ 1852 0099 00       		.byte	0
+ 1853 009a 00       		.byte	0
+ 1854 009b 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 47
+
+
+ 1855 009c 2E       		.uleb128 0x2e
+ 1856 009d 01       		.byte	0x1
+ 1857 009e 3F       		.uleb128 0x3f
+ 1858 009f 19       		.uleb128 0x19
+ 1859 00a0 03       		.uleb128 0x3
+ 1860 00a1 0E       		.uleb128 0xe
+ 1861 00a2 3A       		.uleb128 0x3a
+ 1862 00a3 0B       		.uleb128 0xb
+ 1863 00a4 3B       		.uleb128 0x3b
+ 1864 00a5 05       		.uleb128 0x5
+ 1865 00a6 27       		.uleb128 0x27
+ 1866 00a7 19       		.uleb128 0x19
+ 1867 00a8 11       		.uleb128 0x11
+ 1868 00a9 01       		.uleb128 0x1
+ 1869 00aa 12       		.uleb128 0x12
+ 1870 00ab 06       		.uleb128 0x6
+ 1871 00ac 40       		.uleb128 0x40
+ 1872 00ad 18       		.uleb128 0x18
+ 1873 00ae 9742     		.uleb128 0x2117
+ 1874 00b0 19       		.uleb128 0x19
+ 1875 00b1 01       		.uleb128 0x1
+ 1876 00b2 13       		.uleb128 0x13
+ 1877 00b3 00       		.byte	0
+ 1878 00b4 00       		.byte	0
+ 1879 00b5 0D       		.uleb128 0xd
+ 1880 00b6 34       		.uleb128 0x34
+ 1881 00b7 00       		.byte	0
+ 1882 00b8 03       		.uleb128 0x3
+ 1883 00b9 0E       		.uleb128 0xe
+ 1884 00ba 3A       		.uleb128 0x3a
+ 1885 00bb 0B       		.uleb128 0xb
+ 1886 00bc 3B       		.uleb128 0x3b
+ 1887 00bd 05       		.uleb128 0x5
+ 1888 00be 49       		.uleb128 0x49
+ 1889 00bf 13       		.uleb128 0x13
+ 1890 00c0 02       		.uleb128 0x2
+ 1891 00c1 17       		.uleb128 0x17
+ 1892 00c2 00       		.byte	0
+ 1893 00c3 00       		.byte	0
+ 1894 00c4 0E       		.uleb128 0xe
+ 1895 00c5 898201   		.uleb128 0x4109
+ 1896 00c8 01       		.byte	0x1
+ 1897 00c9 11       		.uleb128 0x11
+ 1898 00ca 01       		.uleb128 0x1
+ 1899 00cb 31       		.uleb128 0x31
+ 1900 00cc 13       		.uleb128 0x13
+ 1901 00cd 01       		.uleb128 0x1
+ 1902 00ce 13       		.uleb128 0x13
+ 1903 00cf 00       		.byte	0
+ 1904 00d0 00       		.byte	0
+ 1905 00d1 0F       		.uleb128 0xf
+ 1906 00d2 898201   		.uleb128 0x4109
+ 1907 00d5 00       		.byte	0
+ 1908 00d6 11       		.uleb128 0x11
+ 1909 00d7 01       		.uleb128 0x1
+ 1910 00d8 31       		.uleb128 0x31
+ 1911 00d9 13       		.uleb128 0x13
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 48
+
+
+ 1912 00da 00       		.byte	0
+ 1913 00db 00       		.byte	0
+ 1914 00dc 10       		.uleb128 0x10
+ 1915 00dd 898201   		.uleb128 0x4109
+ 1916 00e0 00       		.byte	0
+ 1917 00e1 11       		.uleb128 0x11
+ 1918 00e2 01       		.uleb128 0x1
+ 1919 00e3 9542     		.uleb128 0x2115
+ 1920 00e5 19       		.uleb128 0x19
+ 1921 00e6 31       		.uleb128 0x31
+ 1922 00e7 13       		.uleb128 0x13
+ 1923 00e8 00       		.byte	0
+ 1924 00e9 00       		.byte	0
+ 1925 00ea 11       		.uleb128 0x11
+ 1926 00eb 2E       		.uleb128 0x2e
+ 1927 00ec 01       		.byte	0x1
+ 1928 00ed 3F       		.uleb128 0x3f
+ 1929 00ee 19       		.uleb128 0x19
+ 1930 00ef 03       		.uleb128 0x3
+ 1931 00f0 0E       		.uleb128 0xe
+ 1932 00f1 3A       		.uleb128 0x3a
+ 1933 00f2 0B       		.uleb128 0xb
+ 1934 00f3 3B       		.uleb128 0x3b
+ 1935 00f4 0B       		.uleb128 0xb
+ 1936 00f5 27       		.uleb128 0x27
+ 1937 00f6 19       		.uleb128 0x19
+ 1938 00f7 11       		.uleb128 0x11
+ 1939 00f8 01       		.uleb128 0x1
+ 1940 00f9 12       		.uleb128 0x12
+ 1941 00fa 06       		.uleb128 0x6
+ 1942 00fb 40       		.uleb128 0x40
+ 1943 00fc 18       		.uleb128 0x18
+ 1944 00fd 9742     		.uleb128 0x2117
+ 1945 00ff 19       		.uleb128 0x19
+ 1946 0100 01       		.uleb128 0x1
+ 1947 0101 13       		.uleb128 0x13
+ 1948 0102 00       		.byte	0
+ 1949 0103 00       		.byte	0
+ 1950 0104 12       		.uleb128 0x12
+ 1951 0105 05       		.uleb128 0x5
+ 1952 0106 00       		.byte	0
+ 1953 0107 03       		.uleb128 0x3
+ 1954 0108 0E       		.uleb128 0xe
+ 1955 0109 3A       		.uleb128 0x3a
+ 1956 010a 0B       		.uleb128 0xb
+ 1957 010b 3B       		.uleb128 0x3b
+ 1958 010c 0B       		.uleb128 0xb
+ 1959 010d 49       		.uleb128 0x49
+ 1960 010e 13       		.uleb128 0x13
+ 1961 010f 02       		.uleb128 0x2
+ 1962 0110 17       		.uleb128 0x17
+ 1963 0111 00       		.byte	0
+ 1964 0112 00       		.byte	0
+ 1965 0113 13       		.uleb128 0x13
+ 1966 0114 34       		.uleb128 0x34
+ 1967 0115 00       		.byte	0
+ 1968 0116 03       		.uleb128 0x3
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 49
+
+
+ 1969 0117 0E       		.uleb128 0xe
+ 1970 0118 3A       		.uleb128 0x3a
+ 1971 0119 0B       		.uleb128 0xb
+ 1972 011a 3B       		.uleb128 0x3b
+ 1973 011b 0B       		.uleb128 0xb
+ 1974 011c 49       		.uleb128 0x49
+ 1975 011d 13       		.uleb128 0x13
+ 1976 011e 02       		.uleb128 0x2
+ 1977 011f 17       		.uleb128 0x17
+ 1978 0120 00       		.byte	0
+ 1979 0121 00       		.byte	0
+ 1980 0122 14       		.uleb128 0x14
+ 1981 0123 0F       		.uleb128 0xf
+ 1982 0124 00       		.byte	0
+ 1983 0125 0B       		.uleb128 0xb
+ 1984 0126 0B       		.uleb128 0xb
+ 1985 0127 49       		.uleb128 0x49
+ 1986 0128 13       		.uleb128 0x13
+ 1987 0129 00       		.byte	0
+ 1988 012a 00       		.byte	0
+ 1989 012b 15       		.uleb128 0x15
+ 1990 012c 26       		.uleb128 0x26
+ 1991 012d 00       		.byte	0
+ 1992 012e 49       		.uleb128 0x49
+ 1993 012f 13       		.uleb128 0x13
+ 1994 0130 00       		.byte	0
+ 1995 0131 00       		.byte	0
+ 1996 0132 16       		.uleb128 0x16
+ 1997 0133 2E       		.uleb128 0x2e
+ 1998 0134 01       		.byte	0x1
+ 1999 0135 31       		.uleb128 0x31
+ 2000 0136 13       		.uleb128 0x13
+ 2001 0137 11       		.uleb128 0x11
+ 2002 0138 01       		.uleb128 0x1
+ 2003 0139 12       		.uleb128 0x12
+ 2004 013a 06       		.uleb128 0x6
+ 2005 013b 40       		.uleb128 0x40
+ 2006 013c 18       		.uleb128 0x18
+ 2007 013d 9742     		.uleb128 0x2117
+ 2008 013f 19       		.uleb128 0x19
+ 2009 0140 01       		.uleb128 0x1
+ 2010 0141 13       		.uleb128 0x13
+ 2011 0142 00       		.byte	0
+ 2012 0143 00       		.byte	0
+ 2013 0144 17       		.uleb128 0x17
+ 2014 0145 05       		.uleb128 0x5
+ 2015 0146 00       		.byte	0
+ 2016 0147 31       		.uleb128 0x31
+ 2017 0148 13       		.uleb128 0x13
+ 2018 0149 02       		.uleb128 0x2
+ 2019 014a 17       		.uleb128 0x17
+ 2020 014b 00       		.byte	0
+ 2021 014c 00       		.byte	0
+ 2022 014d 18       		.uleb128 0x18
+ 2023 014e 898201   		.uleb128 0x4109
+ 2024 0151 01       		.byte	0x1
+ 2025 0152 11       		.uleb128 0x11
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 50
+
+
+ 2026 0153 01       		.uleb128 0x1
+ 2027 0154 9542     		.uleb128 0x2115
+ 2028 0156 19       		.uleb128 0x19
+ 2029 0157 31       		.uleb128 0x31
+ 2030 0158 13       		.uleb128 0x13
+ 2031 0159 00       		.byte	0
+ 2032 015a 00       		.byte	0
+ 2033 015b 19       		.uleb128 0x19
+ 2034 015c 05       		.uleb128 0x5
+ 2035 015d 00       		.byte	0
+ 2036 015e 03       		.uleb128 0x3
+ 2037 015f 08       		.uleb128 0x8
+ 2038 0160 3A       		.uleb128 0x3a
+ 2039 0161 0B       		.uleb128 0xb
+ 2040 0162 3B       		.uleb128 0x3b
+ 2041 0163 0B       		.uleb128 0xb
+ 2042 0164 49       		.uleb128 0x49
+ 2043 0165 13       		.uleb128 0x13
+ 2044 0166 02       		.uleb128 0x2
+ 2045 0167 17       		.uleb128 0x17
+ 2046 0168 00       		.byte	0
+ 2047 0169 00       		.byte	0
+ 2048 016a 1A       		.uleb128 0x1a
+ 2049 016b 34       		.uleb128 0x34
+ 2050 016c 00       		.byte	0
+ 2051 016d 03       		.uleb128 0x3
+ 2052 016e 0E       		.uleb128 0xe
+ 2053 016f 3A       		.uleb128 0x3a
+ 2054 0170 0B       		.uleb128 0xb
+ 2055 0171 3B       		.uleb128 0x3b
+ 2056 0172 05       		.uleb128 0x5
+ 2057 0173 49       		.uleb128 0x49
+ 2058 0174 13       		.uleb128 0x13
+ 2059 0175 02       		.uleb128 0x2
+ 2060 0176 18       		.uleb128 0x18
+ 2061 0177 00       		.byte	0
+ 2062 0178 00       		.byte	0
+ 2063 0179 1B       		.uleb128 0x1b
+ 2064 017a 1D       		.uleb128 0x1d
+ 2065 017b 01       		.byte	0x1
+ 2066 017c 31       		.uleb128 0x31
+ 2067 017d 13       		.uleb128 0x13
+ 2068 017e 52       		.uleb128 0x52
+ 2069 017f 01       		.uleb128 0x1
+ 2070 0180 55       		.uleb128 0x55
+ 2071 0181 17       		.uleb128 0x17
+ 2072 0182 58       		.uleb128 0x58
+ 2073 0183 0B       		.uleb128 0xb
+ 2074 0184 59       		.uleb128 0x59
+ 2075 0185 05       		.uleb128 0x5
+ 2076 0186 01       		.uleb128 0x1
+ 2077 0187 13       		.uleb128 0x13
+ 2078 0188 00       		.byte	0
+ 2079 0189 00       		.byte	0
+ 2080 018a 1C       		.uleb128 0x1c
+ 2081 018b 1D       		.uleb128 0x1d
+ 2082 018c 01       		.byte	0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 51
+
+
+ 2083 018d 31       		.uleb128 0x31
+ 2084 018e 13       		.uleb128 0x13
+ 2085 018f 52       		.uleb128 0x52
+ 2086 0190 01       		.uleb128 0x1
+ 2087 0191 55       		.uleb128 0x55
+ 2088 0192 17       		.uleb128 0x17
+ 2089 0193 58       		.uleb128 0x58
+ 2090 0194 0B       		.uleb128 0xb
+ 2091 0195 59       		.uleb128 0x59
+ 2092 0196 05       		.uleb128 0x5
+ 2093 0197 00       		.byte	0
+ 2094 0198 00       		.byte	0
+ 2095 0199 1D       		.uleb128 0x1d
+ 2096 019a 05       		.uleb128 0x5
+ 2097 019b 00       		.byte	0
+ 2098 019c 31       		.uleb128 0x31
+ 2099 019d 13       		.uleb128 0x13
+ 2100 019e 00       		.byte	0
+ 2101 019f 00       		.byte	0
+ 2102 01a0 1E       		.uleb128 0x1e
+ 2103 01a1 01       		.uleb128 0x1
+ 2104 01a2 01       		.byte	0x1
+ 2105 01a3 49       		.uleb128 0x49
+ 2106 01a4 13       		.uleb128 0x13
+ 2107 01a5 01       		.uleb128 0x1
+ 2108 01a6 13       		.uleb128 0x13
+ 2109 01a7 00       		.byte	0
+ 2110 01a8 00       		.byte	0
+ 2111 01a9 1F       		.uleb128 0x1f
+ 2112 01aa 21       		.uleb128 0x21
+ 2113 01ab 00       		.byte	0
+ 2114 01ac 49       		.uleb128 0x49
+ 2115 01ad 13       		.uleb128 0x13
+ 2116 01ae 2F       		.uleb128 0x2f
+ 2117 01af 0B       		.uleb128 0xb
+ 2118 01b0 00       		.byte	0
+ 2119 01b1 00       		.byte	0
+ 2120 01b2 20       		.uleb128 0x20
+ 2121 01b3 34       		.uleb128 0x34
+ 2122 01b4 00       		.byte	0
+ 2123 01b5 03       		.uleb128 0x3
+ 2124 01b6 0E       		.uleb128 0xe
+ 2125 01b7 3A       		.uleb128 0x3a
+ 2126 01b8 0B       		.uleb128 0xb
+ 2127 01b9 3B       		.uleb128 0x3b
+ 2128 01ba 0B       		.uleb128 0xb
+ 2129 01bb 49       		.uleb128 0x49
+ 2130 01bc 13       		.uleb128 0x13
+ 2131 01bd 3F       		.uleb128 0x3f
+ 2132 01be 19       		.uleb128 0x19
+ 2133 01bf 02       		.uleb128 0x2
+ 2134 01c0 18       		.uleb128 0x18
+ 2135 01c1 00       		.byte	0
+ 2136 01c2 00       		.byte	0
+ 2137 01c3 21       		.uleb128 0x21
+ 2138 01c4 2E       		.uleb128 0x2e
+ 2139 01c5 01       		.byte	0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 52
+
+
+ 2140 01c6 3F       		.uleb128 0x3f
+ 2141 01c7 19       		.uleb128 0x19
+ 2142 01c8 03       		.uleb128 0x3
+ 2143 01c9 0E       		.uleb128 0xe
+ 2144 01ca 3A       		.uleb128 0x3a
+ 2145 01cb 0B       		.uleb128 0xb
+ 2146 01cc 3B       		.uleb128 0x3b
+ 2147 01cd 0B       		.uleb128 0xb
+ 2148 01ce 27       		.uleb128 0x27
+ 2149 01cf 19       		.uleb128 0x19
+ 2150 01d0 3C       		.uleb128 0x3c
+ 2151 01d1 19       		.uleb128 0x19
+ 2152 01d2 01       		.uleb128 0x1
+ 2153 01d3 13       		.uleb128 0x13
+ 2154 01d4 00       		.byte	0
+ 2155 01d5 00       		.byte	0
+ 2156 01d6 22       		.uleb128 0x22
+ 2157 01d7 05       		.uleb128 0x5
+ 2158 01d8 00       		.byte	0
+ 2159 01d9 49       		.uleb128 0x49
+ 2160 01da 13       		.uleb128 0x13
+ 2161 01db 00       		.byte	0
+ 2162 01dc 00       		.byte	0
+ 2163 01dd 23       		.uleb128 0x23
+ 2164 01de 2E       		.uleb128 0x2e
+ 2165 01df 01       		.byte	0x1
+ 2166 01e0 3F       		.uleb128 0x3f
+ 2167 01e1 19       		.uleb128 0x19
+ 2168 01e2 03       		.uleb128 0x3
+ 2169 01e3 0E       		.uleb128 0xe
+ 2170 01e4 3A       		.uleb128 0x3a
+ 2171 01e5 0B       		.uleb128 0xb
+ 2172 01e6 3B       		.uleb128 0x3b
+ 2173 01e7 0B       		.uleb128 0xb
+ 2174 01e8 27       		.uleb128 0x27
+ 2175 01e9 19       		.uleb128 0x19
+ 2176 01ea 3C       		.uleb128 0x3c
+ 2177 01eb 19       		.uleb128 0x19
+ 2178 01ec 00       		.byte	0
+ 2179 01ed 00       		.byte	0
+ 2180 01ee 00       		.byte	0
+ 2181              		.section	.debug_loc,"",%progbits
+ 2182              	.Ldebug_loc0:
+ 2183              	.LLST0:
+ 2184 0000 00000000 		.4byte	.LVL0
+ 2185 0004 1C000000 		.4byte	.LVL1
+ 2186 0008 0100     		.2byte	0x1
+ 2187 000a 50       		.byte	0x50
+ 2188 000b 1C000000 		.4byte	.LVL1
+ 2189 000f 34000000 		.4byte	.LFE11
+ 2190 0013 0400     		.2byte	0x4
+ 2191 0015 F3       		.byte	0xf3
+ 2192 0016 01       		.uleb128 0x1
+ 2193 0017 50       		.byte	0x50
+ 2194 0018 9F       		.byte	0x9f
+ 2195 0019 00000000 		.4byte	0
+ 2196 001d 00000000 		.4byte	0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 53
+
+
+ 2197              	.LLST1:
+ 2198 0021 16000000 		.4byte	.LVL3
+ 2199 0025 1C000000 		.4byte	.LVL4
+ 2200 0029 0600     		.2byte	0x6
+ 2201 002b 73       		.byte	0x73
+ 2202 002c 00       		.sleb128 0
+ 2203 002d 09       		.byte	0x9
+ 2204 002e F0       		.byte	0xf0
+ 2205 002f 1A       		.byte	0x1a
+ 2206 0030 9F       		.byte	0x9f
+ 2207 0031 28000000 		.4byte	.LVL5
+ 2208 0035 2C000000 		.4byte	.LVL6
+ 2209 0039 0100     		.2byte	0x1
+ 2210 003b 53       		.byte	0x53
+ 2211 003c 2C000000 		.4byte	.LVL6
+ 2212 0040 30000000 		.4byte	.LVL7
+ 2213 0044 0200     		.2byte	0x2
+ 2214 0046 76       		.byte	0x76
+ 2215 0047 00       		.sleb128 0
+ 2216 0048 30000000 		.4byte	.LVL7
+ 2217 004c 34000000 		.4byte	.LVL8
+ 2218 0050 0100     		.2byte	0x1
+ 2219 0052 53       		.byte	0x53
+ 2220 0053 34000000 		.4byte	.LVL8
+ 2221 0057 3A000000 		.4byte	.LVL9
+ 2222 005b 0200     		.2byte	0x2
+ 2223 005d 75       		.byte	0x75
+ 2224 005e 00       		.sleb128 0
+ 2225 005f 64000000 		.4byte	.LVL12
+ 2226 0063 6E000000 		.4byte	.LVL13
+ 2227 0067 0100     		.2byte	0x1
+ 2228 0069 59       		.byte	0x59
+ 2229 006a 6E000000 		.4byte	.LVL13
+ 2230 006e B2000000 		.4byte	.LVL15
+ 2231 0072 0500     		.2byte	0x5
+ 2232 0074 79       		.byte	0x79
+ 2233 0075 00       		.sleb128 0
+ 2234 0076 38       		.byte	0x38
+ 2235 0077 1A       		.byte	0x1a
+ 2236 0078 9F       		.byte	0x9f
+ 2237 0079 B2000000 		.4byte	.LVL15
+ 2238 007d B6000000 		.4byte	.LVL16
+ 2239 0081 0600     		.2byte	0x6
+ 2240 0083 73       		.byte	0x73
+ 2241 0084 00       		.sleb128 0
+ 2242 0085 09       		.byte	0x9
+ 2243 0086 F0       		.byte	0xf0
+ 2244 0087 1A       		.byte	0x1a
+ 2245 0088 9F       		.byte	0x9f
+ 2246 0089 BE000000 		.4byte	.LVL17
+ 2247 008d C2000000 		.4byte	.LVL18
+ 2248 0091 0600     		.2byte	0x6
+ 2249 0093 73       		.byte	0x73
+ 2250 0094 00       		.sleb128 0
+ 2251 0095 09       		.byte	0x9
+ 2252 0096 F0       		.byte	0xf0
+ 2253 0097 1A       		.byte	0x1a
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 54
+
+
+ 2254 0098 9F       		.byte	0x9f
+ 2255 0099 00000000 		.4byte	0
+ 2256 009d 00000000 		.4byte	0
+ 2257              	.LLST2:
+ 2258 00a1 00000000 		.4byte	.LVL19
+ 2259 00a5 09000000 		.4byte	.LVL20-1
+ 2260 00a9 0100     		.2byte	0x1
+ 2261 00ab 50       		.byte	0x50
+ 2262 00ac 09000000 		.4byte	.LVL20-1
+ 2263 00b0 44000000 		.4byte	.LFE10
+ 2264 00b4 0400     		.2byte	0x4
+ 2265 00b6 F3       		.byte	0xf3
+ 2266 00b7 01       		.uleb128 0x1
+ 2267 00b8 50       		.byte	0x50
+ 2268 00b9 9F       		.byte	0x9f
+ 2269 00ba 00000000 		.4byte	0
+ 2270 00be 00000000 		.4byte	0
+ 2271              	.LLST3:
+ 2272 00c2 00000000 		.4byte	.LVL22
+ 2273 00c6 07000000 		.4byte	.LVL23-1
+ 2274 00ca 0100     		.2byte	0x1
+ 2275 00cc 50       		.byte	0x50
+ 2276 00cd 07000000 		.4byte	.LVL23-1
+ 2277 00d1 1A000000 		.4byte	.LFE7
+ 2278 00d5 0400     		.2byte	0x4
+ 2279 00d7 F3       		.byte	0xf3
+ 2280 00d8 01       		.uleb128 0x1
+ 2281 00d9 50       		.byte	0x50
+ 2282 00da 9F       		.byte	0x9f
+ 2283 00db 00000000 		.4byte	0
+ 2284 00df 00000000 		.4byte	0
+ 2285              	.LLST4:
+ 2286 00e3 08000000 		.4byte	.LVL23
+ 2287 00e7 0E000000 		.4byte	.LVL24
+ 2288 00eb 0500     		.2byte	0x5
+ 2289 00ed 74       		.byte	0x74
+ 2290 00ee 00       		.sleb128 0
+ 2291 00ef 34       		.byte	0x34
+ 2292 00f0 25       		.byte	0x25
+ 2293 00f1 9F       		.byte	0x9f
+ 2294 00f2 0E000000 		.4byte	.LVL24
+ 2295 00f6 16000000 		.4byte	.LVL25
+ 2296 00fa 0500     		.2byte	0x5
+ 2297 00fc 74       		.byte	0x74
+ 2298 00fd 00       		.sleb128 0
+ 2299 00fe 3F       		.byte	0x3f
+ 2300 00ff 1A       		.byte	0x1a
+ 2301 0100 9F       		.byte	0x9f
+ 2302 0101 00000000 		.4byte	0
+ 2303 0105 00000000 		.4byte	0
+ 2304              	.LLST5:
+ 2305 0109 00000000 		.4byte	.LVL27
+ 2306 010d 06000000 		.4byte	.LVL28
+ 2307 0111 0100     		.2byte	0x1
+ 2308 0113 50       		.byte	0x50
+ 2309 0114 06000000 		.4byte	.LVL28
+ 2310 0118 18000000 		.4byte	.LFE5
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 55
+
+
+ 2311 011c 0100     		.2byte	0x1
+ 2312 011e 55       		.byte	0x55
+ 2313 011f 00000000 		.4byte	0
+ 2314 0123 00000000 		.4byte	0
+ 2315              	.LLST6:
+ 2316 0127 00000000 		.4byte	.LVL27
+ 2317 012b 08000000 		.4byte	.LVL29
+ 2318 012f 0200     		.2byte	0x2
+ 2319 0131 31       		.byte	0x31
+ 2320 0132 9F       		.byte	0x9f
+ 2321 0133 08000000 		.4byte	.LVL29
+ 2322 0137 12000000 		.4byte	.LVL32
+ 2323 013b 0100     		.2byte	0x1
+ 2324 013d 54       		.byte	0x54
+ 2325 013e 14000000 		.4byte	.LVL33
+ 2326 0142 18000000 		.4byte	.LFE5
+ 2327 0146 0100     		.2byte	0x1
+ 2328 0148 54       		.byte	0x54
+ 2329 0149 00000000 		.4byte	0
+ 2330 014d 00000000 		.4byte	0
+ 2331              	.LLST7:
+ 2332 0151 06000000 		.4byte	.LVL28
+ 2333 0155 0D000000 		.4byte	.LVL30-1
+ 2334 0159 0100     		.2byte	0x1
+ 2335 015b 50       		.byte	0x50
+ 2336 015c 10000000 		.4byte	.LVL31
+ 2337 0160 18000000 		.4byte	.LFE5
+ 2338 0164 0100     		.2byte	0x1
+ 2339 0166 50       		.byte	0x50
+ 2340 0167 00000000 		.4byte	0
+ 2341 016b 00000000 		.4byte	0
+ 2342              	.LLST8:
+ 2343 016f 00000000 		.4byte	.LVL34
+ 2344 0173 03000000 		.4byte	.LVL35-1
+ 2345 0177 0100     		.2byte	0x1
+ 2346 0179 50       		.byte	0x50
+ 2347 017a 03000000 		.4byte	.LVL35-1
+ 2348 017e 04000000 		.4byte	.LFE6
+ 2349 0182 0400     		.2byte	0x4
+ 2350 0184 F3       		.byte	0xf3
+ 2351 0185 01       		.uleb128 0x1
+ 2352 0186 50       		.byte	0x50
+ 2353 0187 9F       		.byte	0x9f
+ 2354 0188 00000000 		.4byte	0
+ 2355 018c 00000000 		.4byte	0
+ 2356              	.LLST9:
+ 2357 0190 00000000 		.4byte	.LVL36
+ 2358 0194 07000000 		.4byte	.LVL37-1
+ 2359 0198 0100     		.2byte	0x1
+ 2360 019a 50       		.byte	0x50
+ 2361 019b 07000000 		.4byte	.LVL37-1
+ 2362 019f 1A000000 		.4byte	.LFE8
+ 2363 01a3 0400     		.2byte	0x4
+ 2364 01a5 F3       		.byte	0xf3
+ 2365 01a6 01       		.uleb128 0x1
+ 2366 01a7 50       		.byte	0x50
+ 2367 01a8 9F       		.byte	0x9f
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 56
+
+
+ 2368 01a9 00000000 		.4byte	0
+ 2369 01ad 00000000 		.4byte	0
+ 2370              	.LLST10:
+ 2371 01b1 08000000 		.4byte	.LVL37
+ 2372 01b5 0E000000 		.4byte	.LVL38
+ 2373 01b9 0500     		.2byte	0x5
+ 2374 01bb 74       		.byte	0x74
+ 2375 01bc 00       		.sleb128 0
+ 2376 01bd 34       		.byte	0x34
+ 2377 01be 25       		.byte	0x25
+ 2378 01bf 9F       		.byte	0x9f
+ 2379 01c0 0E000000 		.4byte	.LVL38
+ 2380 01c4 16000000 		.4byte	.LVL39
+ 2381 01c8 0500     		.2byte	0x5
+ 2382 01ca 74       		.byte	0x74
+ 2383 01cb 00       		.sleb128 0
+ 2384 01cc 3F       		.byte	0x3f
+ 2385 01cd 1A       		.byte	0x1a
+ 2386 01ce 9F       		.byte	0x9f
+ 2387 01cf 00000000 		.4byte	0
+ 2388 01d3 00000000 		.4byte	0
+ 2389              	.LLST11:
+ 2390 01d7 00000000 		.4byte	.LVL62
+ 2391 01db 10000000 		.4byte	.LVL63
+ 2392 01df 0100     		.2byte	0x1
+ 2393 01e1 50       		.byte	0x50
+ 2394 01e2 10000000 		.4byte	.LVL63
+ 2395 01e6 12000000 		.4byte	.LVL64
+ 2396 01ea 0400     		.2byte	0x4
+ 2397 01ec F3       		.byte	0xf3
+ 2398 01ed 01       		.uleb128 0x1
+ 2399 01ee 50       		.byte	0x50
+ 2400 01ef 9F       		.byte	0x9f
+ 2401 01f0 12000000 		.4byte	.LVL64
+ 2402 01f4 16000000 		.4byte	.LVL65
+ 2403 01f8 0100     		.2byte	0x1
+ 2404 01fa 50       		.byte	0x50
+ 2405 01fb 16000000 		.4byte	.LVL65
+ 2406 01ff 18000000 		.4byte	.LVL66
+ 2407 0203 0400     		.2byte	0x4
+ 2408 0205 F3       		.byte	0xf3
+ 2409 0206 01       		.uleb128 0x1
+ 2410 0207 50       		.byte	0x50
+ 2411 0208 9F       		.byte	0x9f
+ 2412 0209 18000000 		.4byte	.LVL66
+ 2413 020d 1C000000 		.4byte	.LVL67
+ 2414 0211 0100     		.2byte	0x1
+ 2415 0213 50       		.byte	0x50
+ 2416 0214 1C000000 		.4byte	.LVL67
+ 2417 0218 1E000000 		.4byte	.LVL68
+ 2418 021c 0400     		.2byte	0x4
+ 2419 021e F3       		.byte	0xf3
+ 2420 021f 01       		.uleb128 0x1
+ 2421 0220 50       		.byte	0x50
+ 2422 0221 9F       		.byte	0x9f
+ 2423 0222 1E000000 		.4byte	.LVL68
+ 2424 0226 22000000 		.4byte	.LVL69
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 57
+
+
+ 2425 022a 0100     		.2byte	0x1
+ 2426 022c 50       		.byte	0x50
+ 2427 022d 22000000 		.4byte	.LVL69
+ 2428 0231 28000000 		.4byte	.LVL70
+ 2429 0235 0400     		.2byte	0x4
+ 2430 0237 F3       		.byte	0xf3
+ 2431 0238 01       		.uleb128 0x1
+ 2432 0239 50       		.byte	0x50
+ 2433 023a 9F       		.byte	0x9f
+ 2434 023b 28000000 		.4byte	.LVL70
+ 2435 023f 2A000000 		.4byte	.LFE4
+ 2436 0243 0100     		.2byte	0x1
+ 2437 0245 50       		.byte	0x50
+ 2438 0246 00000000 		.4byte	0
+ 2439 024a 00000000 		.4byte	0
+ 2440              	.LLST12:
+ 2441 024e 00000000 		.4byte	.LVL62
+ 2442 0252 27000000 		.4byte	.LVL70-1
+ 2443 0256 0100     		.2byte	0x1
+ 2444 0258 51       		.byte	0x51
+ 2445 0259 27000000 		.4byte	.LVL70-1
+ 2446 025d 28000000 		.4byte	.LVL70
+ 2447 0261 0400     		.2byte	0x4
+ 2448 0263 F3       		.byte	0xf3
+ 2449 0264 01       		.uleb128 0x1
+ 2450 0265 51       		.byte	0x51
+ 2451 0266 9F       		.byte	0x9f
+ 2452 0267 28000000 		.4byte	.LVL70
+ 2453 026b 2A000000 		.4byte	.LFE4
+ 2454 026f 0100     		.2byte	0x1
+ 2455 0271 51       		.byte	0x51
+ 2456 0272 00000000 		.4byte	0
+ 2457 0276 00000000 		.4byte	0
+ 2458              	.LLST13:
+ 2459 027a 00000000 		.4byte	.LVL71
+ 2460 027e 0A000000 		.4byte	.LVL72
+ 2461 0282 0100     		.2byte	0x1
+ 2462 0284 50       		.byte	0x50
+ 2463 0285 0A000000 		.4byte	.LVL72
+ 2464 0289 20000000 		.4byte	.LFE12
+ 2465 028d 0400     		.2byte	0x4
+ 2466 028f F3       		.byte	0xf3
+ 2467 0290 01       		.uleb128 0x1
+ 2468 0291 50       		.byte	0x50
+ 2469 0292 9F       		.byte	0x9f
+ 2470 0293 00000000 		.4byte	0
+ 2471 0297 00000000 		.4byte	0
+ 2472              	.LLST14:
+ 2473 029b 00000000 		.4byte	.LVL71
+ 2474 029f 0A000000 		.4byte	.LVL72
+ 2475 02a3 0D00     		.2byte	0xd
+ 2476 02a5 70       		.byte	0x70
+ 2477 02a6 00       		.sleb128 0
+ 2478 02a7 34       		.byte	0x34
+ 2479 02a8 25       		.byte	0x25
+ 2480 02a9 08       		.byte	0x8
+ 2481 02aa FF       		.byte	0xff
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 58
+
+
+ 2482 02ab 1A       		.byte	0x1a
+ 2483 02ac 03       		.byte	0x3
+ 2484 02ad 00000000 		.4byte	LCD_hex.4900
+ 2485 02b1 22       		.byte	0x22
+ 2486 02b2 0A000000 		.4byte	.LVL72
+ 2487 02b6 20000000 		.4byte	.LFE12
+ 2488 02ba 0E00     		.2byte	0xe
+ 2489 02bc F3       		.byte	0xf3
+ 2490 02bd 01       		.uleb128 0x1
+ 2491 02be 50       		.byte	0x50
+ 2492 02bf 34       		.byte	0x34
+ 2493 02c0 25       		.byte	0x25
+ 2494 02c1 08       		.byte	0x8
+ 2495 02c2 FF       		.byte	0xff
+ 2496 02c3 1A       		.byte	0x1a
+ 2497 02c4 03       		.byte	0x3
+ 2498 02c5 00000000 		.4byte	LCD_hex.4900
+ 2499 02c9 22       		.byte	0x22
+ 2500 02ca 00000000 		.4byte	0
+ 2501 02ce 00000000 		.4byte	0
+ 2502              	.LLST15:
+ 2503 02d2 00000000 		.4byte	.LVL75
+ 2504 02d6 06000000 		.4byte	.LVL76
+ 2505 02da 0100     		.2byte	0x1
+ 2506 02dc 50       		.byte	0x50
+ 2507 02dd 06000000 		.4byte	.LVL76
+ 2508 02e1 14000000 		.4byte	.LFE13
+ 2509 02e5 0400     		.2byte	0x4
+ 2510 02e7 F3       		.byte	0xf3
+ 2511 02e8 01       		.uleb128 0x1
+ 2512 02e9 50       		.byte	0x50
+ 2513 02ea 9F       		.byte	0x9f
+ 2514 02eb 00000000 		.4byte	0
+ 2515 02ef 00000000 		.4byte	0
+ 2516              	.LLST16:
+ 2517 02f3 00000000 		.4byte	.LVL79
+ 2518 02f7 26000000 		.4byte	.LVL83
+ 2519 02fb 0100     		.2byte	0x1
+ 2520 02fd 50       		.byte	0x50
+ 2521 02fe 26000000 		.4byte	.LVL83
+ 2522 0302 5E000000 		.4byte	.LVL89
+ 2523 0306 0100     		.2byte	0x1
+ 2524 0308 50       		.byte	0x50
+ 2525 0309 00000000 		.4byte	0
+ 2526 030d 00000000 		.4byte	0
+ 2527              	.LLST17:
+ 2528 0311 00000000 		.4byte	.LVL79
+ 2529 0315 04000000 		.4byte	.LVL80
+ 2530 0319 0200     		.2byte	0x2
+ 2531 031b 30       		.byte	0x30
+ 2532 031c 9F       		.byte	0x9f
+ 2533 031d 06000000 		.4byte	.LVL81
+ 2534 0321 1A000000 		.4byte	.LVL82
+ 2535 0325 0100     		.2byte	0x1
+ 2536 0327 53       		.byte	0x53
+ 2537 0328 26000000 		.4byte	.LVL83
+ 2538 032c 2A000000 		.4byte	.LVL84
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 59
+
+
+ 2539 0330 0100     		.2byte	0x1
+ 2540 0332 51       		.byte	0x51
+ 2541 0333 2A000000 		.4byte	.LVL84
+ 2542 0337 4C000000 		.4byte	.LVL86
+ 2543 033b 0100     		.2byte	0x1
+ 2544 033d 53       		.byte	0x53
+ 2545 033e 52000000 		.4byte	.LVL87
+ 2546 0342 6D000000 		.4byte	.LVL90-1
+ 2547 0346 0100     		.2byte	0x1
+ 2548 0348 53       		.byte	0x53
+ 2549 0349 00000000 		.4byte	0
+ 2550 034d 00000000 		.4byte	0
+ 2551              	.LLST18:
+ 2552 0351 3C000000 		.4byte	.LVL85
+ 2553 0355 58000000 		.4byte	.LVL88
+ 2554 0359 0100     		.2byte	0x1
+ 2555 035b 54       		.byte	0x54
+ 2556 035c 58000000 		.4byte	.LVL88
+ 2557 0360 72000000 		.4byte	.LFE14
+ 2558 0364 0100     		.2byte	0x1
+ 2559 0366 55       		.byte	0x55
+ 2560 0367 00000000 		.4byte	0
+ 2561 036b 00000000 		.4byte	0
+ 2562              		.section	.debug_aranges,"",%progbits
+ 2563 0000 8C000000 		.4byte	0x8c
+ 2564 0004 0200     		.2byte	0x2
+ 2565 0006 00000000 		.4byte	.Ldebug_info0
+ 2566 000a 04       		.byte	0x4
+ 2567 000b 00       		.byte	0
+ 2568 000c 0000     		.2byte	0
+ 2569 000e 0000     		.2byte	0
+ 2570 0010 00000000 		.4byte	.LFB11
+ 2571 0014 34000000 		.4byte	.LFE11-.LFB11
+ 2572 0018 00000000 		.4byte	.LFB9
+ 2573 001c E0000000 		.4byte	.LFE9-.LFB9
+ 2574 0020 00000000 		.4byte	.LFB10
+ 2575 0024 44000000 		.4byte	.LFE10-.LFB10
+ 2576 0028 00000000 		.4byte	.LFB7
+ 2577 002c 1A000000 		.4byte	.LFE7-.LFB7
+ 2578 0030 00000000 		.4byte	.LFB5
+ 2579 0034 18000000 		.4byte	.LFE5-.LFB5
+ 2580 0038 00000000 		.4byte	.LFB6
+ 2581 003c 04000000 		.4byte	.LFE6-.LFB6
+ 2582 0040 00000000 		.4byte	.LFB8
+ 2583 0044 1A000000 		.4byte	.LFE8-.LFB8
+ 2584 0048 00000000 		.4byte	.LFB0
+ 2585 004c 6C000000 		.4byte	.LFE0-.LFB0
+ 2586 0050 00000000 		.4byte	.LFB1
+ 2587 0054 14000000 		.4byte	.LFE1-.LFB1
+ 2588 0058 00000000 		.4byte	.LFB2
+ 2589 005c 1C000000 		.4byte	.LFE2-.LFB2
+ 2590 0060 00000000 		.4byte	.LFB3
+ 2591 0064 14000000 		.4byte	.LFE3-.LFB3
+ 2592 0068 00000000 		.4byte	.LFB4
+ 2593 006c 2A000000 		.4byte	.LFE4-.LFB4
+ 2594 0070 00000000 		.4byte	.LFB12
+ 2595 0074 20000000 		.4byte	.LFE12-.LFB12
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 60
+
+
+ 2596 0078 00000000 		.4byte	.LFB13
+ 2597 007c 14000000 		.4byte	.LFE13-.LFB13
+ 2598 0080 00000000 		.4byte	.LFB14
+ 2599 0084 72000000 		.4byte	.LFE14-.LFB14
+ 2600 0088 00000000 		.4byte	0
+ 2601 008c 00000000 		.4byte	0
+ 2602              		.section	.debug_ranges,"",%progbits
+ 2603              	.Ldebug_ranges0:
+ 2604 0000 08000000 		.4byte	.LBB6
+ 2605 0004 0A000000 		.4byte	.LBE6
+ 2606 0008 0E000000 		.4byte	.LBB9
+ 2607 000c 12000000 		.4byte	.LBE9
+ 2608 0010 00000000 		.4byte	0
+ 2609 0014 00000000 		.4byte	0
+ 2610 0018 12000000 		.4byte	.LBB10
+ 2611 001c 14000000 		.4byte	.LBE10
+ 2612 0020 18000000 		.4byte	.LBB13
+ 2613 0024 20000000 		.4byte	.LBE13
+ 2614 0028 00000000 		.4byte	0
+ 2615 002c 00000000 		.4byte	0
+ 2616 0030 00000000 		.4byte	.LFB11
+ 2617 0034 34000000 		.4byte	.LFE11
+ 2618 0038 00000000 		.4byte	.LFB9
+ 2619 003c E0000000 		.4byte	.LFE9
+ 2620 0040 00000000 		.4byte	.LFB10
+ 2621 0044 44000000 		.4byte	.LFE10
+ 2622 0048 00000000 		.4byte	.LFB7
+ 2623 004c 1A000000 		.4byte	.LFE7
+ 2624 0050 00000000 		.4byte	.LFB5
+ 2625 0054 18000000 		.4byte	.LFE5
+ 2626 0058 00000000 		.4byte	.LFB6
+ 2627 005c 04000000 		.4byte	.LFE6
+ 2628 0060 00000000 		.4byte	.LFB8
+ 2629 0064 1A000000 		.4byte	.LFE8
+ 2630 0068 00000000 		.4byte	.LFB0
+ 2631 006c 6C000000 		.4byte	.LFE0
+ 2632 0070 00000000 		.4byte	.LFB1
+ 2633 0074 14000000 		.4byte	.LFE1
+ 2634 0078 00000000 		.4byte	.LFB2
+ 2635 007c 1C000000 		.4byte	.LFE2
+ 2636 0080 00000000 		.4byte	.LFB3
+ 2637 0084 14000000 		.4byte	.LFE3
+ 2638 0088 00000000 		.4byte	.LFB4
+ 2639 008c 2A000000 		.4byte	.LFE4
+ 2640 0090 00000000 		.4byte	.LFB12
+ 2641 0094 20000000 		.4byte	.LFE12
+ 2642 0098 00000000 		.4byte	.LFB13
+ 2643 009c 14000000 		.4byte	.LFE13
+ 2644 00a0 00000000 		.4byte	.LFB14
+ 2645 00a4 72000000 		.4byte	.LFE14
+ 2646 00a8 00000000 		.4byte	0
+ 2647 00ac 00000000 		.4byte	0
+ 2648              		.section	.debug_line,"",%progbits
+ 2649              	.Ldebug_line0:
+ 2650 0000 4D020000 		.section	.debug_str,"MS",%progbits,1
+ 2650      02004D00 
+ 2650      00000201 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 61
+
+
+ 2650      FB0E0D00 
+ 2650      01010101 
+ 2651              	.LASF39:
+ 2652 0000 4C43445F 		.ascii	"LCD_PrintInt16\000"
+ 2652      5072696E 
+ 2652      74496E74 
+ 2652      313600
+ 2653              	.LASF29:
+ 2654 000f 4C43445F 		.ascii	"LCD_WriteControl\000"
+ 2654      57726974 
+ 2654      65436F6E 
+ 2654      74726F6C 
+ 2654      00
+ 2655              	.LASF52:
+ 2656 0020 63686172 		.ascii	"character\000"
+ 2656      61637465 
+ 2656      7200
+ 2657              	.LASF34:
+ 2658 002a 4C43445F 		.ascii	"LCD_Stop\000"
+ 2658      53746F70 
+ 2658      00
+ 2659              	.LASF24:
+ 2660 0033 76616C75 		.ascii	"value\000"
+ 2660      6500
+ 2661              	.LASF45:
+ 2662 0039 4C43445F 		.ascii	"LCD_initVar\000"
+ 2662      696E6974 
+ 2662      56617200 
+ 2663              	.LASF38:
+ 2664 0045 4C43445F 		.ascii	"LCD_hex\000"
+ 2664      68657800 
+ 2665              	.LASF4:
+ 2666 004d 73686F72 		.ascii	"short unsigned int\000"
+ 2666      7420756E 
+ 2666      7369676E 
+ 2666      65642069 
+ 2666      6E7400
+ 2667              	.LASF37:
+ 2668 0060 4C43445F 		.ascii	"LCD_PrintInt8\000"
+ 2668      5072696E 
+ 2668      74496E74 
+ 2668      3800
+ 2669              	.LASF27:
+ 2670 006e 696E6465 		.ascii	"indexU8\000"
+ 2670      78553800 
+ 2671              	.LASF26:
+ 2672 0076 73747269 		.ascii	"string\000"
+ 2672      6E6700
+ 2673              	.LASF19:
+ 2674 007d 4C43445F 		.ascii	"LCD_WrDatNib\000"
+ 2674      57724461 
+ 2674      744E6962 
+ 2674      00
+ 2675              	.LASF36:
+ 2676 008a 636F6C75 		.ascii	"column\000"
+ 2676      6D6E00
+ 2677              	.LASF22:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 62
+
+
+ 2678 0091 4C43445F 		.ascii	"LCD_WriteData\000"
+ 2678      57726974 
+ 2678      65446174 
+ 2678      6100
+ 2679              	.LASF14:
+ 2680 009f 666C6F61 		.ascii	"float\000"
+ 2680      7400
+ 2681              	.LASF33:
+ 2682 00a5 4C43445F 		.ascii	"LCD_Start\000"
+ 2682      53746172 
+ 2682      7400
+ 2683              	.LASF2:
+ 2684 00af 756E7369 		.ascii	"unsigned char\000"
+ 2684      676E6564 
+ 2684      20636861 
+ 2684      7200
+ 2685              	.LASF17:
+ 2686 00bd 72656738 		.ascii	"reg8\000"
+ 2686      00
+ 2687              	.LASF44:
+ 2688 00c2 6E756D44 		.ascii	"numDigits\000"
+ 2688      69676974 
+ 2688      7300
+ 2689              	.LASF6:
+ 2690 00cc 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2690      20756E73 
+ 2690      69676E65 
+ 2690      6420696E 
+ 2690      7400
+ 2691              	.LASF42:
+ 2692 00de 74656D70 		.ascii	"temp\000"
+ 2692      00
+ 2693              	.LASF11:
+ 2694 00e3 75696E74 		.ascii	"uint8\000"
+ 2694      3800
+ 2695              	.LASF18:
+ 2696 00e9 4C43445F 		.ascii	"LCD_WrCntrlNib\000"
+ 2696      5772436E 
+ 2696      74726C4E 
+ 2696      696200
+ 2697              	.LASF15:
+ 2698 00f8 646F7562 		.ascii	"double\000"
+ 2698      6C6500
+ 2699              	.LASF32:
+ 2700 00ff 4C43445F 		.ascii	"LCD_Enable\000"
+ 2700      456E6162 
+ 2700      6C6500
+ 2701              	.LASF25:
+ 2702 010a 4C43445F 		.ascii	"LCD_PrintString\000"
+ 2702      5072696E 
+ 2702      74537472 
+ 2702      696E6700 
+ 2703              	.LASF12:
+ 2704 011a 75696E74 		.ascii	"uint16\000"
+ 2704      313600
+ 2705              	.LASF21:
+ 2706 0121 4C43445F 		.ascii	"LCD_IsReady\000"
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 63
+
+
+ 2706      49735265 
+ 2706      61647900 
+ 2707              	.LASF13:
+ 2708 012d 75696E74 		.ascii	"uint32\000"
+ 2708      333200
+ 2709              	.LASF43:
+ 2710 0134 64696749 		.ascii	"digIndex\000"
+ 2710      6E646578 
+ 2710      00
+ 2711              	.LASF0:
+ 2712 013d 756E7369 		.ascii	"unsigned int\000"
+ 2712      676E6564 
+ 2712      20696E74 
+ 2712      00
+ 2713              	.LASF8:
+ 2714 014a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2714      206C6F6E 
+ 2714      6720756E 
+ 2714      7369676E 
+ 2714      65642069 
+ 2715              	.LASF51:
+ 2716 0161 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\voltageDisplay_SAR_AD"
+ 2716      6F63756D 
+ 2716      656E746F 
+ 2716      735C5053 
+ 2716      6F432043 
+ 2717 0191 435C5644 		.ascii	"C\\VDAC8(SAR-POT).cydsn\000"
+ 2717      41433828 
+ 2717      5341522D 
+ 2717      504F5429 
+ 2717      2E637964 
+ 2718              	.LASF35:
+ 2719 01a8 4C43445F 		.ascii	"LCD_Position\000"
+ 2719      506F7369 
+ 2719      74696F6E 
+ 2719      00
+ 2720              	.LASF47:
+ 2721 01b5 4C43445F 		.ascii	"LCD_PutChar\000"
+ 2721      50757443 
+ 2721      68617200 
+ 2722              	.LASF41:
+ 2723 01c1 6E756D62 		.ascii	"number\000"
+ 2723      657200
+ 2724              	.LASF9:
+ 2725 01c8 73697A65 		.ascii	"sizetype\000"
+ 2725      74797065 
+ 2725      00
+ 2726              	.LASF16:
+ 2727 01d1 63686172 		.ascii	"char8\000"
+ 2727      3800
+ 2728              	.LASF7:
+ 2729 01d7 6C6F6E67 		.ascii	"long long int\000"
+ 2729      206C6F6E 
+ 2729      6720696E 
+ 2729      7400
+ 2730              	.LASF48:
+ 2731 01e5 43794465 		.ascii	"CyDelayUs\000"
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 64
+
+
+ 2731      6C617955 
+ 2731      7300
+ 2732              	.LASF10:
+ 2733 01ef 63686172 		.ascii	"char\000"
+ 2733      00
+ 2734              	.LASF46:
+ 2735 01f4 4C43445F 		.ascii	"LCD_enableState\000"
+ 2735      656E6162 
+ 2735      6C655374 
+ 2735      61746500 
+ 2736              	.LASF31:
+ 2737 0204 4C43445F 		.ascii	"LCD_Init\000"
+ 2737      496E6974 
+ 2737      00
+ 2738              	.LASF3:
+ 2739 020d 73686F72 		.ascii	"short int\000"
+ 2739      7420696E 
+ 2739      7400
+ 2740              	.LASF49:
+ 2741 0217 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 2741      4320342E 
+ 2741      392E3320 
+ 2741      32303135 
+ 2741      30333033 
+ 2742 024a 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 2742      20726576 
+ 2742      6973696F 
+ 2742      6E203232 
+ 2742      31323230 
+ 2743 027d 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 2743      66756E63 
+ 2743      74696F6E 
+ 2743      2D736563 
+ 2743      74696F6E 
+ 2744              	.LASF28:
+ 2745 02a5 63757272 		.ascii	"current\000"
+ 2745      656E7400 
+ 2746              	.LASF53:
+ 2747 02ad 43794465 		.ascii	"CyDelay\000"
+ 2747      6C617900 
+ 2748              	.LASF5:
+ 2749 02b5 6C6F6E67 		.ascii	"long int\000"
+ 2749      20696E74 
+ 2749      00
+ 2750              	.LASF1:
+ 2751 02be 7369676E 		.ascii	"signed char\000"
+ 2751      65642063 
+ 2751      68617200 
+ 2752              	.LASF23:
+ 2753 02ca 64427974 		.ascii	"dByte\000"
+ 2753      6500
+ 2754              	.LASF40:
+ 2755 02d0 4C43445F 		.ascii	"LCD_PrintNumber\000"
+ 2755      5072696E 
+ 2755      744E756D 
+ 2755      62657200 
+ 2756              	.LASF50:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccLDCFbd.s 			page 65
+
+
+ 2757 02e0 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\LCD.c\000"
+ 2757      6E657261 
+ 2757      7465645F 
+ 2757      536F7572 
+ 2757      63655C50 
+ 2758              	.LASF30:
+ 2759 02ff 63427974 		.ascii	"cByte\000"
+ 2759      6500
+ 2760              	.LASF20:
+ 2761 0305 6E696262 		.ascii	"nibble\000"
+ 2761      6C6500
+ 2762              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

@@ -1,0 +1,3997 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"ADC.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.ADC_Enable,"ax",%progbits
+  19              		.align	1
+  20              		.global	ADC_Enable
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	ADC_Enable, %function
+  24              	ADC_Enable:
+  25              	.LFB2:
+  26              		.file 1 ".\\Generated_Source\\PSoC5\\ADC.c"
+   1:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/ADC.c **** * File Name: ADC.c
+   3:.\Generated_Source\PSoC5/ADC.c **** * Version 2.10
+   4:.\Generated_Source\PSoC5/ADC.c **** *
+   5:.\Generated_Source\PSoC5/ADC.c **** * Description:
+   6:.\Generated_Source\PSoC5/ADC.c **** *  This file provides the source code to the API for the Successive
+   7:.\Generated_Source\PSoC5/ADC.c **** *  approximation ADC Component.
+   8:.\Generated_Source\PSoC5/ADC.c **** *
+   9:.\Generated_Source\PSoC5/ADC.c **** * Note:
+  10:.\Generated_Source\PSoC5/ADC.c **** *
+  11:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/ADC.c **** * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/ADC.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC5/ADC.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC5/ADC.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/ADC.c **** 
+  18:.\Generated_Source\PSoC5/ADC.c **** #include "CyLib.h"
+  19:.\Generated_Source\PSoC5/ADC.c **** #include "ADC.h"
+  20:.\Generated_Source\PSoC5/ADC.c **** 
+  21:.\Generated_Source\PSoC5/ADC.c **** #if(ADC_DEFAULT_INTERNAL_CLK)
+  22:.\Generated_Source\PSoC5/ADC.c ****     #include "ADC_theACLK.h"
+  23:.\Generated_Source\PSoC5/ADC.c **** #endif /* End ADC_DEFAULT_INTERNAL_CLK */
+  24:.\Generated_Source\PSoC5/ADC.c **** 
+  25:.\Generated_Source\PSoC5/ADC.c **** 
+  26:.\Generated_Source\PSoC5/ADC.c **** /***************************************
+  27:.\Generated_Source\PSoC5/ADC.c **** * Forward function references
+  28:.\Generated_Source\PSoC5/ADC.c **** ***************************************/
+  29:.\Generated_Source\PSoC5/ADC.c **** static void ADC_CalcGain(uint8 resolution);
+  30:.\Generated_Source\PSoC5/ADC.c **** 
+  31:.\Generated_Source\PSoC5/ADC.c **** 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 2
+
+
+  32:.\Generated_Source\PSoC5/ADC.c **** /***************************************
+  33:.\Generated_Source\PSoC5/ADC.c **** * Global data allocation
+  34:.\Generated_Source\PSoC5/ADC.c **** ***************************************/
+  35:.\Generated_Source\PSoC5/ADC.c **** uint8 ADC_initVar = 0u;
+  36:.\Generated_Source\PSoC5/ADC.c **** volatile int16 ADC_offset;
+  37:.\Generated_Source\PSoC5/ADC.c **** volatile int16 ADC_countsPerVolt;     /* Obsolete Gain compensation */
+  38:.\Generated_Source\PSoC5/ADC.c **** volatile int32 ADC_countsPer10Volt;   /* Gain compensation */
+  39:.\Generated_Source\PSoC5/ADC.c **** volatile int16 ADC_shift;
+  40:.\Generated_Source\PSoC5/ADC.c **** 
+  41:.\Generated_Source\PSoC5/ADC.c **** 
+  42:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+  43:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_Start
+  44:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+  45:.\Generated_Source\PSoC5/ADC.c **** *
+  46:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+  47:.\Generated_Source\PSoC5/ADC.c **** *  This is the preferred method to begin component operation.
+  48:.\Generated_Source\PSoC5/ADC.c **** *  ADC_Start() sets the initVar variable, calls the
+  49:.\Generated_Source\PSoC5/ADC.c **** *  ADC_Init() function, and then calls the
+  50:.\Generated_Source\PSoC5/ADC.c **** *  ADC_Enable() function.
+  51:.\Generated_Source\PSoC5/ADC.c **** *
+  52:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+  53:.\Generated_Source\PSoC5/ADC.c **** *  None.
+  54:.\Generated_Source\PSoC5/ADC.c **** *
+  55:.\Generated_Source\PSoC5/ADC.c **** * Return:
+  56:.\Generated_Source\PSoC5/ADC.c **** *  None.
+  57:.\Generated_Source\PSoC5/ADC.c **** *
+  58:.\Generated_Source\PSoC5/ADC.c **** * Global variables:
+  59:.\Generated_Source\PSoC5/ADC.c **** *  The ADC_initVar variable is used to indicate when/if initial
+  60:.\Generated_Source\PSoC5/ADC.c **** *  configuration of this component has happened. The variable is initialized to
+  61:.\Generated_Source\PSoC5/ADC.c **** *  zero and set to 1 the first time ADC_Start() is called. This allows for
+  62:.\Generated_Source\PSoC5/ADC.c **** *  component Re-Start without re-initialization in all subsequent calls to the
+  63:.\Generated_Source\PSoC5/ADC.c **** *  ADC_Start() routine.
+  64:.\Generated_Source\PSoC5/ADC.c **** *  If re-initialization of the component is required the variable should be set
+  65:.\Generated_Source\PSoC5/ADC.c **** *  to zero before call of ADC_Start() routine, or the user may call
+  66:.\Generated_Source\PSoC5/ADC.c **** *  ADC_Init() and ADC_Enable() as done in the
+  67:.\Generated_Source\PSoC5/ADC.c **** *  ADC_Start() routine.
+  68:.\Generated_Source\PSoC5/ADC.c **** *
+  69:.\Generated_Source\PSoC5/ADC.c **** * Side Effect:
+  70:.\Generated_Source\PSoC5/ADC.c **** *  If the initVar variable is already set, this function only calls the
+  71:.\Generated_Source\PSoC5/ADC.c **** *  ADC_Enable() function.
+  72:.\Generated_Source\PSoC5/ADC.c **** *
+  73:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+  74:.\Generated_Source\PSoC5/ADC.c **** void ADC_Start(void)
+  75:.\Generated_Source\PSoC5/ADC.c **** {
+  76:.\Generated_Source\PSoC5/ADC.c **** 
+  77:.\Generated_Source\PSoC5/ADC.c ****     /* If not Initialized then initialize all required hardware and software */
+  78:.\Generated_Source\PSoC5/ADC.c ****     if(ADC_initVar == 0u)
+  79:.\Generated_Source\PSoC5/ADC.c ****     {
+  80:.\Generated_Source\PSoC5/ADC.c ****         ADC_Init();
+  81:.\Generated_Source\PSoC5/ADC.c ****         ADC_initVar = 1u;
+  82:.\Generated_Source\PSoC5/ADC.c ****     }
+  83:.\Generated_Source\PSoC5/ADC.c ****     ADC_Enable();
+  84:.\Generated_Source\PSoC5/ADC.c **** }
+  85:.\Generated_Source\PSoC5/ADC.c **** 
+  86:.\Generated_Source\PSoC5/ADC.c **** 
+  87:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+  88:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_Init
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 3
+
+
+  89:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+  90:.\Generated_Source\PSoC5/ADC.c **** *
+  91:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+  92:.\Generated_Source\PSoC5/ADC.c **** *  Initialize component's parameters to the parameters set by user in the
+  93:.\Generated_Source\PSoC5/ADC.c **** *  customizer of the component placed onto schematic. Usually called in
+  94:.\Generated_Source\PSoC5/ADC.c **** *  ADC_Start().
+  95:.\Generated_Source\PSoC5/ADC.c **** *
+  96:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+  97:.\Generated_Source\PSoC5/ADC.c **** *  None.
+  98:.\Generated_Source\PSoC5/ADC.c **** *
+  99:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 100:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 101:.\Generated_Source\PSoC5/ADC.c **** *
+ 102:.\Generated_Source\PSoC5/ADC.c **** * Global variables:
+ 103:.\Generated_Source\PSoC5/ADC.c **** *  The ADC_offset variable is initialized to 0.
+ 104:.\Generated_Source\PSoC5/ADC.c **** *
+ 105:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 106:.\Generated_Source\PSoC5/ADC.c **** void ADC_Init(void)
+ 107:.\Generated_Source\PSoC5/ADC.c **** {
+ 108:.\Generated_Source\PSoC5/ADC.c **** 
+ 109:.\Generated_Source\PSoC5/ADC.c ****     /* This is only valid if there is an internal clock */
+ 110:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_DEFAULT_INTERNAL_CLK)
+ 111:.\Generated_Source\PSoC5/ADC.c ****         ADC_theACLK_SetMode(CYCLK_DUTY);
+ 112:.\Generated_Source\PSoC5/ADC.c ****     #endif /* End ADC_DEFAULT_INTERNAL_CLK */
+ 113:.\Generated_Source\PSoC5/ADC.c **** 
+ 114:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_IRQ_REMOVE == 0u)
+ 115:.\Generated_Source\PSoC5/ADC.c ****         /* Start and set interrupt vector */
+ 116:.\Generated_Source\PSoC5/ADC.c ****         CyIntSetPriority(ADC_INTC_NUMBER, ADC_INTC_PRIOR_NUMBER);
+ 117:.\Generated_Source\PSoC5/ADC.c ****         (void)CyIntSetVector(ADC_INTC_NUMBER, &ADC_ISR);
+ 118:.\Generated_Source\PSoC5/ADC.c ****     #endif   /* End ADC_IRQ_REMOVE */
+ 119:.\Generated_Source\PSoC5/ADC.c **** 
+ 120:.\Generated_Source\PSoC5/ADC.c ****     /* Enable IRQ mode*/
+ 121:.\Generated_Source\PSoC5/ADC.c ****     ADC_SAR_CSR1_REG |= ADC_SAR_IRQ_MASK_EN | ADC_SAR_IRQ_MODE_EDGE;
+ 122:.\Generated_Source\PSoC5/ADC.c **** 
+ 123:.\Generated_Source\PSoC5/ADC.c ****     /*Set SAR ADC resolution ADC */
+ 124:.\Generated_Source\PSoC5/ADC.c ****     ADC_SetResolution(ADC_DEFAULT_RESOLUTION);
+ 125:.\Generated_Source\PSoC5/ADC.c ****     ADC_offset = 0;
+ 126:.\Generated_Source\PSoC5/ADC.c **** }
+ 127:.\Generated_Source\PSoC5/ADC.c **** 
+ 128:.\Generated_Source\PSoC5/ADC.c **** 
+ 129:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 130:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_Enable
+ 131:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 132:.\Generated_Source\PSoC5/ADC.c **** *
+ 133:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 134:.\Generated_Source\PSoC5/ADC.c **** *  Enables the reference, clock and power for SAR ADC.
+ 135:.\Generated_Source\PSoC5/ADC.c **** *
+ 136:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 137:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 138:.\Generated_Source\PSoC5/ADC.c **** *
+ 139:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 140:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 141:.\Generated_Source\PSoC5/ADC.c **** *
+ 142:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 143:.\Generated_Source\PSoC5/ADC.c **** void ADC_Enable(void)
+ 144:.\Generated_Source\PSoC5/ADC.c **** {
+  27              		.loc 1 144 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 4
+
+
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 4, -8
+  34              		.cfi_offset 14, -4
+ 145:.\Generated_Source\PSoC5/ADC.c ****     uint8 tmpReg;
+ 146:.\Generated_Source\PSoC5/ADC.c ****     uint8 enableInterrupts;
+ 147:.\Generated_Source\PSoC5/ADC.c ****     enableInterrupts = CyEnterCriticalSection();
+  35              		.loc 1 147 0
+  36 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+  37              	.LVL0:
+ 148:.\Generated_Source\PSoC5/ADC.c **** 
+ 149:.\Generated_Source\PSoC5/ADC.c ****     /* Enable the SAR ADC block in Active Power Mode */
+ 150:.\Generated_Source\PSoC5/ADC.c ****     ADC_PWRMGR_SAR_REG |= ADC_ACT_PWR_SAR_EN;
+  38              		.loc 1 150 0
+  39 0006 214A     		ldr	r2, .L2
+ 147:.\Generated_Source\PSoC5/ADC.c **** 
+  40              		.loc 1 147 0
+  41 0008 0446     		mov	r4, r0
+  42              	.LVL1:
+  43              		.loc 1 150 0
+  44 000a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 151:.\Generated_Source\PSoC5/ADC.c **** 
+ 152:.\Generated_Source\PSoC5/ADC.c ****      /* Enable the SAR ADC in Standby Power Mode*/
+ 153:.\Generated_Source\PSoC5/ADC.c ****     ADC_STBY_PWRMGR_SAR_REG |= ADC_STBY_PWR_SAR_EN;
+ 154:.\Generated_Source\PSoC5/ADC.c **** 
+ 155:.\Generated_Source\PSoC5/ADC.c ****     /* This is only valid if there is an internal clock */
+ 156:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_DEFAULT_INTERNAL_CLK)
+ 157:.\Generated_Source\PSoC5/ADC.c ****         ADC_PWRMGR_CLK_REG |= ADC_ACT_PWR_CLK_EN;
+ 158:.\Generated_Source\PSoC5/ADC.c ****         ADC_STBY_PWRMGR_CLK_REG |= ADC_STBY_PWR_CLK_EN;
+ 159:.\Generated_Source\PSoC5/ADC.c ****     #endif /* End ADC_DEFAULT_INTERNAL_CLK */
+ 160:.\Generated_Source\PSoC5/ADC.c **** 
+ 161:.\Generated_Source\PSoC5/ADC.c ****     /* Enable VCM buffer and Enable Int Ref Amp */
+ 162:.\Generated_Source\PSoC5/ADC.c ****     tmpReg = ADC_SAR_CSR3_REG;
+ 163:.\Generated_Source\PSoC5/ADC.c ****     tmpReg |= ADC_SAR_EN_BUF_VCM_EN;
+ 164:.\Generated_Source\PSoC5/ADC.c ****     /* PD_BUF_VREF is OFF in External reference or Vdda reference mode */
+ 165:.\Generated_Source\PSoC5/ADC.c ****     #if((ADC_DEFAULT_REFERENCE == ADC__EXT_REF) || \
+ 166:.\Generated_Source\PSoC5/ADC.c ****         (ADC_DEFAULT_RANGE == ADC__VNEG_VDDA_DIFF))
+ 167:.\Generated_Source\PSoC5/ADC.c ****         tmpReg &= (uint8)~ADC_SAR_EN_BUF_VREF_EN;
+ 168:.\Generated_Source\PSoC5/ADC.c ****     #else /* In INTREF or INTREF Bypassed this buffer is ON */
+ 169:.\Generated_Source\PSoC5/ADC.c ****         tmpReg |= ADC_SAR_EN_BUF_VREF_EN;
+ 170:.\Generated_Source\PSoC5/ADC.c ****     #endif /* ADC_DEFAULT_REFERENCE == ADC__EXT_REF */
+ 171:.\Generated_Source\PSoC5/ADC.c ****     ADC_SAR_CSR3_REG = tmpReg;
+ 172:.\Generated_Source\PSoC5/ADC.c **** 
+ 173:.\Generated_Source\PSoC5/ADC.c ****     /* Set reference for ADC */
+ 174:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_DEFAULT_RANGE == ADC__VNEG_VDDA_DIFF)
+ 175:.\Generated_Source\PSoC5/ADC.c ****         #if(ADC_DEFAULT_REFERENCE == ADC__EXT_REF)
+ 176:.\Generated_Source\PSoC5/ADC.c ****             ADC_SAR_CSR6_REG = ADC_INT_BYPASS_EXT_VREF; /* S2 */
+ 177:.\Generated_Source\PSoC5/ADC.c ****         #else /* Internal Vdda reference or obsolete bypass mode */
+ 178:.\Generated_Source\PSoC5/ADC.c ****             ADC_SAR_CSR6_REG = ADC_VDDA_VREF;           /* S7 */
+ 179:.\Generated_Source\PSoC5/ADC.c ****         #endif /* ADC_DEFAULT_REFERENCE == ADC__EXT_REF */
+ 180:.\Generated_Source\PSoC5/ADC.c ****     #else  /* Reference goes through internal buffer */
+ 181:.\Generated_Source\PSoC5/ADC.c ****         #if(ADC_DEFAULT_REFERENCE == ADC__INT_REF_NOT_BYPASSED)
+ 182:.\Generated_Source\PSoC5/ADC.c ****             ADC_SAR_CSR6_REG = ADC_INT_VREF;            /* S3 + S4 */
+ 183:.\Generated_Source\PSoC5/ADC.c ****         #else /* INTREF Bypassed of External */
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 5
+
+
+ 184:.\Generated_Source\PSoC5/ADC.c ****             ADC_SAR_CSR6_REG = ADC_INT_BYPASS_EXT_VREF; /* S2 */
+ 185:.\Generated_Source\PSoC5/ADC.c ****         #endif /* ADC_DEFAULT_REFERENCE == ADC__INT_REF_NOT_BYPASSED */
+ 186:.\Generated_Source\PSoC5/ADC.c ****     #endif /* VNEG_VDDA_DIFF */
+ 187:.\Generated_Source\PSoC5/ADC.c **** 
+ 188:.\Generated_Source\PSoC5/ADC.c ****     /* Low non-overlap delay for sampling clock signals (for 1MSPS) */
+ 189:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_HIGH_POWER_PULSE == 0u) /* MinPulseWidth <= 50 ns */
+ 190:.\Generated_Source\PSoC5/ADC.c ****         ADC_SAR_CSR5_REG &= (uint8)~ADC_SAR_DLY_INC;
+ 191:.\Generated_Source\PSoC5/ADC.c ****     #else /* Set High non-overlap delay for sampling clock signals (for <500KSPS)*/
+ 192:.\Generated_Source\PSoC5/ADC.c ****         ADC_SAR_CSR5_REG |= ADC_SAR_DLY_INC;
+ 193:.\Generated_Source\PSoC5/ADC.c ****     #endif /* ADC_CLOCK_FREQUENCY > (ADC_MAX_FREQUENCY / 2) */
+ 194:.\Generated_Source\PSoC5/ADC.c **** 
+ 195:.\Generated_Source\PSoC5/ADC.c ****      /* Delay control for comparator latch enable, low delay, (Default for 1MSPS) */
+ 196:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_HIGH_POWER_PULSE == 0u) /* MinPulseWidth <= 50 ns */
+ 197:.\Generated_Source\PSoC5/ADC.c ****         ADC_SAR_CSR5_REG |= ADC_SAR_DCEN;
+ 198:.\Generated_Source\PSoC5/ADC.c ****     #else /* Delay control for comparator latch enable, high delay (for <500ksps)*/
+ 199:.\Generated_Source\PSoC5/ADC.c ****         ADC_SAR_CSR5_REG &= (uint8)~ADC_SAR_DCEN;
+ 200:.\Generated_Source\PSoC5/ADC.c ****     #endif /* ADC_CLOCK_FREQUENCY > (ADC_MAX_FREQUENCY / 2) */
+ 201:.\Generated_Source\PSoC5/ADC.c **** 
+ 202:.\Generated_Source\PSoC5/ADC.c ****     /* Set default power and other configurations for control register 0 in multiple lines */
+ 203:.\Generated_Source\PSoC5/ADC.c ****     ADC_SAR_CSR0_REG = (uint8)((uint8)ADC_DEFAULT_POWER << ADC_SAR_POWER_SHIFT)
+ 204:.\Generated_Source\PSoC5/ADC.c ****     /* SAR_HIZ_CLEAR:   Should not be used for LP */
+ 205:.\Generated_Source\PSoC5/ADC.c ****     #if ((CY_PSOC5LP) || (ADC_DEFAULT_REFERENCE != ADC__EXT_REF))
+ 206:.\Generated_Source\PSoC5/ADC.c ****         | ADC_SAR_HIZ_CLEAR
+ 207:.\Generated_Source\PSoC5/ADC.c ****     #endif /* SAR_HIZ_CLEAR */
+ 208:.\Generated_Source\PSoC5/ADC.c ****     /*Set Convertion mode */
+ 209:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_DEFAULT_CONV_MODE != ADC__FREE_RUNNING)      /* If triggered mode */
+ 210:.\Generated_Source\PSoC5/ADC.c ****         | ADC_SAR_MX_SOF_UDB           /* source: UDB */
+ 211:.\Generated_Source\PSoC5/ADC.c ****         | ADC_SAR_SOF_MODE_EDGE        /* Set edge-sensitive sof source */
+ 212:.\Generated_Source\PSoC5/ADC.c ****     #endif /* ADC_DEFAULT_CONV_MODE */
+ 213:.\Generated_Source\PSoC5/ADC.c ****     ; /* end of multiple line initialization */
+ 214:.\Generated_Source\PSoC5/ADC.c **** 
+ 215:.\Generated_Source\PSoC5/ADC.c ****     ADC_SAR_TR0_REG = ADC_SAR_CAP_TRIM_2;
+ 216:.\Generated_Source\PSoC5/ADC.c **** 
+ 217:.\Generated_Source\PSoC5/ADC.c ****     /* Enable clock for SAR ADC*/
+ 218:.\Generated_Source\PSoC5/ADC.c ****     ADC_SAR_CLK_REG |= ADC_SAR_MX_CLK_EN;
+ 219:.\Generated_Source\PSoC5/ADC.c **** 
+ 220:.\Generated_Source\PSoC5/ADC.c ****     CyDelayUs(10u); /* The block is ready to use 10 us after the enable signal is set high. */
+  45              		.loc 1 220 0
+  46 000c 0A20     		movs	r0, #10
+ 150:.\Generated_Source\PSoC5/ADC.c **** 
+  47              		.loc 1 150 0
+  48 000e 43F00103 		orr	r3, r3, #1
+  49 0012 1370     		strb	r3, [r2]
+ 153:.\Generated_Source\PSoC5/ADC.c **** 
+  50              		.loc 1 153 0
+  51 0014 137C     		ldrb	r3, [r2, #16]	@ zero_extendqisi2
+  52 0016 43F00103 		orr	r3, r3, #1
+  53 001a 1374     		strb	r3, [r2, #16]
+ 157:.\Generated_Source\PSoC5/ADC.c ****         ADC_STBY_PWRMGR_CLK_REG |= ADC_STBY_PWR_CLK_EN;
+  54              		.loc 1 157 0
+  55 001c 12F80A3C 		ldrb	r3, [r2, #-10]	@ zero_extendqisi2
+  56 0020 43F00103 		orr	r3, r3, #1
+  57 0024 02F80A3C 		strb	r3, [r2, #-10]
+ 158:.\Generated_Source\PSoC5/ADC.c ****     #endif /* End ADC_DEFAULT_INTERNAL_CLK */
+  58              		.loc 1 158 0
+  59 0028 9379     		ldrb	r3, [r2, #6]	@ zero_extendqisi2
+  60 002a 43F00103 		orr	r3, r3, #1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 6
+
+
+  61 002e 9371     		strb	r3, [r2, #6]
+ 162:.\Generated_Source\PSoC5/ADC.c ****     tmpReg |= ADC_SAR_EN_BUF_VCM_EN;
+  62              		.loc 1 162 0
+  63 0030 02F5AA52 		add	r2, r2, #5440
+  64 0034 1832     		adds	r2, r2, #24
+  65 0036 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  66              	.LVL2:
+ 169:.\Generated_Source\PSoC5/ADC.c ****     #endif /* ADC_DEFAULT_REFERENCE == ADC__EXT_REF */
+  67              		.loc 1 169 0
+  68 0038 43F00303 		orr	r3, r3, #3
+  69              	.LVL3:
+ 171:.\Generated_Source\PSoC5/ADC.c **** 
+  70              		.loc 1 171 0
+  71 003c 1370     		strb	r3, [r2]
+ 182:.\Generated_Source\PSoC5/ADC.c ****         #else /* INTREF Bypassed of External */
+  72              		.loc 1 182 0
+  73 003e 144B     		ldr	r3, .L2+4
+  74              	.LVL4:
+  75 0040 1822     		movs	r2, #24
+  76              	.LVL5:
+  77 0042 1A70     		strb	r2, [r3]
+  78              	.LVL6:
+ 192:.\Generated_Source\PSoC5/ADC.c ****     #endif /* ADC_CLOCK_FREQUENCY > (ADC_MAX_FREQUENCY / 2) */
+  79              		.loc 1 192 0
+  80 0044 13F8012C 		ldrb	r2, [r3, #-1]	@ zero_extendqisi2
+  81 0048 42F04002 		orr	r2, r2, #64
+  82 004c 03F8012C 		strb	r2, [r3, #-1]
+ 199:.\Generated_Source\PSoC5/ADC.c ****     #endif /* ADC_CLOCK_FREQUENCY > (ADC_MAX_FREQUENCY / 2) */
+  83              		.loc 1 199 0
+  84 0050 13F8012C 		ldrb	r2, [r3, #-1]	@ zero_extendqisi2
+  85 0054 02F0DF02 		and	r2, r2, #223
+  86 0058 03F8012C 		strb	r2, [r3, #-1]
+ 203:.\Generated_Source\PSoC5/ADC.c ****     /* SAR_HIZ_CLEAR:   Should not be used for LP */
+  87              		.loc 1 203 0
+  88 005c C822     		movs	r2, #200
+  89 005e 03F8062C 		strb	r2, [r3, #-6]
+ 215:.\Generated_Source\PSoC5/ADC.c **** 
+  90              		.loc 1 215 0
+  91 0062 A3F59753 		sub	r3, r3, #4832
+  92 0066 0222     		movs	r2, #2
+  93 0068 123B     		subs	r3, r3, #18
+  94 006a 1A70     		strb	r2, [r3]
+ 218:.\Generated_Source\PSoC5/ADC.c **** 
+  95              		.loc 1 218 0
+  96 006c 094A     		ldr	r2, .L2+8
+  97 006e 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  98 0070 43F00803 		orr	r3, r3, #8
+  99 0074 1370     		strb	r3, [r2]
+ 100              		.loc 1 220 0
+ 101 0076 FFF7FEFF 		bl	CyDelayUs
+ 102              	.LVL7:
+ 221:.\Generated_Source\PSoC5/ADC.c **** 
+ 222:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_IRQ_REMOVE == 0u)
+ 223:.\Generated_Source\PSoC5/ADC.c ****         /* Clear a pending interrupt */
+ 224:.\Generated_Source\PSoC5/ADC.c ****         CyIntClearPending(ADC_INTC_NUMBER);
+ 103              		.loc 1 224 0
+ 104 007a 074B     		ldr	r3, .L2+12
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 7
+
+
+ 105 007c 0122     		movs	r2, #1
+ 225:.\Generated_Source\PSoC5/ADC.c ****     #endif   /* End ADC_IRQ_REMOVE */
+ 226:.\Generated_Source\PSoC5/ADC.c **** 
+ 227:.\Generated_Source\PSoC5/ADC.c ****     CyExitCriticalSection(enableInterrupts);
+ 106              		.loc 1 227 0
+ 107 007e 2046     		mov	r0, r4
+ 228:.\Generated_Source\PSoC5/ADC.c **** }
+ 108              		.loc 1 228 0
+ 109 0080 BDE81040 		pop	{r4, lr}
+ 110              		.cfi_restore 14
+ 111              		.cfi_restore 4
+ 112              		.cfi_def_cfa_offset 0
+ 113              	.LVL8:
+ 224:.\Generated_Source\PSoC5/ADC.c ****     #endif   /* End ADC_IRQ_REMOVE */
+ 114              		.loc 1 224 0
+ 115 0084 1A60     		str	r2, [r3]
+ 227:.\Generated_Source\PSoC5/ADC.c **** }
+ 116              		.loc 1 227 0
+ 117 0086 FFF7FEBF 		b	CyExitCriticalSection
+ 118              	.LVL9:
+ 119              	.L3:
+ 120 008a 00BF     		.align	2
+ 121              	.L2:
+ 122 008c AB430040 		.word	1073759147
+ 123 0090 06590040 		.word	1073764614
+ 124 0094 275B0040 		.word	1073765159
+ 125 0098 80E200E0 		.word	-536812928
+ 126              		.cfi_endproc
+ 127              	.LFE2:
+ 128              		.size	ADC_Enable, .-ADC_Enable
+ 129              		.section	.text.ADC_Stop,"ax",%progbits
+ 130              		.align	1
+ 131              		.global	ADC_Stop
+ 132              		.thumb
+ 133              		.thumb_func
+ 134              		.type	ADC_Stop, %function
+ 135              	ADC_Stop:
+ 136              	.LFB3:
+ 229:.\Generated_Source\PSoC5/ADC.c **** 
+ 230:.\Generated_Source\PSoC5/ADC.c **** 
+ 231:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 232:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_Stop
+ 233:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 234:.\Generated_Source\PSoC5/ADC.c **** *
+ 235:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 236:.\Generated_Source\PSoC5/ADC.c **** *  Stops ADC conversions and puts the ADC into its lowest power mode.
+ 237:.\Generated_Source\PSoC5/ADC.c **** *
+ 238:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 239:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 240:.\Generated_Source\PSoC5/ADC.c **** *
+ 241:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 242:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 243:.\Generated_Source\PSoC5/ADC.c **** *
+ 244:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 245:.\Generated_Source\PSoC5/ADC.c **** void ADC_Stop(void)
+ 246:.\Generated_Source\PSoC5/ADC.c **** {
+ 137              		.loc 1 246 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 8
+
+
+ 138              		.cfi_startproc
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 0, uses_anonymous_args = 0
+ 141 0000 08B5     		push	{r3, lr}
+ 142              		.cfi_def_cfa_offset 8
+ 143              		.cfi_offset 3, -8
+ 144              		.cfi_offset 14, -4
+ 247:.\Generated_Source\PSoC5/ADC.c ****     uint8 enableInterrupts;
+ 248:.\Generated_Source\PSoC5/ADC.c ****     enableInterrupts = CyEnterCriticalSection();
+ 145              		.loc 1 248 0
+ 146 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+ 147              	.LVL10:
+ 249:.\Generated_Source\PSoC5/ADC.c **** 
+ 250:.\Generated_Source\PSoC5/ADC.c ****     /* Stop all conversions */
+ 251:.\Generated_Source\PSoC5/ADC.c ****     ADC_SAR_CSR0_REG &= (uint8)~ADC_SAR_SOF_START_CONV;
+ 148              		.loc 1 251 0
+ 149 0006 0F4A     		ldr	r2, .L5
+ 150 0008 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 151 000a 03F0FE03 		and	r3, r3, #254
+ 152 000e 1370     		strb	r3, [r2]
+ 252:.\Generated_Source\PSoC5/ADC.c ****     /* Disable the SAR ADC block in Active Power Mode */
+ 253:.\Generated_Source\PSoC5/ADC.c ****     ADC_PWRMGR_SAR_REG &= (uint8)~ADC_ACT_PWR_SAR_EN;
+ 153              		.loc 1 253 0
+ 154 0010 A2F5AA52 		sub	r2, r2, #5440
+ 155 0014 153A     		subs	r2, r2, #21
+ 156 0016 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 157 0018 03F0FE03 		and	r3, r3, #254
+ 158 001c 1370     		strb	r3, [r2]
+ 254:.\Generated_Source\PSoC5/ADC.c ****     /* Disable the SAR ADC in Standby Power Mode */
+ 255:.\Generated_Source\PSoC5/ADC.c ****     ADC_STBY_PWRMGR_SAR_REG &= (uint8)~ADC_STBY_PWR_SAR_EN;
+ 159              		.loc 1 255 0
+ 160 001e 137C     		ldrb	r3, [r2, #16]	@ zero_extendqisi2
+ 161 0020 03F0FE03 		and	r3, r3, #254
+ 162 0024 1374     		strb	r3, [r2, #16]
+ 256:.\Generated_Source\PSoC5/ADC.c **** 
+ 257:.\Generated_Source\PSoC5/ADC.c ****     /* This is only valid if there is an internal clock */
+ 258:.\Generated_Source\PSoC5/ADC.c ****     #if(ADC_DEFAULT_INTERNAL_CLK)
+ 259:.\Generated_Source\PSoC5/ADC.c ****         ADC_PWRMGR_CLK_REG &= (uint8)~ADC_ACT_PWR_CLK_EN;
+ 163              		.loc 1 259 0
+ 164 0026 12F80A3C 		ldrb	r3, [r2, #-10]	@ zero_extendqisi2
+ 165 002a 03F0FE03 		and	r3, r3, #254
+ 166 002e 02F80A3C 		strb	r3, [r2, #-10]
+ 260:.\Generated_Source\PSoC5/ADC.c ****         ADC_STBY_PWRMGR_CLK_REG &= (uint8)~ADC_STBY_PWR_CLK_EN;
+ 167              		.loc 1 260 0
+ 168 0032 9379     		ldrb	r3, [r2, #6]	@ zero_extendqisi2
+ 169 0034 03F0FE03 		and	r3, r3, #254
+ 170 0038 9371     		strb	r3, [r2, #6]
+ 261:.\Generated_Source\PSoC5/ADC.c ****     #endif /* End ADC_DEFAULT_INTERNAL_CLK */
+ 262:.\Generated_Source\PSoC5/ADC.c **** 
+ 263:.\Generated_Source\PSoC5/ADC.c ****     CyExitCriticalSection(enableInterrupts);
+ 264:.\Generated_Source\PSoC5/ADC.c **** 
+ 265:.\Generated_Source\PSoC5/ADC.c **** }
+ 171              		.loc 1 265 0
+ 172 003a BDE80840 		pop	{r3, lr}
+ 173              		.cfi_restore 14
+ 174              		.cfi_restore 3
+ 175              		.cfi_def_cfa_offset 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 9
+
+
+ 263:.\Generated_Source\PSoC5/ADC.c **** 
+ 176              		.loc 1 263 0
+ 177 003e FFF7FEBF 		b	CyExitCriticalSection
+ 178              	.LVL11:
+ 179              	.L6:
+ 180 0042 00BF     		.align	2
+ 181              	.L5:
+ 182 0044 00590040 		.word	1073764608
+ 183              		.cfi_endproc
+ 184              	.LFE3:
+ 185              		.size	ADC_Stop, .-ADC_Stop
+ 186              		.section	.text.ADC_SetPower,"ax",%progbits
+ 187              		.align	1
+ 188              		.global	ADC_SetPower
+ 189              		.thumb
+ 190              		.thumb_func
+ 191              		.type	ADC_SetPower, %function
+ 192              	ADC_SetPower:
+ 193              	.LFB4:
+ 266:.\Generated_Source\PSoC5/ADC.c **** 
+ 267:.\Generated_Source\PSoC5/ADC.c **** 
+ 268:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 269:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_SetPower
+ 270:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 271:.\Generated_Source\PSoC5/ADC.c **** *
+ 272:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 273:.\Generated_Source\PSoC5/ADC.c **** *  Sets the operational power of the ADC. You should use the higher power
+ 274:.\Generated_Source\PSoC5/ADC.c **** *  settings with faster clock speeds.
+ 275:.\Generated_Source\PSoC5/ADC.c **** *
+ 276:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 277:.\Generated_Source\PSoC5/ADC.c **** *  power:  Power setting for ADC
+ 278:.\Generated_Source\PSoC5/ADC.c **** *  0 ->    Normal
+ 279:.\Generated_Source\PSoC5/ADC.c **** *  1 ->    Medium power
+ 280:.\Generated_Source\PSoC5/ADC.c **** *  2 ->    1.25 power
+ 281:.\Generated_Source\PSoC5/ADC.c **** *  3 ->    Minimum power.
+ 282:.\Generated_Source\PSoC5/ADC.c **** *
+ 283:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 284:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 285:.\Generated_Source\PSoC5/ADC.c **** *
+ 286:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 287:.\Generated_Source\PSoC5/ADC.c **** void ADC_SetPower(uint8 power)
+ 288:.\Generated_Source\PSoC5/ADC.c **** {
+ 194              		.loc 1 288 0
+ 195              		.cfi_startproc
+ 196              		@ args = 0, pretend = 0, frame = 0
+ 197              		@ frame_needed = 0, uses_anonymous_args = 0
+ 198              		@ link register save eliminated.
+ 199              	.LVL12:
+ 289:.\Generated_Source\PSoC5/ADC.c ****     uint8 tmpReg;
+ 290:.\Generated_Source\PSoC5/ADC.c **** 
+ 291:.\Generated_Source\PSoC5/ADC.c ****     /* mask off invalid power settings */
+ 292:.\Generated_Source\PSoC5/ADC.c ****     power &= ADC_SAR_API_POWER_MASK;
+ 293:.\Generated_Source\PSoC5/ADC.c **** 
+ 294:.\Generated_Source\PSoC5/ADC.c ****     /* Set Power parameter  */
+ 295:.\Generated_Source\PSoC5/ADC.c ****     tmpReg = ADC_SAR_CSR0_REG & (uint8)~ADC_SAR_POWER_MASK;
+ 200              		.loc 1 295 0
+ 201 0000 044A     		ldr	r2, .L8
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 10
+
+
+ 292:.\Generated_Source\PSoC5/ADC.c **** 
+ 202              		.loc 1 292 0
+ 203 0002 00F00300 		and	r0, r0, #3
+ 204              	.LVL13:
+ 205              		.loc 1 295 0
+ 206 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 207 0008 03F03F03 		and	r3, r3, #63
+ 208              	.LVL14:
+ 296:.\Generated_Source\PSoC5/ADC.c ****     tmpReg |= (uint8)(power << ADC_SAR_POWER_SHIFT);
+ 209              		.loc 1 296 0
+ 210 000c 43EA8013 		orr	r3, r3, r0, lsl #6
+ 211              	.LVL15:
+ 297:.\Generated_Source\PSoC5/ADC.c ****     ADC_SAR_CSR0_REG = tmpReg;
+ 212              		.loc 1 297 0
+ 213 0010 1370     		strb	r3, [r2]
+ 214 0012 7047     		bx	lr
+ 215              	.L9:
+ 216              		.align	2
+ 217              	.L8:
+ 218 0014 00590040 		.word	1073764608
+ 219              		.cfi_endproc
+ 220              	.LFE4:
+ 221              		.size	ADC_SetPower, .-ADC_SetPower
+ 222              		.section	.text.ADC_SetResolution,"ax",%progbits
+ 223              		.align	1
+ 224              		.global	ADC_SetResolution
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.type	ADC_SetResolution, %function
+ 228              	ADC_SetResolution:
+ 229              	.LFB5:
+ 298:.\Generated_Source\PSoC5/ADC.c **** }
+ 299:.\Generated_Source\PSoC5/ADC.c **** 
+ 300:.\Generated_Source\PSoC5/ADC.c **** 
+ 301:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 302:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_SetResolution
+ 303:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 304:.\Generated_Source\PSoC5/ADC.c **** *
+ 305:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 306:.\Generated_Source\PSoC5/ADC.c **** *  Sets the Relution of the SAR.
+ 307:.\Generated_Source\PSoC5/ADC.c **** *
+ 308:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 309:.\Generated_Source\PSoC5/ADC.c **** *  resolution:
+ 310:.\Generated_Source\PSoC5/ADC.c **** *  12 ->    RES12
+ 311:.\Generated_Source\PSoC5/ADC.c **** *  10 ->    RES10
+ 312:.\Generated_Source\PSoC5/ADC.c **** *  8  ->    RES8
+ 313:.\Generated_Source\PSoC5/ADC.c **** *
+ 314:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 315:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 316:.\Generated_Source\PSoC5/ADC.c **** *
+ 317:.\Generated_Source\PSoC5/ADC.c **** * Side Effects:
+ 318:.\Generated_Source\PSoC5/ADC.c **** *  The ADC resolution cannot be changed during a conversion cycle. The
+ 319:.\Generated_Source\PSoC5/ADC.c **** *  recommended best practice is to stop conversions with
+ 320:.\Generated_Source\PSoC5/ADC.c **** *  ADC_StopConvert(), change the resolution, then restart the
+ 321:.\Generated_Source\PSoC5/ADC.c **** *  conversions with ADC_StartConvert().
+ 322:.\Generated_Source\PSoC5/ADC.c **** *  If you decide not to stop conversions before calling this API, you
+ 323:.\Generated_Source\PSoC5/ADC.c **** *  should use ADC_IsEndConversion() to wait until conversion is complete
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 11
+
+
+ 324:.\Generated_Source\PSoC5/ADC.c **** *  before changing the resolution.
+ 325:.\Generated_Source\PSoC5/ADC.c **** *  If you call ADC_SetResolution() during a conversion, the resolution will
+ 326:.\Generated_Source\PSoC5/ADC.c **** *  not be changed until the current conversion is complete. Data will not be
+ 327:.\Generated_Source\PSoC5/ADC.c **** *  available in the new resolution for another 6 + "New Resolution(in bits)"
+ 328:.\Generated_Source\PSoC5/ADC.c **** *  clock cycles.
+ 329:.\Generated_Source\PSoC5/ADC.c **** *  You may need add a delay of this number of clock cycles after
+ 330:.\Generated_Source\PSoC5/ADC.c **** *  ADC_SetResolution() is called before data is valid again.
+ 331:.\Generated_Source\PSoC5/ADC.c **** *  Affects ADC_CountsTo_Volts(), ADC_CountsTo_mVolts(), and
+ 332:.\Generated_Source\PSoC5/ADC.c **** *  ADC_CountsTo_uVolts() by calculating the correct conversion between ADC
+ 333:.\Generated_Source\PSoC5/ADC.c **** *  counts and the applied input voltage. Calculation depends on resolution,
+ 334:.\Generated_Source\PSoC5/ADC.c **** *  input range, and voltage reference.
+ 335:.\Generated_Source\PSoC5/ADC.c **** *
+ 336:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 337:.\Generated_Source\PSoC5/ADC.c **** void ADC_SetResolution(uint8 resolution)
+ 338:.\Generated_Source\PSoC5/ADC.c **** {
+ 230              		.loc 1 338 0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 0
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 234              	.LVL16:
+ 339:.\Generated_Source\PSoC5/ADC.c ****     uint8 tmpReg;
+ 340:.\Generated_Source\PSoC5/ADC.c **** 
+ 341:.\Generated_Source\PSoC5/ADC.c ****     /* Set SAR ADC resolution and sample width: 18 conversion cycles at 12bits + 1 gap */
+ 342:.\Generated_Source\PSoC5/ADC.c ****     switch (resolution)
+ 235              		.loc 1 342 0
+ 236 0000 0A28     		cmp	r0, #10
+ 338:.\Generated_Source\PSoC5/ADC.c ****     uint8 tmpReg;
+ 237              		.loc 1 338 0
+ 238 0002 10B5     		push	{r4, lr}
+ 239              		.cfi_def_cfa_offset 8
+ 240              		.cfi_offset 4, -8
+ 241              		.cfi_offset 14, -4
+ 338:.\Generated_Source\PSoC5/ADC.c ****     uint8 tmpReg;
+ 242              		.loc 1 338 0
+ 243 0004 0446     		mov	r4, r0
+ 244              		.loc 1 342 0
+ 245 0006 05D0     		beq	.L12
+ 246 0008 0C28     		cmp	r0, #12
+ 247 000a 08D0     		beq	.L19
+ 248 000c 0828     		cmp	r0, #8
+ 249 000e 03D1     		bne	.L21
+ 250              	.LVL17:
+ 343:.\Generated_Source\PSoC5/ADC.c ****     {
+ 344:.\Generated_Source\PSoC5/ADC.c ****         case (uint8)ADC__BITS_12:
+ 345:.\Generated_Source\PSoC5/ADC.c ****             tmpReg = ADC_SAR_RESOLUTION_12BIT | ADC_SAR_SAMPLE_WIDTH;
+ 346:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 347:.\Generated_Source\PSoC5/ADC.c ****         case (uint8)ADC__BITS_10:
+ 348:.\Generated_Source\PSoC5/ADC.c ****             tmpReg = ADC_SAR_RESOLUTION_10BIT | ADC_SAR_SAMPLE_WIDTH;
+ 349:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 350:.\Generated_Source\PSoC5/ADC.c ****         case (uint8)ADC__BITS_8:
+ 351:.\Generated_Source\PSoC5/ADC.c ****             tmpReg = ADC_SAR_RESOLUTION_8BIT | ADC_SAR_SAMPLE_WIDTH;
+ 251              		.loc 1 351 0
+ 252 0010 4423     		movs	r3, #68
+ 352:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 253              		.loc 1 352 0
+ 254 0012 05E0     		b	.L13
+ 255              	.LVL18:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 12
+
+
+ 256              	.L12:
+ 348:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 257              		.loc 1 348 0
+ 258 0014 8423     		movs	r3, #132
+ 259 0016 03E0     		b	.L13
+ 260              	.L21:
+ 261              	.LVL19:
+ 353:.\Generated_Source\PSoC5/ADC.c ****         default:
+ 354:.\Generated_Source\PSoC5/ADC.c ****             tmpReg = ADC_SAR_RESOLUTION_12BIT | ADC_SAR_SAMPLE_WIDTH;
+ 355:.\Generated_Source\PSoC5/ADC.c ****             /* Halt CPU in debug mode if resolution is out of valid range */
+ 356:.\Generated_Source\PSoC5/ADC.c ****             CYASSERT(0u != 0u);
+ 262              		.loc 1 356 0
+ 263 0018 0020     		movs	r0, #0
+ 264              	.LVL20:
+ 265 001a FFF7FEFF 		bl	CyHalt
+ 266              	.LVL21:
+ 267              	.L19:
+ 345:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 268              		.loc 1 345 0
+ 269 001e C423     		movs	r3, #196
+ 270              	.L13:
+ 357:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 358:.\Generated_Source\PSoC5/ADC.c ****     }
+ 359:.\Generated_Source\PSoC5/ADC.c ****     ADC_SAR_CSR2_REG = tmpReg;
+ 271              		.loc 1 359 0
+ 272 0020 124A     		ldr	r2, .L24
+ 273              	.LBB4:
+ 274              	.LBB5:
+ 360:.\Generated_Source\PSoC5/ADC.c **** 
+ 361:.\Generated_Source\PSoC5/ADC.c ****      /* Calculate gain for convert counts to volts */
+ 362:.\Generated_Source\PSoC5/ADC.c ****     ADC_CalcGain(resolution);
+ 363:.\Generated_Source\PSoC5/ADC.c **** }
+ 364:.\Generated_Source\PSoC5/ADC.c **** 
+ 365:.\Generated_Source\PSoC5/ADC.c **** 
+ 366:.\Generated_Source\PSoC5/ADC.c **** #if(ADC_DEFAULT_CONV_MODE != ADC__HARDWARE_TRIGGER)
+ 367:.\Generated_Source\PSoC5/ADC.c **** 
+ 368:.\Generated_Source\PSoC5/ADC.c **** 
+ 369:.\Generated_Source\PSoC5/ADC.c ****     /*******************************************************************************
+ 370:.\Generated_Source\PSoC5/ADC.c ****     * Function Name: ADC_StartConvert
+ 371:.\Generated_Source\PSoC5/ADC.c ****     ********************************************************************************
+ 372:.\Generated_Source\PSoC5/ADC.c ****     *
+ 373:.\Generated_Source\PSoC5/ADC.c ****     * Summary:
+ 374:.\Generated_Source\PSoC5/ADC.c ****     *  Forces the ADC to initiate a conversion. In free-running mode, the ADC runs
+ 375:.\Generated_Source\PSoC5/ADC.c ****     *  continuously. In software trigger mode, the function also acts as a software
+ 376:.\Generated_Source\PSoC5/ADC.c ****     *  version of the SOC and every conversion must be triggered by
+ 377:.\Generated_Source\PSoC5/ADC.c ****     *  ADC_StartConvert(). This function is not available when the
+ 378:.\Generated_Source\PSoC5/ADC.c ****     *  Hardware Trigger sample mode is selected.
+ 379:.\Generated_Source\PSoC5/ADC.c ****     *
+ 380:.\Generated_Source\PSoC5/ADC.c ****     * Parameters:
+ 381:.\Generated_Source\PSoC5/ADC.c ****     *  None.
+ 382:.\Generated_Source\PSoC5/ADC.c ****     *
+ 383:.\Generated_Source\PSoC5/ADC.c ****     * Return:
+ 384:.\Generated_Source\PSoC5/ADC.c ****     *  None.
+ 385:.\Generated_Source\PSoC5/ADC.c ****     *
+ 386:.\Generated_Source\PSoC5/ADC.c ****     * Theory:
+ 387:.\Generated_Source\PSoC5/ADC.c ****     *  Forces the ADC to initiate a conversion. In Free Running mode, the ADC will
+ 388:.\Generated_Source\PSoC5/ADC.c ****     *  run continuously. In a software trigger mode the function also acts as a
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 13
+
+
+ 389:.\Generated_Source\PSoC5/ADC.c ****     *  software version of the SOC. Here every conversion has to be triggered by
+ 390:.\Generated_Source\PSoC5/ADC.c ****     *  the routine. This writes into the SOC bit in SAR_CTRL reg.
+ 391:.\Generated_Source\PSoC5/ADC.c ****     *
+ 392:.\Generated_Source\PSoC5/ADC.c ****     * Side Effects:
+ 393:.\Generated_Source\PSoC5/ADC.c ****     *  In a software trigger mode the function switches source for SOF from the
+ 394:.\Generated_Source\PSoC5/ADC.c ****     *  external pin to the internal SOF generation. Application should not call
+ 395:.\Generated_Source\PSoC5/ADC.c ****     *  StartConvert if external source used for SOF.
+ 396:.\Generated_Source\PSoC5/ADC.c ****     *
+ 397:.\Generated_Source\PSoC5/ADC.c ****     *******************************************************************************/
+ 398:.\Generated_Source\PSoC5/ADC.c ****     void ADC_StartConvert(void)
+ 399:.\Generated_Source\PSoC5/ADC.c ****     {
+ 400:.\Generated_Source\PSoC5/ADC.c ****         #if(ADC_DEFAULT_CONV_MODE != ADC__FREE_RUNNING)  /* If software triggered mode */
+ 401:.\Generated_Source\PSoC5/ADC.c ****             ADC_SAR_CSR0_REG &= (uint8)~ADC_SAR_MX_SOF_UDB;   /* source: SOF bit */
+ 402:.\Generated_Source\PSoC5/ADC.c ****         #endif /* End ADC_DEFAULT_CONV_MODE */
+ 403:.\Generated_Source\PSoC5/ADC.c **** 
+ 404:.\Generated_Source\PSoC5/ADC.c ****         /* Start the conversion */
+ 405:.\Generated_Source\PSoC5/ADC.c ****         ADC_SAR_CSR0_REG |= ADC_SAR_SOF_START_CONV;
+ 406:.\Generated_Source\PSoC5/ADC.c ****     }
+ 407:.\Generated_Source\PSoC5/ADC.c **** 
+ 408:.\Generated_Source\PSoC5/ADC.c **** 
+ 409:.\Generated_Source\PSoC5/ADC.c ****     /*******************************************************************************
+ 410:.\Generated_Source\PSoC5/ADC.c ****     * Function Name: ADC_StopConvert
+ 411:.\Generated_Source\PSoC5/ADC.c ****     ********************************************************************************
+ 412:.\Generated_Source\PSoC5/ADC.c ****     *
+ 413:.\Generated_Source\PSoC5/ADC.c ****     * Summary:
+ 414:.\Generated_Source\PSoC5/ADC.c ****     *  Forces the ADC to stop conversions. If a conversion is currently executing,
+ 415:.\Generated_Source\PSoC5/ADC.c ****     *  that conversion will complete, but no further conversions will occur. This
+ 416:.\Generated_Source\PSoC5/ADC.c ****     *  function is not available when the Hardware Trigger sample mode is selected.
+ 417:.\Generated_Source\PSoC5/ADC.c ****     *
+ 418:.\Generated_Source\PSoC5/ADC.c ****     * Parameters:
+ 419:.\Generated_Source\PSoC5/ADC.c ****     *  None.
+ 420:.\Generated_Source\PSoC5/ADC.c ****     *
+ 421:.\Generated_Source\PSoC5/ADC.c ****     * Return:
+ 422:.\Generated_Source\PSoC5/ADC.c ****     *  None.
+ 423:.\Generated_Source\PSoC5/ADC.c ****     *
+ 424:.\Generated_Source\PSoC5/ADC.c ****     * Theory:
+ 425:.\Generated_Source\PSoC5/ADC.c ****     *  Stops ADC conversion in Free Running mode.
+ 426:.\Generated_Source\PSoC5/ADC.c ****     *
+ 427:.\Generated_Source\PSoC5/ADC.c ****     * Side Effects:
+ 428:.\Generated_Source\PSoC5/ADC.c ****     *  In Software Trigger sample mode, this function sets a software version of the
+ 429:.\Generated_Source\PSoC5/ADC.c ****     *  SOC to low level and switches the SOC source to hardware SOC input.
+ 430:.\Generated_Source\PSoC5/ADC.c ****     *
+ 431:.\Generated_Source\PSoC5/ADC.c ****     *******************************************************************************/
+ 432:.\Generated_Source\PSoC5/ADC.c ****     void ADC_StopConvert(void)
+ 433:.\Generated_Source\PSoC5/ADC.c ****     {
+ 434:.\Generated_Source\PSoC5/ADC.c ****         /* Stop all conversions */
+ 435:.\Generated_Source\PSoC5/ADC.c ****         ADC_SAR_CSR0_REG &= (uint8)~ADC_SAR_SOF_START_CONV;
+ 436:.\Generated_Source\PSoC5/ADC.c **** 
+ 437:.\Generated_Source\PSoC5/ADC.c ****         #if(ADC_DEFAULT_CONV_MODE != ADC__FREE_RUNNING)  /* If software triggered mode */
+ 438:.\Generated_Source\PSoC5/ADC.c ****             /* Return source to UDB for hardware SOF signal */
+ 439:.\Generated_Source\PSoC5/ADC.c ****             ADC_SAR_CSR0_REG |= ADC_SAR_MX_SOF_UDB;    /* source: UDB */
+ 440:.\Generated_Source\PSoC5/ADC.c ****         #endif /* End ADC_DEFAULT_CONV_MODE */
+ 441:.\Generated_Source\PSoC5/ADC.c **** 
+ 442:.\Generated_Source\PSoC5/ADC.c ****     }
+ 443:.\Generated_Source\PSoC5/ADC.c **** 
+ 444:.\Generated_Source\PSoC5/ADC.c **** #endif /* End ADC_DEFAULT_CONV_MODE != ADC__HARDWARE_TRIGGER */
+ 445:.\Generated_Source\PSoC5/ADC.c **** 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 14
+
+
+ 446:.\Generated_Source\PSoC5/ADC.c **** 
+ 447:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 448:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_IsEndConversion
+ 449:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 450:.\Generated_Source\PSoC5/ADC.c **** *
+ 451:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 452:.\Generated_Source\PSoC5/ADC.c **** *  Immediately returns the status of the conversion or does not return
+ 453:.\Generated_Source\PSoC5/ADC.c **** *  (blocking) until the conversion completes, depending on the retMode
+ 454:.\Generated_Source\PSoC5/ADC.c **** *  parameter.
+ 455:.\Generated_Source\PSoC5/ADC.c **** *
+ 456:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 457:.\Generated_Source\PSoC5/ADC.c **** *  retMode:  Check conversion return mode.
+ 458:.\Generated_Source\PSoC5/ADC.c **** *   ADC_RETURN_STATUS: Immediately returns the status. If the
+ 459:.\Generated_Source\PSoC5/ADC.c **** *     value returned is zero, the conversion is not complete, and this function
+ 460:.\Generated_Source\PSoC5/ADC.c **** *     should be retried until a nonzero result is returned.
+ 461:.\Generated_Source\PSoC5/ADC.c **** *   ADC_WAIT_FOR_RESULT: Does not return a result until the ADC
+ 462:.\Generated_Source\PSoC5/ADC.c **** *     conversion is complete.
+ 463:.\Generated_Source\PSoC5/ADC.c **** *
+ 464:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 465:.\Generated_Source\PSoC5/ADC.c **** *  (uint8)  0 =>  The ADC is still calculating the last result.
+ 466:.\Generated_Source\PSoC5/ADC.c **** *           1 =>  The last conversion is complete.
+ 467:.\Generated_Source\PSoC5/ADC.c **** *
+ 468:.\Generated_Source\PSoC5/ADC.c **** * Side Effects:
+ 469:.\Generated_Source\PSoC5/ADC.c **** *  This function reads the end of conversion status, which is cleared on read.
+ 470:.\Generated_Source\PSoC5/ADC.c **** *
+ 471:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 472:.\Generated_Source\PSoC5/ADC.c **** uint8 ADC_IsEndConversion(uint8 retMode)
+ 473:.\Generated_Source\PSoC5/ADC.c **** {
+ 474:.\Generated_Source\PSoC5/ADC.c ****     uint8 status;
+ 475:.\Generated_Source\PSoC5/ADC.c **** 
+ 476:.\Generated_Source\PSoC5/ADC.c ****     do
+ 477:.\Generated_Source\PSoC5/ADC.c ****     {
+ 478:.\Generated_Source\PSoC5/ADC.c ****         status = ADC_SAR_CSR1_REG & ADC_SAR_EOF_1;
+ 479:.\Generated_Source\PSoC5/ADC.c ****     } while ((status != ADC_SAR_EOF_1) && (retMode == ADC_WAIT_FOR_RESULT));
+ 480:.\Generated_Source\PSoC5/ADC.c ****     /* If convertion complete, wait until EOF bit released */
+ 481:.\Generated_Source\PSoC5/ADC.c ****     if(status == ADC_SAR_EOF_1)
+ 482:.\Generated_Source\PSoC5/ADC.c ****     {
+ 483:.\Generated_Source\PSoC5/ADC.c ****         /* wait one ADC clock to let the EOC status bit release */
+ 484:.\Generated_Source\PSoC5/ADC.c ****         CyDelayUs(1u);
+ 485:.\Generated_Source\PSoC5/ADC.c ****         /* Do the unconditional read operation of the CSR1 register to make sure the EOC bit has be
+ 486:.\Generated_Source\PSoC5/ADC.c ****         CY_GET_REG8(ADC_SAR_CSR1_PTR);
+ 487:.\Generated_Source\PSoC5/ADC.c ****     }
+ 488:.\Generated_Source\PSoC5/ADC.c **** 
+ 489:.\Generated_Source\PSoC5/ADC.c ****     return(status);
+ 490:.\Generated_Source\PSoC5/ADC.c **** }
+ 491:.\Generated_Source\PSoC5/ADC.c **** 
+ 492:.\Generated_Source\PSoC5/ADC.c **** 
+ 493:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 494:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_GetResult8
+ 495:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 496:.\Generated_Source\PSoC5/ADC.c **** *
+ 497:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 498:.\Generated_Source\PSoC5/ADC.c **** *  Returns the result of an 8-bit conversion. If the resolution is set greater
+ 499:.\Generated_Source\PSoC5/ADC.c **** *  than 8 bits, the function returns the LSB of the result.
+ 500:.\Generated_Source\PSoC5/ADC.c **** *  ADC_IsEndConversion() should be called to verify that the data
+ 501:.\Generated_Source\PSoC5/ADC.c **** *   sample is ready.
+ 502:.\Generated_Source\PSoC5/ADC.c **** *
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 15
+
+
+ 503:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 504:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 505:.\Generated_Source\PSoC5/ADC.c **** *
+ 506:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 507:.\Generated_Source\PSoC5/ADC.c **** *  The LSB of the last ADC conversion.
+ 508:.\Generated_Source\PSoC5/ADC.c **** *
+ 509:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 510:.\Generated_Source\PSoC5/ADC.c **** *  ADC_shift - used to convert the ADC counts to the 2s
+ 511:.\Generated_Source\PSoC5/ADC.c **** *  compliment form.
+ 512:.\Generated_Source\PSoC5/ADC.c **** *
+ 513:.\Generated_Source\PSoC5/ADC.c **** * Side Effects:
+ 514:.\Generated_Source\PSoC5/ADC.c **** *  Converts the ADC counts to the 2s complement form.
+ 515:.\Generated_Source\PSoC5/ADC.c **** *
+ 516:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 517:.\Generated_Source\PSoC5/ADC.c **** int8 ADC_GetResult8( void )
+ 518:.\Generated_Source\PSoC5/ADC.c **** {
+ 519:.\Generated_Source\PSoC5/ADC.c ****     return( (int8)ADC_SAR_WRK0_REG - (int8)ADC_shift);
+ 520:.\Generated_Source\PSoC5/ADC.c **** }
+ 521:.\Generated_Source\PSoC5/ADC.c **** 
+ 522:.\Generated_Source\PSoC5/ADC.c **** 
+ 523:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 524:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_GetResult16
+ 525:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 526:.\Generated_Source\PSoC5/ADC.c **** *
+ 527:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 528:.\Generated_Source\PSoC5/ADC.c **** *  Returns a 16-bit result for a conversion with a result that has a resolution
+ 529:.\Generated_Source\PSoC5/ADC.c **** *  of 8 to 12 bits.
+ 530:.\Generated_Source\PSoC5/ADC.c **** *  ADC_IsEndConversion() should be called to verify that the data
+ 531:.\Generated_Source\PSoC5/ADC.c **** *   sample is ready
+ 532:.\Generated_Source\PSoC5/ADC.c **** *
+ 533:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 534:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 535:.\Generated_Source\PSoC5/ADC.c **** *
+ 536:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 537:.\Generated_Source\PSoC5/ADC.c **** *  The 16-bit result of the last ADC conversion
+ 538:.\Generated_Source\PSoC5/ADC.c **** *
+ 539:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 540:.\Generated_Source\PSoC5/ADC.c **** *  ADC_shift - used to convert the ADC counts to the 2s
+ 541:.\Generated_Source\PSoC5/ADC.c **** *  compliment form.
+ 542:.\Generated_Source\PSoC5/ADC.c **** *
+ 543:.\Generated_Source\PSoC5/ADC.c **** * Side Effects:
+ 544:.\Generated_Source\PSoC5/ADC.c **** *  Converts the ADC counts to the 2s complement form.
+ 545:.\Generated_Source\PSoC5/ADC.c **** *
+ 546:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 547:.\Generated_Source\PSoC5/ADC.c **** int16 ADC_GetResult16( void )
+ 548:.\Generated_Source\PSoC5/ADC.c **** {
+ 549:.\Generated_Source\PSoC5/ADC.c ****     uint16 res;
+ 550:.\Generated_Source\PSoC5/ADC.c **** 
+ 551:.\Generated_Source\PSoC5/ADC.c ****     res = CY_GET_REG16(ADC_SAR_WRK_PTR);
+ 552:.\Generated_Source\PSoC5/ADC.c **** 
+ 553:.\Generated_Source\PSoC5/ADC.c ****     return( (int16)res - ADC_shift );
+ 554:.\Generated_Source\PSoC5/ADC.c **** }
+ 555:.\Generated_Source\PSoC5/ADC.c **** 
+ 556:.\Generated_Source\PSoC5/ADC.c **** 
+ 557:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 558:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_SetOffset
+ 559:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 16
+
+
+ 560:.\Generated_Source\PSoC5/ADC.c **** *
+ 561:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 562:.\Generated_Source\PSoC5/ADC.c **** *  Sets the ADC offset, which is used by ADC_CountsTo_Volts(),
+ 563:.\Generated_Source\PSoC5/ADC.c **** *  ADC_CountsTo_mVolts(), and ADC_CountsTo_uVolts()
+ 564:.\Generated_Source\PSoC5/ADC.c **** *  to subtract the offset from the given reading before calculating the voltage
+ 565:.\Generated_Source\PSoC5/ADC.c **** *  conversion.
+ 566:.\Generated_Source\PSoC5/ADC.c **** *
+ 567:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 568:.\Generated_Source\PSoC5/ADC.c **** *  int16: This value is measured when the inputs are shorted or connected to
+ 569:.\Generated_Source\PSoC5/ADC.c ****    the same input voltage.
+ 570:.\Generated_Source\PSoC5/ADC.c **** *
+ 571:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 572:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 573:.\Generated_Source\PSoC5/ADC.c **** *
+ 574:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 575:.\Generated_Source\PSoC5/ADC.c **** *  The ADC_offset variable modified. This variable is used for
+ 576:.\Generated_Source\PSoC5/ADC.c **** *  offset calibration purpose.
+ 577:.\Generated_Source\PSoC5/ADC.c **** *  Affects the ADC_CountsTo_Volts,
+ 578:.\Generated_Source\PSoC5/ADC.c **** *  ADC_CountsTo_mVolts, ADC_CountsTo_uVolts functions
+ 579:.\Generated_Source\PSoC5/ADC.c **** *  by subtracting the given offset.
+ 580:.\Generated_Source\PSoC5/ADC.c **** *
+ 581:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 582:.\Generated_Source\PSoC5/ADC.c **** void ADC_SetOffset(int16 offset)
+ 583:.\Generated_Source\PSoC5/ADC.c **** {
+ 584:.\Generated_Source\PSoC5/ADC.c ****     ADC_offset = offset;
+ 585:.\Generated_Source\PSoC5/ADC.c **** }
+ 586:.\Generated_Source\PSoC5/ADC.c **** 
+ 587:.\Generated_Source\PSoC5/ADC.c **** 
+ 588:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 589:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_CalcGain
+ 590:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 591:.\Generated_Source\PSoC5/ADC.c **** *
+ 592:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 593:.\Generated_Source\PSoC5/ADC.c **** *  This function calculates the ADC gain in counts per 10 volt.
+ 594:.\Generated_Source\PSoC5/ADC.c **** *
+ 595:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 596:.\Generated_Source\PSoC5/ADC.c **** *  uint8: resolution
+ 597:.\Generated_Source\PSoC5/ADC.c **** *
+ 598:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 599:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 600:.\Generated_Source\PSoC5/ADC.c **** *
+ 601:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 602:.\Generated_Source\PSoC5/ADC.c **** *  ADC_shift variable initialized. This variable is used to
+ 603:.\Generated_Source\PSoC5/ADC.c **** *  convert the ADC counts to the 2s compliment form.
+ 604:.\Generated_Source\PSoC5/ADC.c **** *  ADC_countsPer10Volt variable initialized. This variable is used
+ 605:.\Generated_Source\PSoC5/ADC.c **** *  for gain calibration purpose.
+ 606:.\Generated_Source\PSoC5/ADC.c **** *
+ 607:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 608:.\Generated_Source\PSoC5/ADC.c **** static void ADC_CalcGain( uint8 resolution )
+ 609:.\Generated_Source\PSoC5/ADC.c **** {
+ 610:.\Generated_Source\PSoC5/ADC.c ****     int32 counts;
+ 611:.\Generated_Source\PSoC5/ADC.c ****     #if(!((ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ 612:.\Generated_Source\PSoC5/ADC.c ****          (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDDA) || \
+ 613:.\Generated_Source\PSoC5/ADC.c ****          (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDAC)) )
+ 614:.\Generated_Source\PSoC5/ADC.c ****         uint16 diff_zero;
+ 615:.\Generated_Source\PSoC5/ADC.c ****     #endif /* End ADC_DEFAULT_RANGE */
+ 616:.\Generated_Source\PSoC5/ADC.c **** 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 17
+
+
+ 617:.\Generated_Source\PSoC5/ADC.c ****     switch (resolution)
+ 275              		.loc 1 617 0
+ 276 0022 0A2C     		cmp	r4, #10
+ 277              	.LBE5:
+ 278              	.LBE4:
+ 359:.\Generated_Source\PSoC5/ADC.c **** 
+ 279              		.loc 1 359 0
+ 280 0024 1370     		strb	r3, [r2]
+ 281              	.LVL22:
+ 282              	.LBB7:
+ 283              	.LBB6:
+ 284              		.loc 1 617 0
+ 285 0026 06D0     		beq	.L16
+ 286 0028 0C2C     		cmp	r4, #12
+ 287 002a 0CD0     		beq	.L20
+ 288 002c 082C     		cmp	r4, #8
+ 289 002e 05D1     		bne	.L22
+ 290              	.LVL23:
+ 618:.\Generated_Source\PSoC5/ADC.c ****     {
+ 619:.\Generated_Source\PSoC5/ADC.c ****         case (uint8)ADC__BITS_12:
+ 620:.\Generated_Source\PSoC5/ADC.c ****             counts = (int32)ADC_SAR_WRK_MAX_12BIT;
+ 621:.\Generated_Source\PSoC5/ADC.c ****             #if(!((ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ 622:.\Generated_Source\PSoC5/ADC.c ****                  (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDDA) || \
+ 623:.\Generated_Source\PSoC5/ADC.c ****                  (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDAC)) )
+ 624:.\Generated_Source\PSoC5/ADC.c ****                 diff_zero = ADC_SAR_DIFF_SHIFT;
+ 625:.\Generated_Source\PSoC5/ADC.c ****             #endif /* End ADC_DEFAULT_RANGE */
+ 626:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 627:.\Generated_Source\PSoC5/ADC.c ****         case (uint8)ADC__BITS_10:
+ 628:.\Generated_Source\PSoC5/ADC.c ****             counts = (int32)ADC_SAR_WRK_MAX_10BIT;
+ 629:.\Generated_Source\PSoC5/ADC.c ****             #if(!((ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ 630:.\Generated_Source\PSoC5/ADC.c ****                  (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDDA) || \
+ 631:.\Generated_Source\PSoC5/ADC.c ****                  (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDAC)) )
+ 632:.\Generated_Source\PSoC5/ADC.c ****                 diff_zero = ADC_SAR_DIFF_SHIFT >> 2u;
+ 633:.\Generated_Source\PSoC5/ADC.c ****             #endif /* End ADC_DEFAULT_RANGE */
+ 634:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 635:.\Generated_Source\PSoC5/ADC.c ****         case (uint8)ADC__BITS_8:
+ 636:.\Generated_Source\PSoC5/ADC.c ****             counts = (int32)ADC_SAR_WRK_MAX_8BIT;
+ 291              		.loc 1 636 0
+ 292 0030 4FF48072 		mov	r2, #256
+ 293 0034 09E0     		b	.L17
+ 294              	.LVL24:
+ 295              	.L16:
+ 628:.\Generated_Source\PSoC5/ADC.c ****             #if(!((ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ 296              		.loc 1 628 0
+ 297 0036 4FF48062 		mov	r2, #1024
+ 298 003a 06E0     		b	.L17
+ 299              	.L22:
+ 300              	.LVL25:
+ 637:.\Generated_Source\PSoC5/ADC.c ****             #if(!((ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ 638:.\Generated_Source\PSoC5/ADC.c ****                  (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDDA) || \
+ 639:.\Generated_Source\PSoC5/ADC.c ****                  (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDAC)) )
+ 640:.\Generated_Source\PSoC5/ADC.c ****                 diff_zero = ADC_SAR_DIFF_SHIFT >> 4u;
+ 641:.\Generated_Source\PSoC5/ADC.c ****             #endif /* End ADC_DEFAULT_RANGE */
+ 642:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 643:.\Generated_Source\PSoC5/ADC.c ****         default: /* Halt CPU in debug mode if resolution is out of valid range */
+ 644:.\Generated_Source\PSoC5/ADC.c ****             counts = 0;
+ 645:.\Generated_Source\PSoC5/ADC.c ****             #if(!((ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 18
+
+
+ 646:.\Generated_Source\PSoC5/ADC.c ****                  (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDDA) || \
+ 647:.\Generated_Source\PSoC5/ADC.c ****                  (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDAC)) )
+ 648:.\Generated_Source\PSoC5/ADC.c ****                 diff_zero = 0u;
+ 649:.\Generated_Source\PSoC5/ADC.c ****             #endif /* End ADC_DEFAULT_RANGE */
+ 650:.\Generated_Source\PSoC5/ADC.c ****             CYASSERT(0u != 0u);
+ 301              		.loc 1 650 0
+ 302 003c 0020     		movs	r0, #0
+ 303 003e FFF7FEFF 		bl	CyHalt
+ 304              	.LVL26:
+ 644:.\Generated_Source\PSoC5/ADC.c ****             #if(!((ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ 305              		.loc 1 644 0
+ 306 0042 0022     		movs	r2, #0
+ 307 0044 01E0     		b	.L17
+ 308              	.LVL27:
+ 309              	.L20:
+ 620:.\Generated_Source\PSoC5/ADC.c ****             #if(!((ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ 310              		.loc 1 620 0
+ 311 0046 4FF48052 		mov	r2, #4096
+ 312              	.LVL28:
+ 313              	.L17:
+ 651:.\Generated_Source\PSoC5/ADC.c ****             break;
+ 652:.\Generated_Source\PSoC5/ADC.c ****     }
+ 653:.\Generated_Source\PSoC5/ADC.c ****     ADC_countsPerVolt = 0; /* Clear obsolete variable */
+ 314              		.loc 1 653 0
+ 315 004a 094B     		ldr	r3, .L24+4
+ 316 004c 0021     		movs	r1, #0
+ 317 004e 1980     		strh	r1, [r3]	@ movhi
+ 654:.\Generated_Source\PSoC5/ADC.c ****     /* Calculate gain in counts per 10 volts with rounding */
+ 655:.\Generated_Source\PSoC5/ADC.c ****     ADC_countsPer10Volt = (((counts * ADC_10MV_COUNTS) +
+ 318              		.loc 1 655 0
+ 319 0050 42F21073 		movw	r3, #10000
+ 320 0054 5343     		muls	r3, r2, r3
+ 656:.\Generated_Source\PSoC5/ADC.c ****                         ADC_DEFAULT_REF_VOLTAGE_MV) / (ADC_DEFAULT_REF_VOLTAGE_MV * 2));
+ 321              		.loc 1 656 0
+ 322 0056 41F28832 		movw	r2, #5000
+ 323              	.LVL29:
+ 655:.\Generated_Source\PSoC5/ADC.c ****                         ADC_DEFAULT_REF_VOLTAGE_MV) / (ADC_DEFAULT_REF_VOLTAGE_MV * 2));
+ 324              		.loc 1 655 0
+ 325 005a 03F6C413 		addw	r3, r3, #2500
+ 326              		.loc 1 656 0
+ 327 005e 93FBF2F3 		sdiv	r3, r3, r2
+ 655:.\Generated_Source\PSoC5/ADC.c ****                         ADC_DEFAULT_REF_VOLTAGE_MV) / (ADC_DEFAULT_REF_VOLTAGE_MV * 2));
+ 328              		.loc 1 655 0
+ 329 0062 044A     		ldr	r2, .L24+8
+ 330 0064 1360     		str	r3, [r2]
+ 657:.\Generated_Source\PSoC5/ADC.c **** 
+ 658:.\Generated_Source\PSoC5/ADC.c ****     #if( (ADC_DEFAULT_RANGE == ADC__VSS_TO_VREF) || \
+ 659:.\Generated_Source\PSoC5/ADC.c ****          (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDDA) || \
+ 660:.\Generated_Source\PSoC5/ADC.c ****          (ADC_DEFAULT_RANGE == ADC__VSSA_TO_VDAC) )
+ 661:.\Generated_Source\PSoC5/ADC.c ****         ADC_shift = 0;
+ 331              		.loc 1 661 0
+ 332 0066 044B     		ldr	r3, .L24+12
+ 333 0068 1980     		strh	r1, [r3]	@ movhi
+ 334 006a 10BD     		pop	{r4, pc}
+ 335              	.L25:
+ 336              		.align	2
+ 337              	.L24:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 19
+
+
+ 338 006c 02590040 		.word	1073764610
+ 339 0070 00000000 		.word	ADC_countsPerVolt
+ 340 0074 00000000 		.word	ADC_countsPer10Volt
+ 341 0078 00000000 		.word	ADC_shift
+ 342              	.LBE6:
+ 343              	.LBE7:
+ 344              		.cfi_endproc
+ 345              	.LFE5:
+ 346              		.size	ADC_SetResolution, .-ADC_SetResolution
+ 347              		.section	.text.ADC_Init,"ax",%progbits
+ 348              		.align	1
+ 349              		.global	ADC_Init
+ 350              		.thumb
+ 351              		.thumb_func
+ 352              		.type	ADC_Init, %function
+ 353              	ADC_Init:
+ 354              	.LFB1:
+ 107:.\Generated_Source\PSoC5/ADC.c **** 
+ 355              		.loc 1 107 0
+ 356              		.cfi_startproc
+ 357              		@ args = 0, pretend = 0, frame = 0
+ 358              		@ frame_needed = 0, uses_anonymous_args = 0
+ 359 0000 08B5     		push	{r3, lr}
+ 360              		.cfi_def_cfa_offset 8
+ 361              		.cfi_offset 3, -8
+ 362              		.cfi_offset 14, -4
+ 111:.\Generated_Source\PSoC5/ADC.c ****     #endif /* End ADC_DEFAULT_INTERNAL_CLK */
+ 363              		.loc 1 111 0
+ 364 0002 1020     		movs	r0, #16
+ 365 0004 FFF7FEFF 		bl	ADC_theACLK_SetModeRegister
+ 366              	.LVL30:
+ 116:.\Generated_Source\PSoC5/ADC.c ****         (void)CyIntSetVector(ADC_INTC_NUMBER, &ADC_ISR);
+ 367              		.loc 1 116 0
+ 368 0008 0020     		movs	r0, #0
+ 369 000a 0721     		movs	r1, #7
+ 370 000c FFF7FEFF 		bl	CyIntSetPriority
+ 371              	.LVL31:
+ 117:.\Generated_Source\PSoC5/ADC.c ****     #endif   /* End ADC_IRQ_REMOVE */
+ 372              		.loc 1 117 0
+ 373 0010 0749     		ldr	r1, .L27
+ 374 0012 0020     		movs	r0, #0
+ 375 0014 FFF7FEFF 		bl	CyIntSetVector
+ 376              	.LVL32:
+ 121:.\Generated_Source\PSoC5/ADC.c **** 
+ 377              		.loc 1 121 0
+ 378 0018 064A     		ldr	r2, .L27+4
+ 124:.\Generated_Source\PSoC5/ADC.c ****     ADC_offset = 0;
+ 379              		.loc 1 124 0
+ 380 001a 0820     		movs	r0, #8
+ 121:.\Generated_Source\PSoC5/ADC.c **** 
+ 381              		.loc 1 121 0
+ 382 001c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 383 001e 43F00603 		orr	r3, r3, #6
+ 384 0022 1370     		strb	r3, [r2]
+ 124:.\Generated_Source\PSoC5/ADC.c ****     ADC_offset = 0;
+ 385              		.loc 1 124 0
+ 386 0024 FFF7FEFF 		bl	ADC_SetResolution
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 20
+
+
+ 387              	.LVL33:
+ 125:.\Generated_Source\PSoC5/ADC.c **** }
+ 388              		.loc 1 125 0
+ 389 0028 034B     		ldr	r3, .L27+8
+ 390 002a 0022     		movs	r2, #0
+ 391 002c 1A80     		strh	r2, [r3]	@ movhi
+ 392 002e 08BD     		pop	{r3, pc}
+ 393              	.L28:
+ 394              		.align	2
+ 395              	.L27:
+ 396 0030 00000000 		.word	ADC_ISR
+ 397 0034 01590040 		.word	1073764609
+ 398 0038 00000000 		.word	ADC_offset
+ 399              		.cfi_endproc
+ 400              	.LFE1:
+ 401              		.size	ADC_Init, .-ADC_Init
+ 402              		.section	.text.ADC_Start,"ax",%progbits
+ 403              		.align	1
+ 404              		.global	ADC_Start
+ 405              		.thumb
+ 406              		.thumb_func
+ 407              		.type	ADC_Start, %function
+ 408              	ADC_Start:
+ 409              	.LFB0:
+  75:.\Generated_Source\PSoC5/ADC.c **** 
+ 410              		.loc 1 75 0
+ 411              		.cfi_startproc
+ 412              		@ args = 0, pretend = 0, frame = 0
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414 0000 10B5     		push	{r4, lr}
+ 415              		.cfi_def_cfa_offset 8
+ 416              		.cfi_offset 4, -8
+ 417              		.cfi_offset 14, -4
+  78:.\Generated_Source\PSoC5/ADC.c ****     {
+ 418              		.loc 1 78 0
+ 419 0002 054C     		ldr	r4, .L31
+ 420 0004 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 421 0006 1BB9     		cbnz	r3, .L30
+  80:.\Generated_Source\PSoC5/ADC.c ****         ADC_initVar = 1u;
+ 422              		.loc 1 80 0
+ 423 0008 FFF7FEFF 		bl	ADC_Init
+ 424              	.LVL34:
+  81:.\Generated_Source\PSoC5/ADC.c ****     }
+ 425              		.loc 1 81 0
+ 426 000c 0123     		movs	r3, #1
+ 427 000e 2370     		strb	r3, [r4]
+ 428              	.L30:
+  84:.\Generated_Source\PSoC5/ADC.c **** 
+ 429              		.loc 1 84 0
+ 430 0010 BDE81040 		pop	{r4, lr}
+ 431              		.cfi_restore 14
+ 432              		.cfi_restore 4
+ 433              		.cfi_def_cfa_offset 0
+  83:.\Generated_Source\PSoC5/ADC.c **** }
+ 434              		.loc 1 83 0
+ 435 0014 FFF7FEBF 		b	ADC_Enable
+ 436              	.LVL35:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 21
+
+
+ 437              	.L32:
+ 438              		.align	2
+ 439              	.L31:
+ 440 0018 00000000 		.word	.LANCHOR0
+ 441              		.cfi_endproc
+ 442              	.LFE0:
+ 443              		.size	ADC_Start, .-ADC_Start
+ 444              		.section	.text.ADC_StartConvert,"ax",%progbits
+ 445              		.align	1
+ 446              		.global	ADC_StartConvert
+ 447              		.thumb
+ 448              		.thumb_func
+ 449              		.type	ADC_StartConvert, %function
+ 450              	ADC_StartConvert:
+ 451              	.LFB6:
+ 399:.\Generated_Source\PSoC5/ADC.c ****         #if(ADC_DEFAULT_CONV_MODE != ADC__FREE_RUNNING)  /* If software triggered mode */
+ 452              		.loc 1 399 0
+ 453              		.cfi_startproc
+ 454              		@ args = 0, pretend = 0, frame = 0
+ 455              		@ frame_needed = 0, uses_anonymous_args = 0
+ 456              		@ link register save eliminated.
+ 405:.\Generated_Source\PSoC5/ADC.c ****     }
+ 457              		.loc 1 405 0
+ 458 0000 024A     		ldr	r2, .L34
+ 459 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 460 0004 43F00103 		orr	r3, r3, #1
+ 461 0008 1370     		strb	r3, [r2]
+ 462 000a 7047     		bx	lr
+ 463              	.L35:
+ 464              		.align	2
+ 465              	.L34:
+ 466 000c 00590040 		.word	1073764608
+ 467              		.cfi_endproc
+ 468              	.LFE6:
+ 469              		.size	ADC_StartConvert, .-ADC_StartConvert
+ 470              		.section	.text.ADC_StopConvert,"ax",%progbits
+ 471              		.align	1
+ 472              		.global	ADC_StopConvert
+ 473              		.thumb
+ 474              		.thumb_func
+ 475              		.type	ADC_StopConvert, %function
+ 476              	ADC_StopConvert:
+ 477              	.LFB7:
+ 433:.\Generated_Source\PSoC5/ADC.c ****         /* Stop all conversions */
+ 478              		.loc 1 433 0
+ 479              		.cfi_startproc
+ 480              		@ args = 0, pretend = 0, frame = 0
+ 481              		@ frame_needed = 0, uses_anonymous_args = 0
+ 482              		@ link register save eliminated.
+ 435:.\Generated_Source\PSoC5/ADC.c **** 
+ 483              		.loc 1 435 0
+ 484 0000 024A     		ldr	r2, .L37
+ 485 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 486 0004 03F0FE03 		and	r3, r3, #254
+ 487 0008 1370     		strb	r3, [r2]
+ 488 000a 7047     		bx	lr
+ 489              	.L38:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 22
+
+
+ 490              		.align	2
+ 491              	.L37:
+ 492 000c 00590040 		.word	1073764608
+ 493              		.cfi_endproc
+ 494              	.LFE7:
+ 495              		.size	ADC_StopConvert, .-ADC_StopConvert
+ 496              		.section	.text.ADC_IsEndConversion,"ax",%progbits
+ 497              		.align	1
+ 498              		.global	ADC_IsEndConversion
+ 499              		.thumb
+ 500              		.thumb_func
+ 501              		.type	ADC_IsEndConversion, %function
+ 502              	ADC_IsEndConversion:
+ 503              	.LFB8:
+ 473:.\Generated_Source\PSoC5/ADC.c ****     uint8 status;
+ 504              		.loc 1 473 0
+ 505              		.cfi_startproc
+ 506              		@ args = 0, pretend = 0, frame = 0
+ 507              		@ frame_needed = 0, uses_anonymous_args = 0
+ 508              	.LVL36:
+ 509 0000 38B5     		push	{r3, r4, r5, lr}
+ 510              		.cfi_def_cfa_offset 16
+ 511              		.cfi_offset 3, -16
+ 512              		.cfi_offset 4, -12
+ 513              		.cfi_offset 5, -8
+ 514              		.cfi_offset 14, -4
+ 515              	.L41:
+ 478:.\Generated_Source\PSoC5/ADC.c ****     } while ((status != ADC_SAR_EOF_1) && (retMode == ADC_WAIT_FOR_RESULT));
+ 516              		.loc 1 478 0 discriminator 2
+ 517 0002 074D     		ldr	r5, .L46
+ 518 0004 2C78     		ldrb	r4, [r5]	@ zero_extendqisi2
+ 519              	.LVL37:
+ 479:.\Generated_Source\PSoC5/ADC.c ****     /* If convertion complete, wait until EOF bit released */
+ 520              		.loc 1 479 0 discriminator 2
+ 521 0006 14F00104 		ands	r4, r4, #1
+ 522              	.LVL38:
+ 523 000a 03D1     		bne	.L40
+ 479:.\Generated_Source\PSoC5/ADC.c ****     /* If convertion complete, wait until EOF bit released */
+ 524              		.loc 1 479 0 is_stmt 0 discriminator 1
+ 525 000c 0028     		cmp	r0, #0
+ 526 000e F8D0     		beq	.L41
+ 527 0010 0024     		movs	r4, #0
+ 528 0012 03E0     		b	.L45
+ 529              	.L40:
+ 484:.\Generated_Source\PSoC5/ADC.c ****         /* Do the unconditional read operation of the CSR1 register to make sure the EOC bit has be
+ 530              		.loc 1 484 0 is_stmt 1
+ 531 0014 2046     		mov	r0, r4
+ 532              	.LVL39:
+ 533 0016 FFF7FEFF 		bl	CyDelayUs
+ 534              	.LVL40:
+ 486:.\Generated_Source\PSoC5/ADC.c ****     }
+ 535              		.loc 1 486 0
+ 536 001a 2B78     		ldrb	r3, [r5]	@ zero_extendqisi2
+ 537              	.L45:
+ 490:.\Generated_Source\PSoC5/ADC.c **** 
+ 538              		.loc 1 490 0
+ 539 001c 2046     		mov	r0, r4
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 23
+
+
+ 540 001e 38BD     		pop	{r3, r4, r5, pc}
+ 541              	.L47:
+ 542              		.align	2
+ 543              	.L46:
+ 544 0020 01590040 		.word	1073764609
+ 545              		.cfi_endproc
+ 546              	.LFE8:
+ 547              		.size	ADC_IsEndConversion, .-ADC_IsEndConversion
+ 548              		.section	.text.ADC_GetResult8,"ax",%progbits
+ 549              		.align	1
+ 550              		.global	ADC_GetResult8
+ 551              		.thumb
+ 552              		.thumb_func
+ 553              		.type	ADC_GetResult8, %function
+ 554              	ADC_GetResult8:
+ 555              	.LFB9:
+ 518:.\Generated_Source\PSoC5/ADC.c ****     return( (int8)ADC_SAR_WRK0_REG - (int8)ADC_shift);
+ 556              		.loc 1 518 0
+ 557              		.cfi_startproc
+ 558              		@ args = 0, pretend = 0, frame = 0
+ 559              		@ frame_needed = 0, uses_anonymous_args = 0
+ 560              		@ link register save eliminated.
+ 519:.\Generated_Source\PSoC5/ADC.c **** }
+ 561              		.loc 1 519 0
+ 562 0000 034A     		ldr	r2, .L49
+ 563 0002 044B     		ldr	r3, .L49+4
+ 564 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 565 0006 1088     		ldrh	r0, [r2]
+ 566 0008 181A     		subs	r0, r3, r0
+ 520:.\Generated_Source\PSoC5/ADC.c **** 
+ 567              		.loc 1 520 0
+ 568 000a 40B2     		sxtb	r0, r0
+ 569 000c 7047     		bx	lr
+ 570              	.L50:
+ 571 000e 00BF     		.align	2
+ 572              	.L49:
+ 573 0010 00000000 		.word	ADC_shift
+ 574 0014 A05B0040 		.word	1073765280
+ 575              		.cfi_endproc
+ 576              	.LFE9:
+ 577              		.size	ADC_GetResult8, .-ADC_GetResult8
+ 578              		.section	.text.ADC_GetResult16,"ax",%progbits
+ 579              		.align	1
+ 580              		.global	ADC_GetResult16
+ 581              		.thumb
+ 582              		.thumb_func
+ 583              		.type	ADC_GetResult16, %function
+ 584              	ADC_GetResult16:
+ 585              	.LFB10:
+ 548:.\Generated_Source\PSoC5/ADC.c ****     uint16 res;
+ 586              		.loc 1 548 0
+ 587              		.cfi_startproc
+ 588              		@ args = 0, pretend = 0, frame = 0
+ 589              		@ frame_needed = 0, uses_anonymous_args = 0
+ 590              		@ link register save eliminated.
+ 553:.\Generated_Source\PSoC5/ADC.c **** }
+ 591              		.loc 1 553 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 24
+
+
+ 592 0000 034A     		ldr	r2, .L52
+ 551:.\Generated_Source\PSoC5/ADC.c **** 
+ 593              		.loc 1 551 0
+ 594 0002 044B     		ldr	r3, .L52+4
+ 595 0004 1B88     		ldrh	r3, [r3]
+ 596              	.LVL41:
+ 553:.\Generated_Source\PSoC5/ADC.c **** }
+ 597              		.loc 1 553 0
+ 598 0006 1088     		ldrh	r0, [r2]
+ 599 0008 181A     		subs	r0, r3, r0
+ 554:.\Generated_Source\PSoC5/ADC.c **** 
+ 600              		.loc 1 554 0
+ 601 000a 00B2     		sxth	r0, r0
+ 602 000c 7047     		bx	lr
+ 603              	.L53:
+ 604 000e 00BF     		.align	2
+ 605              	.L52:
+ 606 0010 00000000 		.word	ADC_shift
+ 607 0014 A05B0040 		.word	1073765280
+ 608              		.cfi_endproc
+ 609              	.LFE10:
+ 610              		.size	ADC_GetResult16, .-ADC_GetResult16
+ 611              		.section	.text.ADC_SetOffset,"ax",%progbits
+ 612              		.align	1
+ 613              		.global	ADC_SetOffset
+ 614              		.thumb
+ 615              		.thumb_func
+ 616              		.type	ADC_SetOffset, %function
+ 617              	ADC_SetOffset:
+ 618              	.LFB11:
+ 583:.\Generated_Source\PSoC5/ADC.c ****     ADC_offset = offset;
+ 619              		.loc 1 583 0
+ 620              		.cfi_startproc
+ 621              		@ args = 0, pretend = 0, frame = 0
+ 622              		@ frame_needed = 0, uses_anonymous_args = 0
+ 623              		@ link register save eliminated.
+ 624              	.LVL42:
+ 584:.\Generated_Source\PSoC5/ADC.c **** }
+ 625              		.loc 1 584 0
+ 626 0000 014B     		ldr	r3, .L55
+ 627 0002 1880     		strh	r0, [r3]	@ movhi
+ 628 0004 7047     		bx	lr
+ 629              	.L56:
+ 630 0006 00BF     		.align	2
+ 631              	.L55:
+ 632 0008 00000000 		.word	ADC_offset
+ 633              		.cfi_endproc
+ 634              	.LFE11:
+ 635              		.size	ADC_SetOffset, .-ADC_SetOffset
+ 636              		.section	.text.ADC_SetGain,"ax",%progbits
+ 637              		.align	1
+ 638              		.global	ADC_SetGain
+ 639              		.thumb
+ 640              		.thumb_func
+ 641              		.type	ADC_SetGain, %function
+ 642              	ADC_SetGain:
+ 643              	.LFB13:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 25
+
+
+ 662:.\Generated_Source\PSoC5/ADC.c ****     #else
+ 663:.\Generated_Source\PSoC5/ADC.c ****         ADC_shift = diff_zero;
+ 664:.\Generated_Source\PSoC5/ADC.c ****     #endif /* End ADC_DEFAULT_RANGE */
+ 665:.\Generated_Source\PSoC5/ADC.c **** }
+ 666:.\Generated_Source\PSoC5/ADC.c **** 
+ 667:.\Generated_Source\PSoC5/ADC.c **** 
+ 668:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 669:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_SetGain
+ 670:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 671:.\Generated_Source\PSoC5/ADC.c **** *
+ 672:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 673:.\Generated_Source\PSoC5/ADC.c **** *  Sets the ADC gain in counts per volt for the voltage conversion functions
+ 674:.\Generated_Source\PSoC5/ADC.c **** *  that follow. This value is set by default by the reference and input range
+ 675:.\Generated_Source\PSoC5/ADC.c **** *  settings. It should only be used to further calibrate the ADC with a known
+ 676:.\Generated_Source\PSoC5/ADC.c **** *  input or if the ADC is using an external reference.
+ 677:.\Generated_Source\PSoC5/ADC.c **** *
+ 678:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 679:.\Generated_Source\PSoC5/ADC.c **** *  int16  adcGain  counts per volt
+ 680:.\Generated_Source\PSoC5/ADC.c **** *
+ 681:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 682:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 683:.\Generated_Source\PSoC5/ADC.c **** *
+ 684:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 685:.\Generated_Source\PSoC5/ADC.c **** *  ADC_countsPer10Volt variable modified. This variable is used
+ 686:.\Generated_Source\PSoC5/ADC.c **** *  for gain calibration purpose.
+ 687:.\Generated_Source\PSoC5/ADC.c **** *
+ 688:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 689:.\Generated_Source\PSoC5/ADC.c **** void ADC_SetGain(int16 adcGain)
+ 690:.\Generated_Source\PSoC5/ADC.c **** {
+ 644              		.loc 1 690 0
+ 645              		.cfi_startproc
+ 646              		@ args = 0, pretend = 0, frame = 0
+ 647              		@ frame_needed = 0, uses_anonymous_args = 0
+ 648              		@ link register save eliminated.
+ 649              	.LVL43:
+ 691:.\Generated_Source\PSoC5/ADC.c ****     ADC_countsPer10Volt = (int32)adcGain * 10;
+ 650              		.loc 1 691 0
+ 651 0000 0A23     		movs	r3, #10
+ 652 0002 5843     		muls	r0, r3, r0
+ 653              	.LVL44:
+ 654 0004 014B     		ldr	r3, .L58
+ 655 0006 1860     		str	r0, [r3]
+ 656 0008 7047     		bx	lr
+ 657              	.L59:
+ 658 000a 00BF     		.align	2
+ 659              	.L58:
+ 660 000c 00000000 		.word	ADC_countsPer10Volt
+ 661              		.cfi_endproc
+ 662              	.LFE13:
+ 663              		.size	ADC_SetGain, .-ADC_SetGain
+ 664              		.section	.text.ADC_SetScaledGain,"ax",%progbits
+ 665              		.align	1
+ 666              		.global	ADC_SetScaledGain
+ 667              		.thumb
+ 668              		.thumb_func
+ 669              		.type	ADC_SetScaledGain, %function
+ 670              	ADC_SetScaledGain:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 26
+
+
+ 671              	.LFB14:
+ 692:.\Generated_Source\PSoC5/ADC.c **** }
+ 693:.\Generated_Source\PSoC5/ADC.c **** 
+ 694:.\Generated_Source\PSoC5/ADC.c **** 
+ 695:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 696:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_SetGainPer10Volt
+ 697:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 698:.\Generated_Source\PSoC5/ADC.c **** *
+ 699:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 700:.\Generated_Source\PSoC5/ADC.c **** *  Sets the ADC gain in counts per 10 volt for the voltage conversion functions
+ 701:.\Generated_Source\PSoC5/ADC.c **** *  that follow. This value is set by default by the reference and input range
+ 702:.\Generated_Source\PSoC5/ADC.c **** *  settings. It should only be used to further calibrate the ADC with a known
+ 703:.\Generated_Source\PSoC5/ADC.c **** *  input or if the ADC is using an external reference.
+ 704:.\Generated_Source\PSoC5/ADC.c **** *
+ 705:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 706:.\Generated_Source\PSoC5/ADC.c **** *  int16  adcGain  counts per 10 volt
+ 707:.\Generated_Source\PSoC5/ADC.c **** *
+ 708:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 709:.\Generated_Source\PSoC5/ADC.c **** *  None.
+ 710:.\Generated_Source\PSoC5/ADC.c **** *
+ 711:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 712:.\Generated_Source\PSoC5/ADC.c **** *  ADC_countsPer10Volt variable modified. This variable is used
+ 713:.\Generated_Source\PSoC5/ADC.c **** *  for gain calibration purpose.
+ 714:.\Generated_Source\PSoC5/ADC.c **** *
+ 715:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 716:.\Generated_Source\PSoC5/ADC.c **** void ADC_SetScaledGain(int32 adcGain)
+ 717:.\Generated_Source\PSoC5/ADC.c **** {
+ 672              		.loc 1 717 0
+ 673              		.cfi_startproc
+ 674              		@ args = 0, pretend = 0, frame = 0
+ 675              		@ frame_needed = 0, uses_anonymous_args = 0
+ 676              		@ link register save eliminated.
+ 677              	.LVL45:
+ 718:.\Generated_Source\PSoC5/ADC.c ****     ADC_countsPer10Volt = adcGain;
+ 678              		.loc 1 718 0
+ 679 0000 014B     		ldr	r3, .L61
+ 680 0002 1860     		str	r0, [r3]
+ 681 0004 7047     		bx	lr
+ 682              	.L62:
+ 683 0006 00BF     		.align	2
+ 684              	.L61:
+ 685 0008 00000000 		.word	ADC_countsPer10Volt
+ 686              		.cfi_endproc
+ 687              	.LFE14:
+ 688              		.size	ADC_SetScaledGain, .-ADC_SetScaledGain
+ 689              		.section	.text.ADC_CountsTo_mVolts,"ax",%progbits
+ 690              		.align	1
+ 691              		.global	ADC_CountsTo_mVolts
+ 692              		.thumb
+ 693              		.thumb_func
+ 694              		.type	ADC_CountsTo_mVolts, %function
+ 695              	ADC_CountsTo_mVolts:
+ 696              	.LFB15:
+ 719:.\Generated_Source\PSoC5/ADC.c **** }
+ 720:.\Generated_Source\PSoC5/ADC.c **** 
+ 721:.\Generated_Source\PSoC5/ADC.c **** 
+ 722:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 27
+
+
+ 723:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_CountsTo_mVolts
+ 724:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 725:.\Generated_Source\PSoC5/ADC.c **** *
+ 726:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 727:.\Generated_Source\PSoC5/ADC.c **** *  Converts the ADC output to millivolts as a 16-bit integer.
+ 728:.\Generated_Source\PSoC5/ADC.c **** *
+ 729:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 730:.\Generated_Source\PSoC5/ADC.c **** *  int16 adcCounts:  Result from the ADC conversion
+ 731:.\Generated_Source\PSoC5/ADC.c **** *
+ 732:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 733:.\Generated_Source\PSoC5/ADC.c **** *  int16 Result in mVolts
+ 734:.\Generated_Source\PSoC5/ADC.c **** *
+ 735:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 736:.\Generated_Source\PSoC5/ADC.c **** *  ADC_offset variable used.
+ 737:.\Generated_Source\PSoC5/ADC.c **** *  ADC_countsPer10Volt variable used.
+ 738:.\Generated_Source\PSoC5/ADC.c **** *
+ 739:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 740:.\Generated_Source\PSoC5/ADC.c **** int16 ADC_CountsTo_mVolts(int16 adcCounts)
+ 741:.\Generated_Source\PSoC5/ADC.c **** {
+ 697              		.loc 1 741 0
+ 698              		.cfi_startproc
+ 699              		@ args = 0, pretend = 0, frame = 0
+ 700              		@ frame_needed = 0, uses_anonymous_args = 0
+ 701              		@ link register save eliminated.
+ 702              	.LVL46:
+ 742:.\Generated_Source\PSoC5/ADC.c ****     int16 mVolts;
+ 743:.\Generated_Source\PSoC5/ADC.c ****     int32 countsPer10Volt;
+ 744:.\Generated_Source\PSoC5/ADC.c **** 
+ 745:.\Generated_Source\PSoC5/ADC.c ****     if(ADC_countsPerVolt != 0)
+ 703              		.loc 1 745 0
+ 704 0000 0E4A     		ldr	r2, .L68
+ 705 0002 1388     		ldrh	r3, [r2]
+ 706 0004 9BB2     		uxth	r3, r3
+ 707 0006 23B1     		cbz	r3, .L64
+ 746:.\Generated_Source\PSoC5/ADC.c ****     {   /* Support obsolete method */
+ 747:.\Generated_Source\PSoC5/ADC.c ****         countsPer10Volt = (int32)ADC_countsPerVolt * 10;
+ 708              		.loc 1 747 0
+ 709 0008 1288     		ldrh	r2, [r2]
+ 710 000a 0A23     		movs	r3, #10
+ 711 000c 12B2     		sxth	r2, r2
+ 712 000e 5A43     		muls	r2, r3, r2
+ 713              	.LVL47:
+ 714 0010 01E0     		b	.L65
+ 715              	.LVL48:
+ 716              	.L64:
+ 748:.\Generated_Source\PSoC5/ADC.c ****     }
+ 749:.\Generated_Source\PSoC5/ADC.c ****     else
+ 750:.\Generated_Source\PSoC5/ADC.c ****     {
+ 751:.\Generated_Source\PSoC5/ADC.c ****         countsPer10Volt = ADC_countsPer10Volt;
+ 717              		.loc 1 751 0
+ 718 0012 0B4B     		ldr	r3, .L68+4
+ 719 0014 1A68     		ldr	r2, [r3]
+ 720              	.LVL49:
+ 721              	.L65:
+ 752:.\Generated_Source\PSoC5/ADC.c ****     }
+ 753:.\Generated_Source\PSoC5/ADC.c **** 
+ 754:.\Generated_Source\PSoC5/ADC.c ****     /* Subtract ADC offset */
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 28
+
+
+ 755:.\Generated_Source\PSoC5/ADC.c ****     adcCounts -= ADC_offset;
+ 722              		.loc 1 755 0
+ 723 0016 0B4B     		ldr	r3, .L68+8
+ 724 0018 1988     		ldrh	r1, [r3]
+ 725 001a 0223     		movs	r3, #2
+ 726 001c 411A     		subs	r1, r0, r1
+ 756:.\Generated_Source\PSoC5/ADC.c ****     /* Convert to millivolts with rounding */
+ 757:.\Generated_Source\PSoC5/ADC.c ****     mVolts = (int16)( (( (int32)adcCounts * ADC_10MV_COUNTS ) + ( (adcCounts > 0) ?
+ 727              		.loc 1 757 0
+ 728 001e 42F21070 		movw	r0, #10000
+ 729              	.LVL50:
+ 758:.\Generated_Source\PSoC5/ADC.c ****                        (countsPer10Volt / 2) : (-(countsPer10Volt / 2)) )) / countsPer10Volt);
+ 730              		.loc 1 758 0
+ 731 0022 92FBF3F3 		sdiv	r3, r2, r3
+ 755:.\Generated_Source\PSoC5/ADC.c ****     /* Convert to millivolts with rounding */
+ 732              		.loc 1 755 0
+ 733 0026 09B2     		sxth	r1, r1
+ 734              	.LVL51:
+ 757:.\Generated_Source\PSoC5/ADC.c ****                        (countsPer10Volt / 2) : (-(countsPer10Volt / 2)) )) / countsPer10Volt);
+ 735              		.loc 1 757 0
+ 736 0028 4843     		muls	r0, r1, r0
+ 737              		.loc 1 758 0
+ 738 002a 0029     		cmp	r1, #0
+ 739 002c D8BF     		it	le
+ 740 002e 5B42     		rsble	r3, r3, #0
+ 741              	.LVL52:
+ 757:.\Generated_Source\PSoC5/ADC.c ****                        (countsPer10Volt / 2) : (-(countsPer10Volt / 2)) )) / countsPer10Volt);
+ 742              		.loc 1 757 0
+ 743 0030 0344     		add	r3, r3, r0
+ 744              	.LVL53:
+ 745              		.loc 1 758 0
+ 746 0032 93FBF2F0 		sdiv	r0, r3, r2
+ 747              	.LVL54:
+ 759:.\Generated_Source\PSoC5/ADC.c **** 
+ 760:.\Generated_Source\PSoC5/ADC.c ****     return( mVolts );
+ 761:.\Generated_Source\PSoC5/ADC.c **** }
+ 748              		.loc 1 761 0
+ 749 0036 00B2     		sxth	r0, r0
+ 750 0038 7047     		bx	lr
+ 751              	.L69:
+ 752 003a 00BF     		.align	2
+ 753              	.L68:
+ 754 003c 00000000 		.word	ADC_countsPerVolt
+ 755 0040 00000000 		.word	ADC_countsPer10Volt
+ 756 0044 00000000 		.word	ADC_offset
+ 757              		.cfi_endproc
+ 758              	.LFE15:
+ 759              		.size	ADC_CountsTo_mVolts, .-ADC_CountsTo_mVolts
+ 760              		.global	__aeabi_ldivmod
+ 761              		.section	.text.ADC_CountsTo_uVolts,"ax",%progbits
+ 762              		.align	1
+ 763              		.global	ADC_CountsTo_uVolts
+ 764              		.thumb
+ 765              		.thumb_func
+ 766              		.type	ADC_CountsTo_uVolts, %function
+ 767              	ADC_CountsTo_uVolts:
+ 768              	.LFB16:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 29
+
+
+ 762:.\Generated_Source\PSoC5/ADC.c **** 
+ 763:.\Generated_Source\PSoC5/ADC.c **** 
+ 764:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 765:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_CountsTo_uVolts
+ 766:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 767:.\Generated_Source\PSoC5/ADC.c **** *
+ 768:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 769:.\Generated_Source\PSoC5/ADC.c **** *  Converts the ADC output to microvolts as a 32-bit integer.
+ 770:.\Generated_Source\PSoC5/ADC.c **** *
+ 771:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 772:.\Generated_Source\PSoC5/ADC.c **** *  int16 adcCounts: Result from the ADC conversion
+ 773:.\Generated_Source\PSoC5/ADC.c **** *
+ 774:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 775:.\Generated_Source\PSoC5/ADC.c **** *  int32 Result in micro Volts
+ 776:.\Generated_Source\PSoC5/ADC.c **** *
+ 777:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 778:.\Generated_Source\PSoC5/ADC.c **** *  ADC_offset variable used.
+ 779:.\Generated_Source\PSoC5/ADC.c **** *  ADC_countsPer10Volt used to convert ADC counts to uVolts.
+ 780:.\Generated_Source\PSoC5/ADC.c **** *
+ 781:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 782:.\Generated_Source\PSoC5/ADC.c **** int32 ADC_CountsTo_uVolts(int16 adcCounts)
+ 783:.\Generated_Source\PSoC5/ADC.c **** {
+ 769              		.loc 1 783 0
+ 770              		.cfi_startproc
+ 771              		@ args = 0, pretend = 0, frame = 0
+ 772              		@ frame_needed = 0, uses_anonymous_args = 0
+ 773              	.LVL55:
+ 784:.\Generated_Source\PSoC5/ADC.c **** 
+ 785:.\Generated_Source\PSoC5/ADC.c ****     int64 uVolts;
+ 786:.\Generated_Source\PSoC5/ADC.c ****     int32 countsPer10Volt;
+ 787:.\Generated_Source\PSoC5/ADC.c **** 
+ 788:.\Generated_Source\PSoC5/ADC.c ****     if(ADC_countsPerVolt != 0)
+ 774              		.loc 1 788 0
+ 775 0000 0C4A     		ldr	r2, .L73
+ 783:.\Generated_Source\PSoC5/ADC.c **** 
+ 776              		.loc 1 783 0
+ 777 0002 38B5     		push	{r3, r4, r5, lr}
+ 778              		.cfi_def_cfa_offset 16
+ 779              		.cfi_offset 3, -16
+ 780              		.cfi_offset 4, -12
+ 781              		.cfi_offset 5, -8
+ 782              		.cfi_offset 14, -4
+ 783              		.loc 1 788 0
+ 784 0004 1388     		ldrh	r3, [r2]
+ 785 0006 9BB2     		uxth	r3, r3
+ 786 0008 23B1     		cbz	r3, .L71
+ 789:.\Generated_Source\PSoC5/ADC.c ****     {   /* Support obsolete method */
+ 790:.\Generated_Source\PSoC5/ADC.c ****         countsPer10Volt = (int32)ADC_countsPerVolt * 10;
+ 787              		.loc 1 790 0
+ 788 000a 1288     		ldrh	r2, [r2]
+ 789 000c 0A23     		movs	r3, #10
+ 790 000e 12B2     		sxth	r2, r2
+ 791 0010 5A43     		muls	r2, r3, r2
+ 792              	.LVL56:
+ 793 0012 01E0     		b	.L72
+ 794              	.LVL57:
+ 795              	.L71:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 30
+
+
+ 791:.\Generated_Source\PSoC5/ADC.c ****     }
+ 792:.\Generated_Source\PSoC5/ADC.c ****     else
+ 793:.\Generated_Source\PSoC5/ADC.c ****     {
+ 794:.\Generated_Source\PSoC5/ADC.c ****         countsPer10Volt = ADC_countsPer10Volt;
+ 796              		.loc 1 794 0
+ 797 0014 084B     		ldr	r3, .L73+4
+ 798 0016 1A68     		ldr	r2, [r3]
+ 799              	.LVL58:
+ 800              	.L72:
+ 795:.\Generated_Source\PSoC5/ADC.c ****     }
+ 796:.\Generated_Source\PSoC5/ADC.c **** 
+ 797:.\Generated_Source\PSoC5/ADC.c ****     /* Subtract ADC offset */
+ 798:.\Generated_Source\PSoC5/ADC.c ****     adcCounts -= ADC_offset;
+ 801              		.loc 1 798 0
+ 802 0018 084B     		ldr	r3, .L73+8
+ 803 001a 1C88     		ldrh	r4, [r3]
+ 804              	.LVL59:
+ 799:.\Generated_Source\PSoC5/ADC.c ****     /* To convert adcCounts to microVolts it is required to be multiplied
+ 800:.\Generated_Source\PSoC5/ADC.c ****     *  on 10 million and later divide on gain in counts per 10V.
+ 801:.\Generated_Source\PSoC5/ADC.c ****     */
+ 802:.\Generated_Source\PSoC5/ADC.c ****     uVolts = (( (int64)adcCounts * ADC_10UV_COUNTS ) / countsPer10Volt);
+ 805              		.loc 1 802 0
+ 806 001c 084B     		ldr	r3, .L73+12
+ 807 001e 041B     		subs	r4, r0, r4
+ 808              	.LVL60:
+ 809 0020 24B2     		sxth	r4, r4
+ 810 0022 A4FB0301 		umull	r0, r1, r4, r3
+ 811 0026 E517     		asrs	r5, r4, #31
+ 812 0028 03FB0511 		mla	r1, r3, r5, r1
+ 813 002c D317     		asrs	r3, r2, #31
+ 814 002e FFF7FEFF 		bl	__aeabi_ldivmod
+ 815              	.LVL61:
+ 803:.\Generated_Source\PSoC5/ADC.c **** 
+ 804:.\Generated_Source\PSoC5/ADC.c ****     return( uVolts );
+ 805:.\Generated_Source\PSoC5/ADC.c **** }
+ 816              		.loc 1 805 0
+ 817 0032 38BD     		pop	{r3, r4, r5, pc}
+ 818              	.L74:
+ 819              		.align	2
+ 820              	.L73:
+ 821 0034 00000000 		.word	ADC_countsPerVolt
+ 822 0038 00000000 		.word	ADC_countsPer10Volt
+ 823 003c 00000000 		.word	ADC_offset
+ 824 0040 80969800 		.word	10000000
+ 825              		.cfi_endproc
+ 826              	.LFE16:
+ 827              		.size	ADC_CountsTo_uVolts, .-ADC_CountsTo_uVolts
+ 828              		.global	__aeabi_i2f
+ 829              		.global	__aeabi_fmul
+ 830              		.global	__aeabi_fdiv
+ 831              		.section	.text.ADC_CountsTo_Volts,"ax",%progbits
+ 832              		.align	1
+ 833              		.global	ADC_CountsTo_Volts
+ 834              		.thumb
+ 835              		.thumb_func
+ 836              		.type	ADC_CountsTo_Volts, %function
+ 837              	ADC_CountsTo_Volts:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 31
+
+
+ 838              	.LFB17:
+ 806:.\Generated_Source\PSoC5/ADC.c **** 
+ 807:.\Generated_Source\PSoC5/ADC.c **** 
+ 808:.\Generated_Source\PSoC5/ADC.c **** /*******************************************************************************
+ 809:.\Generated_Source\PSoC5/ADC.c **** * Function Name: ADC_CountsTo_Volts
+ 810:.\Generated_Source\PSoC5/ADC.c **** ********************************************************************************
+ 811:.\Generated_Source\PSoC5/ADC.c **** *
+ 812:.\Generated_Source\PSoC5/ADC.c **** * Summary:
+ 813:.\Generated_Source\PSoC5/ADC.c **** *  Converts the ADC output to volts as a floating-point number.
+ 814:.\Generated_Source\PSoC5/ADC.c **** *
+ 815:.\Generated_Source\PSoC5/ADC.c **** * Parameters:
+ 816:.\Generated_Source\PSoC5/ADC.c **** *  int16 adcCounts: Result from the ADC conversion
+ 817:.\Generated_Source\PSoC5/ADC.c **** *
+ 818:.\Generated_Source\PSoC5/ADC.c **** * Return:
+ 819:.\Generated_Source\PSoC5/ADC.c **** *  float Result in Volts
+ 820:.\Generated_Source\PSoC5/ADC.c **** *
+ 821:.\Generated_Source\PSoC5/ADC.c **** * Global Variables:
+ 822:.\Generated_Source\PSoC5/ADC.c **** *  ADC_offset variable used.
+ 823:.\Generated_Source\PSoC5/ADC.c **** *  ADC_countsPer10Volt used to convert ADC counts to Volts.
+ 824:.\Generated_Source\PSoC5/ADC.c **** *
+ 825:.\Generated_Source\PSoC5/ADC.c **** *******************************************************************************/
+ 826:.\Generated_Source\PSoC5/ADC.c **** float32 ADC_CountsTo_Volts(int16 adcCounts)
+ 827:.\Generated_Source\PSoC5/ADC.c **** {
+ 839              		.loc 1 827 0
+ 840              		.cfi_startproc
+ 841              		@ args = 0, pretend = 0, frame = 0
+ 842              		@ frame_needed = 0, uses_anonymous_args = 0
+ 843              	.LVL62:
+ 828:.\Generated_Source\PSoC5/ADC.c ****     float32 volts;
+ 829:.\Generated_Source\PSoC5/ADC.c ****     int32 countsPer10Volt;
+ 830:.\Generated_Source\PSoC5/ADC.c **** 
+ 831:.\Generated_Source\PSoC5/ADC.c ****     if(ADC_countsPerVolt != 0)
+ 844              		.loc 1 831 0
+ 845 0000 0E4A     		ldr	r2, .L78
+ 827:.\Generated_Source\PSoC5/ADC.c ****     float32 volts;
+ 846              		.loc 1 827 0
+ 847 0002 38B5     		push	{r3, r4, r5, lr}
+ 848              		.cfi_def_cfa_offset 16
+ 849              		.cfi_offset 3, -16
+ 850              		.cfi_offset 4, -12
+ 851              		.cfi_offset 5, -8
+ 852              		.cfi_offset 14, -4
+ 853              		.loc 1 831 0
+ 854 0004 1388     		ldrh	r3, [r2]
+ 855 0006 9BB2     		uxth	r3, r3
+ 856 0008 23B1     		cbz	r3, .L76
+ 832:.\Generated_Source\PSoC5/ADC.c ****     {   /* Support obsolete method */
+ 833:.\Generated_Source\PSoC5/ADC.c ****         countsPer10Volt = (int32)ADC_countsPerVolt * 10;
+ 857              		.loc 1 833 0
+ 858 000a 1488     		ldrh	r4, [r2]
+ 859 000c 0A23     		movs	r3, #10
+ 860 000e 24B2     		sxth	r4, r4
+ 861 0010 5C43     		muls	r4, r3, r4
+ 862              	.LVL63:
+ 863 0012 01E0     		b	.L77
+ 864              	.LVL64:
+ 865              	.L76:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 32
+
+
+ 834:.\Generated_Source\PSoC5/ADC.c ****     }
+ 835:.\Generated_Source\PSoC5/ADC.c ****     else
+ 836:.\Generated_Source\PSoC5/ADC.c ****     {
+ 837:.\Generated_Source\PSoC5/ADC.c ****         countsPer10Volt = ADC_countsPer10Volt;
+ 866              		.loc 1 837 0
+ 867 0014 0A4B     		ldr	r3, .L78+4
+ 868 0016 1C68     		ldr	r4, [r3]
+ 869              	.LVL65:
+ 870              	.L77:
+ 838:.\Generated_Source\PSoC5/ADC.c ****     }
+ 839:.\Generated_Source\PSoC5/ADC.c **** 
+ 840:.\Generated_Source\PSoC5/ADC.c ****     /* Subtract ADC offset */
+ 841:.\Generated_Source\PSoC5/ADC.c ****     adcCounts -= ADC_offset;
+ 871              		.loc 1 841 0
+ 872 0018 0A4B     		ldr	r3, .L78+8
+ 873 001a 1B88     		ldrh	r3, [r3]
+ 874 001c C01A     		subs	r0, r0, r3
+ 875              	.LVL66:
+ 842:.\Generated_Source\PSoC5/ADC.c **** 
+ 843:.\Generated_Source\PSoC5/ADC.c ****     volts = ((float32)adcCounts * ADC_10V_COUNTS) / (float32)countsPer10Volt;
+ 876              		.loc 1 843 0
+ 877 001e 00B2     		sxth	r0, r0
+ 878 0020 FFF7FEFF 		bl	__aeabi_i2f
+ 879              	.LVL67:
+ 880 0024 0849     		ldr	r1, .L78+12
+ 881 0026 FFF7FEFF 		bl	__aeabi_fmul
+ 882              	.LVL68:
+ 883 002a 0546     		mov	r5, r0
+ 884 002c 2046     		mov	r0, r4
+ 885 002e FFF7FEFF 		bl	__aeabi_i2f
+ 886              	.LVL69:
+ 887 0032 0146     		mov	r1, r0
+ 888 0034 2846     		mov	r0, r5
+ 889 0036 FFF7FEFF 		bl	__aeabi_fdiv
+ 890              	.LVL70:
+ 844:.\Generated_Source\PSoC5/ADC.c **** 
+ 845:.\Generated_Source\PSoC5/ADC.c ****     return( volts );
+ 846:.\Generated_Source\PSoC5/ADC.c **** }
+ 891              		.loc 1 846 0
+ 892 003a 38BD     		pop	{r3, r4, r5, pc}
+ 893              	.LVL71:
+ 894              	.L79:
+ 895              		.align	2
+ 896              	.L78:
+ 897 003c 00000000 		.word	ADC_countsPerVolt
+ 898 0040 00000000 		.word	ADC_countsPer10Volt
+ 899 0044 00000000 		.word	ADC_offset
+ 900 0048 00002041 		.word	1092616192
+ 901              		.cfi_endproc
+ 902              	.LFE17:
+ 903              		.size	ADC_CountsTo_Volts, .-ADC_CountsTo_Volts
+ 904              		.comm	ADC_shift,2,2
+ 905              		.comm	ADC_countsPer10Volt,4,4
+ 906              		.comm	ADC_countsPerVolt,2,2
+ 907              		.comm	ADC_offset,2,2
+ 908              		.global	ADC_initVar
+ 909              		.bss
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 33
+
+
+ 910              		.set	.LANCHOR0,. + 0
+ 911              		.type	ADC_initVar, %object
+ 912              		.size	ADC_initVar, 1
+ 913              	ADC_initVar:
+ 914 0000 00       		.space	1
+ 915              		.text
+ 916              	.Letext0:
+ 917              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 918              		.file 3 ".\\Generated_Source\\PSoC5\\CyLib.h"
+ 919              		.file 4 ".\\Generated_Source\\PSoC5\\ADC_theACLK.h"
+ 920              		.section	.debug_info,"",%progbits
+ 921              	.Ldebug_info0:
+ 922 0000 FC050000 		.4byte	0x5fc
+ 923 0004 0400     		.2byte	0x4
+ 924 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 925 000a 04       		.byte	0x4
+ 926 000b 01       		.uleb128 0x1
+ 927 000c BB010000 		.4byte	.LASF65
+ 928 0010 01       		.byte	0x1
+ 929 0011 91000000 		.4byte	.LASF66
+ 930 0015 03010000 		.4byte	.LASF67
+ 931 0019 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 932 001d 00000000 		.4byte	0
+ 933 0021 00000000 		.4byte	.Ldebug_line0
+ 934 0025 02       		.uleb128 0x2
+ 935 0026 08       		.byte	0x8
+ 936 0027 07       		.byte	0x7
+ 937 0028 48000000 		.4byte	.LASF0
+ 938 002c 02       		.uleb128 0x2
+ 939 002d 04       		.byte	0x4
+ 940 002e 04       		.byte	0x4
+ 941 002f 50030000 		.4byte	.LASF1
+ 942 0033 02       		.uleb128 0x2
+ 943 0034 08       		.byte	0x8
+ 944 0035 05       		.byte	0x5
+ 945 0036 70000000 		.4byte	.LASF2
+ 946 003a 03       		.uleb128 0x3
+ 947 003b 04       		.byte	0x4
+ 948 003c 05       		.byte	0x5
+ 949 003d 696E7400 		.ascii	"int\000"
+ 950 0041 02       		.uleb128 0x2
+ 951 0042 02       		.byte	0x2
+ 952 0043 05       		.byte	0x5
+ 953 0044 95030000 		.4byte	.LASF3
+ 954 0048 02       		.uleb128 0x2
+ 955 0049 04       		.byte	0x4
+ 956 004a 07       		.byte	0x7
+ 957 004b AE010000 		.4byte	.LASF4
+ 958 004f 02       		.uleb128 0x2
+ 959 0050 01       		.byte	0x1
+ 960 0051 06       		.byte	0x6
+ 961 0052 7E000000 		.4byte	.LASF5
+ 962 0056 02       		.uleb128 0x2
+ 963 0057 01       		.byte	0x1
+ 964 0058 08       		.byte	0x8
+ 965 0059 7C030000 		.4byte	.LASF6
+ 966 005d 02       		.uleb128 0x2
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 34
+
+
+ 967 005e 02       		.byte	0x2
+ 968 005f 07       		.byte	0x7
+ 969 0060 7F020000 		.4byte	.LASF7
+ 970 0064 02       		.uleb128 0x2
+ 971 0065 04       		.byte	0x4
+ 972 0066 05       		.byte	0x5
+ 973 0067 C0000000 		.4byte	.LASF8
+ 974 006b 02       		.uleb128 0x2
+ 975 006c 04       		.byte	0x4
+ 976 006d 07       		.byte	0x7
+ 977 006e 50020000 		.4byte	.LASF9
+ 978 0072 02       		.uleb128 0x2
+ 979 0073 04       		.byte	0x4
+ 980 0074 07       		.byte	0x7
+ 981 0075 D3020000 		.4byte	.LASF10
+ 982 0079 04       		.uleb128 0x4
+ 983 007a 04       		.byte	0x4
+ 984 007b 7F000000 		.4byte	0x7f
+ 985 007f 05       		.uleb128 0x5
+ 986 0080 02       		.uleb128 0x2
+ 987 0081 01       		.byte	0x1
+ 988 0082 08       		.byte	0x8
+ 989 0083 C5030000 		.4byte	.LASF11
+ 990 0087 06       		.uleb128 0x6
+ 991 0088 50010000 		.4byte	.LASF12
+ 992 008c 02       		.byte	0x2
+ 993 008d 3801     		.2byte	0x138
+ 994 008f 56000000 		.4byte	0x56
+ 995 0093 06       		.uleb128 0x6
+ 996 0094 00000000 		.4byte	.LASF13
+ 997 0098 02       		.byte	0x2
+ 998 0099 3901     		.2byte	0x139
+ 999 009b 5D000000 		.4byte	0x5d
+ 1000 009f 06       		.uleb128 0x6
+ 1001 00a0 67010000 		.4byte	.LASF14
+ 1002 00a4 02       		.byte	0x2
+ 1003 00a5 3A01     		.2byte	0x13a
+ 1004 00a7 6B000000 		.4byte	0x6b
+ 1005 00ab 06       		.uleb128 0x6
+ 1006 00ac 92020000 		.4byte	.LASF15
+ 1007 00b0 02       		.byte	0x2
+ 1008 00b1 3B01     		.2byte	0x13b
+ 1009 00b3 4F000000 		.4byte	0x4f
+ 1010 00b7 06       		.uleb128 0x6
+ 1011 00b8 04040000 		.4byte	.LASF16
+ 1012 00bc 02       		.byte	0x2
+ 1013 00bd 3C01     		.2byte	0x13c
+ 1014 00bf 41000000 		.4byte	0x41
+ 1015 00c3 06       		.uleb128 0x6
+ 1016 00c4 B0000000 		.4byte	.LASF17
+ 1017 00c8 02       		.byte	0x2
+ 1018 00c9 3D01     		.2byte	0x13d
+ 1019 00cb 64000000 		.4byte	0x64
+ 1020 00cf 06       		.uleb128 0x6
+ 1021 00d0 CB020000 		.4byte	.LASF18
+ 1022 00d4 02       		.byte	0x2
+ 1023 00d5 3E01     		.2byte	0x13e
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 35
+
+
+ 1024 00d7 2C000000 		.4byte	0x2c
+ 1025 00db 02       		.uleb128 0x2
+ 1026 00dc 08       		.byte	0x8
+ 1027 00dd 04       		.byte	0x4
+ 1028 00de 60010000 		.4byte	.LASF19
+ 1029 00e2 06       		.uleb128 0x6
+ 1030 00e3 2D030000 		.4byte	.LASF20
+ 1031 00e7 02       		.byte	0x2
+ 1032 00e8 4301     		.2byte	0x143
+ 1033 00ea 33000000 		.4byte	0x33
+ 1034 00ee 06       		.uleb128 0x6
+ 1035 00ef 70030000 		.4byte	.LASF21
+ 1036 00f3 02       		.byte	0x2
+ 1037 00f4 E201     		.2byte	0x1e2
+ 1038 00f6 FA000000 		.4byte	0xfa
+ 1039 00fa 07       		.uleb128 0x7
+ 1040 00fb 87000000 		.4byte	0x87
+ 1041 00ff 06       		.uleb128 0x6
+ 1042 0100 4A010000 		.4byte	.LASF22
+ 1043 0104 02       		.byte	0x2
+ 1044 0105 E301     		.2byte	0x1e3
+ 1045 0107 0B010000 		.4byte	0x10b
+ 1046 010b 07       		.uleb128 0x7
+ 1047 010c 93000000 		.4byte	0x93
+ 1048 0110 06       		.uleb128 0x6
+ 1049 0111 BB020000 		.4byte	.LASF23
+ 1050 0115 02       		.byte	0x2
+ 1051 0116 E401     		.2byte	0x1e4
+ 1052 0118 1C010000 		.4byte	0x11c
+ 1053 011c 07       		.uleb128 0x7
+ 1054 011d 9F000000 		.4byte	0x9f
+ 1055 0121 06       		.uleb128 0x6
+ 1056 0122 CA030000 		.4byte	.LASF24
+ 1057 0126 02       		.byte	0x2
+ 1058 0127 F401     		.2byte	0x1f4
+ 1059 0129 79000000 		.4byte	0x79
+ 1060 012d 08       		.uleb128 0x8
+ 1061 012e F9030000 		.4byte	.LASF27
+ 1062 0132 01       		.byte	0x1
+ 1063 0133 8F       		.byte	0x8f
+ 1064 0134 00000000 		.4byte	.LFB2
+ 1065 0138 9C000000 		.4byte	.LFE2-.LFB2
+ 1066 013c 01       		.uleb128 0x1
+ 1067 013d 9C       		.byte	0x9c
+ 1068 013e 86010000 		.4byte	0x186
+ 1069 0142 09       		.uleb128 0x9
+ 1070 0143 18040000 		.4byte	.LASF25
+ 1071 0147 01       		.byte	0x1
+ 1072 0148 91       		.byte	0x91
+ 1073 0149 87000000 		.4byte	0x87
+ 1074 014d 00000000 		.4byte	.LLST0
+ 1075 0151 09       		.uleb128 0x9
+ 1076 0152 E8030000 		.4byte	.LASF26
+ 1077 0156 01       		.byte	0x1
+ 1078 0157 92       		.byte	0x92
+ 1079 0158 87000000 		.4byte	0x87
+ 1080 015c 3D000000 		.4byte	.LLST1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 36
+
+
+ 1081 0160 0A       		.uleb128 0xa
+ 1082 0161 06000000 		.4byte	.LVL0
+ 1083 0165 84050000 		.4byte	0x584
+ 1084 0169 0B       		.uleb128 0xb
+ 1085 016a 7A000000 		.4byte	.LVL7
+ 1086 016e 8F050000 		.4byte	0x58f
+ 1087 0172 7C010000 		.4byte	0x17c
+ 1088 0176 0C       		.uleb128 0xc
+ 1089 0177 01       		.uleb128 0x1
+ 1090 0178 50       		.byte	0x50
+ 1091 0179 01       		.uleb128 0x1
+ 1092 017a 3A       		.byte	0x3a
+ 1093 017b 00       		.byte	0
+ 1094 017c 0D       		.uleb128 0xd
+ 1095 017d 8A000000 		.4byte	.LVL9
+ 1096 0181 A0050000 		.4byte	0x5a0
+ 1097 0185 00       		.byte	0
+ 1098 0186 08       		.uleb128 0x8
+ 1099 0187 9F030000 		.4byte	.LASF28
+ 1100 018b 01       		.byte	0x1
+ 1101 018c F5       		.byte	0xf5
+ 1102 018d 00000000 		.4byte	.LFB3
+ 1103 0191 48000000 		.4byte	.LFE3-.LFB3
+ 1104 0195 01       		.uleb128 0x1
+ 1105 0196 9C       		.byte	0x9c
+ 1106 0197 BD010000 		.4byte	0x1bd
+ 1107 019b 09       		.uleb128 0x9
+ 1108 019c E8030000 		.4byte	.LASF26
+ 1109 01a0 01       		.byte	0x1
+ 1110 01a1 F7       		.byte	0xf7
+ 1111 01a2 87000000 		.4byte	0x87
+ 1112 01a6 50000000 		.4byte	.LLST2
+ 1113 01aa 0A       		.uleb128 0xa
+ 1114 01ab 06000000 		.4byte	.LVL10
+ 1115 01af 84050000 		.4byte	0x584
+ 1116 01b3 0D       		.uleb128 0xd
+ 1117 01b4 42000000 		.4byte	.LVL11
+ 1118 01b8 A0050000 		.4byte	0x5a0
+ 1119 01bc 00       		.byte	0
+ 1120 01bd 0E       		.uleb128 0xe
+ 1121 01be 99010000 		.4byte	.LASF29
+ 1122 01c2 01       		.byte	0x1
+ 1123 01c3 1F01     		.2byte	0x11f
+ 1124 01c5 00000000 		.4byte	.LFB4
+ 1125 01c9 18000000 		.4byte	.LFE4-.LFB4
+ 1126 01cd 01       		.uleb128 0x1
+ 1127 01ce 9C       		.byte	0x9c
+ 1128 01cf F2010000 		.4byte	0x1f2
+ 1129 01d3 0F       		.uleb128 0xf
+ 1130 01d4 6A030000 		.4byte	.LASF31
+ 1131 01d8 01       		.byte	0x1
+ 1132 01d9 1F01     		.2byte	0x11f
+ 1133 01db 87000000 		.4byte	0x87
+ 1134 01df 63000000 		.4byte	.LLST3
+ 1135 01e3 10       		.uleb128 0x10
+ 1136 01e4 18040000 		.4byte	.LASF25
+ 1137 01e8 01       		.byte	0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 37
+
+
+ 1138 01e9 2101     		.2byte	0x121
+ 1139 01eb 87000000 		.4byte	0x87
+ 1140 01ef 01       		.uleb128 0x1
+ 1141 01f0 53       		.byte	0x53
+ 1142 01f1 00       		.byte	0
+ 1143 01f2 11       		.uleb128 0x11
+ 1144 01f3 A7020000 		.4byte	.LASF68
+ 1145 01f7 01       		.byte	0x1
+ 1146 01f8 6002     		.2byte	0x260
+ 1147 01fa 01       		.byte	0x1
+ 1148 01fb 18020000 		.4byte	0x218
+ 1149 01ff 12       		.uleb128 0x12
+ 1150 0200 A8030000 		.4byte	.LASF32
+ 1151 0204 01       		.byte	0x1
+ 1152 0205 6002     		.2byte	0x260
+ 1153 0207 87000000 		.4byte	0x87
+ 1154 020b 13       		.uleb128 0x13
+ 1155 020c 25000000 		.4byte	.LASF69
+ 1156 0210 01       		.byte	0x1
+ 1157 0211 6202     		.2byte	0x262
+ 1158 0213 C3000000 		.4byte	0xc3
+ 1159 0217 00       		.byte	0
+ 1160 0218 0E       		.uleb128 0xe
+ 1161 0219 1B030000 		.4byte	.LASF30
+ 1162 021d 01       		.byte	0x1
+ 1163 021e 5101     		.2byte	0x151
+ 1164 0220 00000000 		.4byte	.LFB5
+ 1165 0224 7C000000 		.4byte	.LFE5-.LFB5
+ 1166 0228 01       		.uleb128 0x1
+ 1167 0229 9C       		.byte	0x9c
+ 1168 022a 9A020000 		.4byte	0x29a
+ 1169 022e 0F       		.uleb128 0xf
+ 1170 022f A8030000 		.4byte	.LASF32
+ 1171 0233 01       		.byte	0x1
+ 1172 0234 5101     		.2byte	0x151
+ 1173 0236 87000000 		.4byte	0x87
+ 1174 023a 95000000 		.4byte	.LLST4
+ 1175 023e 14       		.uleb128 0x14
+ 1176 023f 18040000 		.4byte	.LASF25
+ 1177 0243 01       		.byte	0x1
+ 1178 0244 5301     		.2byte	0x153
+ 1179 0246 87000000 		.4byte	0x87
+ 1180 024a B6000000 		.4byte	.LLST5
+ 1181 024e 15       		.uleb128 0x15
+ 1182 024f F2010000 		.4byte	0x1f2
+ 1183 0253 22000000 		.4byte	.LBB4
+ 1184 0257 00000000 		.4byte	.Ldebug_ranges0+0
+ 1185 025b 01       		.byte	0x1
+ 1186 025c 6A01     		.2byte	0x16a
+ 1187 025e 8A020000 		.4byte	0x28a
+ 1188 0262 16       		.uleb128 0x16
+ 1189 0263 FF010000 		.4byte	0x1ff
+ 1190 0267 D8000000 		.4byte	.LLST6
+ 1191 026b 17       		.uleb128 0x17
+ 1192 026c 00000000 		.4byte	.Ldebug_ranges0+0
+ 1193 0270 18       		.uleb128 0x18
+ 1194 0271 0B020000 		.4byte	0x20b
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 38
+
+
+ 1195 0275 02010000 		.4byte	.LLST7
+ 1196 0279 19       		.uleb128 0x19
+ 1197 027a 42000000 		.4byte	.LVL26
+ 1198 027e B1050000 		.4byte	0x5b1
+ 1199 0282 0C       		.uleb128 0xc
+ 1200 0283 01       		.uleb128 0x1
+ 1201 0284 50       		.byte	0x50
+ 1202 0285 01       		.uleb128 0x1
+ 1203 0286 30       		.byte	0x30
+ 1204 0287 00       		.byte	0
+ 1205 0288 00       		.byte	0
+ 1206 0289 00       		.byte	0
+ 1207 028a 19       		.uleb128 0x19
+ 1208 028b 1E000000 		.4byte	.LVL21
+ 1209 028f B1050000 		.4byte	0x5b1
+ 1210 0293 0C       		.uleb128 0xc
+ 1211 0294 01       		.uleb128 0x1
+ 1212 0295 50       		.byte	0x50
+ 1213 0296 01       		.uleb128 0x1
+ 1214 0297 30       		.byte	0x30
+ 1215 0298 00       		.byte	0
+ 1216 0299 00       		.byte	0
+ 1217 029a 08       		.uleb128 0x8
+ 1218 029b 3F000000 		.4byte	.LASF33
+ 1219 029f 01       		.byte	0x1
+ 1220 02a0 6A       		.byte	0x6a
+ 1221 02a1 00000000 		.4byte	.LFB1
+ 1222 02a5 3C000000 		.4byte	.LFE1-.LFB1
+ 1223 02a9 01       		.uleb128 0x1
+ 1224 02aa 9C       		.byte	0x9c
+ 1225 02ab FD020000 		.4byte	0x2fd
+ 1226 02af 0B       		.uleb128 0xb
+ 1227 02b0 08000000 		.4byte	.LVL30
+ 1228 02b4 C2050000 		.4byte	0x5c2
+ 1229 02b8 C2020000 		.4byte	0x2c2
+ 1230 02bc 0C       		.uleb128 0xc
+ 1231 02bd 01       		.uleb128 0x1
+ 1232 02be 50       		.byte	0x50
+ 1233 02bf 01       		.uleb128 0x1
+ 1234 02c0 40       		.byte	0x40
+ 1235 02c1 00       		.byte	0
+ 1236 02c2 0B       		.uleb128 0xb
+ 1237 02c3 10000000 		.4byte	.LVL31
+ 1238 02c7 D3050000 		.4byte	0x5d3
+ 1239 02cb DA020000 		.4byte	0x2da
+ 1240 02cf 0C       		.uleb128 0xc
+ 1241 02d0 01       		.uleb128 0x1
+ 1242 02d1 51       		.byte	0x51
+ 1243 02d2 01       		.uleb128 0x1
+ 1244 02d3 37       		.byte	0x37
+ 1245 02d4 0C       		.uleb128 0xc
+ 1246 02d5 01       		.uleb128 0x1
+ 1247 02d6 50       		.byte	0x50
+ 1248 02d7 01       		.uleb128 0x1
+ 1249 02d8 30       		.byte	0x30
+ 1250 02d9 00       		.byte	0
+ 1251 02da 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 39
+
+
+ 1252 02db 18000000 		.4byte	.LVL32
+ 1253 02df E9050000 		.4byte	0x5e9
+ 1254 02e3 ED020000 		.4byte	0x2ed
+ 1255 02e7 0C       		.uleb128 0xc
+ 1256 02e8 01       		.uleb128 0x1
+ 1257 02e9 50       		.byte	0x50
+ 1258 02ea 01       		.uleb128 0x1
+ 1259 02eb 30       		.byte	0x30
+ 1260 02ec 00       		.byte	0
+ 1261 02ed 19       		.uleb128 0x19
+ 1262 02ee 28000000 		.4byte	.LVL33
+ 1263 02f2 18020000 		.4byte	0x218
+ 1264 02f6 0C       		.uleb128 0xc
+ 1265 02f7 01       		.uleb128 0x1
+ 1266 02f8 50       		.byte	0x50
+ 1267 02f9 01       		.uleb128 0x1
+ 1268 02fa 38       		.byte	0x38
+ 1269 02fb 00       		.byte	0
+ 1270 02fc 00       		.byte	0
+ 1271 02fd 08       		.uleb128 0x8
+ 1272 02fe B6000000 		.4byte	.LASF34
+ 1273 0302 01       		.byte	0x1
+ 1274 0303 4A       		.byte	0x4a
+ 1275 0304 00000000 		.4byte	.LFB0
+ 1276 0308 1C000000 		.4byte	.LFE0-.LFB0
+ 1277 030c 01       		.uleb128 0x1
+ 1278 030d 9C       		.byte	0x9c
+ 1279 030e 25030000 		.4byte	0x325
+ 1280 0312 0A       		.uleb128 0xa
+ 1281 0313 0C000000 		.4byte	.LVL34
+ 1282 0317 9A020000 		.4byte	0x29a
+ 1283 031b 0D       		.uleb128 0xd
+ 1284 031c 18000000 		.4byte	.LVL35
+ 1285 0320 2D010000 		.4byte	0x12d
+ 1286 0324 00       		.byte	0
+ 1287 0325 1A       		.uleb128 0x1a
+ 1288 0326 5F000000 		.4byte	.LASF35
+ 1289 032a 01       		.byte	0x1
+ 1290 032b 8E01     		.2byte	0x18e
+ 1291 032d 00000000 		.4byte	.LFB6
+ 1292 0331 10000000 		.4byte	.LFE6-.LFB6
+ 1293 0335 01       		.uleb128 0x1
+ 1294 0336 9C       		.byte	0x9c
+ 1295 0337 1A       		.uleb128 0x1a
+ 1296 0338 97020000 		.4byte	.LASF36
+ 1297 033c 01       		.byte	0x1
+ 1298 033d B001     		.2byte	0x1b0
+ 1299 033f 00000000 		.4byte	.LFB7
+ 1300 0343 10000000 		.4byte	.LFE7-.LFB7
+ 1301 0347 01       		.uleb128 0x1
+ 1302 0348 9C       		.byte	0x9c
+ 1303 0349 1B       		.uleb128 0x1b
+ 1304 034a DC020000 		.4byte	.LASF39
+ 1305 034e 01       		.byte	0x1
+ 1306 034f D801     		.2byte	0x1d8
+ 1307 0351 87000000 		.4byte	0x87
+ 1308 0355 00000000 		.4byte	.LFB8
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 40
+
+
+ 1309 0359 24000000 		.4byte	.LFE8-.LFB8
+ 1310 035d 01       		.uleb128 0x1
+ 1311 035e 9C       		.byte	0x9c
+ 1312 035f 94030000 		.4byte	0x394
+ 1313 0363 0F       		.uleb128 0xf
+ 1314 0364 A6010000 		.4byte	.LASF37
+ 1315 0368 01       		.byte	0x1
+ 1316 0369 D801     		.2byte	0x1d8
+ 1317 036b 87000000 		.4byte	0x87
+ 1318 036f 2F010000 		.4byte	.LLST8
+ 1319 0373 14       		.uleb128 0x14
+ 1320 0374 8A000000 		.4byte	.LASF38
+ 1321 0378 01       		.byte	0x1
+ 1322 0379 DA01     		.2byte	0x1da
+ 1323 037b 87000000 		.4byte	0x87
+ 1324 037f 50010000 		.4byte	.LLST9
+ 1325 0383 19       		.uleb128 0x19
+ 1326 0384 1A000000 		.4byte	.LVL40
+ 1327 0388 8F050000 		.4byte	0x58f
+ 1328 038c 0C       		.uleb128 0xc
+ 1329 038d 01       		.uleb128 0x1
+ 1330 038e 50       		.byte	0x50
+ 1331 038f 02       		.uleb128 0x2
+ 1332 0390 74       		.byte	0x74
+ 1333 0391 00       		.sleb128 0
+ 1334 0392 00       		.byte	0
+ 1335 0393 00       		.byte	0
+ 1336 0394 1C       		.uleb128 0x1c
+ 1337 0395 F0020000 		.4byte	.LASF70
+ 1338 0399 01       		.byte	0x1
+ 1339 039a 0502     		.2byte	0x205
+ 1340 039c AB000000 		.4byte	0xab
+ 1341 03a0 00000000 		.4byte	.LFB9
+ 1342 03a4 18000000 		.4byte	.LFE9-.LFB9
+ 1343 03a8 01       		.uleb128 0x1
+ 1344 03a9 9C       		.byte	0x9c
+ 1345 03aa 1B       		.uleb128 0x1b
+ 1346 03ab 1F040000 		.4byte	.LASF40
+ 1347 03af 01       		.byte	0x1
+ 1348 03b0 2302     		.2byte	0x223
+ 1349 03b2 B7000000 		.4byte	0xb7
+ 1350 03b6 00000000 		.4byte	.LFB10
+ 1351 03ba 18000000 		.4byte	.LFE10-.LFB10
+ 1352 03be 01       		.uleb128 0x1
+ 1353 03bf 9C       		.byte	0x9c
+ 1354 03c0 D3030000 		.4byte	0x3d3
+ 1355 03c4 1D       		.uleb128 0x1d
+ 1356 03c5 72657300 		.ascii	"res\000"
+ 1357 03c9 01       		.byte	0x1
+ 1358 03ca 2502     		.2byte	0x225
+ 1359 03cc 93000000 		.4byte	0x93
+ 1360 03d0 01       		.uleb128 0x1
+ 1361 03d1 53       		.byte	0x53
+ 1362 03d2 00       		.byte	0
+ 1363 03d3 0E       		.uleb128 0xe
+ 1364 03d4 0A040000 		.4byte	.LASF41
+ 1365 03d8 01       		.byte	0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 41
+
+
+ 1366 03d9 4602     		.2byte	0x246
+ 1367 03db 00000000 		.4byte	.LFB11
+ 1368 03df 0C000000 		.4byte	.LFE11-.LFB11
+ 1369 03e3 01       		.uleb128 0x1
+ 1370 03e4 9C       		.byte	0x9c
+ 1371 03e5 F8030000 		.4byte	0x3f8
+ 1372 03e9 1E       		.uleb128 0x1e
+ 1373 03ea D7030000 		.4byte	.LASF42
+ 1374 03ee 01       		.byte	0x1
+ 1375 03ef 4602     		.2byte	0x246
+ 1376 03f1 B7000000 		.4byte	0xb7
+ 1377 03f5 01       		.uleb128 0x1
+ 1378 03f6 50       		.byte	0x50
+ 1379 03f7 00       		.byte	0
+ 1380 03f8 0E       		.uleb128 0xe
+ 1381 03f9 44030000 		.4byte	.LASF43
+ 1382 03fd 01       		.byte	0x1
+ 1383 03fe B102     		.2byte	0x2b1
+ 1384 0400 00000000 		.4byte	.LFB13
+ 1385 0404 10000000 		.4byte	.LFE13-.LFB13
+ 1386 0408 01       		.uleb128 0x1
+ 1387 0409 9C       		.byte	0x9c
+ 1388 040a 1F040000 		.4byte	0x41f
+ 1389 040e 0F       		.uleb128 0xf
+ 1390 040f 07000000 		.4byte	.LASF44
+ 1391 0413 01       		.byte	0x1
+ 1392 0414 B102     		.2byte	0x2b1
+ 1393 0416 B7000000 		.4byte	0xb7
+ 1394 041a 67010000 		.4byte	.LLST10
+ 1395 041e 00       		.byte	0
+ 1396 041f 0E       		.uleb128 0xe
+ 1397 0420 B3030000 		.4byte	.LASF45
+ 1398 0424 01       		.byte	0x1
+ 1399 0425 CC02     		.2byte	0x2cc
+ 1400 0427 00000000 		.4byte	.LFB14
+ 1401 042b 0C000000 		.4byte	.LFE14-.LFB14
+ 1402 042f 01       		.uleb128 0x1
+ 1403 0430 9C       		.byte	0x9c
+ 1404 0431 44040000 		.4byte	0x444
+ 1405 0435 1E       		.uleb128 0x1e
+ 1406 0436 07000000 		.4byte	.LASF44
+ 1407 043a 01       		.byte	0x1
+ 1408 043b CC02     		.2byte	0x2cc
+ 1409 043d C3000000 		.4byte	0xc3
+ 1410 0441 01       		.uleb128 0x1
+ 1411 0442 50       		.byte	0x50
+ 1412 0443 00       		.byte	0
+ 1413 0444 1B       		.uleb128 0x1b
+ 1414 0445 56030000 		.4byte	.LASF46
+ 1415 0449 01       		.byte	0x1
+ 1416 044a E402     		.2byte	0x2e4
+ 1417 044c B7000000 		.4byte	0xb7
+ 1418 0450 00000000 		.4byte	.LFB15
+ 1419 0454 48000000 		.4byte	.LFE15-.LFB15
+ 1420 0458 01       		.uleb128 0x1
+ 1421 0459 9C       		.byte	0x9c
+ 1422 045a 8F040000 		.4byte	0x48f
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 42
+
+
+ 1423 045e 0F       		.uleb128 0xf
+ 1424 045f DE030000 		.4byte	.LASF47
+ 1425 0463 01       		.byte	0x1
+ 1426 0464 E402     		.2byte	0x2e4
+ 1427 0466 B7000000 		.4byte	0xb7
+ 1428 046a 88010000 		.4byte	.LLST11
+ 1429 046e 14       		.uleb128 0x14
+ 1430 046f B4020000 		.4byte	.LASF48
+ 1431 0473 01       		.byte	0x1
+ 1432 0474 E602     		.2byte	0x2e6
+ 1433 0476 B7000000 		.4byte	0xb7
+ 1434 047a B4010000 		.4byte	.LLST12
+ 1435 047e 14       		.uleb128 0x14
+ 1436 047f 6E010000 		.4byte	.LASF49
+ 1437 0483 01       		.byte	0x1
+ 1438 0484 E702     		.2byte	0x2e7
+ 1439 0486 C3000000 		.4byte	0xc3
+ 1440 048a CF010000 		.4byte	.LLST13
+ 1441 048e 00       		.byte	0
+ 1442 048f 1F       		.uleb128 0x1f
+ 1443 0490 C9000000 		.4byte	.LASF50
+ 1444 0494 01       		.byte	0x1
+ 1445 0495 0E03     		.2byte	0x30e
+ 1446 0497 C3000000 		.4byte	0xc3
+ 1447 049b 00000000 		.4byte	.LFB16
+ 1448 049f 44000000 		.4byte	.LFE16-.LFB16
+ 1449 04a3 01       		.uleb128 0x1
+ 1450 04a4 9C       		.byte	0x9c
+ 1451 04a5 DA040000 		.4byte	0x4da
+ 1452 04a9 0F       		.uleb128 0xf
+ 1453 04aa DE030000 		.4byte	.LASF47
+ 1454 04ae 01       		.byte	0x1
+ 1455 04af 0E03     		.2byte	0x30e
+ 1456 04b1 B7000000 		.4byte	0xb7
+ 1457 04b5 ED010000 		.4byte	.LLST14
+ 1458 04b9 14       		.uleb128 0x14
+ 1459 04ba 49020000 		.4byte	.LASF51
+ 1460 04be 01       		.byte	0x1
+ 1461 04bf 1103     		.2byte	0x311
+ 1462 04c1 E2000000 		.4byte	0xe2
+ 1463 04c5 10020000 		.4byte	.LLST15
+ 1464 04c9 14       		.uleb128 0x14
+ 1465 04ca 6E010000 		.4byte	.LASF49
+ 1466 04ce 01       		.byte	0x1
+ 1467 04cf 1203     		.2byte	0x312
+ 1468 04d1 C3000000 		.4byte	0xc3
+ 1469 04d5 3F020000 		.4byte	.LLST16
+ 1470 04d9 00       		.byte	0
+ 1471 04da 1F       		.uleb128 0x1f
+ 1472 04db 2C000000 		.4byte	.LASF52
+ 1473 04df 01       		.byte	0x1
+ 1474 04e0 3A03     		.2byte	0x33a
+ 1475 04e2 CF000000 		.4byte	0xcf
+ 1476 04e6 00000000 		.4byte	.LFB17
+ 1477 04ea 4C000000 		.4byte	.LFE17-.LFB17
+ 1478 04ee 01       		.uleb128 0x1
+ 1479 04ef 9C       		.byte	0x9c
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 43
+
+
+ 1480 04f0 25050000 		.4byte	0x525
+ 1481 04f4 0F       		.uleb128 0xf
+ 1482 04f5 DE030000 		.4byte	.LASF47
+ 1483 04f9 01       		.byte	0x1
+ 1484 04fa 3A03     		.2byte	0x33a
+ 1485 04fc B7000000 		.4byte	0xb7
+ 1486 0500 5D020000 		.4byte	.LLST17
+ 1487 0504 14       		.uleb128 0x14
+ 1488 0505 62020000 		.4byte	.LASF53
+ 1489 0509 01       		.byte	0x1
+ 1490 050a 3C03     		.2byte	0x33c
+ 1491 050c CF000000 		.4byte	0xcf
+ 1492 0510 7B020000 		.4byte	.LLST18
+ 1493 0514 14       		.uleb128 0x14
+ 1494 0515 6E010000 		.4byte	.LASF49
+ 1495 0519 01       		.byte	0x1
+ 1496 051a 3D03     		.2byte	0x33d
+ 1497 051c C3000000 		.4byte	0xc3
+ 1498 0520 A3020000 		.4byte	.LLST19
+ 1499 0524 00       		.byte	0
+ 1500 0525 20       		.uleb128 0x20
+ 1501 0526 8D010000 		.4byte	.LASF54
+ 1502 052a 01       		.byte	0x1
+ 1503 052b 23       		.byte	0x23
+ 1504 052c 87000000 		.4byte	0x87
+ 1505 0530 05       		.uleb128 0x5
+ 1506 0531 03       		.byte	0x3
+ 1507 0532 00000000 		.4byte	ADC_initVar
+ 1508 0536 20       		.uleb128 0x20
+ 1509 0537 8A030000 		.4byte	.LASF55
+ 1510 053b 01       		.byte	0x1
+ 1511 053c 24       		.byte	0x24
+ 1512 053d 47050000 		.4byte	0x547
+ 1513 0541 05       		.uleb128 0x5
+ 1514 0542 03       		.byte	0x3
+ 1515 0543 00000000 		.4byte	ADC_offset
+ 1516 0547 07       		.uleb128 0x7
+ 1517 0548 B7000000 		.4byte	0xb7
+ 1518 054c 20       		.uleb128 0x20
+ 1519 054d F1000000 		.4byte	.LASF56
+ 1520 0551 01       		.byte	0x1
+ 1521 0552 25       		.byte	0x25
+ 1522 0553 47050000 		.4byte	0x547
+ 1523 0557 05       		.uleb128 0x5
+ 1524 0558 03       		.byte	0x3
+ 1525 0559 00000000 		.4byte	ADC_countsPerVolt
+ 1526 055d 20       		.uleb128 0x20
+ 1527 055e DD000000 		.4byte	.LASF57
+ 1528 0562 01       		.byte	0x1
+ 1529 0563 26       		.byte	0x26
+ 1530 0564 6E050000 		.4byte	0x56e
+ 1531 0568 05       		.uleb128 0x5
+ 1532 0569 03       		.byte	0x3
+ 1533 056a 00000000 		.4byte	ADC_countsPer10Volt
+ 1534 056e 07       		.uleb128 0x7
+ 1535 056f C3000000 		.4byte	0xc3
+ 1536 0573 20       		.uleb128 0x20
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 44
+
+
+ 1537 0574 C1020000 		.4byte	.LASF58
+ 1538 0578 01       		.byte	0x1
+ 1539 0579 27       		.byte	0x27
+ 1540 057a 47050000 		.4byte	0x547
+ 1541 057e 05       		.uleb128 0x5
+ 1542 057f 03       		.byte	0x3
+ 1543 0580 00000000 		.4byte	ADC_shift
+ 1544 0584 21       		.uleb128 0x21
+ 1545 0585 68020000 		.4byte	.LASF71
+ 1546 0589 03       		.byte	0x3
+ 1547 058a 7E       		.byte	0x7e
+ 1548 058b 87000000 		.4byte	0x87
+ 1549 058f 22       		.uleb128 0x22
+ 1550 0590 56010000 		.4byte	.LASF59
+ 1551 0594 03       		.byte	0x3
+ 1552 0595 78       		.byte	0x78
+ 1553 0596 A0050000 		.4byte	0x5a0
+ 1554 059a 23       		.uleb128 0x23
+ 1555 059b 93000000 		.4byte	0x93
+ 1556 059f 00       		.byte	0
+ 1557 05a0 22       		.uleb128 0x22
+ 1558 05a1 0F000000 		.4byte	.LASF60
+ 1559 05a5 03       		.byte	0x3
+ 1560 05a6 7F       		.byte	0x7f
+ 1561 05a7 B1050000 		.4byte	0x5b1
+ 1562 05ab 23       		.uleb128 0x23
+ 1563 05ac 87000000 		.4byte	0x87
+ 1564 05b0 00       		.byte	0
+ 1565 05b1 22       		.uleb128 0x22
+ 1566 05b2 75030000 		.4byte	.LASF61
+ 1567 05b6 03       		.byte	0x3
+ 1568 05b7 80       		.byte	0x80
+ 1569 05b8 C2050000 		.4byte	0x5c2
+ 1570 05bc 23       		.uleb128 0x23
+ 1571 05bd 87000000 		.4byte	0x87
+ 1572 05c1 00       		.byte	0
+ 1573 05c2 22       		.uleb128 0x22
+ 1574 05c3 FF020000 		.4byte	.LASF62
+ 1575 05c7 04       		.byte	0x4
+ 1576 05c8 32       		.byte	0x32
+ 1577 05c9 D3050000 		.4byte	0x5d3
+ 1578 05cd 23       		.uleb128 0x23
+ 1579 05ce 87000000 		.4byte	0x87
+ 1580 05d2 00       		.byte	0
+ 1581 05d3 22       		.uleb128 0x22
+ 1582 05d4 33030000 		.4byte	.LASF63
+ 1583 05d8 03       		.byte	0x3
+ 1584 05d9 8C       		.byte	0x8c
+ 1585 05da E9050000 		.4byte	0x5e9
+ 1586 05de 23       		.uleb128 0x23
+ 1587 05df 87000000 		.4byte	0x87
+ 1588 05e3 23       		.uleb128 0x23
+ 1589 05e4 87000000 		.4byte	0x87
+ 1590 05e8 00       		.byte	0
+ 1591 05e9 24       		.uleb128 0x24
+ 1592 05ea 7E010000 		.4byte	.LASF64
+ 1593 05ee 03       		.byte	0x3
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 45
+
+
+ 1594 05ef 89       		.byte	0x89
+ 1595 05f0 21010000 		.4byte	0x121
+ 1596 05f4 23       		.uleb128 0x23
+ 1597 05f5 87000000 		.4byte	0x87
+ 1598 05f9 23       		.uleb128 0x23
+ 1599 05fa 21010000 		.4byte	0x121
+ 1600 05fe 00       		.byte	0
+ 1601 05ff 00       		.byte	0
+ 1602              		.section	.debug_abbrev,"",%progbits
+ 1603              	.Ldebug_abbrev0:
+ 1604 0000 01       		.uleb128 0x1
+ 1605 0001 11       		.uleb128 0x11
+ 1606 0002 01       		.byte	0x1
+ 1607 0003 25       		.uleb128 0x25
+ 1608 0004 0E       		.uleb128 0xe
+ 1609 0005 13       		.uleb128 0x13
+ 1610 0006 0B       		.uleb128 0xb
+ 1611 0007 03       		.uleb128 0x3
+ 1612 0008 0E       		.uleb128 0xe
+ 1613 0009 1B       		.uleb128 0x1b
+ 1614 000a 0E       		.uleb128 0xe
+ 1615 000b 55       		.uleb128 0x55
+ 1616 000c 17       		.uleb128 0x17
+ 1617 000d 11       		.uleb128 0x11
+ 1618 000e 01       		.uleb128 0x1
+ 1619 000f 10       		.uleb128 0x10
+ 1620 0010 17       		.uleb128 0x17
+ 1621 0011 00       		.byte	0
+ 1622 0012 00       		.byte	0
+ 1623 0013 02       		.uleb128 0x2
+ 1624 0014 24       		.uleb128 0x24
+ 1625 0015 00       		.byte	0
+ 1626 0016 0B       		.uleb128 0xb
+ 1627 0017 0B       		.uleb128 0xb
+ 1628 0018 3E       		.uleb128 0x3e
+ 1629 0019 0B       		.uleb128 0xb
+ 1630 001a 03       		.uleb128 0x3
+ 1631 001b 0E       		.uleb128 0xe
+ 1632 001c 00       		.byte	0
+ 1633 001d 00       		.byte	0
+ 1634 001e 03       		.uleb128 0x3
+ 1635 001f 24       		.uleb128 0x24
+ 1636 0020 00       		.byte	0
+ 1637 0021 0B       		.uleb128 0xb
+ 1638 0022 0B       		.uleb128 0xb
+ 1639 0023 3E       		.uleb128 0x3e
+ 1640 0024 0B       		.uleb128 0xb
+ 1641 0025 03       		.uleb128 0x3
+ 1642 0026 08       		.uleb128 0x8
+ 1643 0027 00       		.byte	0
+ 1644 0028 00       		.byte	0
+ 1645 0029 04       		.uleb128 0x4
+ 1646 002a 0F       		.uleb128 0xf
+ 1647 002b 00       		.byte	0
+ 1648 002c 0B       		.uleb128 0xb
+ 1649 002d 0B       		.uleb128 0xb
+ 1650 002e 49       		.uleb128 0x49
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 46
+
+
+ 1651 002f 13       		.uleb128 0x13
+ 1652 0030 00       		.byte	0
+ 1653 0031 00       		.byte	0
+ 1654 0032 05       		.uleb128 0x5
+ 1655 0033 15       		.uleb128 0x15
+ 1656 0034 00       		.byte	0
+ 1657 0035 27       		.uleb128 0x27
+ 1658 0036 19       		.uleb128 0x19
+ 1659 0037 00       		.byte	0
+ 1660 0038 00       		.byte	0
+ 1661 0039 06       		.uleb128 0x6
+ 1662 003a 16       		.uleb128 0x16
+ 1663 003b 00       		.byte	0
+ 1664 003c 03       		.uleb128 0x3
+ 1665 003d 0E       		.uleb128 0xe
+ 1666 003e 3A       		.uleb128 0x3a
+ 1667 003f 0B       		.uleb128 0xb
+ 1668 0040 3B       		.uleb128 0x3b
+ 1669 0041 05       		.uleb128 0x5
+ 1670 0042 49       		.uleb128 0x49
+ 1671 0043 13       		.uleb128 0x13
+ 1672 0044 00       		.byte	0
+ 1673 0045 00       		.byte	0
+ 1674 0046 07       		.uleb128 0x7
+ 1675 0047 35       		.uleb128 0x35
+ 1676 0048 00       		.byte	0
+ 1677 0049 49       		.uleb128 0x49
+ 1678 004a 13       		.uleb128 0x13
+ 1679 004b 00       		.byte	0
+ 1680 004c 00       		.byte	0
+ 1681 004d 08       		.uleb128 0x8
+ 1682 004e 2E       		.uleb128 0x2e
+ 1683 004f 01       		.byte	0x1
+ 1684 0050 3F       		.uleb128 0x3f
+ 1685 0051 19       		.uleb128 0x19
+ 1686 0052 03       		.uleb128 0x3
+ 1687 0053 0E       		.uleb128 0xe
+ 1688 0054 3A       		.uleb128 0x3a
+ 1689 0055 0B       		.uleb128 0xb
+ 1690 0056 3B       		.uleb128 0x3b
+ 1691 0057 0B       		.uleb128 0xb
+ 1692 0058 27       		.uleb128 0x27
+ 1693 0059 19       		.uleb128 0x19
+ 1694 005a 11       		.uleb128 0x11
+ 1695 005b 01       		.uleb128 0x1
+ 1696 005c 12       		.uleb128 0x12
+ 1697 005d 06       		.uleb128 0x6
+ 1698 005e 40       		.uleb128 0x40
+ 1699 005f 18       		.uleb128 0x18
+ 1700 0060 9742     		.uleb128 0x2117
+ 1701 0062 19       		.uleb128 0x19
+ 1702 0063 01       		.uleb128 0x1
+ 1703 0064 13       		.uleb128 0x13
+ 1704 0065 00       		.byte	0
+ 1705 0066 00       		.byte	0
+ 1706 0067 09       		.uleb128 0x9
+ 1707 0068 34       		.uleb128 0x34
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 47
+
+
+ 1708 0069 00       		.byte	0
+ 1709 006a 03       		.uleb128 0x3
+ 1710 006b 0E       		.uleb128 0xe
+ 1711 006c 3A       		.uleb128 0x3a
+ 1712 006d 0B       		.uleb128 0xb
+ 1713 006e 3B       		.uleb128 0x3b
+ 1714 006f 0B       		.uleb128 0xb
+ 1715 0070 49       		.uleb128 0x49
+ 1716 0071 13       		.uleb128 0x13
+ 1717 0072 02       		.uleb128 0x2
+ 1718 0073 17       		.uleb128 0x17
+ 1719 0074 00       		.byte	0
+ 1720 0075 00       		.byte	0
+ 1721 0076 0A       		.uleb128 0xa
+ 1722 0077 898201   		.uleb128 0x4109
+ 1723 007a 00       		.byte	0
+ 1724 007b 11       		.uleb128 0x11
+ 1725 007c 01       		.uleb128 0x1
+ 1726 007d 31       		.uleb128 0x31
+ 1727 007e 13       		.uleb128 0x13
+ 1728 007f 00       		.byte	0
+ 1729 0080 00       		.byte	0
+ 1730 0081 0B       		.uleb128 0xb
+ 1731 0082 898201   		.uleb128 0x4109
+ 1732 0085 01       		.byte	0x1
+ 1733 0086 11       		.uleb128 0x11
+ 1734 0087 01       		.uleb128 0x1
+ 1735 0088 31       		.uleb128 0x31
+ 1736 0089 13       		.uleb128 0x13
+ 1737 008a 01       		.uleb128 0x1
+ 1738 008b 13       		.uleb128 0x13
+ 1739 008c 00       		.byte	0
+ 1740 008d 00       		.byte	0
+ 1741 008e 0C       		.uleb128 0xc
+ 1742 008f 8A8201   		.uleb128 0x410a
+ 1743 0092 00       		.byte	0
+ 1744 0093 02       		.uleb128 0x2
+ 1745 0094 18       		.uleb128 0x18
+ 1746 0095 9142     		.uleb128 0x2111
+ 1747 0097 18       		.uleb128 0x18
+ 1748 0098 00       		.byte	0
+ 1749 0099 00       		.byte	0
+ 1750 009a 0D       		.uleb128 0xd
+ 1751 009b 898201   		.uleb128 0x4109
+ 1752 009e 00       		.byte	0
+ 1753 009f 11       		.uleb128 0x11
+ 1754 00a0 01       		.uleb128 0x1
+ 1755 00a1 9542     		.uleb128 0x2115
+ 1756 00a3 19       		.uleb128 0x19
+ 1757 00a4 31       		.uleb128 0x31
+ 1758 00a5 13       		.uleb128 0x13
+ 1759 00a6 00       		.byte	0
+ 1760 00a7 00       		.byte	0
+ 1761 00a8 0E       		.uleb128 0xe
+ 1762 00a9 2E       		.uleb128 0x2e
+ 1763 00aa 01       		.byte	0x1
+ 1764 00ab 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 48
+
+
+ 1765 00ac 19       		.uleb128 0x19
+ 1766 00ad 03       		.uleb128 0x3
+ 1767 00ae 0E       		.uleb128 0xe
+ 1768 00af 3A       		.uleb128 0x3a
+ 1769 00b0 0B       		.uleb128 0xb
+ 1770 00b1 3B       		.uleb128 0x3b
+ 1771 00b2 05       		.uleb128 0x5
+ 1772 00b3 27       		.uleb128 0x27
+ 1773 00b4 19       		.uleb128 0x19
+ 1774 00b5 11       		.uleb128 0x11
+ 1775 00b6 01       		.uleb128 0x1
+ 1776 00b7 12       		.uleb128 0x12
+ 1777 00b8 06       		.uleb128 0x6
+ 1778 00b9 40       		.uleb128 0x40
+ 1779 00ba 18       		.uleb128 0x18
+ 1780 00bb 9742     		.uleb128 0x2117
+ 1781 00bd 19       		.uleb128 0x19
+ 1782 00be 01       		.uleb128 0x1
+ 1783 00bf 13       		.uleb128 0x13
+ 1784 00c0 00       		.byte	0
+ 1785 00c1 00       		.byte	0
+ 1786 00c2 0F       		.uleb128 0xf
+ 1787 00c3 05       		.uleb128 0x5
+ 1788 00c4 00       		.byte	0
+ 1789 00c5 03       		.uleb128 0x3
+ 1790 00c6 0E       		.uleb128 0xe
+ 1791 00c7 3A       		.uleb128 0x3a
+ 1792 00c8 0B       		.uleb128 0xb
+ 1793 00c9 3B       		.uleb128 0x3b
+ 1794 00ca 05       		.uleb128 0x5
+ 1795 00cb 49       		.uleb128 0x49
+ 1796 00cc 13       		.uleb128 0x13
+ 1797 00cd 02       		.uleb128 0x2
+ 1798 00ce 17       		.uleb128 0x17
+ 1799 00cf 00       		.byte	0
+ 1800 00d0 00       		.byte	0
+ 1801 00d1 10       		.uleb128 0x10
+ 1802 00d2 34       		.uleb128 0x34
+ 1803 00d3 00       		.byte	0
+ 1804 00d4 03       		.uleb128 0x3
+ 1805 00d5 0E       		.uleb128 0xe
+ 1806 00d6 3A       		.uleb128 0x3a
+ 1807 00d7 0B       		.uleb128 0xb
+ 1808 00d8 3B       		.uleb128 0x3b
+ 1809 00d9 05       		.uleb128 0x5
+ 1810 00da 49       		.uleb128 0x49
+ 1811 00db 13       		.uleb128 0x13
+ 1812 00dc 02       		.uleb128 0x2
+ 1813 00dd 18       		.uleb128 0x18
+ 1814 00de 00       		.byte	0
+ 1815 00df 00       		.byte	0
+ 1816 00e0 11       		.uleb128 0x11
+ 1817 00e1 2E       		.uleb128 0x2e
+ 1818 00e2 01       		.byte	0x1
+ 1819 00e3 03       		.uleb128 0x3
+ 1820 00e4 0E       		.uleb128 0xe
+ 1821 00e5 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 49
+
+
+ 1822 00e6 0B       		.uleb128 0xb
+ 1823 00e7 3B       		.uleb128 0x3b
+ 1824 00e8 05       		.uleb128 0x5
+ 1825 00e9 27       		.uleb128 0x27
+ 1826 00ea 19       		.uleb128 0x19
+ 1827 00eb 20       		.uleb128 0x20
+ 1828 00ec 0B       		.uleb128 0xb
+ 1829 00ed 01       		.uleb128 0x1
+ 1830 00ee 13       		.uleb128 0x13
+ 1831 00ef 00       		.byte	0
+ 1832 00f0 00       		.byte	0
+ 1833 00f1 12       		.uleb128 0x12
+ 1834 00f2 05       		.uleb128 0x5
+ 1835 00f3 00       		.byte	0
+ 1836 00f4 03       		.uleb128 0x3
+ 1837 00f5 0E       		.uleb128 0xe
+ 1838 00f6 3A       		.uleb128 0x3a
+ 1839 00f7 0B       		.uleb128 0xb
+ 1840 00f8 3B       		.uleb128 0x3b
+ 1841 00f9 05       		.uleb128 0x5
+ 1842 00fa 49       		.uleb128 0x49
+ 1843 00fb 13       		.uleb128 0x13
+ 1844 00fc 00       		.byte	0
+ 1845 00fd 00       		.byte	0
+ 1846 00fe 13       		.uleb128 0x13
+ 1847 00ff 34       		.uleb128 0x34
+ 1848 0100 00       		.byte	0
+ 1849 0101 03       		.uleb128 0x3
+ 1850 0102 0E       		.uleb128 0xe
+ 1851 0103 3A       		.uleb128 0x3a
+ 1852 0104 0B       		.uleb128 0xb
+ 1853 0105 3B       		.uleb128 0x3b
+ 1854 0106 05       		.uleb128 0x5
+ 1855 0107 49       		.uleb128 0x49
+ 1856 0108 13       		.uleb128 0x13
+ 1857 0109 00       		.byte	0
+ 1858 010a 00       		.byte	0
+ 1859 010b 14       		.uleb128 0x14
+ 1860 010c 34       		.uleb128 0x34
+ 1861 010d 00       		.byte	0
+ 1862 010e 03       		.uleb128 0x3
+ 1863 010f 0E       		.uleb128 0xe
+ 1864 0110 3A       		.uleb128 0x3a
+ 1865 0111 0B       		.uleb128 0xb
+ 1866 0112 3B       		.uleb128 0x3b
+ 1867 0113 05       		.uleb128 0x5
+ 1868 0114 49       		.uleb128 0x49
+ 1869 0115 13       		.uleb128 0x13
+ 1870 0116 02       		.uleb128 0x2
+ 1871 0117 17       		.uleb128 0x17
+ 1872 0118 00       		.byte	0
+ 1873 0119 00       		.byte	0
+ 1874 011a 15       		.uleb128 0x15
+ 1875 011b 1D       		.uleb128 0x1d
+ 1876 011c 01       		.byte	0x1
+ 1877 011d 31       		.uleb128 0x31
+ 1878 011e 13       		.uleb128 0x13
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 50
+
+
+ 1879 011f 52       		.uleb128 0x52
+ 1880 0120 01       		.uleb128 0x1
+ 1881 0121 55       		.uleb128 0x55
+ 1882 0122 17       		.uleb128 0x17
+ 1883 0123 58       		.uleb128 0x58
+ 1884 0124 0B       		.uleb128 0xb
+ 1885 0125 59       		.uleb128 0x59
+ 1886 0126 05       		.uleb128 0x5
+ 1887 0127 01       		.uleb128 0x1
+ 1888 0128 13       		.uleb128 0x13
+ 1889 0129 00       		.byte	0
+ 1890 012a 00       		.byte	0
+ 1891 012b 16       		.uleb128 0x16
+ 1892 012c 05       		.uleb128 0x5
+ 1893 012d 00       		.byte	0
+ 1894 012e 31       		.uleb128 0x31
+ 1895 012f 13       		.uleb128 0x13
+ 1896 0130 02       		.uleb128 0x2
+ 1897 0131 17       		.uleb128 0x17
+ 1898 0132 00       		.byte	0
+ 1899 0133 00       		.byte	0
+ 1900 0134 17       		.uleb128 0x17
+ 1901 0135 0B       		.uleb128 0xb
+ 1902 0136 01       		.byte	0x1
+ 1903 0137 55       		.uleb128 0x55
+ 1904 0138 17       		.uleb128 0x17
+ 1905 0139 00       		.byte	0
+ 1906 013a 00       		.byte	0
+ 1907 013b 18       		.uleb128 0x18
+ 1908 013c 34       		.uleb128 0x34
+ 1909 013d 00       		.byte	0
+ 1910 013e 31       		.uleb128 0x31
+ 1911 013f 13       		.uleb128 0x13
+ 1912 0140 02       		.uleb128 0x2
+ 1913 0141 17       		.uleb128 0x17
+ 1914 0142 00       		.byte	0
+ 1915 0143 00       		.byte	0
+ 1916 0144 19       		.uleb128 0x19
+ 1917 0145 898201   		.uleb128 0x4109
+ 1918 0148 01       		.byte	0x1
+ 1919 0149 11       		.uleb128 0x11
+ 1920 014a 01       		.uleb128 0x1
+ 1921 014b 31       		.uleb128 0x31
+ 1922 014c 13       		.uleb128 0x13
+ 1923 014d 00       		.byte	0
+ 1924 014e 00       		.byte	0
+ 1925 014f 1A       		.uleb128 0x1a
+ 1926 0150 2E       		.uleb128 0x2e
+ 1927 0151 00       		.byte	0
+ 1928 0152 3F       		.uleb128 0x3f
+ 1929 0153 19       		.uleb128 0x19
+ 1930 0154 03       		.uleb128 0x3
+ 1931 0155 0E       		.uleb128 0xe
+ 1932 0156 3A       		.uleb128 0x3a
+ 1933 0157 0B       		.uleb128 0xb
+ 1934 0158 3B       		.uleb128 0x3b
+ 1935 0159 05       		.uleb128 0x5
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 51
+
+
+ 1936 015a 27       		.uleb128 0x27
+ 1937 015b 19       		.uleb128 0x19
+ 1938 015c 11       		.uleb128 0x11
+ 1939 015d 01       		.uleb128 0x1
+ 1940 015e 12       		.uleb128 0x12
+ 1941 015f 06       		.uleb128 0x6
+ 1942 0160 40       		.uleb128 0x40
+ 1943 0161 18       		.uleb128 0x18
+ 1944 0162 9742     		.uleb128 0x2117
+ 1945 0164 19       		.uleb128 0x19
+ 1946 0165 00       		.byte	0
+ 1947 0166 00       		.byte	0
+ 1948 0167 1B       		.uleb128 0x1b
+ 1949 0168 2E       		.uleb128 0x2e
+ 1950 0169 01       		.byte	0x1
+ 1951 016a 3F       		.uleb128 0x3f
+ 1952 016b 19       		.uleb128 0x19
+ 1953 016c 03       		.uleb128 0x3
+ 1954 016d 0E       		.uleb128 0xe
+ 1955 016e 3A       		.uleb128 0x3a
+ 1956 016f 0B       		.uleb128 0xb
+ 1957 0170 3B       		.uleb128 0x3b
+ 1958 0171 05       		.uleb128 0x5
+ 1959 0172 27       		.uleb128 0x27
+ 1960 0173 19       		.uleb128 0x19
+ 1961 0174 49       		.uleb128 0x49
+ 1962 0175 13       		.uleb128 0x13
+ 1963 0176 11       		.uleb128 0x11
+ 1964 0177 01       		.uleb128 0x1
+ 1965 0178 12       		.uleb128 0x12
+ 1966 0179 06       		.uleb128 0x6
+ 1967 017a 40       		.uleb128 0x40
+ 1968 017b 18       		.uleb128 0x18
+ 1969 017c 9742     		.uleb128 0x2117
+ 1970 017e 19       		.uleb128 0x19
+ 1971 017f 01       		.uleb128 0x1
+ 1972 0180 13       		.uleb128 0x13
+ 1973 0181 00       		.byte	0
+ 1974 0182 00       		.byte	0
+ 1975 0183 1C       		.uleb128 0x1c
+ 1976 0184 2E       		.uleb128 0x2e
+ 1977 0185 00       		.byte	0
+ 1978 0186 3F       		.uleb128 0x3f
+ 1979 0187 19       		.uleb128 0x19
+ 1980 0188 03       		.uleb128 0x3
+ 1981 0189 0E       		.uleb128 0xe
+ 1982 018a 3A       		.uleb128 0x3a
+ 1983 018b 0B       		.uleb128 0xb
+ 1984 018c 3B       		.uleb128 0x3b
+ 1985 018d 05       		.uleb128 0x5
+ 1986 018e 27       		.uleb128 0x27
+ 1987 018f 19       		.uleb128 0x19
+ 1988 0190 49       		.uleb128 0x49
+ 1989 0191 13       		.uleb128 0x13
+ 1990 0192 11       		.uleb128 0x11
+ 1991 0193 01       		.uleb128 0x1
+ 1992 0194 12       		.uleb128 0x12
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 52
+
+
+ 1993 0195 06       		.uleb128 0x6
+ 1994 0196 40       		.uleb128 0x40
+ 1995 0197 18       		.uleb128 0x18
+ 1996 0198 9742     		.uleb128 0x2117
+ 1997 019a 19       		.uleb128 0x19
+ 1998 019b 00       		.byte	0
+ 1999 019c 00       		.byte	0
+ 2000 019d 1D       		.uleb128 0x1d
+ 2001 019e 34       		.uleb128 0x34
+ 2002 019f 00       		.byte	0
+ 2003 01a0 03       		.uleb128 0x3
+ 2004 01a1 08       		.uleb128 0x8
+ 2005 01a2 3A       		.uleb128 0x3a
+ 2006 01a3 0B       		.uleb128 0xb
+ 2007 01a4 3B       		.uleb128 0x3b
+ 2008 01a5 05       		.uleb128 0x5
+ 2009 01a6 49       		.uleb128 0x49
+ 2010 01a7 13       		.uleb128 0x13
+ 2011 01a8 02       		.uleb128 0x2
+ 2012 01a9 18       		.uleb128 0x18
+ 2013 01aa 00       		.byte	0
+ 2014 01ab 00       		.byte	0
+ 2015 01ac 1E       		.uleb128 0x1e
+ 2016 01ad 05       		.uleb128 0x5
+ 2017 01ae 00       		.byte	0
+ 2018 01af 03       		.uleb128 0x3
+ 2019 01b0 0E       		.uleb128 0xe
+ 2020 01b1 3A       		.uleb128 0x3a
+ 2021 01b2 0B       		.uleb128 0xb
+ 2022 01b3 3B       		.uleb128 0x3b
+ 2023 01b4 05       		.uleb128 0x5
+ 2024 01b5 49       		.uleb128 0x49
+ 2025 01b6 13       		.uleb128 0x13
+ 2026 01b7 02       		.uleb128 0x2
+ 2027 01b8 18       		.uleb128 0x18
+ 2028 01b9 00       		.byte	0
+ 2029 01ba 00       		.byte	0
+ 2030 01bb 1F       		.uleb128 0x1f
+ 2031 01bc 2E       		.uleb128 0x2e
+ 2032 01bd 01       		.byte	0x1
+ 2033 01be 3F       		.uleb128 0x3f
+ 2034 01bf 19       		.uleb128 0x19
+ 2035 01c0 03       		.uleb128 0x3
+ 2036 01c1 0E       		.uleb128 0xe
+ 2037 01c2 3A       		.uleb128 0x3a
+ 2038 01c3 0B       		.uleb128 0xb
+ 2039 01c4 3B       		.uleb128 0x3b
+ 2040 01c5 05       		.uleb128 0x5
+ 2041 01c6 27       		.uleb128 0x27
+ 2042 01c7 19       		.uleb128 0x19
+ 2043 01c8 49       		.uleb128 0x49
+ 2044 01c9 13       		.uleb128 0x13
+ 2045 01ca 11       		.uleb128 0x11
+ 2046 01cb 01       		.uleb128 0x1
+ 2047 01cc 12       		.uleb128 0x12
+ 2048 01cd 06       		.uleb128 0x6
+ 2049 01ce 40       		.uleb128 0x40
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 53
+
+
+ 2050 01cf 18       		.uleb128 0x18
+ 2051 01d0 9642     		.uleb128 0x2116
+ 2052 01d2 19       		.uleb128 0x19
+ 2053 01d3 01       		.uleb128 0x1
+ 2054 01d4 13       		.uleb128 0x13
+ 2055 01d5 00       		.byte	0
+ 2056 01d6 00       		.byte	0
+ 2057 01d7 20       		.uleb128 0x20
+ 2058 01d8 34       		.uleb128 0x34
+ 2059 01d9 00       		.byte	0
+ 2060 01da 03       		.uleb128 0x3
+ 2061 01db 0E       		.uleb128 0xe
+ 2062 01dc 3A       		.uleb128 0x3a
+ 2063 01dd 0B       		.uleb128 0xb
+ 2064 01de 3B       		.uleb128 0x3b
+ 2065 01df 0B       		.uleb128 0xb
+ 2066 01e0 49       		.uleb128 0x49
+ 2067 01e1 13       		.uleb128 0x13
+ 2068 01e2 3F       		.uleb128 0x3f
+ 2069 01e3 19       		.uleb128 0x19
+ 2070 01e4 02       		.uleb128 0x2
+ 2071 01e5 18       		.uleb128 0x18
+ 2072 01e6 00       		.byte	0
+ 2073 01e7 00       		.byte	0
+ 2074 01e8 21       		.uleb128 0x21
+ 2075 01e9 2E       		.uleb128 0x2e
+ 2076 01ea 00       		.byte	0
+ 2077 01eb 3F       		.uleb128 0x3f
+ 2078 01ec 19       		.uleb128 0x19
+ 2079 01ed 03       		.uleb128 0x3
+ 2080 01ee 0E       		.uleb128 0xe
+ 2081 01ef 3A       		.uleb128 0x3a
+ 2082 01f0 0B       		.uleb128 0xb
+ 2083 01f1 3B       		.uleb128 0x3b
+ 2084 01f2 0B       		.uleb128 0xb
+ 2085 01f3 27       		.uleb128 0x27
+ 2086 01f4 19       		.uleb128 0x19
+ 2087 01f5 49       		.uleb128 0x49
+ 2088 01f6 13       		.uleb128 0x13
+ 2089 01f7 3C       		.uleb128 0x3c
+ 2090 01f8 19       		.uleb128 0x19
+ 2091 01f9 00       		.byte	0
+ 2092 01fa 00       		.byte	0
+ 2093 01fb 22       		.uleb128 0x22
+ 2094 01fc 2E       		.uleb128 0x2e
+ 2095 01fd 01       		.byte	0x1
+ 2096 01fe 3F       		.uleb128 0x3f
+ 2097 01ff 19       		.uleb128 0x19
+ 2098 0200 03       		.uleb128 0x3
+ 2099 0201 0E       		.uleb128 0xe
+ 2100 0202 3A       		.uleb128 0x3a
+ 2101 0203 0B       		.uleb128 0xb
+ 2102 0204 3B       		.uleb128 0x3b
+ 2103 0205 0B       		.uleb128 0xb
+ 2104 0206 27       		.uleb128 0x27
+ 2105 0207 19       		.uleb128 0x19
+ 2106 0208 3C       		.uleb128 0x3c
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 54
+
+
+ 2107 0209 19       		.uleb128 0x19
+ 2108 020a 01       		.uleb128 0x1
+ 2109 020b 13       		.uleb128 0x13
+ 2110 020c 00       		.byte	0
+ 2111 020d 00       		.byte	0
+ 2112 020e 23       		.uleb128 0x23
+ 2113 020f 05       		.uleb128 0x5
+ 2114 0210 00       		.byte	0
+ 2115 0211 49       		.uleb128 0x49
+ 2116 0212 13       		.uleb128 0x13
+ 2117 0213 00       		.byte	0
+ 2118 0214 00       		.byte	0
+ 2119 0215 24       		.uleb128 0x24
+ 2120 0216 2E       		.uleb128 0x2e
+ 2121 0217 01       		.byte	0x1
+ 2122 0218 3F       		.uleb128 0x3f
+ 2123 0219 19       		.uleb128 0x19
+ 2124 021a 03       		.uleb128 0x3
+ 2125 021b 0E       		.uleb128 0xe
+ 2126 021c 3A       		.uleb128 0x3a
+ 2127 021d 0B       		.uleb128 0xb
+ 2128 021e 3B       		.uleb128 0x3b
+ 2129 021f 0B       		.uleb128 0xb
+ 2130 0220 27       		.uleb128 0x27
+ 2131 0221 19       		.uleb128 0x19
+ 2132 0222 49       		.uleb128 0x49
+ 2133 0223 13       		.uleb128 0x13
+ 2134 0224 3C       		.uleb128 0x3c
+ 2135 0225 19       		.uleb128 0x19
+ 2136 0226 00       		.byte	0
+ 2137 0227 00       		.byte	0
+ 2138 0228 00       		.byte	0
+ 2139              		.section	.debug_loc,"",%progbits
+ 2140              	.Ldebug_loc0:
+ 2141              	.LLST0:
+ 2142 0000 38000000 		.4byte	.LVL2
+ 2143 0004 3C000000 		.4byte	.LVL3
+ 2144 0008 0500     		.2byte	0x5
+ 2145 000a 73       		.byte	0x73
+ 2146 000b 00       		.sleb128 0
+ 2147 000c 32       		.byte	0x32
+ 2148 000d 21       		.byte	0x21
+ 2149 000e 9F       		.byte	0x9f
+ 2150 000f 3C000000 		.4byte	.LVL3
+ 2151 0013 40000000 		.4byte	.LVL4
+ 2152 0017 0100     		.2byte	0x1
+ 2153 0019 53       		.byte	0x53
+ 2154 001a 40000000 		.4byte	.LVL4
+ 2155 001e 42000000 		.4byte	.LVL5
+ 2156 0022 0200     		.2byte	0x2
+ 2157 0024 72       		.byte	0x72
+ 2158 0025 00       		.sleb128 0
+ 2159 0026 42000000 		.4byte	.LVL5
+ 2160 002a 44000000 		.4byte	.LVL6
+ 2161 002e 0500     		.2byte	0x5
+ 2162 0030 0C       		.byte	0xc
+ 2163 0031 03590040 		.4byte	0x40005903
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 55
+
+
+ 2164 0035 00000000 		.4byte	0
+ 2165 0039 00000000 		.4byte	0
+ 2166              	.LLST1:
+ 2167 003d 0A000000 		.4byte	.LVL1
+ 2168 0041 84000000 		.4byte	.LVL8
+ 2169 0045 0100     		.2byte	0x1
+ 2170 0047 54       		.byte	0x54
+ 2171 0048 00000000 		.4byte	0
+ 2172 004c 00000000 		.4byte	0
+ 2173              	.LLST2:
+ 2174 0050 06000000 		.4byte	.LVL10
+ 2175 0054 41000000 		.4byte	.LVL11-1
+ 2176 0058 0100     		.2byte	0x1
+ 2177 005a 50       		.byte	0x50
+ 2178 005b 00000000 		.4byte	0
+ 2179 005f 00000000 		.4byte	0
+ 2180              	.LLST3:
+ 2181 0063 00000000 		.4byte	.LVL12
+ 2182 0067 00000000 		.4byte	.LVL12
+ 2183 006b 0100     		.2byte	0x1
+ 2184 006d 50       		.byte	0x50
+ 2185 006e 00000000 		.4byte	.LVL12
+ 2186 0072 06000000 		.4byte	.LVL13
+ 2187 0076 0500     		.2byte	0x5
+ 2188 0078 70       		.byte	0x70
+ 2189 0079 00       		.sleb128 0
+ 2190 007a 33       		.byte	0x33
+ 2191 007b 1A       		.byte	0x1a
+ 2192 007c 9F       		.byte	0x9f
+ 2193 007d 06000000 		.4byte	.LVL13
+ 2194 0081 18000000 		.4byte	.LFE4
+ 2195 0085 0600     		.2byte	0x6
+ 2196 0087 F3       		.byte	0xf3
+ 2197 0088 01       		.uleb128 0x1
+ 2198 0089 50       		.byte	0x50
+ 2199 008a 33       		.byte	0x33
+ 2200 008b 1A       		.byte	0x1a
+ 2201 008c 9F       		.byte	0x9f
+ 2202 008d 00000000 		.4byte	0
+ 2203 0091 00000000 		.4byte	0
+ 2204              	.LLST4:
+ 2205 0095 00000000 		.4byte	.LVL16
+ 2206 0099 1A000000 		.4byte	.LVL20
+ 2207 009d 0100     		.2byte	0x1
+ 2208 009f 50       		.byte	0x50
+ 2209 00a0 1A000000 		.4byte	.LVL20
+ 2210 00a4 7C000000 		.4byte	.LFE5
+ 2211 00a8 0400     		.2byte	0x4
+ 2212 00aa F3       		.byte	0xf3
+ 2213 00ab 01       		.uleb128 0x1
+ 2214 00ac 50       		.byte	0x50
+ 2215 00ad 9F       		.byte	0x9f
+ 2216 00ae 00000000 		.4byte	0
+ 2217 00b2 00000000 		.4byte	0
+ 2218              	.LLST5:
+ 2219 00b6 10000000 		.4byte	.LVL17
+ 2220 00ba 14000000 		.4byte	.LVL18
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 56
+
+
+ 2221 00be 0300     		.2byte	0x3
+ 2222 00c0 08       		.byte	0x8
+ 2223 00c1 44       		.byte	0x44
+ 2224 00c2 9F       		.byte	0x9f
+ 2225 00c3 18000000 		.4byte	.LVL19
+ 2226 00c7 1E000000 		.4byte	.LVL21
+ 2227 00cb 0300     		.2byte	0x3
+ 2228 00cd 09       		.byte	0x9
+ 2229 00ce C4       		.byte	0xc4
+ 2230 00cf 9F       		.byte	0x9f
+ 2231 00d0 00000000 		.4byte	0
+ 2232 00d4 00000000 		.4byte	0
+ 2233              	.LLST6:
+ 2234 00d8 26000000 		.4byte	.LVL22
+ 2235 00dc 30000000 		.4byte	.LVL23
+ 2236 00e0 0100     		.2byte	0x1
+ 2237 00e2 54       		.byte	0x54
+ 2238 00e3 30000000 		.4byte	.LVL23
+ 2239 00e7 36000000 		.4byte	.LVL24
+ 2240 00eb 0200     		.2byte	0x2
+ 2241 00ed 38       		.byte	0x38
+ 2242 00ee 9F       		.byte	0x9f
+ 2243 00ef 36000000 		.4byte	.LVL24
+ 2244 00f3 4A000000 		.4byte	.LVL28
+ 2245 00f7 0100     		.2byte	0x1
+ 2246 00f9 54       		.byte	0x54
+ 2247 00fa 00000000 		.4byte	0
+ 2248 00fe 00000000 		.4byte	0
+ 2249              	.LLST7:
+ 2250 0102 30000000 		.4byte	.LVL23
+ 2251 0106 36000000 		.4byte	.LVL24
+ 2252 010a 0400     		.2byte	0x4
+ 2253 010c 0A       		.byte	0xa
+ 2254 010d 0001     		.2byte	0x100
+ 2255 010f 9F       		.byte	0x9f
+ 2256 0110 3C000000 		.4byte	.LVL25
+ 2257 0114 46000000 		.4byte	.LVL27
+ 2258 0118 0200     		.2byte	0x2
+ 2259 011a 30       		.byte	0x30
+ 2260 011b 9F       		.byte	0x9f
+ 2261 011c 4A000000 		.4byte	.LVL28
+ 2262 0120 5A000000 		.4byte	.LVL29
+ 2263 0124 0100     		.2byte	0x1
+ 2264 0126 52       		.byte	0x52
+ 2265 0127 00000000 		.4byte	0
+ 2266 012b 00000000 		.4byte	0
+ 2267              	.LLST8:
+ 2268 012f 00000000 		.4byte	.LVL36
+ 2269 0133 16000000 		.4byte	.LVL39
+ 2270 0137 0100     		.2byte	0x1
+ 2271 0139 50       		.byte	0x50
+ 2272 013a 16000000 		.4byte	.LVL39
+ 2273 013e 24000000 		.4byte	.LFE8
+ 2274 0142 0400     		.2byte	0x4
+ 2275 0144 F3       		.byte	0xf3
+ 2276 0145 01       		.uleb128 0x1
+ 2277 0146 50       		.byte	0x50
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 57
+
+
+ 2278 0147 9F       		.byte	0x9f
+ 2279 0148 00000000 		.4byte	0
+ 2280 014c 00000000 		.4byte	0
+ 2281              	.LLST9:
+ 2282 0150 06000000 		.4byte	.LVL37
+ 2283 0154 0A000000 		.4byte	.LVL38
+ 2284 0158 0500     		.2byte	0x5
+ 2285 015a 74       		.byte	0x74
+ 2286 015b 00       		.sleb128 0
+ 2287 015c 31       		.byte	0x31
+ 2288 015d 1A       		.byte	0x1a
+ 2289 015e 9F       		.byte	0x9f
+ 2290 015f 00000000 		.4byte	0
+ 2291 0163 00000000 		.4byte	0
+ 2292              	.LLST10:
+ 2293 0167 00000000 		.4byte	.LVL43
+ 2294 016b 04000000 		.4byte	.LVL44
+ 2295 016f 0100     		.2byte	0x1
+ 2296 0171 50       		.byte	0x50
+ 2297 0172 04000000 		.4byte	.LVL44
+ 2298 0176 10000000 		.4byte	.LFE13
+ 2299 017a 0400     		.2byte	0x4
+ 2300 017c F3       		.byte	0xf3
+ 2301 017d 01       		.uleb128 0x1
+ 2302 017e 50       		.byte	0x50
+ 2303 017f 9F       		.byte	0x9f
+ 2304 0180 00000000 		.4byte	0
+ 2305 0184 00000000 		.4byte	0
+ 2306              	.LLST11:
+ 2307 0188 00000000 		.4byte	.LVL46
+ 2308 018c 22000000 		.4byte	.LVL50
+ 2309 0190 0100     		.2byte	0x1
+ 2310 0192 50       		.byte	0x50
+ 2311 0193 22000000 		.4byte	.LVL50
+ 2312 0197 28000000 		.4byte	.LVL51
+ 2313 019b 0400     		.2byte	0x4
+ 2314 019d F3       		.byte	0xf3
+ 2315 019e 01       		.uleb128 0x1
+ 2316 019f 50       		.byte	0x50
+ 2317 01a0 9F       		.byte	0x9f
+ 2318 01a1 28000000 		.4byte	.LVL51
+ 2319 01a5 48000000 		.4byte	.LFE15
+ 2320 01a9 0100     		.2byte	0x1
+ 2321 01ab 51       		.byte	0x51
+ 2322 01ac 00000000 		.4byte	0
+ 2323 01b0 00000000 		.4byte	0
+ 2324              	.LLST12:
+ 2325 01b4 30000000 		.4byte	.LVL52
+ 2326 01b8 32000000 		.4byte	.LVL53
+ 2327 01bc 0900     		.2byte	0x9
+ 2328 01be 70       		.byte	0x70
+ 2329 01bf 00       		.sleb128 0
+ 2330 01c0 73       		.byte	0x73
+ 2331 01c1 00       		.sleb128 0
+ 2332 01c2 22       		.byte	0x22
+ 2333 01c3 72       		.byte	0x72
+ 2334 01c4 00       		.sleb128 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 58
+
+
+ 2335 01c5 1B       		.byte	0x1b
+ 2336 01c6 9F       		.byte	0x9f
+ 2337 01c7 00000000 		.4byte	0
+ 2338 01cb 00000000 		.4byte	0
+ 2339              	.LLST13:
+ 2340 01cf 10000000 		.4byte	.LVL47
+ 2341 01d3 12000000 		.4byte	.LVL48
+ 2342 01d7 0100     		.2byte	0x1
+ 2343 01d9 52       		.byte	0x52
+ 2344 01da 16000000 		.4byte	.LVL49
+ 2345 01de 48000000 		.4byte	.LFE15
+ 2346 01e2 0100     		.2byte	0x1
+ 2347 01e4 52       		.byte	0x52
+ 2348 01e5 00000000 		.4byte	0
+ 2349 01e9 00000000 		.4byte	0
+ 2350              	.LLST14:
+ 2351 01ed 00000000 		.4byte	.LVL55
+ 2352 01f1 1C000000 		.4byte	.LVL59
+ 2353 01f5 0100     		.2byte	0x1
+ 2354 01f7 50       		.byte	0x50
+ 2355 01f8 1C000000 		.4byte	.LVL59
+ 2356 01fc 20000000 		.4byte	.LVL60
+ 2357 0200 0600     		.2byte	0x6
+ 2358 0202 70       		.byte	0x70
+ 2359 0203 00       		.sleb128 0
+ 2360 0204 74       		.byte	0x74
+ 2361 0205 00       		.sleb128 0
+ 2362 0206 1C       		.byte	0x1c
+ 2363 0207 9F       		.byte	0x9f
+ 2364 0208 00000000 		.4byte	0
+ 2365 020c 00000000 		.4byte	0
+ 2366              	.LLST15:
+ 2367 0210 1C000000 		.4byte	.LVL59
+ 2368 0214 20000000 		.4byte	.LVL60
+ 2369 0218 1D00     		.2byte	0x1d
+ 2370 021a 70       		.byte	0x70
+ 2371 021b 00       		.sleb128 0
+ 2372 021c 74       		.byte	0x74
+ 2373 021d 00       		.sleb128 0
+ 2374 021e 1C       		.byte	0x1c
+ 2375 021f F7       		.byte	0xf7
+ 2376 0220 41       		.uleb128 0x41
+ 2377 0221 F7       		.byte	0xf7
+ 2378 0222 25       		.uleb128 0x25
+ 2379 0223 0C       		.byte	0xc
+ 2380 0224 80969800 		.4byte	0x989680
+ 2381 0228 F7       		.byte	0xf7
+ 2382 0229 25       		.uleb128 0x25
+ 2383 022a 1E       		.byte	0x1e
+ 2384 022b F7       		.byte	0xf7
+ 2385 022c 33       		.uleb128 0x33
+ 2386 022d 72       		.byte	0x72
+ 2387 022e 00       		.sleb128 0
+ 2388 022f F7       		.byte	0xf7
+ 2389 0230 3A       		.uleb128 0x3a
+ 2390 0231 F7       		.byte	0xf7
+ 2391 0232 33       		.uleb128 0x33
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 59
+
+
+ 2392 0233 1B       		.byte	0x1b
+ 2393 0234 F7       		.byte	0xf7
+ 2394 0235 25       		.uleb128 0x25
+ 2395 0236 9F       		.byte	0x9f
+ 2396 0237 00000000 		.4byte	0
+ 2397 023b 00000000 		.4byte	0
+ 2398              	.LLST16:
+ 2399 023f 12000000 		.4byte	.LVL56
+ 2400 0243 14000000 		.4byte	.LVL57
+ 2401 0247 0100     		.2byte	0x1
+ 2402 0249 52       		.byte	0x52
+ 2403 024a 18000000 		.4byte	.LVL58
+ 2404 024e 31000000 		.4byte	.LVL61-1
+ 2405 0252 0100     		.2byte	0x1
+ 2406 0254 52       		.byte	0x52
+ 2407 0255 00000000 		.4byte	0
+ 2408 0259 00000000 		.4byte	0
+ 2409              	.LLST17:
+ 2410 025d 00000000 		.4byte	.LVL62
+ 2411 0261 1E000000 		.4byte	.LVL66
+ 2412 0265 0100     		.2byte	0x1
+ 2413 0267 50       		.byte	0x50
+ 2414 0268 1E000000 		.4byte	.LVL66
+ 2415 026c 23000000 		.4byte	.LVL67-1
+ 2416 0270 0100     		.2byte	0x1
+ 2417 0272 50       		.byte	0x50
+ 2418 0273 00000000 		.4byte	0
+ 2419 0277 00000000 		.4byte	0
+ 2420              	.LLST18:
+ 2421 027b 1E000000 		.4byte	.LVL66
+ 2422 027f 23000000 		.4byte	.LVL67-1
+ 2423 0283 1600     		.2byte	0x16
+ 2424 0285 70       		.byte	0x70
+ 2425 0286 00       		.sleb128 0
+ 2426 0287 F7       		.byte	0xf7
+ 2427 0288 41       		.uleb128 0x41
+ 2428 0289 F7       		.byte	0xf7
+ 2429 028a 2C       		.uleb128 0x2c
+ 2430 028b F4       		.byte	0xf4
+ 2431 028c 2C       		.uleb128 0x2c
+ 2432 028d 04       		.byte	0x4
+ 2433 028e 00002041 		.4byte	0x41200000
+ 2434 0292 1E       		.byte	0x1e
+ 2435 0293 74       		.byte	0x74
+ 2436 0294 00       		.sleb128 0
+ 2437 0295 F7       		.byte	0xf7
+ 2438 0296 3A       		.uleb128 0x3a
+ 2439 0297 F7       		.byte	0xf7
+ 2440 0298 2C       		.uleb128 0x2c
+ 2441 0299 1B       		.byte	0x1b
+ 2442 029a 9F       		.byte	0x9f
+ 2443 029b 00000000 		.4byte	0
+ 2444 029f 00000000 		.4byte	0
+ 2445              	.LLST19:
+ 2446 02a3 12000000 		.4byte	.LVL63
+ 2447 02a7 14000000 		.4byte	.LVL64
+ 2448 02ab 0100     		.2byte	0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 60
+
+
+ 2449 02ad 54       		.byte	0x54
+ 2450 02ae 18000000 		.4byte	.LVL65
+ 2451 02b2 3C000000 		.4byte	.LVL71
+ 2452 02b6 0100     		.2byte	0x1
+ 2453 02b8 54       		.byte	0x54
+ 2454 02b9 00000000 		.4byte	0
+ 2455 02bd 00000000 		.4byte	0
+ 2456              		.section	.debug_aranges,"",%progbits
+ 2457 0000 9C000000 		.4byte	0x9c
+ 2458 0004 0200     		.2byte	0x2
+ 2459 0006 00000000 		.4byte	.Ldebug_info0
+ 2460 000a 04       		.byte	0x4
+ 2461 000b 00       		.byte	0
+ 2462 000c 0000     		.2byte	0
+ 2463 000e 0000     		.2byte	0
+ 2464 0010 00000000 		.4byte	.LFB2
+ 2465 0014 9C000000 		.4byte	.LFE2-.LFB2
+ 2466 0018 00000000 		.4byte	.LFB3
+ 2467 001c 48000000 		.4byte	.LFE3-.LFB3
+ 2468 0020 00000000 		.4byte	.LFB4
+ 2469 0024 18000000 		.4byte	.LFE4-.LFB4
+ 2470 0028 00000000 		.4byte	.LFB5
+ 2471 002c 7C000000 		.4byte	.LFE5-.LFB5
+ 2472 0030 00000000 		.4byte	.LFB1
+ 2473 0034 3C000000 		.4byte	.LFE1-.LFB1
+ 2474 0038 00000000 		.4byte	.LFB0
+ 2475 003c 1C000000 		.4byte	.LFE0-.LFB0
+ 2476 0040 00000000 		.4byte	.LFB6
+ 2477 0044 10000000 		.4byte	.LFE6-.LFB6
+ 2478 0048 00000000 		.4byte	.LFB7
+ 2479 004c 10000000 		.4byte	.LFE7-.LFB7
+ 2480 0050 00000000 		.4byte	.LFB8
+ 2481 0054 24000000 		.4byte	.LFE8-.LFB8
+ 2482 0058 00000000 		.4byte	.LFB9
+ 2483 005c 18000000 		.4byte	.LFE9-.LFB9
+ 2484 0060 00000000 		.4byte	.LFB10
+ 2485 0064 18000000 		.4byte	.LFE10-.LFB10
+ 2486 0068 00000000 		.4byte	.LFB11
+ 2487 006c 0C000000 		.4byte	.LFE11-.LFB11
+ 2488 0070 00000000 		.4byte	.LFB13
+ 2489 0074 10000000 		.4byte	.LFE13-.LFB13
+ 2490 0078 00000000 		.4byte	.LFB14
+ 2491 007c 0C000000 		.4byte	.LFE14-.LFB14
+ 2492 0080 00000000 		.4byte	.LFB15
+ 2493 0084 48000000 		.4byte	.LFE15-.LFB15
+ 2494 0088 00000000 		.4byte	.LFB16
+ 2495 008c 44000000 		.4byte	.LFE16-.LFB16
+ 2496 0090 00000000 		.4byte	.LFB17
+ 2497 0094 4C000000 		.4byte	.LFE17-.LFB17
+ 2498 0098 00000000 		.4byte	0
+ 2499 009c 00000000 		.4byte	0
+ 2500              		.section	.debug_ranges,"",%progbits
+ 2501              	.Ldebug_ranges0:
+ 2502 0000 22000000 		.4byte	.LBB4
+ 2503 0004 24000000 		.4byte	.LBE4
+ 2504 0008 26000000 		.4byte	.LBB7
+ 2505 000c 7C000000 		.4byte	.LBE7
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 61
+
+
+ 2506 0010 00000000 		.4byte	0
+ 2507 0014 00000000 		.4byte	0
+ 2508 0018 00000000 		.4byte	.LFB2
+ 2509 001c 9C000000 		.4byte	.LFE2
+ 2510 0020 00000000 		.4byte	.LFB3
+ 2511 0024 48000000 		.4byte	.LFE3
+ 2512 0028 00000000 		.4byte	.LFB4
+ 2513 002c 18000000 		.4byte	.LFE4
+ 2514 0030 00000000 		.4byte	.LFB5
+ 2515 0034 7C000000 		.4byte	.LFE5
+ 2516 0038 00000000 		.4byte	.LFB1
+ 2517 003c 3C000000 		.4byte	.LFE1
+ 2518 0040 00000000 		.4byte	.LFB0
+ 2519 0044 1C000000 		.4byte	.LFE0
+ 2520 0048 00000000 		.4byte	.LFB6
+ 2521 004c 10000000 		.4byte	.LFE6
+ 2522 0050 00000000 		.4byte	.LFB7
+ 2523 0054 10000000 		.4byte	.LFE7
+ 2524 0058 00000000 		.4byte	.LFB8
+ 2525 005c 24000000 		.4byte	.LFE8
+ 2526 0060 00000000 		.4byte	.LFB9
+ 2527 0064 18000000 		.4byte	.LFE9
+ 2528 0068 00000000 		.4byte	.LFB10
+ 2529 006c 18000000 		.4byte	.LFE10
+ 2530 0070 00000000 		.4byte	.LFB11
+ 2531 0074 0C000000 		.4byte	.LFE11
+ 2532 0078 00000000 		.4byte	.LFB13
+ 2533 007c 10000000 		.4byte	.LFE13
+ 2534 0080 00000000 		.4byte	.LFB14
+ 2535 0084 0C000000 		.4byte	.LFE14
+ 2536 0088 00000000 		.4byte	.LFB15
+ 2537 008c 48000000 		.4byte	.LFE15
+ 2538 0090 00000000 		.4byte	.LFB16
+ 2539 0094 44000000 		.4byte	.LFE16
+ 2540 0098 00000000 		.4byte	.LFB17
+ 2541 009c 4C000000 		.4byte	.LFE17
+ 2542 00a0 00000000 		.4byte	0
+ 2543 00a4 00000000 		.4byte	0
+ 2544              		.section	.debug_line,"",%progbits
+ 2545              	.Ldebug_line0:
+ 2546 0000 21020000 		.section	.debug_str,"MS",%progbits,1
+ 2546      02005E00 
+ 2546      00000201 
+ 2546      FB0E0D00 
+ 2546      01010101 
+ 2547              	.LASF13:
+ 2548 0000 75696E74 		.ascii	"uint16\000"
+ 2548      313600
+ 2549              	.LASF44:
+ 2550 0007 61646347 		.ascii	"adcGain\000"
+ 2550      61696E00 
+ 2551              	.LASF60:
+ 2552 000f 43794578 		.ascii	"CyExitCriticalSection\000"
+ 2552      69744372 
+ 2552      69746963 
+ 2552      616C5365 
+ 2552      6374696F 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 62
+
+
+ 2553              	.LASF69:
+ 2554 0025 636F756E 		.ascii	"counts\000"
+ 2554      747300
+ 2555              	.LASF52:
+ 2556 002c 4144435F 		.ascii	"ADC_CountsTo_Volts\000"
+ 2556      436F756E 
+ 2556      7473546F 
+ 2556      5F566F6C 
+ 2556      747300
+ 2557              	.LASF33:
+ 2558 003f 4144435F 		.ascii	"ADC_Init\000"
+ 2558      496E6974 
+ 2558      00
+ 2559              	.LASF0:
+ 2560 0048 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2560      206C6F6E 
+ 2560      6720756E 
+ 2560      7369676E 
+ 2560      65642069 
+ 2561              	.LASF35:
+ 2562 005f 4144435F 		.ascii	"ADC_StartConvert\000"
+ 2562      53746172 
+ 2562      74436F6E 
+ 2562      76657274 
+ 2562      00
+ 2563              	.LASF2:
+ 2564 0070 6C6F6E67 		.ascii	"long long int\000"
+ 2564      206C6F6E 
+ 2564      6720696E 
+ 2564      7400
+ 2565              	.LASF5:
+ 2566 007e 7369676E 		.ascii	"signed char\000"
+ 2566      65642063 
+ 2566      68617200 
+ 2567              	.LASF38:
+ 2568 008a 73746174 		.ascii	"status\000"
+ 2568      757300
+ 2569              	.LASF66:
+ 2570 0091 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\ADC.c\000"
+ 2570      6E657261 
+ 2570      7465645F 
+ 2570      536F7572 
+ 2570      63655C50 
+ 2571              	.LASF17:
+ 2572 00b0 696E7433 		.ascii	"int32\000"
+ 2572      3200
+ 2573              	.LASF34:
+ 2574 00b6 4144435F 		.ascii	"ADC_Start\000"
+ 2574      53746172 
+ 2574      7400
+ 2575              	.LASF8:
+ 2576 00c0 6C6F6E67 		.ascii	"long int\000"
+ 2576      20696E74 
+ 2576      00
+ 2577              	.LASF50:
+ 2578 00c9 4144435F 		.ascii	"ADC_CountsTo_uVolts\000"
+ 2578      436F756E 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 63
+
+
+ 2578      7473546F 
+ 2578      5F75566F 
+ 2578      6C747300 
+ 2579              	.LASF57:
+ 2580 00dd 4144435F 		.ascii	"ADC_countsPer10Volt\000"
+ 2580      636F756E 
+ 2580      74735065 
+ 2580      72313056 
+ 2580      6F6C7400 
+ 2581              	.LASF56:
+ 2582 00f1 4144435F 		.ascii	"ADC_countsPerVolt\000"
+ 2582      636F756E 
+ 2582      74735065 
+ 2582      72566F6C 
+ 2582      7400
+ 2583              	.LASF67:
+ 2584 0103 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\voltageDisplay_SAR_AD"
+ 2584      6F63756D 
+ 2584      656E746F 
+ 2584      735C5053 
+ 2584      6F432043 
+ 2585 0133 435C5644 		.ascii	"C\\VDAC8(SAR-POT).cydsn\000"
+ 2585      41433828 
+ 2585      5341522D 
+ 2585      504F5429 
+ 2585      2E637964 
+ 2586              	.LASF22:
+ 2587 014a 72656731 		.ascii	"reg16\000"
+ 2587      3600
+ 2588              	.LASF12:
+ 2589 0150 75696E74 		.ascii	"uint8\000"
+ 2589      3800
+ 2590              	.LASF59:
+ 2591 0156 43794465 		.ascii	"CyDelayUs\000"
+ 2591      6C617955 
+ 2591      7300
+ 2592              	.LASF19:
+ 2593 0160 646F7562 		.ascii	"double\000"
+ 2593      6C6500
+ 2594              	.LASF14:
+ 2595 0167 75696E74 		.ascii	"uint32\000"
+ 2595      333200
+ 2596              	.LASF49:
+ 2597 016e 636F756E 		.ascii	"countsPer10Volt\000"
+ 2597      74735065 
+ 2597      72313056 
+ 2597      6F6C7400 
+ 2598              	.LASF64:
+ 2599 017e 4379496E 		.ascii	"CyIntSetVector\000"
+ 2599      74536574 
+ 2599      56656374 
+ 2599      6F7200
+ 2600              	.LASF54:
+ 2601 018d 4144435F 		.ascii	"ADC_initVar\000"
+ 2601      696E6974 
+ 2601      56617200 
+ 2602              	.LASF29:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 64
+
+
+ 2603 0199 4144435F 		.ascii	"ADC_SetPower\000"
+ 2603      53657450 
+ 2603      6F776572 
+ 2603      00
+ 2604              	.LASF37:
+ 2605 01a6 7265744D 		.ascii	"retMode\000"
+ 2605      6F646500 
+ 2606              	.LASF4:
+ 2607 01ae 756E7369 		.ascii	"unsigned int\000"
+ 2607      676E6564 
+ 2607      20696E74 
+ 2607      00
+ 2608              	.LASF65:
+ 2609 01bb 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 2609      4320342E 
+ 2609      392E3320 
+ 2609      32303135 
+ 2609      30333033 
+ 2610 01ee 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 2610      20726576 
+ 2610      6973696F 
+ 2610      6E203232 
+ 2610      31323230 
+ 2611 0221 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 2611      66756E63 
+ 2611      74696F6E 
+ 2611      2D736563 
+ 2611      74696F6E 
+ 2612              	.LASF51:
+ 2613 0249 75566F6C 		.ascii	"uVolts\000"
+ 2613      747300
+ 2614              	.LASF9:
+ 2615 0250 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2615      20756E73 
+ 2615      69676E65 
+ 2615      6420696E 
+ 2615      7400
+ 2616              	.LASF53:
+ 2617 0262 766F6C74 		.ascii	"volts\000"
+ 2617      7300
+ 2618              	.LASF71:
+ 2619 0268 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 2619      74657243 
+ 2619      72697469 
+ 2619      63616C53 
+ 2619      65637469 
+ 2620              	.LASF7:
+ 2621 027f 73686F72 		.ascii	"short unsigned int\000"
+ 2621      7420756E 
+ 2621      7369676E 
+ 2621      65642069 
+ 2621      6E7400
+ 2622              	.LASF15:
+ 2623 0292 696E7438 		.ascii	"int8\000"
+ 2623      00
+ 2624              	.LASF36:
+ 2625 0297 4144435F 		.ascii	"ADC_StopConvert\000"
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 65
+
+
+ 2625      53746F70 
+ 2625      436F6E76 
+ 2625      65727400 
+ 2626              	.LASF68:
+ 2627 02a7 4144435F 		.ascii	"ADC_CalcGain\000"
+ 2627      43616C63 
+ 2627      4761696E 
+ 2627      00
+ 2628              	.LASF48:
+ 2629 02b4 6D566F6C 		.ascii	"mVolts\000"
+ 2629      747300
+ 2630              	.LASF23:
+ 2631 02bb 72656733 		.ascii	"reg32\000"
+ 2631      3200
+ 2632              	.LASF58:
+ 2633 02c1 4144435F 		.ascii	"ADC_shift\000"
+ 2633      73686966 
+ 2633      7400
+ 2634              	.LASF18:
+ 2635 02cb 666C6F61 		.ascii	"float32\000"
+ 2635      74333200 
+ 2636              	.LASF10:
+ 2637 02d3 73697A65 		.ascii	"sizetype\000"
+ 2637      74797065 
+ 2637      00
+ 2638              	.LASF39:
+ 2639 02dc 4144435F 		.ascii	"ADC_IsEndConversion\000"
+ 2639      4973456E 
+ 2639      64436F6E 
+ 2639      76657273 
+ 2639      696F6E00 
+ 2640              	.LASF70:
+ 2641 02f0 4144435F 		.ascii	"ADC_GetResult8\000"
+ 2641      47657452 
+ 2641      6573756C 
+ 2641      743800
+ 2642              	.LASF62:
+ 2643 02ff 4144435F 		.ascii	"ADC_theACLK_SetModeRegister\000"
+ 2643      74686541 
+ 2643      434C4B5F 
+ 2643      5365744D 
+ 2643      6F646552 
+ 2644              	.LASF30:
+ 2645 031b 4144435F 		.ascii	"ADC_SetResolution\000"
+ 2645      53657452 
+ 2645      65736F6C 
+ 2645      7574696F 
+ 2645      6E00
+ 2646              	.LASF20:
+ 2647 032d 696E7436 		.ascii	"int64\000"
+ 2647      3400
+ 2648              	.LASF63:
+ 2649 0333 4379496E 		.ascii	"CyIntSetPriority\000"
+ 2649      74536574 
+ 2649      5072696F 
+ 2649      72697479 
+ 2649      00
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 66
+
+
+ 2650              	.LASF43:
+ 2651 0344 4144435F 		.ascii	"ADC_SetGain\000"
+ 2651      53657447 
+ 2651      61696E00 
+ 2652              	.LASF1:
+ 2653 0350 666C6F61 		.ascii	"float\000"
+ 2653      7400
+ 2654              	.LASF46:
+ 2655 0356 4144435F 		.ascii	"ADC_CountsTo_mVolts\000"
+ 2655      436F756E 
+ 2655      7473546F 
+ 2655      5F6D566F 
+ 2655      6C747300 
+ 2656              	.LASF31:
+ 2657 036a 706F7765 		.ascii	"power\000"
+ 2657      7200
+ 2658              	.LASF21:
+ 2659 0370 72656738 		.ascii	"reg8\000"
+ 2659      00
+ 2660              	.LASF61:
+ 2661 0375 43794861 		.ascii	"CyHalt\000"
+ 2661      6C7400
+ 2662              	.LASF6:
+ 2663 037c 756E7369 		.ascii	"unsigned char\000"
+ 2663      676E6564 
+ 2663      20636861 
+ 2663      7200
+ 2664              	.LASF55:
+ 2665 038a 4144435F 		.ascii	"ADC_offset\000"
+ 2665      6F666673 
+ 2665      657400
+ 2666              	.LASF3:
+ 2667 0395 73686F72 		.ascii	"short int\000"
+ 2667      7420696E 
+ 2667      7400
+ 2668              	.LASF28:
+ 2669 039f 4144435F 		.ascii	"ADC_Stop\000"
+ 2669      53746F70 
+ 2669      00
+ 2670              	.LASF32:
+ 2671 03a8 7265736F 		.ascii	"resolution\000"
+ 2671      6C757469 
+ 2671      6F6E00
+ 2672              	.LASF45:
+ 2673 03b3 4144435F 		.ascii	"ADC_SetScaledGain\000"
+ 2673      53657453 
+ 2673      63616C65 
+ 2673      64476169 
+ 2673      6E00
+ 2674              	.LASF11:
+ 2675 03c5 63686172 		.ascii	"char\000"
+ 2675      00
+ 2676              	.LASF24:
+ 2677 03ca 63796973 		.ascii	"cyisraddress\000"
+ 2677      72616464 
+ 2677      72657373 
+ 2677      00
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccUzkFvW.s 			page 67
+
+
+ 2678              	.LASF42:
+ 2679 03d7 6F666673 		.ascii	"offset\000"
+ 2679      657400
+ 2680              	.LASF47:
+ 2681 03de 61646343 		.ascii	"adcCounts\000"
+ 2681      6F756E74 
+ 2681      7300
+ 2682              	.LASF26:
+ 2683 03e8 656E6162 		.ascii	"enableInterrupts\000"
+ 2683      6C65496E 
+ 2683      74657272 
+ 2683      75707473 
+ 2683      00
+ 2684              	.LASF27:
+ 2685 03f9 4144435F 		.ascii	"ADC_Enable\000"
+ 2685      456E6162 
+ 2685      6C6500
+ 2686              	.LASF16:
+ 2687 0404 696E7431 		.ascii	"int16\000"
+ 2687      3600
+ 2688              	.LASF41:
+ 2689 040a 4144435F 		.ascii	"ADC_SetOffset\000"
+ 2689      5365744F 
+ 2689      66667365 
+ 2689      7400
+ 2690              	.LASF25:
+ 2691 0418 746D7052 		.ascii	"tmpReg\000"
+ 2691      656700
+ 2692              	.LASF40:
+ 2693 041f 4144435F 		.ascii	"ADC_GetResult16\000"
+ 2693      47657452 
+ 2693      6573756C 
+ 2693      74313600 
+ 2694              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

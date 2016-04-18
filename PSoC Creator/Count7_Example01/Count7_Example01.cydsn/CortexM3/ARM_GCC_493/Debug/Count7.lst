@@ -1,0 +1,1304 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"Count7.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	Count7_initVar
+  19              		.bss
+  20              		.type	Count7_initVar, %object
+  21              		.size	Count7_initVar, 1
+  22              	Count7_initVar:
+  23 0000 00       		.space	1
+  24              		.section	.text.Count7_Init,"ax",%progbits
+  25              		.align	2
+  26              		.global	Count7_Init
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	Count7_Init, %function
+  30              	Count7_Init:
+  31              	.LFB0:
+  32              		.file 1 ".\\Generated_Source\\PSoC5\\Count7.c"
+   1:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/Count7.c **** * File Name: Count7.c
+   3:.\Generated_Source\PSoC5/Count7.c **** * Version 1.0
+   4:.\Generated_Source\PSoC5/Count7.c **** *
+   5:.\Generated_Source\PSoC5/Count7.c **** * Description:
+   6:.\Generated_Source\PSoC5/Count7.c **** *  This file provides source code for the Count7 component's API.
+   7:.\Generated_Source\PSoC5/Count7.c **** *
+   8:.\Generated_Source\PSoC5/Count7.c **** * Note:
+   9:.\Generated_Source\PSoC5/Count7.c **** *
+  10:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+  11:.\Generated_Source\PSoC5/Count7.c **** * Copyright 2013, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC5/Count7.c **** * You may use this file only in accordance with the license, terms, conditions,
+  13:.\Generated_Source\PSoC5/Count7.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  14:.\Generated_Source\PSoC5/Count7.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+  16:.\Generated_Source\PSoC5/Count7.c **** 
+  17:.\Generated_Source\PSoC5/Count7.c **** #include "Count7.h"
+  18:.\Generated_Source\PSoC5/Count7.c **** #include "CyLib.h"
+  19:.\Generated_Source\PSoC5/Count7.c **** 
+  20:.\Generated_Source\PSoC5/Count7.c **** 
+  21:.\Generated_Source\PSoC5/Count7.c **** uint8 Count7_initVar = 0u;
+  22:.\Generated_Source\PSoC5/Count7.c **** 
+  23:.\Generated_Source\PSoC5/Count7.c **** 
+  24:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+  25:.\Generated_Source\PSoC5/Count7.c **** * Function Name: Count7_Init
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 2
+
+
+  26:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+  27:.\Generated_Source\PSoC5/Count7.c **** *
+  28:.\Generated_Source\PSoC5/Count7.c **** * Summary:
+  29:.\Generated_Source\PSoC5/Count7.c **** *  Initializes or restores the component according to the parameter editor
+  30:.\Generated_Source\PSoC5/Count7.c **** *  settings.
+  31:.\Generated_Source\PSoC5/Count7.c **** *
+  32:.\Generated_Source\PSoC5/Count7.c **** * Parameters:
+  33:.\Generated_Source\PSoC5/Count7.c **** *  None
+  34:.\Generated_Source\PSoC5/Count7.c **** *
+  35:.\Generated_Source\PSoC5/Count7.c **** * Return:
+  36:.\Generated_Source\PSoC5/Count7.c **** *  None
+  37:.\Generated_Source\PSoC5/Count7.c **** *
+  38:.\Generated_Source\PSoC5/Count7.c **** * Theory:
+  39:.\Generated_Source\PSoC5/Count7.c **** *  It is not necessary to call Count7_Init() because the Count7_Start() API
+  40:.\Generated_Source\PSoC5/Count7.c **** *  calls this function and is the preferred method to begin component
+  41:.\Generated_Source\PSoC5/Count7.c **** *  operation.
+  42:.\Generated_Source\PSoC5/Count7.c **** *
+  43:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+  44:.\Generated_Source\PSoC5/Count7.c **** void Count7_Init(void) 
+  45:.\Generated_Source\PSoC5/Count7.c **** {
+  33              		.loc 1 45 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37              		@ link register save eliminated.
+  38 0000 80B4     		push	{r7}
+  39              		.cfi_def_cfa_offset 4
+  40              		.cfi_offset 7, -4
+  41 0002 00AF     		add	r7, sp, #0
+  42              		.cfi_def_cfa_register 7
+  46:.\Generated_Source\PSoC5/Count7.c ****     /* Set the initial period value from parameter editor */
+  47:.\Generated_Source\PSoC5/Count7.c ****     Count7_PERIOD_REG = Count7_INITIAL_PERIOD;
+  43              		.loc 1 47 0
+  44 0004 034B     		ldr	r3, .L2
+  45 0006 1422     		movs	r2, #20
+  46 0008 1A70     		strb	r2, [r3]
+  48:.\Generated_Source\PSoC5/Count7.c **** }
+  47              		.loc 1 48 0
+  48 000a BD46     		mov	sp, r7
+  49              		.cfi_def_cfa_register 13
+  50              		@ sp needed
+  51 000c 5DF8047B 		ldr	r7, [sp], #4
+  52              		.cfi_restore 7
+  53              		.cfi_def_cfa_offset 0
+  54 0010 7047     		bx	lr
+  55              	.L3:
+  56 0012 00BF     		.align	2
+  57              	.L2:
+  58 0014 8E640040 		.word	1073767566
+  59              		.cfi_endproc
+  60              	.LFE0:
+  61              		.size	Count7_Init, .-Count7_Init
+  62              		.section	.text.Count7_Enable,"ax",%progbits
+  63              		.align	2
+  64              		.global	Count7_Enable
+  65              		.thumb
+  66              		.thumb_func
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 3
+
+
+  67              		.type	Count7_Enable, %function
+  68              	Count7_Enable:
+  69              	.LFB1:
+  49:.\Generated_Source\PSoC5/Count7.c **** 
+  50:.\Generated_Source\PSoC5/Count7.c **** 
+  51:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+  52:.\Generated_Source\PSoC5/Count7.c **** * Function Name: Count7_Enable
+  53:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+  54:.\Generated_Source\PSoC5/Count7.c **** *
+  55:.\Generated_Source\PSoC5/Count7.c **** * Summary:
+  56:.\Generated_Source\PSoC5/Count7.c **** *  Enables the software enable of the counter.
+  57:.\Generated_Source\PSoC5/Count7.c **** *
+  58:.\Generated_Source\PSoC5/Count7.c **** * Parameters:
+  59:.\Generated_Source\PSoC5/Count7.c **** *  None
+  60:.\Generated_Source\PSoC5/Count7.c **** *
+  61:.\Generated_Source\PSoC5/Count7.c **** * Return:
+  62:.\Generated_Source\PSoC5/Count7.c **** *  None
+  63:.\Generated_Source\PSoC5/Count7.c **** *
+  64:.\Generated_Source\PSoC5/Count7.c **** * Theory:
+  65:.\Generated_Source\PSoC5/Count7.c **** *  It is not necessary to call Count7_Enable() because the Count7_Start() API
+  66:.\Generated_Source\PSoC5/Count7.c **** *  calls this function, which is the preferred method to begin component
+  67:.\Generated_Source\PSoC5/Count7.c **** *  operation.
+  68:.\Generated_Source\PSoC5/Count7.c **** *  This API performs modification of auxiliary control register which is a
+  69:.\Generated_Source\PSoC5/Count7.c **** *  shared resource so it is required to disable interrupts until the
+  70:.\Generated_Source\PSoC5/Count7.c **** *  modification will complete.
+  71:.\Generated_Source\PSoC5/Count7.c **** *
+  72:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+  73:.\Generated_Source\PSoC5/Count7.c **** void Count7_Enable(void) 
+  74:.\Generated_Source\PSoC5/Count7.c **** {
+  70              		.loc 1 74 0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 8
+  73              		@ frame_needed = 1, uses_anonymous_args = 0
+  74 0000 80B5     		push	{r7, lr}
+  75              		.cfi_def_cfa_offset 8
+  76              		.cfi_offset 7, -8
+  77              		.cfi_offset 14, -4
+  78 0002 82B0     		sub	sp, sp, #8
+  79              		.cfi_def_cfa_offset 16
+  80 0004 00AF     		add	r7, sp, #0
+  81              		.cfi_def_cfa_register 7
+  75:.\Generated_Source\PSoC5/Count7.c ****     uint8 interruptState;
+  76:.\Generated_Source\PSoC5/Count7.c **** 
+  77:.\Generated_Source\PSoC5/Count7.c ****     interruptState = CyEnterCriticalSection();
+  82              		.loc 1 77 0
+  83 0006 FFF7FEFF 		bl	CyEnterCriticalSection
+  84 000a 0346     		mov	r3, r0
+  85 000c FB71     		strb	r3, [r7, #7]
+  78:.\Generated_Source\PSoC5/Count7.c ****     /* Set the counter start bit in auxiliary control. If routed enable
+  79:.\Generated_Source\PSoC5/Count7.c ****     * isn't used then this will immediately star the Count7 operation.
+  80:.\Generated_Source\PSoC5/Count7.c ****     */
+  81:.\Generated_Source\PSoC5/Count7.c ****     Count7_AUX_CONTROL_REG |= Count7_COUNTER_START;
+  86              		.loc 1 81 0
+  87 000e 074A     		ldr	r2, .L5
+  88 0010 064B     		ldr	r3, .L5
+  89 0012 1B78     		ldrb	r3, [r3]
+  90 0014 DBB2     		uxtb	r3, r3
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 4
+
+
+  91 0016 43F02003 		orr	r3, r3, #32
+  92 001a DBB2     		uxtb	r3, r3
+  93 001c 1370     		strb	r3, [r2]
+  82:.\Generated_Source\PSoC5/Count7.c **** 
+  83:.\Generated_Source\PSoC5/Count7.c ****     CyExitCriticalSection(interruptState);
+  94              		.loc 1 83 0
+  95 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  96 0020 1846     		mov	r0, r3
+  97 0022 FFF7FEFF 		bl	CyExitCriticalSection
+  84:.\Generated_Source\PSoC5/Count7.c **** }
+  98              		.loc 1 84 0
+  99 0026 0837     		adds	r7, r7, #8
+ 100              		.cfi_def_cfa_offset 8
+ 101 0028 BD46     		mov	sp, r7
+ 102              		.cfi_def_cfa_register 13
+ 103              		@ sp needed
+ 104 002a 80BD     		pop	{r7, pc}
+ 105              	.L6:
+ 106              		.align	2
+ 107              	.L5:
+ 108 002c 9E640040 		.word	1073767582
+ 109              		.cfi_endproc
+ 110              	.LFE1:
+ 111              		.size	Count7_Enable, .-Count7_Enable
+ 112              		.section	.text.Count7_Start,"ax",%progbits
+ 113              		.align	2
+ 114              		.global	Count7_Start
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.type	Count7_Start, %function
+ 118              	Count7_Start:
+ 119              	.LFB2:
+  85:.\Generated_Source\PSoC5/Count7.c **** 
+  86:.\Generated_Source\PSoC5/Count7.c **** 
+  87:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+  88:.\Generated_Source\PSoC5/Count7.c **** * Function Name: Count7_Start
+  89:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+  90:.\Generated_Source\PSoC5/Count7.c **** *
+  91:.\Generated_Source\PSoC5/Count7.c **** * Summary:
+  92:.\Generated_Source\PSoC5/Count7.c **** *  Performs all of the required initialization for the component and enables
+  93:.\Generated_Source\PSoC5/Count7.c **** *  the counter. The first time the routine is executed, the period is set as
+  94:.\Generated_Source\PSoC5/Count7.c **** *  configured in the customizer. When called to restart the counter following a
+  95:.\Generated_Source\PSoC5/Count7.c **** *  Count7_Stop() call, the current period value is retained.
+  96:.\Generated_Source\PSoC5/Count7.c **** *
+  97:.\Generated_Source\PSoC5/Count7.c **** * Parameters:
+  98:.\Generated_Source\PSoC5/Count7.c **** *  None.
+  99:.\Generated_Source\PSoC5/Count7.c **** *
+ 100:.\Generated_Source\PSoC5/Count7.c **** * Global Variables:
+ 101:.\Generated_Source\PSoC5/Count7.c **** *  Count7_initVar - global variable.
+ 102:.\Generated_Source\PSoC5/Count7.c **** *
+ 103:.\Generated_Source\PSoC5/Count7.c **** * Return:
+ 104:.\Generated_Source\PSoC5/Count7.c **** *  None.
+ 105:.\Generated_Source\PSoC5/Count7.c **** *
+ 106:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+ 107:.\Generated_Source\PSoC5/Count7.c **** void Count7_Start(void) 
+ 108:.\Generated_Source\PSoC5/Count7.c **** {
+ 120              		.loc 1 108 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 5
+
+
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 1, uses_anonymous_args = 0
+ 124 0000 80B5     		push	{r7, lr}
+ 125              		.cfi_def_cfa_offset 8
+ 126              		.cfi_offset 7, -8
+ 127              		.cfi_offset 14, -4
+ 128 0002 00AF     		add	r7, sp, #0
+ 129              		.cfi_def_cfa_register 7
+ 109:.\Generated_Source\PSoC5/Count7.c ****     /* If not initialized then perform initialization */
+ 110:.\Generated_Source\PSoC5/Count7.c ****     if(Count7_initVar == 0u)
+ 130              		.loc 1 110 0
+ 131 0004 054B     		ldr	r3, .L9
+ 132 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 133 0008 002B     		cmp	r3, #0
+ 134 000a 04D1     		bne	.L8
+ 111:.\Generated_Source\PSoC5/Count7.c ****     {
+ 112:.\Generated_Source\PSoC5/Count7.c ****         Count7_Init();
+ 135              		.loc 1 112 0
+ 136 000c FFF7FEFF 		bl	Count7_Init
+ 113:.\Generated_Source\PSoC5/Count7.c ****         Count7_initVar = 1u;
+ 137              		.loc 1 113 0
+ 138 0010 024B     		ldr	r3, .L9
+ 139 0012 0122     		movs	r2, #1
+ 140 0014 1A70     		strb	r2, [r3]
+ 141              	.L8:
+ 114:.\Generated_Source\PSoC5/Count7.c ****     }
+ 115:.\Generated_Source\PSoC5/Count7.c **** 
+ 116:.\Generated_Source\PSoC5/Count7.c ****     /* Enable Count7 */
+ 117:.\Generated_Source\PSoC5/Count7.c ****     Count7_Enable();
+ 142              		.loc 1 117 0
+ 143 0016 FFF7FEFF 		bl	Count7_Enable
+ 118:.\Generated_Source\PSoC5/Count7.c **** }
+ 144              		.loc 1 118 0
+ 145 001a 80BD     		pop	{r7, pc}
+ 146              	.L10:
+ 147              		.align	2
+ 148              	.L9:
+ 149 001c 00000000 		.word	Count7_initVar
+ 150              		.cfi_endproc
+ 151              	.LFE2:
+ 152              		.size	Count7_Start, .-Count7_Start
+ 153              		.section	.text.Count7_Stop,"ax",%progbits
+ 154              		.align	2
+ 155              		.global	Count7_Stop
+ 156              		.thumb
+ 157              		.thumb_func
+ 158              		.type	Count7_Stop, %function
+ 159              	Count7_Stop:
+ 160              	.LFB3:
+ 119:.\Generated_Source\PSoC5/Count7.c **** 
+ 120:.\Generated_Source\PSoC5/Count7.c **** 
+ 121:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+ 122:.\Generated_Source\PSoC5/Count7.c **** * Function Name: Count7_Stop
+ 123:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+ 124:.\Generated_Source\PSoC5/Count7.c **** *
+ 125:.\Generated_Source\PSoC5/Count7.c **** * Summary:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 6
+
+
+ 126:.\Generated_Source\PSoC5/Count7.c **** *  Disables the software enable of the counter.
+ 127:.\Generated_Source\PSoC5/Count7.c **** *
+ 128:.\Generated_Source\PSoC5/Count7.c **** * Parameters:
+ 129:.\Generated_Source\PSoC5/Count7.c **** *  None
+ 130:.\Generated_Source\PSoC5/Count7.c **** *
+ 131:.\Generated_Source\PSoC5/Count7.c **** * Return:
+ 132:.\Generated_Source\PSoC5/Count7.c **** *  None
+ 133:.\Generated_Source\PSoC5/Count7.c **** *
+ 134:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+ 135:.\Generated_Source\PSoC5/Count7.c **** void Count7_Stop(void) 
+ 136:.\Generated_Source\PSoC5/Count7.c **** {
+ 161              		.loc 1 136 0
+ 162              		.cfi_startproc
+ 163              		@ args = 0, pretend = 0, frame = 8
+ 164              		@ frame_needed = 1, uses_anonymous_args = 0
+ 165 0000 80B5     		push	{r7, lr}
+ 166              		.cfi_def_cfa_offset 8
+ 167              		.cfi_offset 7, -8
+ 168              		.cfi_offset 14, -4
+ 169 0002 82B0     		sub	sp, sp, #8
+ 170              		.cfi_def_cfa_offset 16
+ 171 0004 00AF     		add	r7, sp, #0
+ 172              		.cfi_def_cfa_register 7
+ 137:.\Generated_Source\PSoC5/Count7.c ****     uint8 interruptState;
+ 138:.\Generated_Source\PSoC5/Count7.c **** 
+ 139:.\Generated_Source\PSoC5/Count7.c ****     interruptState = CyEnterCriticalSection();
+ 173              		.loc 1 139 0
+ 174 0006 FFF7FEFF 		bl	CyEnterCriticalSection
+ 175 000a 0346     		mov	r3, r0
+ 176 000c FB71     		strb	r3, [r7, #7]
+ 140:.\Generated_Source\PSoC5/Count7.c ****     /* Clear the counter start bit in auxiliary control. */
+ 141:.\Generated_Source\PSoC5/Count7.c ****     Count7_AUX_CONTROL_REG &= (uint8) ~((uint8) Count7_COUNTER_START);
+ 177              		.loc 1 141 0
+ 178 000e 074A     		ldr	r2, .L12
+ 179 0010 064B     		ldr	r3, .L12
+ 180 0012 1B78     		ldrb	r3, [r3]
+ 181 0014 DBB2     		uxtb	r3, r3
+ 182 0016 23F02003 		bic	r3, r3, #32
+ 183 001a DBB2     		uxtb	r3, r3
+ 184 001c 1370     		strb	r3, [r2]
+ 142:.\Generated_Source\PSoC5/Count7.c **** 
+ 143:.\Generated_Source\PSoC5/Count7.c ****     CyExitCriticalSection(interruptState);
+ 185              		.loc 1 143 0
+ 186 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 187 0020 1846     		mov	r0, r3
+ 188 0022 FFF7FEFF 		bl	CyExitCriticalSection
+ 144:.\Generated_Source\PSoC5/Count7.c **** }
+ 189              		.loc 1 144 0
+ 190 0026 0837     		adds	r7, r7, #8
+ 191              		.cfi_def_cfa_offset 8
+ 192 0028 BD46     		mov	sp, r7
+ 193              		.cfi_def_cfa_register 13
+ 194              		@ sp needed
+ 195 002a 80BD     		pop	{r7, pc}
+ 196              	.L13:
+ 197              		.align	2
+ 198              	.L12:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 7
+
+
+ 199 002c 9E640040 		.word	1073767582
+ 200              		.cfi_endproc
+ 201              	.LFE3:
+ 202              		.size	Count7_Stop, .-Count7_Stop
+ 203              		.section	.text.Count7_WriteCounter,"ax",%progbits
+ 204              		.align	2
+ 205              		.global	Count7_WriteCounter
+ 206              		.thumb
+ 207              		.thumb_func
+ 208              		.type	Count7_WriteCounter, %function
+ 209              	Count7_WriteCounter:
+ 210              	.LFB4:
+ 145:.\Generated_Source\PSoC5/Count7.c **** 
+ 146:.\Generated_Source\PSoC5/Count7.c **** 
+ 147:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+ 148:.\Generated_Source\PSoC5/Count7.c **** * Function Name: Count7_WriteCounter
+ 149:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+ 150:.\Generated_Source\PSoC5/Count7.c **** *
+ 151:.\Generated_Source\PSoC5/Count7.c **** * Summary:
+ 152:.\Generated_Source\PSoC5/Count7.c **** *  This function writes the counter directly. The counter should be disabled
+ 153:.\Generated_Source\PSoC5/Count7.c **** *  before calling this function.
+ 154:.\Generated_Source\PSoC5/Count7.c **** *
+ 155:.\Generated_Source\PSoC5/Count7.c **** * Parameters:
+ 156:.\Generated_Source\PSoC5/Count7.c **** *  count - Value to be written to counter.
+ 157:.\Generated_Source\PSoC5/Count7.c **** *
+ 158:.\Generated_Source\PSoC5/Count7.c **** * Return:
+ 159:.\Generated_Source\PSoC5/Count7.c **** *  None
+ 160:.\Generated_Source\PSoC5/Count7.c **** *
+ 161:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+ 162:.\Generated_Source\PSoC5/Count7.c **** void Count7_WriteCounter(uint8 count) 
+ 163:.\Generated_Source\PSoC5/Count7.c **** {
+ 211              		.loc 1 163 0
+ 212              		.cfi_startproc
+ 213              		@ args = 0, pretend = 0, frame = 8
+ 214              		@ frame_needed = 1, uses_anonymous_args = 0
+ 215              		@ link register save eliminated.
+ 216 0000 80B4     		push	{r7}
+ 217              		.cfi_def_cfa_offset 4
+ 218              		.cfi_offset 7, -4
+ 219 0002 83B0     		sub	sp, sp, #12
+ 220              		.cfi_def_cfa_offset 16
+ 221 0004 00AF     		add	r7, sp, #0
+ 222              		.cfi_def_cfa_register 7
+ 223 0006 0346     		mov	r3, r0
+ 224 0008 FB71     		strb	r3, [r7, #7]
+ 164:.\Generated_Source\PSoC5/Count7.c ****     Count7_COUNT_REG = (count & Count7_COUNT_7BIT_MASK);
+ 225              		.loc 1 164 0
+ 226 000a 054A     		ldr	r2, .L15
+ 227 000c FB79     		ldrb	r3, [r7, #7]
+ 228 000e 03F07F03 		and	r3, r3, #127
+ 229 0012 DBB2     		uxtb	r3, r3
+ 230 0014 1370     		strb	r3, [r2]
+ 165:.\Generated_Source\PSoC5/Count7.c **** }
+ 231              		.loc 1 165 0
+ 232 0016 0C37     		adds	r7, r7, #12
+ 233              		.cfi_def_cfa_offset 4
+ 234 0018 BD46     		mov	sp, r7
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 8
+
+
+ 235              		.cfi_def_cfa_register 13
+ 236              		@ sp needed
+ 237 001a 5DF8047B 		ldr	r7, [sp], #4
+ 238              		.cfi_restore 7
+ 239              		.cfi_def_cfa_offset 0
+ 240 001e 7047     		bx	lr
+ 241              	.L16:
+ 242              		.align	2
+ 243              	.L15:
+ 244 0020 7E640040 		.word	1073767550
+ 245              		.cfi_endproc
+ 246              	.LFE4:
+ 247              		.size	Count7_WriteCounter, .-Count7_WriteCounter
+ 248              		.section	.text.Count7_ReadCounter,"ax",%progbits
+ 249              		.align	2
+ 250              		.global	Count7_ReadCounter
+ 251              		.thumb
+ 252              		.thumb_func
+ 253              		.type	Count7_ReadCounter, %function
+ 254              	Count7_ReadCounter:
+ 255              	.LFB5:
+ 166:.\Generated_Source\PSoC5/Count7.c **** 
+ 167:.\Generated_Source\PSoC5/Count7.c **** 
+ 168:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+ 169:.\Generated_Source\PSoC5/Count7.c **** * Function Name: Count7_ReadCounter
+ 170:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+ 171:.\Generated_Source\PSoC5/Count7.c **** *
+ 172:.\Generated_Source\PSoC5/Count7.c **** * Summary:
+ 173:.\Generated_Source\PSoC5/Count7.c **** *  This function reads the counter value.
+ 174:.\Generated_Source\PSoC5/Count7.c **** *
+ 175:.\Generated_Source\PSoC5/Count7.c **** * Parameters:
+ 176:.\Generated_Source\PSoC5/Count7.c **** *  None
+ 177:.\Generated_Source\PSoC5/Count7.c **** *
+ 178:.\Generated_Source\PSoC5/Count7.c **** * Return:
+ 179:.\Generated_Source\PSoC5/Count7.c **** *  None
+ 180:.\Generated_Source\PSoC5/Count7.c **** *
+ 181:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+ 182:.\Generated_Source\PSoC5/Count7.c **** uint8 Count7_ReadCounter(void) 
+ 183:.\Generated_Source\PSoC5/Count7.c **** {
+ 256              		.loc 1 183 0
+ 257              		.cfi_startproc
+ 258              		@ args = 0, pretend = 0, frame = 0
+ 259              		@ frame_needed = 1, uses_anonymous_args = 0
+ 260              		@ link register save eliminated.
+ 261 0000 80B4     		push	{r7}
+ 262              		.cfi_def_cfa_offset 4
+ 263              		.cfi_offset 7, -4
+ 264 0002 00AF     		add	r7, sp, #0
+ 265              		.cfi_def_cfa_register 7
+ 184:.\Generated_Source\PSoC5/Count7.c ****     return(Count7_COUNT_REG & Count7_COUNT_7BIT_MASK);
+ 266              		.loc 1 184 0
+ 267 0004 054B     		ldr	r3, .L19
+ 268 0006 1B78     		ldrb	r3, [r3]
+ 269 0008 DBB2     		uxtb	r3, r3
+ 270 000a 03F07F03 		and	r3, r3, #127
+ 271 000e DBB2     		uxtb	r3, r3
+ 185:.\Generated_Source\PSoC5/Count7.c **** }
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 9
+
+
+ 272              		.loc 1 185 0
+ 273 0010 1846     		mov	r0, r3
+ 274 0012 BD46     		mov	sp, r7
+ 275              		.cfi_def_cfa_register 13
+ 276              		@ sp needed
+ 277 0014 5DF8047B 		ldr	r7, [sp], #4
+ 278              		.cfi_restore 7
+ 279              		.cfi_def_cfa_offset 0
+ 280 0018 7047     		bx	lr
+ 281              	.L20:
+ 282 001a 00BF     		.align	2
+ 283              	.L19:
+ 284 001c 7E640040 		.word	1073767550
+ 285              		.cfi_endproc
+ 286              	.LFE5:
+ 287              		.size	Count7_ReadCounter, .-Count7_ReadCounter
+ 288              		.section	.text.Count7_WritePeriod,"ax",%progbits
+ 289              		.align	2
+ 290              		.global	Count7_WritePeriod
+ 291              		.thumb
+ 292              		.thumb_func
+ 293              		.type	Count7_WritePeriod, %function
+ 294              	Count7_WritePeriod:
+ 295              	.LFB6:
+ 186:.\Generated_Source\PSoC5/Count7.c **** 
+ 187:.\Generated_Source\PSoC5/Count7.c **** 
+ 188:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+ 189:.\Generated_Source\PSoC5/Count7.c **** * Function Name: Count7_WritePeriod
+ 190:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+ 191:.\Generated_Source\PSoC5/Count7.c **** *
+ 192:.\Generated_Source\PSoC5/Count7.c **** * Summary:
+ 193:.\Generated_Source\PSoC5/Count7.c **** *  This function writes the period register. The actual period is one greater
+ 194:.\Generated_Source\PSoC5/Count7.c **** *  than the value in the period register since the counting sequence starts
+ 195:.\Generated_Source\PSoC5/Count7.c **** *  with the period register and counts down to 0 inclusive. The period of the
+ 196:.\Generated_Source\PSoC5/Count7.c **** *  counter output does not change until the counter is reloaded following the
+ 197:.\Generated_Source\PSoC5/Count7.c **** *  terminal count value of 0 or due to a hardware load signal.
+ 198:.\Generated_Source\PSoC5/Count7.c **** *
+ 199:.\Generated_Source\PSoC5/Count7.c **** * Parameters:
+ 200:.\Generated_Source\PSoC5/Count7.c **** *  period - Period value to be written.
+ 201:.\Generated_Source\PSoC5/Count7.c **** *
+ 202:.\Generated_Source\PSoC5/Count7.c **** * Return:
+ 203:.\Generated_Source\PSoC5/Count7.c **** *  None
+ 204:.\Generated_Source\PSoC5/Count7.c **** *
+ 205:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+ 206:.\Generated_Source\PSoC5/Count7.c **** void Count7_WritePeriod(uint8 period) 
+ 207:.\Generated_Source\PSoC5/Count7.c **** {
+ 296              		.loc 1 207 0
+ 297              		.cfi_startproc
+ 298              		@ args = 0, pretend = 0, frame = 8
+ 299              		@ frame_needed = 1, uses_anonymous_args = 0
+ 300              		@ link register save eliminated.
+ 301 0000 80B4     		push	{r7}
+ 302              		.cfi_def_cfa_offset 4
+ 303              		.cfi_offset 7, -4
+ 304 0002 83B0     		sub	sp, sp, #12
+ 305              		.cfi_def_cfa_offset 16
+ 306 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 10
+
+
+ 307              		.cfi_def_cfa_register 7
+ 308 0006 0346     		mov	r3, r0
+ 309 0008 FB71     		strb	r3, [r7, #7]
+ 208:.\Generated_Source\PSoC5/Count7.c ****     Count7_PERIOD_REG = period;
+ 310              		.loc 1 208 0
+ 311 000a 044A     		ldr	r2, .L22
+ 312 000c FB79     		ldrb	r3, [r7, #7]
+ 313 000e 1370     		strb	r3, [r2]
+ 209:.\Generated_Source\PSoC5/Count7.c **** }
+ 314              		.loc 1 209 0
+ 315 0010 0C37     		adds	r7, r7, #12
+ 316              		.cfi_def_cfa_offset 4
+ 317 0012 BD46     		mov	sp, r7
+ 318              		.cfi_def_cfa_register 13
+ 319              		@ sp needed
+ 320 0014 5DF8047B 		ldr	r7, [sp], #4
+ 321              		.cfi_restore 7
+ 322              		.cfi_def_cfa_offset 0
+ 323 0018 7047     		bx	lr
+ 324              	.L23:
+ 325 001a 00BF     		.align	2
+ 326              	.L22:
+ 327 001c 8E640040 		.word	1073767566
+ 328              		.cfi_endproc
+ 329              	.LFE6:
+ 330              		.size	Count7_WritePeriod, .-Count7_WritePeriod
+ 331              		.section	.text.Count7_ReadPeriod,"ax",%progbits
+ 332              		.align	2
+ 333              		.global	Count7_ReadPeriod
+ 334              		.thumb
+ 335              		.thumb_func
+ 336              		.type	Count7_ReadPeriod, %function
+ 337              	Count7_ReadPeriod:
+ 338              	.LFB7:
+ 210:.\Generated_Source\PSoC5/Count7.c **** 
+ 211:.\Generated_Source\PSoC5/Count7.c **** 
+ 212:.\Generated_Source\PSoC5/Count7.c **** /*******************************************************************************
+ 213:.\Generated_Source\PSoC5/Count7.c **** * Function Name: Count7_ReadPeriod
+ 214:.\Generated_Source\PSoC5/Count7.c **** ********************************************************************************
+ 215:.\Generated_Source\PSoC5/Count7.c **** *
+ 216:.\Generated_Source\PSoC5/Count7.c **** * Summary:
+ 217:.\Generated_Source\PSoC5/Count7.c **** *  This function reads the period register.
+ 218:.\Generated_Source\PSoC5/Count7.c **** *
+ 219:.\Generated_Source\PSoC5/Count7.c **** * Parameters:
+ 220:.\Generated_Source\PSoC5/Count7.c **** *  None
+ 221:.\Generated_Source\PSoC5/Count7.c **** *
+ 222:.\Generated_Source\PSoC5/Count7.c **** * Return:
+ 223:.\Generated_Source\PSoC5/Count7.c **** *  uint8 - Current period value.
+ 224:.\Generated_Source\PSoC5/Count7.c **** *
+ 225:.\Generated_Source\PSoC5/Count7.c **** *******************************************************************************/
+ 226:.\Generated_Source\PSoC5/Count7.c **** uint8 Count7_ReadPeriod(void) 
+ 227:.\Generated_Source\PSoC5/Count7.c **** {
+ 339              		.loc 1 227 0
+ 340              		.cfi_startproc
+ 341              		@ args = 0, pretend = 0, frame = 0
+ 342              		@ frame_needed = 1, uses_anonymous_args = 0
+ 343              		@ link register save eliminated.
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 11
+
+
+ 344 0000 80B4     		push	{r7}
+ 345              		.cfi_def_cfa_offset 4
+ 346              		.cfi_offset 7, -4
+ 347 0002 00AF     		add	r7, sp, #0
+ 348              		.cfi_def_cfa_register 7
+ 228:.\Generated_Source\PSoC5/Count7.c ****     return(Count7_PERIOD_REG);
+ 349              		.loc 1 228 0
+ 350 0004 034B     		ldr	r3, .L26
+ 351 0006 1B78     		ldrb	r3, [r3]
+ 352 0008 DBB2     		uxtb	r3, r3
+ 229:.\Generated_Source\PSoC5/Count7.c **** }
+ 353              		.loc 1 229 0
+ 354 000a 1846     		mov	r0, r3
+ 355 000c BD46     		mov	sp, r7
+ 356              		.cfi_def_cfa_register 13
+ 357              		@ sp needed
+ 358 000e 5DF8047B 		ldr	r7, [sp], #4
+ 359              		.cfi_restore 7
+ 360              		.cfi_def_cfa_offset 0
+ 361 0012 7047     		bx	lr
+ 362              	.L27:
+ 363              		.align	2
+ 364              	.L26:
+ 365 0014 8E640040 		.word	1073767566
+ 366              		.cfi_endproc
+ 367              	.LFE7:
+ 368              		.size	Count7_ReadPeriod, .-Count7_ReadPeriod
+ 369              		.text
+ 370              	.Letext0:
+ 371              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 372              		.section	.debug_info,"",%progbits
+ 373              	.Ldebug_info0:
+ 374 0000 8E010000 		.4byte	0x18e
+ 375 0004 0400     		.2byte	0x4
+ 376 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 377 000a 04       		.byte	0x4
+ 378 000b 01       		.uleb128 0x1
+ 379 000c E4000000 		.4byte	.LASF26
+ 380 0010 01       		.byte	0x1
+ 381 0011 00000000 		.4byte	.LASF27
+ 382 0015 55000000 		.4byte	.LASF28
+ 383 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 384 001d 00000000 		.4byte	0
+ 385 0021 00000000 		.4byte	.Ldebug_line0
+ 386 0025 02       		.uleb128 0x2
+ 387 0026 01       		.byte	0x1
+ 388 0027 06       		.byte	0x6
+ 389 0028 15020000 		.4byte	.LASF0
+ 390 002c 02       		.uleb128 0x2
+ 391 002d 01       		.byte	0x1
+ 392 002e 08       		.byte	0x8
+ 393 002f 9E000000 		.4byte	.LASF1
+ 394 0033 02       		.uleb128 0x2
+ 395 0034 02       		.byte	0x2
+ 396 0035 05       		.byte	0x5
+ 397 0036 02020000 		.4byte	.LASF2
+ 398 003a 02       		.uleb128 0x2
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 12
+
+
+ 399 003b 02       		.byte	0x2
+ 400 003c 07       		.byte	0x7
+ 401 003d 2F000000 		.4byte	.LASF3
+ 402 0041 02       		.uleb128 0x2
+ 403 0042 04       		.byte	0x4
+ 404 0043 05       		.byte	0x5
+ 405 0044 0C020000 		.4byte	.LASF4
+ 406 0048 02       		.uleb128 0x2
+ 407 0049 04       		.byte	0x4
+ 408 004a 07       		.byte	0x7
+ 409 004b C0000000 		.4byte	.LASF5
+ 410 004f 02       		.uleb128 0x2
+ 411 0050 08       		.byte	0x8
+ 412 0051 05       		.byte	0x5
+ 413 0052 D5010000 		.4byte	.LASF6
+ 414 0056 02       		.uleb128 0x2
+ 415 0057 08       		.byte	0x8
+ 416 0058 07       		.byte	0x7
+ 417 0059 A8010000 		.4byte	.LASF7
+ 418 005d 03       		.uleb128 0x3
+ 419 005e 04       		.byte	0x4
+ 420 005f 05       		.byte	0x5
+ 421 0060 696E7400 		.ascii	"int\000"
+ 422 0064 02       		.uleb128 0x2
+ 423 0065 04       		.byte	0x4
+ 424 0066 07       		.byte	0x7
+ 425 0067 9B010000 		.4byte	.LASF8
+ 426 006b 04       		.uleb128 0x4
+ 427 006c D2000000 		.4byte	.LASF12
+ 428 0070 02       		.byte	0x2
+ 429 0071 3801     		.2byte	0x138
+ 430 0073 2C000000 		.4byte	0x2c
+ 431 0077 02       		.uleb128 0x2
+ 432 0078 04       		.byte	0x4
+ 433 0079 04       		.byte	0x4
+ 434 007a 98000000 		.4byte	.LASF9
+ 435 007e 02       		.uleb128 0x2
+ 436 007f 08       		.byte	0x8
+ 437 0080 04       		.byte	0x4
+ 438 0081 72010000 		.4byte	.LASF10
+ 439 0085 02       		.uleb128 0x2
+ 440 0086 01       		.byte	0x1
+ 441 0087 08       		.byte	0x8
+ 442 0088 F1010000 		.4byte	.LASF11
+ 443 008c 04       		.uleb128 0x4
+ 444 008d AC000000 		.4byte	.LASF13
+ 445 0091 02       		.byte	0x2
+ 446 0092 E201     		.2byte	0x1e2
+ 447 0094 98000000 		.4byte	0x98
+ 448 0098 05       		.uleb128 0x5
+ 449 0099 6B000000 		.4byte	0x6b
+ 450 009d 02       		.uleb128 0x2
+ 451 009e 04       		.byte	0x4
+ 452 009f 07       		.byte	0x7
+ 453 00a0 CC010000 		.4byte	.LASF14
+ 454 00a4 06       		.uleb128 0x6
+ 455 00a5 D8000000 		.4byte	.LASF15
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 13
+
+
+ 456 00a9 01       		.byte	0x1
+ 457 00aa 2C       		.byte	0x2c
+ 458 00ab 00000000 		.4byte	.LFB0
+ 459 00af 18000000 		.4byte	.LFE0-.LFB0
+ 460 00b3 01       		.uleb128 0x1
+ 461 00b4 9C       		.byte	0x9c
+ 462 00b5 07       		.uleb128 0x7
+ 463 00b6 E3010000 		.4byte	.LASF17
+ 464 00ba 01       		.byte	0x1
+ 465 00bb 49       		.byte	0x49
+ 466 00bc 00000000 		.4byte	.LFB1
+ 467 00c0 30000000 		.4byte	.LFE1-.LFB1
+ 468 00c4 01       		.uleb128 0x1
+ 469 00c5 9C       		.byte	0x9c
+ 470 00c6 D9000000 		.4byte	0xd9
+ 471 00ca 08       		.uleb128 0x8
+ 472 00cb B1000000 		.4byte	.LASF19
+ 473 00cf 01       		.byte	0x1
+ 474 00d0 4B       		.byte	0x4b
+ 475 00d1 6B000000 		.4byte	0x6b
+ 476 00d5 02       		.uleb128 0x2
+ 477 00d6 91       		.byte	0x91
+ 478 00d7 77       		.sleb128 -9
+ 479 00d8 00       		.byte	0
+ 480 00d9 09       		.uleb128 0x9
+ 481 00da BF010000 		.4byte	.LASF16
+ 482 00de 01       		.byte	0x1
+ 483 00df 6B       		.byte	0x6b
+ 484 00e0 00000000 		.4byte	.LFB2
+ 485 00e4 20000000 		.4byte	.LFE2-.LFB2
+ 486 00e8 01       		.uleb128 0x1
+ 487 00e9 9C       		.byte	0x9c
+ 488 00ea 07       		.uleb128 0x7
+ 489 00eb F6010000 		.4byte	.LASF18
+ 490 00ef 01       		.byte	0x1
+ 491 00f0 87       		.byte	0x87
+ 492 00f1 00000000 		.4byte	.LFB3
+ 493 00f5 30000000 		.4byte	.LFE3-.LFB3
+ 494 00f9 01       		.uleb128 0x1
+ 495 00fa 9C       		.byte	0x9c
+ 496 00fb 0E010000 		.4byte	0x10e
+ 497 00ff 08       		.uleb128 0x8
+ 498 0100 B1000000 		.4byte	.LASF19
+ 499 0104 01       		.byte	0x1
+ 500 0105 89       		.byte	0x89
+ 501 0106 6B000000 		.4byte	0x6b
+ 502 010a 02       		.uleb128 0x2
+ 503 010b 91       		.byte	0x91
+ 504 010c 77       		.sleb128 -9
+ 505 010d 00       		.byte	0
+ 506 010e 0A       		.uleb128 0xa
+ 507 010f 33020000 		.4byte	.LASF20
+ 508 0113 01       		.byte	0x1
+ 509 0114 A2       		.byte	0xa2
+ 510 0115 00000000 		.4byte	.LFB4
+ 511 0119 24000000 		.4byte	.LFE4-.LFB4
+ 512 011d 01       		.uleb128 0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 14
+
+
+ 513 011e 9C       		.byte	0x9c
+ 514 011f 32010000 		.4byte	0x132
+ 515 0123 0B       		.uleb128 0xb
+ 516 0124 22000000 		.4byte	.LASF22
+ 517 0128 01       		.byte	0x1
+ 518 0129 A2       		.byte	0xa2
+ 519 012a 6B000000 		.4byte	0x6b
+ 520 012e 02       		.uleb128 0x2
+ 521 012f 91       		.byte	0x91
+ 522 0130 77       		.sleb128 -9
+ 523 0131 00       		.byte	0
+ 524 0132 0C       		.uleb128 0xc
+ 525 0133 42000000 		.4byte	.LASF24
+ 526 0137 01       		.byte	0x1
+ 527 0138 B6       		.byte	0xb6
+ 528 0139 6B000000 		.4byte	0x6b
+ 529 013d 00000000 		.4byte	.LFB5
+ 530 0141 20000000 		.4byte	.LFE5-.LFB5
+ 531 0145 01       		.uleb128 0x1
+ 532 0146 9C       		.byte	0x9c
+ 533 0147 0A       		.uleb128 0xa
+ 534 0148 88010000 		.4byte	.LASF21
+ 535 014c 01       		.byte	0x1
+ 536 014d CE       		.byte	0xce
+ 537 014e 00000000 		.4byte	.LFB6
+ 538 0152 20000000 		.4byte	.LFE6-.LFB6
+ 539 0156 01       		.uleb128 0x1
+ 540 0157 9C       		.byte	0x9c
+ 541 0158 6B010000 		.4byte	0x16b
+ 542 015c 0B       		.uleb128 0xb
+ 543 015d 28000000 		.4byte	.LASF23
+ 544 0161 01       		.byte	0x1
+ 545 0162 CE       		.byte	0xce
+ 546 0163 6B000000 		.4byte	0x6b
+ 547 0167 02       		.uleb128 0x2
+ 548 0168 91       		.byte	0x91
+ 549 0169 77       		.sleb128 -9
+ 550 016a 00       		.byte	0
+ 551 016b 0C       		.uleb128 0xc
+ 552 016c 21020000 		.4byte	.LASF25
+ 553 0170 01       		.byte	0x1
+ 554 0171 E2       		.byte	0xe2
+ 555 0172 6B000000 		.4byte	0x6b
+ 556 0176 00000000 		.4byte	.LFB7
+ 557 017a 18000000 		.4byte	.LFE7-.LFB7
+ 558 017e 01       		.uleb128 0x1
+ 559 017f 9C       		.byte	0x9c
+ 560 0180 0D       		.uleb128 0xd
+ 561 0181 79010000 		.4byte	.LASF29
+ 562 0185 01       		.byte	0x1
+ 563 0186 15       		.byte	0x15
+ 564 0187 6B000000 		.4byte	0x6b
+ 565 018b 05       		.uleb128 0x5
+ 566 018c 03       		.byte	0x3
+ 567 018d 00000000 		.4byte	Count7_initVar
+ 568 0191 00       		.byte	0
+ 569              		.section	.debug_abbrev,"",%progbits
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 15
+
+
+ 570              	.Ldebug_abbrev0:
+ 571 0000 01       		.uleb128 0x1
+ 572 0001 11       		.uleb128 0x11
+ 573 0002 01       		.byte	0x1
+ 574 0003 25       		.uleb128 0x25
+ 575 0004 0E       		.uleb128 0xe
+ 576 0005 13       		.uleb128 0x13
+ 577 0006 0B       		.uleb128 0xb
+ 578 0007 03       		.uleb128 0x3
+ 579 0008 0E       		.uleb128 0xe
+ 580 0009 1B       		.uleb128 0x1b
+ 581 000a 0E       		.uleb128 0xe
+ 582 000b 55       		.uleb128 0x55
+ 583 000c 17       		.uleb128 0x17
+ 584 000d 11       		.uleb128 0x11
+ 585 000e 01       		.uleb128 0x1
+ 586 000f 10       		.uleb128 0x10
+ 587 0010 17       		.uleb128 0x17
+ 588 0011 00       		.byte	0
+ 589 0012 00       		.byte	0
+ 590 0013 02       		.uleb128 0x2
+ 591 0014 24       		.uleb128 0x24
+ 592 0015 00       		.byte	0
+ 593 0016 0B       		.uleb128 0xb
+ 594 0017 0B       		.uleb128 0xb
+ 595 0018 3E       		.uleb128 0x3e
+ 596 0019 0B       		.uleb128 0xb
+ 597 001a 03       		.uleb128 0x3
+ 598 001b 0E       		.uleb128 0xe
+ 599 001c 00       		.byte	0
+ 600 001d 00       		.byte	0
+ 601 001e 03       		.uleb128 0x3
+ 602 001f 24       		.uleb128 0x24
+ 603 0020 00       		.byte	0
+ 604 0021 0B       		.uleb128 0xb
+ 605 0022 0B       		.uleb128 0xb
+ 606 0023 3E       		.uleb128 0x3e
+ 607 0024 0B       		.uleb128 0xb
+ 608 0025 03       		.uleb128 0x3
+ 609 0026 08       		.uleb128 0x8
+ 610 0027 00       		.byte	0
+ 611 0028 00       		.byte	0
+ 612 0029 04       		.uleb128 0x4
+ 613 002a 16       		.uleb128 0x16
+ 614 002b 00       		.byte	0
+ 615 002c 03       		.uleb128 0x3
+ 616 002d 0E       		.uleb128 0xe
+ 617 002e 3A       		.uleb128 0x3a
+ 618 002f 0B       		.uleb128 0xb
+ 619 0030 3B       		.uleb128 0x3b
+ 620 0031 05       		.uleb128 0x5
+ 621 0032 49       		.uleb128 0x49
+ 622 0033 13       		.uleb128 0x13
+ 623 0034 00       		.byte	0
+ 624 0035 00       		.byte	0
+ 625 0036 05       		.uleb128 0x5
+ 626 0037 35       		.uleb128 0x35
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 16
+
+
+ 627 0038 00       		.byte	0
+ 628 0039 49       		.uleb128 0x49
+ 629 003a 13       		.uleb128 0x13
+ 630 003b 00       		.byte	0
+ 631 003c 00       		.byte	0
+ 632 003d 06       		.uleb128 0x6
+ 633 003e 2E       		.uleb128 0x2e
+ 634 003f 00       		.byte	0
+ 635 0040 3F       		.uleb128 0x3f
+ 636 0041 19       		.uleb128 0x19
+ 637 0042 03       		.uleb128 0x3
+ 638 0043 0E       		.uleb128 0xe
+ 639 0044 3A       		.uleb128 0x3a
+ 640 0045 0B       		.uleb128 0xb
+ 641 0046 3B       		.uleb128 0x3b
+ 642 0047 0B       		.uleb128 0xb
+ 643 0048 27       		.uleb128 0x27
+ 644 0049 19       		.uleb128 0x19
+ 645 004a 11       		.uleb128 0x11
+ 646 004b 01       		.uleb128 0x1
+ 647 004c 12       		.uleb128 0x12
+ 648 004d 06       		.uleb128 0x6
+ 649 004e 40       		.uleb128 0x40
+ 650 004f 18       		.uleb128 0x18
+ 651 0050 9742     		.uleb128 0x2117
+ 652 0052 19       		.uleb128 0x19
+ 653 0053 00       		.byte	0
+ 654 0054 00       		.byte	0
+ 655 0055 07       		.uleb128 0x7
+ 656 0056 2E       		.uleb128 0x2e
+ 657 0057 01       		.byte	0x1
+ 658 0058 3F       		.uleb128 0x3f
+ 659 0059 19       		.uleb128 0x19
+ 660 005a 03       		.uleb128 0x3
+ 661 005b 0E       		.uleb128 0xe
+ 662 005c 3A       		.uleb128 0x3a
+ 663 005d 0B       		.uleb128 0xb
+ 664 005e 3B       		.uleb128 0x3b
+ 665 005f 0B       		.uleb128 0xb
+ 666 0060 27       		.uleb128 0x27
+ 667 0061 19       		.uleb128 0x19
+ 668 0062 11       		.uleb128 0x11
+ 669 0063 01       		.uleb128 0x1
+ 670 0064 12       		.uleb128 0x12
+ 671 0065 06       		.uleb128 0x6
+ 672 0066 40       		.uleb128 0x40
+ 673 0067 18       		.uleb128 0x18
+ 674 0068 9642     		.uleb128 0x2116
+ 675 006a 19       		.uleb128 0x19
+ 676 006b 01       		.uleb128 0x1
+ 677 006c 13       		.uleb128 0x13
+ 678 006d 00       		.byte	0
+ 679 006e 00       		.byte	0
+ 680 006f 08       		.uleb128 0x8
+ 681 0070 34       		.uleb128 0x34
+ 682 0071 00       		.byte	0
+ 683 0072 03       		.uleb128 0x3
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 17
+
+
+ 684 0073 0E       		.uleb128 0xe
+ 685 0074 3A       		.uleb128 0x3a
+ 686 0075 0B       		.uleb128 0xb
+ 687 0076 3B       		.uleb128 0x3b
+ 688 0077 0B       		.uleb128 0xb
+ 689 0078 49       		.uleb128 0x49
+ 690 0079 13       		.uleb128 0x13
+ 691 007a 02       		.uleb128 0x2
+ 692 007b 18       		.uleb128 0x18
+ 693 007c 00       		.byte	0
+ 694 007d 00       		.byte	0
+ 695 007e 09       		.uleb128 0x9
+ 696 007f 2E       		.uleb128 0x2e
+ 697 0080 00       		.byte	0
+ 698 0081 3F       		.uleb128 0x3f
+ 699 0082 19       		.uleb128 0x19
+ 700 0083 03       		.uleb128 0x3
+ 701 0084 0E       		.uleb128 0xe
+ 702 0085 3A       		.uleb128 0x3a
+ 703 0086 0B       		.uleb128 0xb
+ 704 0087 3B       		.uleb128 0x3b
+ 705 0088 0B       		.uleb128 0xb
+ 706 0089 27       		.uleb128 0x27
+ 707 008a 19       		.uleb128 0x19
+ 708 008b 11       		.uleb128 0x11
+ 709 008c 01       		.uleb128 0x1
+ 710 008d 12       		.uleb128 0x12
+ 711 008e 06       		.uleb128 0x6
+ 712 008f 40       		.uleb128 0x40
+ 713 0090 18       		.uleb128 0x18
+ 714 0091 9642     		.uleb128 0x2116
+ 715 0093 19       		.uleb128 0x19
+ 716 0094 00       		.byte	0
+ 717 0095 00       		.byte	0
+ 718 0096 0A       		.uleb128 0xa
+ 719 0097 2E       		.uleb128 0x2e
+ 720 0098 01       		.byte	0x1
+ 721 0099 3F       		.uleb128 0x3f
+ 722 009a 19       		.uleb128 0x19
+ 723 009b 03       		.uleb128 0x3
+ 724 009c 0E       		.uleb128 0xe
+ 725 009d 3A       		.uleb128 0x3a
+ 726 009e 0B       		.uleb128 0xb
+ 727 009f 3B       		.uleb128 0x3b
+ 728 00a0 0B       		.uleb128 0xb
+ 729 00a1 27       		.uleb128 0x27
+ 730 00a2 19       		.uleb128 0x19
+ 731 00a3 11       		.uleb128 0x11
+ 732 00a4 01       		.uleb128 0x1
+ 733 00a5 12       		.uleb128 0x12
+ 734 00a6 06       		.uleb128 0x6
+ 735 00a7 40       		.uleb128 0x40
+ 736 00a8 18       		.uleb128 0x18
+ 737 00a9 9742     		.uleb128 0x2117
+ 738 00ab 19       		.uleb128 0x19
+ 739 00ac 01       		.uleb128 0x1
+ 740 00ad 13       		.uleb128 0x13
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 18
+
+
+ 741 00ae 00       		.byte	0
+ 742 00af 00       		.byte	0
+ 743 00b0 0B       		.uleb128 0xb
+ 744 00b1 05       		.uleb128 0x5
+ 745 00b2 00       		.byte	0
+ 746 00b3 03       		.uleb128 0x3
+ 747 00b4 0E       		.uleb128 0xe
+ 748 00b5 3A       		.uleb128 0x3a
+ 749 00b6 0B       		.uleb128 0xb
+ 750 00b7 3B       		.uleb128 0x3b
+ 751 00b8 0B       		.uleb128 0xb
+ 752 00b9 49       		.uleb128 0x49
+ 753 00ba 13       		.uleb128 0x13
+ 754 00bb 02       		.uleb128 0x2
+ 755 00bc 18       		.uleb128 0x18
+ 756 00bd 00       		.byte	0
+ 757 00be 00       		.byte	0
+ 758 00bf 0C       		.uleb128 0xc
+ 759 00c0 2E       		.uleb128 0x2e
+ 760 00c1 00       		.byte	0
+ 761 00c2 3F       		.uleb128 0x3f
+ 762 00c3 19       		.uleb128 0x19
+ 763 00c4 03       		.uleb128 0x3
+ 764 00c5 0E       		.uleb128 0xe
+ 765 00c6 3A       		.uleb128 0x3a
+ 766 00c7 0B       		.uleb128 0xb
+ 767 00c8 3B       		.uleb128 0x3b
+ 768 00c9 0B       		.uleb128 0xb
+ 769 00ca 27       		.uleb128 0x27
+ 770 00cb 19       		.uleb128 0x19
+ 771 00cc 49       		.uleb128 0x49
+ 772 00cd 13       		.uleb128 0x13
+ 773 00ce 11       		.uleb128 0x11
+ 774 00cf 01       		.uleb128 0x1
+ 775 00d0 12       		.uleb128 0x12
+ 776 00d1 06       		.uleb128 0x6
+ 777 00d2 40       		.uleb128 0x40
+ 778 00d3 18       		.uleb128 0x18
+ 779 00d4 9742     		.uleb128 0x2117
+ 780 00d6 19       		.uleb128 0x19
+ 781 00d7 00       		.byte	0
+ 782 00d8 00       		.byte	0
+ 783 00d9 0D       		.uleb128 0xd
+ 784 00da 34       		.uleb128 0x34
+ 785 00db 00       		.byte	0
+ 786 00dc 03       		.uleb128 0x3
+ 787 00dd 0E       		.uleb128 0xe
+ 788 00de 3A       		.uleb128 0x3a
+ 789 00df 0B       		.uleb128 0xb
+ 790 00e0 3B       		.uleb128 0x3b
+ 791 00e1 0B       		.uleb128 0xb
+ 792 00e2 49       		.uleb128 0x49
+ 793 00e3 13       		.uleb128 0x13
+ 794 00e4 3F       		.uleb128 0x3f
+ 795 00e5 19       		.uleb128 0x19
+ 796 00e6 02       		.uleb128 0x2
+ 797 00e7 18       		.uleb128 0x18
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 19
+
+
+ 798 00e8 00       		.byte	0
+ 799 00e9 00       		.byte	0
+ 800 00ea 00       		.byte	0
+ 801              		.section	.debug_aranges,"",%progbits
+ 802 0000 54000000 		.4byte	0x54
+ 803 0004 0200     		.2byte	0x2
+ 804 0006 00000000 		.4byte	.Ldebug_info0
+ 805 000a 04       		.byte	0x4
+ 806 000b 00       		.byte	0
+ 807 000c 0000     		.2byte	0
+ 808 000e 0000     		.2byte	0
+ 809 0010 00000000 		.4byte	.LFB0
+ 810 0014 18000000 		.4byte	.LFE0-.LFB0
+ 811 0018 00000000 		.4byte	.LFB1
+ 812 001c 30000000 		.4byte	.LFE1-.LFB1
+ 813 0020 00000000 		.4byte	.LFB2
+ 814 0024 20000000 		.4byte	.LFE2-.LFB2
+ 815 0028 00000000 		.4byte	.LFB3
+ 816 002c 30000000 		.4byte	.LFE3-.LFB3
+ 817 0030 00000000 		.4byte	.LFB4
+ 818 0034 24000000 		.4byte	.LFE4-.LFB4
+ 819 0038 00000000 		.4byte	.LFB5
+ 820 003c 20000000 		.4byte	.LFE5-.LFB5
+ 821 0040 00000000 		.4byte	.LFB6
+ 822 0044 20000000 		.4byte	.LFE6-.LFB6
+ 823 0048 00000000 		.4byte	.LFB7
+ 824 004c 18000000 		.4byte	.LFE7-.LFB7
+ 825 0050 00000000 		.4byte	0
+ 826 0054 00000000 		.4byte	0
+ 827              		.section	.debug_ranges,"",%progbits
+ 828              	.Ldebug_ranges0:
+ 829 0000 00000000 		.4byte	.LFB0
+ 830 0004 18000000 		.4byte	.LFE0
+ 831 0008 00000000 		.4byte	.LFB1
+ 832 000c 30000000 		.4byte	.LFE1
+ 833 0010 00000000 		.4byte	.LFB2
+ 834 0014 20000000 		.4byte	.LFE2
+ 835 0018 00000000 		.4byte	.LFB3
+ 836 001c 30000000 		.4byte	.LFE3
+ 837 0020 00000000 		.4byte	.LFB4
+ 838 0024 24000000 		.4byte	.LFE4
+ 839 0028 00000000 		.4byte	.LFB5
+ 840 002c 20000000 		.4byte	.LFE5
+ 841 0030 00000000 		.4byte	.LFB6
+ 842 0034 20000000 		.4byte	.LFE6
+ 843 0038 00000000 		.4byte	.LFB7
+ 844 003c 18000000 		.4byte	.LFE7
+ 845 0040 00000000 		.4byte	0
+ 846 0044 00000000 		.4byte	0
+ 847              		.section	.debug_line,"",%progbits
+ 848              	.Ldebug_line0:
+ 849 0000 E1000000 		.section	.debug_str,"MS",%progbits,1
+ 849      02004500 
+ 849      00000201 
+ 849      FB0E0D00 
+ 849      01010101 
+ 850              	.LASF27:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 20
+
+
+ 851 0000 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Count7.c\000"
+ 851      6E657261 
+ 851      7465645F 
+ 851      536F7572 
+ 851      63655C50 
+ 852              	.LASF22:
+ 853 0022 636F756E 		.ascii	"count\000"
+ 853      7400
+ 854              	.LASF23:
+ 855 0028 70657269 		.ascii	"period\000"
+ 855      6F6400
+ 856              	.LASF3:
+ 857 002f 73686F72 		.ascii	"short unsigned int\000"
+ 857      7420756E 
+ 857      7369676E 
+ 857      65642069 
+ 857      6E7400
+ 858              	.LASF24:
+ 859 0042 436F756E 		.ascii	"Count7_ReadCounter\000"
+ 859      74375F52 
+ 859      65616443 
+ 859      6F756E74 
+ 859      657200
+ 860              	.LASF28:
+ 861 0055 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\Count7_Example01\\Cou"
+ 861      6F63756D 
+ 861      656E746F 
+ 861      735C5053 
+ 861      6F432043 
+ 862 0084 6E74375F 		.ascii	"nt7_Example01.cydsn\000"
+ 862      4578616D 
+ 862      706C6530 
+ 862      312E6379 
+ 862      64736E00 
+ 863              	.LASF9:
+ 864 0098 666C6F61 		.ascii	"float\000"
+ 864      7400
+ 865              	.LASF1:
+ 866 009e 756E7369 		.ascii	"unsigned char\000"
+ 866      676E6564 
+ 866      20636861 
+ 866      7200
+ 867              	.LASF13:
+ 868 00ac 72656738 		.ascii	"reg8\000"
+ 868      00
+ 869              	.LASF19:
+ 870 00b1 696E7465 		.ascii	"interruptState\000"
+ 870      72727570 
+ 870      74537461 
+ 870      746500
+ 871              	.LASF5:
+ 872 00c0 6C6F6E67 		.ascii	"long unsigned int\000"
+ 872      20756E73 
+ 872      69676E65 
+ 872      6420696E 
+ 872      7400
+ 873              	.LASF12:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 21
+
+
+ 874 00d2 75696E74 		.ascii	"uint8\000"
+ 874      3800
+ 875              	.LASF15:
+ 876 00d8 436F756E 		.ascii	"Count7_Init\000"
+ 876      74375F49 
+ 876      6E697400 
+ 877              	.LASF26:
+ 878 00e4 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 878      4320342E 
+ 878      392E3320 
+ 878      32303135 
+ 878      30333033 
+ 879 0117 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 879      20726576 
+ 879      6973696F 
+ 879      6E203232 
+ 879      31323230 
+ 880 014a 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 880      66756E63 
+ 880      74696F6E 
+ 880      2D736563 
+ 880      74696F6E 
+ 881              	.LASF10:
+ 882 0172 646F7562 		.ascii	"double\000"
+ 882      6C6500
+ 883              	.LASF29:
+ 884 0179 436F756E 		.ascii	"Count7_initVar\000"
+ 884      74375F69 
+ 884      6E697456 
+ 884      617200
+ 885              	.LASF21:
+ 886 0188 436F756E 		.ascii	"Count7_WritePeriod\000"
+ 886      74375F57 
+ 886      72697465 
+ 886      50657269 
+ 886      6F6400
+ 887              	.LASF8:
+ 888 019b 756E7369 		.ascii	"unsigned int\000"
+ 888      676E6564 
+ 888      20696E74 
+ 888      00
+ 889              	.LASF7:
+ 890 01a8 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 890      206C6F6E 
+ 890      6720756E 
+ 890      7369676E 
+ 890      65642069 
+ 891              	.LASF16:
+ 892 01bf 436F756E 		.ascii	"Count7_Start\000"
+ 892      74375F53 
+ 892      74617274 
+ 892      00
+ 893              	.LASF14:
+ 894 01cc 73697A65 		.ascii	"sizetype\000"
+ 894      74797065 
+ 894      00
+ 895              	.LASF6:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cckz3nFF.s 			page 22
+
+
+ 896 01d5 6C6F6E67 		.ascii	"long long int\000"
+ 896      206C6F6E 
+ 896      6720696E 
+ 896      7400
+ 897              	.LASF17:
+ 898 01e3 436F756E 		.ascii	"Count7_Enable\000"
+ 898      74375F45 
+ 898      6E61626C 
+ 898      6500
+ 899              	.LASF11:
+ 900 01f1 63686172 		.ascii	"char\000"
+ 900      00
+ 901              	.LASF18:
+ 902 01f6 436F756E 		.ascii	"Count7_Stop\000"
+ 902      74375F53 
+ 902      746F7000 
+ 903              	.LASF2:
+ 904 0202 73686F72 		.ascii	"short int\000"
+ 904      7420696E 
+ 904      7400
+ 905              	.LASF4:
+ 906 020c 6C6F6E67 		.ascii	"long int\000"
+ 906      20696E74 
+ 906      00
+ 907              	.LASF0:
+ 908 0215 7369676E 		.ascii	"signed char\000"
+ 908      65642063 
+ 908      68617200 
+ 909              	.LASF25:
+ 910 0221 436F756E 		.ascii	"Count7_ReadPeriod\000"
+ 910      74375F52 
+ 910      65616450 
+ 910      6572696F 
+ 910      6400
+ 911              	.LASF20:
+ 912 0233 436F756E 		.ascii	"Count7_WriteCounter\000"
+ 912      74375F57 
+ 912      72697465 
+ 912      436F756E 
+ 912      74657200 
+ 913              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

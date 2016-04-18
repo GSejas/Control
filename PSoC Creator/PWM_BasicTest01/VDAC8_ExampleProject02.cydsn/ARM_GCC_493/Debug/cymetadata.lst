@@ -1,0 +1,499 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"cymetadata.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	cy_metadata
+  19              		.global	cy_meta_flashprotect
+  20              		.global	cy_meta_wonvl
+  21              		.global	cy_meta_custnvl
+  22              		.global	cy_meta_configecc
+  23              		.section	.cyconfigecc,"a",%progbits
+  24              		.type	cy_meta_configecc, %object
+  25              		.size	cy_meta_configecc, 16
+  26              	cy_meta_configecc:
+  27 0000 00       		.byte	0
+  28 0001 7F       		.byte	127
+  29 0002 7F       		.byte	127
+  30 0003 00       		.byte	0
+  31 0004 00       		.byte	0
+  32 0005 00       		.byte	0
+  33 0006 00       		.byte	0
+  34 0007 00       		.byte	0
+  35 0008 00       		.byte	0
+  36 0009 00       		.byte	0
+  37 000a 00       		.byte	0
+  38 000b 00       		.byte	0
+  39 000c 00       		.byte	0
+  40 000d 00       		.byte	0
+  41 000e 02       		.byte	2
+  42 000f 00       		.byte	0
+  43              		.section	.cywolatch,"a",%progbits
+  44              		.type	cy_meta_wonvl, %object
+  45              		.size	cy_meta_wonvl, 4
+  46              	cy_meta_wonvl:
+  47 0000 BC       		.byte	-68
+  48 0001 90       		.byte	-112
+  49 0002 AC       		.byte	-84
+  50 0003 AF       		.byte	-81
+  51              		.section	.cycustnvl,"a",%progbits
+  52              		.type	cy_meta_custnvl, %object
+  53              		.size	cy_meta_custnvl, 4
+  54              	cy_meta_custnvl:
+  55 0000 00       		.byte	0
+  56 0001 00       		.byte	0
+  57 0002 40       		.byte	64
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 2
+
+
+  58 0003 04       		.byte	4
+  59              		.section	.cymeta,"a",%progbits
+  60              		.type	cy_metadata, %object
+  61              		.size	cy_metadata, 12
+  62              	cy_metadata:
+  63 0000 00       		.byte	0
+  64 0001 01       		.byte	1
+  65 0002 2E       		.byte	46
+  66 0003 12       		.byte	18
+  67 0004 30       		.byte	48
+  68 0005 69       		.byte	105
+  69 0006 00       		.byte	0
+  70 0007 01       		.byte	1
+  71 0008 00       		.byte	0
+  72 0009 00       		.byte	0
+  73 000a 00       		.byte	0
+  74 000b 00       		.byte	0
+  75              		.section	.cyflashprotect,"a",%progbits
+  76              		.type	cy_meta_flashprotect, %object
+  77              		.size	cy_meta_flashprotect, 256
+  78              	cy_meta_flashprotect:
+  79 0000 00000000 		.space	256
+  79      00000000 
+  79      00000000 
+  79      00000000 
+  79      00000000 
+  80              		.text
+  81              	.Letext0:
+  82              		.file 1 ".\\Generated_Source\\PSoC5\\cymetadata.c"
+  83              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+  84              		.section	.debug_info,"",%progbits
+  85              	.Ldebug_info0:
+  86 0000 36010000 		.4byte	0x136
+  87 0004 0400     		.2byte	0x4
+  88 0006 00000000 		.4byte	.Ldebug_abbrev0
+  89 000a 04       		.byte	0x4
+  90 000b 01       		.uleb128 0x1
+  91 000c 4F010000 		.4byte	.LASF18
+  92 0010 01       		.byte	0x1
+  93 0011 00000000 		.4byte	.LASF19
+  94 0015 9A000000 		.4byte	.LASF20
+  95 0019 00000000 		.4byte	.Ldebug_line0
+  96 001d 02       		.uleb128 0x2
+  97 001e 01       		.byte	0x1
+  98 001f 06       		.byte	0x6
+  99 0020 E6010000 		.4byte	.LASF0
+ 100 0024 02       		.uleb128 0x2
+ 101 0025 01       		.byte	0x1
+ 102 0026 08       		.byte	0x8
+ 103 0027 3E000000 		.4byte	.LASF1
+ 104 002b 02       		.uleb128 0x2
+ 105 002c 02       		.byte	0x2
+ 106 002d 05       		.byte	0x5
+ 107 002e 45010000 		.4byte	.LASF2
+ 108 0032 02       		.uleb128 0x2
+ 109 0033 02       		.byte	0x2
+ 110 0034 07       		.byte	0x7
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 3
+
+
+ 111 0035 5E000000 		.4byte	.LASF3
+ 112 0039 02       		.uleb128 0x2
+ 113 003a 04       		.byte	0x4
+ 114 003b 05       		.byte	0x5
+ 115 003c DD010000 		.4byte	.LASF4
+ 116 0040 02       		.uleb128 0x2
+ 117 0041 04       		.byte	0x4
+ 118 0042 07       		.byte	0x7
+ 119 0043 4C000000 		.4byte	.LASF5
+ 120 0047 02       		.uleb128 0x2
+ 121 0048 08       		.byte	0x8
+ 122 0049 05       		.byte	0x5
+ 123 004a 32010000 		.4byte	.LASF6
+ 124 004e 02       		.uleb128 0x2
+ 125 004f 08       		.byte	0x8
+ 126 0050 07       		.byte	0x7
+ 127 0051 EF000000 		.4byte	.LASF7
+ 128 0055 03       		.uleb128 0x3
+ 129 0056 04       		.byte	0x4
+ 130 0057 05       		.byte	0x5
+ 131 0058 696E7400 		.ascii	"int\000"
+ 132 005c 02       		.uleb128 0x2
+ 133 005d 04       		.byte	0x4
+ 134 005e 07       		.byte	0x7
+ 135 005f E2000000 		.4byte	.LASF8
+ 136 0063 04       		.uleb128 0x4
+ 137 0064 38000000 		.4byte	.LASF21
+ 138 0068 02       		.byte	0x2
+ 139 0069 3801     		.2byte	0x138
+ 140 006b 24000000 		.4byte	0x24
+ 141 006f 02       		.uleb128 0x2
+ 142 0070 04       		.byte	0x4
+ 143 0071 04       		.byte	0x4
+ 144 0072 32000000 		.4byte	.LASF9
+ 145 0076 02       		.uleb128 0x2
+ 146 0077 08       		.byte	0x8
+ 147 0078 04       		.byte	0x4
+ 148 0079 71000000 		.4byte	.LASF10
+ 149 007d 02       		.uleb128 0x2
+ 150 007e 01       		.byte	0x1
+ 151 007f 08       		.byte	0x8
+ 152 0080 40010000 		.4byte	.LASF11
+ 153 0084 05       		.uleb128 0x5
+ 154 0085 63000000 		.4byte	0x63
+ 155 0089 94000000 		.4byte	0x94
+ 156 008d 06       		.uleb128 0x6
+ 157 008e 94000000 		.4byte	0x94
+ 158 0092 0F       		.byte	0xf
+ 159 0093 00       		.byte	0
+ 160 0094 02       		.uleb128 0x2
+ 161 0095 04       		.byte	0x4
+ 162 0096 07       		.byte	0x7
+ 163 0097 29010000 		.4byte	.LASF12
+ 164 009b 07       		.uleb128 0x7
+ 165 009c 88000000 		.4byte	.LASF13
+ 166 00a0 01       		.byte	0x1
+ 167 00a1 1F       		.byte	0x1f
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 4
+
+
+ 168 00a2 AC000000 		.4byte	0xac
+ 169 00a6 05       		.uleb128 0x5
+ 170 00a7 03       		.byte	0x3
+ 171 00a8 00000000 		.4byte	cy_meta_configecc
+ 172 00ac 08       		.uleb128 0x8
+ 173 00ad 84000000 		.4byte	0x84
+ 174 00b1 05       		.uleb128 0x5
+ 175 00b2 63000000 		.4byte	0x63
+ 176 00b6 C1000000 		.4byte	0xc1
+ 177 00ba 06       		.uleb128 0x6
+ 178 00bb 94000000 		.4byte	0x94
+ 179 00bf 03       		.byte	0x3
+ 180 00c0 00       		.byte	0
+ 181 00c1 07       		.uleb128 0x7
+ 182 00c2 78000000 		.4byte	.LASF14
+ 183 00c6 01       		.byte	0x1
+ 184 00c7 2E       		.byte	0x2e
+ 185 00c8 D2000000 		.4byte	0xd2
+ 186 00cc 05       		.uleb128 0x5
+ 187 00cd 03       		.byte	0x3
+ 188 00ce 00000000 		.4byte	cy_meta_custnvl
+ 189 00d2 08       		.uleb128 0x8
+ 190 00d3 B1000000 		.4byte	0xb1
+ 191 00d7 07       		.uleb128 0x7
+ 192 00d8 1B010000 		.4byte	.LASF15
+ 193 00dc 01       		.byte	0x1
+ 194 00dd 3C       		.byte	0x3c
+ 195 00de E8000000 		.4byte	0xe8
+ 196 00e2 05       		.uleb128 0x5
+ 197 00e3 03       		.byte	0x3
+ 198 00e4 00000000 		.4byte	cy_meta_wonvl
+ 199 00e8 08       		.uleb128 0x8
+ 200 00e9 B1000000 		.4byte	0xb1
+ 201 00ed 05       		.uleb128 0x5
+ 202 00ee 63000000 		.4byte	0x63
+ 203 00f2 FD000000 		.4byte	0xfd
+ 204 00f6 06       		.uleb128 0x6
+ 205 00f7 94000000 		.4byte	0x94
+ 206 00fb FF       		.byte	0xff
+ 207 00fc 00       		.byte	0
+ 208 00fd 07       		.uleb128 0x7
+ 209 00fe 06010000 		.4byte	.LASF16
+ 210 0102 01       		.byte	0x1
+ 211 0103 4A       		.byte	0x4a
+ 212 0104 0E010000 		.4byte	0x10e
+ 213 0108 05       		.uleb128 0x5
+ 214 0109 03       		.byte	0x3
+ 215 010a 00000000 		.4byte	cy_meta_flashprotect
+ 216 010e 08       		.uleb128 0x8
+ 217 010f ED000000 		.4byte	0xed
+ 218 0113 05       		.uleb128 0x5
+ 219 0114 63000000 		.4byte	0x63
+ 220 0118 23010000 		.4byte	0x123
+ 221 011c 06       		.uleb128 0x6
+ 222 011d 94000000 		.4byte	0x94
+ 223 0121 0B       		.byte	0xb
+ 224 0122 00       		.byte	0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 5
+
+
+ 225 0123 07       		.uleb128 0x7
+ 226 0124 26000000 		.4byte	.LASF17
+ 227 0128 01       		.byte	0x1
+ 228 0129 77       		.byte	0x77
+ 229 012a 34010000 		.4byte	0x134
+ 230 012e 05       		.uleb128 0x5
+ 231 012f 03       		.byte	0x3
+ 232 0130 00000000 		.4byte	cy_metadata
+ 233 0134 08       		.uleb128 0x8
+ 234 0135 13010000 		.4byte	0x113
+ 235 0139 00       		.byte	0
+ 236              		.section	.debug_abbrev,"",%progbits
+ 237              	.Ldebug_abbrev0:
+ 238 0000 01       		.uleb128 0x1
+ 239 0001 11       		.uleb128 0x11
+ 240 0002 01       		.byte	0x1
+ 241 0003 25       		.uleb128 0x25
+ 242 0004 0E       		.uleb128 0xe
+ 243 0005 13       		.uleb128 0x13
+ 244 0006 0B       		.uleb128 0xb
+ 245 0007 03       		.uleb128 0x3
+ 246 0008 0E       		.uleb128 0xe
+ 247 0009 1B       		.uleb128 0x1b
+ 248 000a 0E       		.uleb128 0xe
+ 249 000b 10       		.uleb128 0x10
+ 250 000c 17       		.uleb128 0x17
+ 251 000d 00       		.byte	0
+ 252 000e 00       		.byte	0
+ 253 000f 02       		.uleb128 0x2
+ 254 0010 24       		.uleb128 0x24
+ 255 0011 00       		.byte	0
+ 256 0012 0B       		.uleb128 0xb
+ 257 0013 0B       		.uleb128 0xb
+ 258 0014 3E       		.uleb128 0x3e
+ 259 0015 0B       		.uleb128 0xb
+ 260 0016 03       		.uleb128 0x3
+ 261 0017 0E       		.uleb128 0xe
+ 262 0018 00       		.byte	0
+ 263 0019 00       		.byte	0
+ 264 001a 03       		.uleb128 0x3
+ 265 001b 24       		.uleb128 0x24
+ 266 001c 00       		.byte	0
+ 267 001d 0B       		.uleb128 0xb
+ 268 001e 0B       		.uleb128 0xb
+ 269 001f 3E       		.uleb128 0x3e
+ 270 0020 0B       		.uleb128 0xb
+ 271 0021 03       		.uleb128 0x3
+ 272 0022 08       		.uleb128 0x8
+ 273 0023 00       		.byte	0
+ 274 0024 00       		.byte	0
+ 275 0025 04       		.uleb128 0x4
+ 276 0026 16       		.uleb128 0x16
+ 277 0027 00       		.byte	0
+ 278 0028 03       		.uleb128 0x3
+ 279 0029 0E       		.uleb128 0xe
+ 280 002a 3A       		.uleb128 0x3a
+ 281 002b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 6
+
+
+ 282 002c 3B       		.uleb128 0x3b
+ 283 002d 05       		.uleb128 0x5
+ 284 002e 49       		.uleb128 0x49
+ 285 002f 13       		.uleb128 0x13
+ 286 0030 00       		.byte	0
+ 287 0031 00       		.byte	0
+ 288 0032 05       		.uleb128 0x5
+ 289 0033 01       		.uleb128 0x1
+ 290 0034 01       		.byte	0x1
+ 291 0035 49       		.uleb128 0x49
+ 292 0036 13       		.uleb128 0x13
+ 293 0037 01       		.uleb128 0x1
+ 294 0038 13       		.uleb128 0x13
+ 295 0039 00       		.byte	0
+ 296 003a 00       		.byte	0
+ 297 003b 06       		.uleb128 0x6
+ 298 003c 21       		.uleb128 0x21
+ 299 003d 00       		.byte	0
+ 300 003e 49       		.uleb128 0x49
+ 301 003f 13       		.uleb128 0x13
+ 302 0040 2F       		.uleb128 0x2f
+ 303 0041 0B       		.uleb128 0xb
+ 304 0042 00       		.byte	0
+ 305 0043 00       		.byte	0
+ 306 0044 07       		.uleb128 0x7
+ 307 0045 34       		.uleb128 0x34
+ 308 0046 00       		.byte	0
+ 309 0047 03       		.uleb128 0x3
+ 310 0048 0E       		.uleb128 0xe
+ 311 0049 3A       		.uleb128 0x3a
+ 312 004a 0B       		.uleb128 0xb
+ 313 004b 3B       		.uleb128 0x3b
+ 314 004c 0B       		.uleb128 0xb
+ 315 004d 49       		.uleb128 0x49
+ 316 004e 13       		.uleb128 0x13
+ 317 004f 3F       		.uleb128 0x3f
+ 318 0050 19       		.uleb128 0x19
+ 319 0051 02       		.uleb128 0x2
+ 320 0052 18       		.uleb128 0x18
+ 321 0053 00       		.byte	0
+ 322 0054 00       		.byte	0
+ 323 0055 08       		.uleb128 0x8
+ 324 0056 26       		.uleb128 0x26
+ 325 0057 00       		.byte	0
+ 326 0058 49       		.uleb128 0x49
+ 327 0059 13       		.uleb128 0x13
+ 328 005a 00       		.byte	0
+ 329 005b 00       		.byte	0
+ 330 005c 00       		.byte	0
+ 331              		.section	.debug_aranges,"",%progbits
+ 332 0000 14000000 		.4byte	0x14
+ 333 0004 0200     		.2byte	0x2
+ 334 0006 00000000 		.4byte	.Ldebug_info0
+ 335 000a 04       		.byte	0x4
+ 336 000b 00       		.byte	0
+ 337 000c 0000     		.2byte	0
+ 338 000e 0000     		.2byte	0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 7
+
+
+ 339 0010 00000000 		.4byte	0
+ 340 0014 00000000 		.4byte	0
+ 341              		.section	.debug_line,"",%progbits
+ 342              	.Ldebug_line0:
+ 343 0000 4F000000 		.section	.debug_str,"MS",%progbits,1
+ 343      02004900 
+ 343      00000201 
+ 343      FB0E0D00 
+ 343      01010101 
+ 344              	.LASF19:
+ 345 0000 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\cymetadata.c\000"
+ 345      6E657261 
+ 345      7465645F 
+ 345      536F7572 
+ 345      63655C50 
+ 346              	.LASF17:
+ 347 0026 63795F6D 		.ascii	"cy_metadata\000"
+ 347      65746164 
+ 347      61746100 
+ 348              	.LASF9:
+ 349 0032 666C6F61 		.ascii	"float\000"
+ 349      7400
+ 350              	.LASF21:
+ 351 0038 75696E74 		.ascii	"uint8\000"
+ 351      3800
+ 352              	.LASF1:
+ 353 003e 756E7369 		.ascii	"unsigned char\000"
+ 353      676E6564 
+ 353      20636861 
+ 353      7200
+ 354              	.LASF5:
+ 355 004c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 355      20756E73 
+ 355      69676E65 
+ 355      6420696E 
+ 355      7400
+ 356              	.LASF3:
+ 357 005e 73686F72 		.ascii	"short unsigned int\000"
+ 357      7420756E 
+ 357      7369676E 
+ 357      65642069 
+ 357      6E7400
+ 358              	.LASF10:
+ 359 0071 646F7562 		.ascii	"double\000"
+ 359      6C6500
+ 360              	.LASF14:
+ 361 0078 63795F6D 		.ascii	"cy_meta_custnvl\000"
+ 361      6574615F 
+ 361      63757374 
+ 361      6E766C00 
+ 362              	.LASF13:
+ 363 0088 63795F6D 		.ascii	"cy_meta_configecc\000"
+ 363      6574615F 
+ 363      636F6E66 
+ 363      69676563 
+ 363      6300
+ 364              	.LASF20:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 8
+
+
+ 365 009a 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\PWM_BasicTest01\\VDAC"
+ 365      6F63756D 
+ 365      656E746F 
+ 365      735C5053 
+ 365      6F432043 
+ 366 00c9 385F4578 		.ascii	"8_ExampleProject02.cydsn\000"
+ 366      616D706C 
+ 366      6550726F 
+ 366      6A656374 
+ 366      30322E63 
+ 367              	.LASF8:
+ 368 00e2 756E7369 		.ascii	"unsigned int\000"
+ 368      676E6564 
+ 368      20696E74 
+ 368      00
+ 369              	.LASF7:
+ 370 00ef 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 370      206C6F6E 
+ 370      6720756E 
+ 370      7369676E 
+ 370      65642069 
+ 371              	.LASF16:
+ 372 0106 63795F6D 		.ascii	"cy_meta_flashprotect\000"
+ 372      6574615F 
+ 372      666C6173 
+ 372      6870726F 
+ 372      74656374 
+ 373              	.LASF15:
+ 374 011b 63795F6D 		.ascii	"cy_meta_wonvl\000"
+ 374      6574615F 
+ 374      776F6E76 
+ 374      6C00
+ 375              	.LASF12:
+ 376 0129 73697A65 		.ascii	"sizetype\000"
+ 376      74797065 
+ 376      00
+ 377              	.LASF6:
+ 378 0132 6C6F6E67 		.ascii	"long long int\000"
+ 378      206C6F6E 
+ 378      6720696E 
+ 378      7400
+ 379              	.LASF11:
+ 380 0140 63686172 		.ascii	"char\000"
+ 380      00
+ 381              	.LASF2:
+ 382 0145 73686F72 		.ascii	"short int\000"
+ 382      7420696E 
+ 382      7400
+ 383              	.LASF18:
+ 384 014f 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 384      4320342E 
+ 384      392E3320 
+ 384      32303135 
+ 384      30333033 
+ 385 0182 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 385      20726576 
+ 385      6973696F 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccuHi35M.s 			page 9
+
+
+ 385      6E203232 
+ 385      31323230 
+ 386 01b5 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 386      66756E63 
+ 386      74696F6E 
+ 386      2D736563 
+ 386      74696F6E 
+ 387              	.LASF4:
+ 388 01dd 6C6F6E67 		.ascii	"long int\000"
+ 388      20696E74 
+ 388      00
+ 389              	.LASF0:
+ 390 01e6 7369676E 		.ascii	"signed char\000"
+ 390      65642063 
+ 390      68617200 
+ 391              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

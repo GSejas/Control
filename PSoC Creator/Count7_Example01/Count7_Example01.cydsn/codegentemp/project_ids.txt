@@ -1,0 +1,6 @@
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\dev\psoc3\AnalogDevice\PSoC35AnalogDevice.cylib\PSoC35AnalogDevice.cyprj|e1b77d13-f16f-4fd1-acf0-4c808b8f5e10
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|e0998b62-fc32-4dba-839f-5c9518788861
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|d0705b99-6a67-4e59-a73f-56a65c12496c
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|c125096e-86d1-49e4-9922-5de060f60c05
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|62f3f050-243c-4f2e-a425-ae86e0a02f06
+G:\Documentos\PSoC Creator\Count7_Example01\Count7_Example01.cydsn\Count7_Example01.cyprj|e91281a1-e169-4b16-b7ce-285df58136c1

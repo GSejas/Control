@@ -1,0 +1,1349 @@
+Archive member included because of file (symbol)
+
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+                              .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o (cyfitter_cfg)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                              .\CortexM3\ARM_GCC_493\Debug\main.o (USBFS_Start)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o) (USBFS_EP)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o) (USBFS_EP_1_ISR)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o) (USBFS_hidProtocol)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o) (USBFS_DP_ISR)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                              .\CortexM3\ARM_GCC_493\Debug\main.o (USBFS_SerialNumString)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o) (USBFS_HandleVendorRqst)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o) (USBFS_Dp_ClearInterrupt)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o) (CyDelayCycles)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+                              .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o (CyResetStatus)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o) (CyPmReadStatus)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o) (USBFS_DispatchClassRqst)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o) (USBFS_DEVICE0_DESCR)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o) (CyScBoostClk_Start)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o) (CyFlash_SetWaitCycles)
+.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o) (CySpcStart)
+c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
+                              .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o (__errno)
+c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-exit.o)
+                              c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o (exit)
+c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+                              c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-exit.o) (_global_impure_ptr)
+c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
+                              c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o (__libc_init_array)
+c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy.o)
+                              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o) (memcpy)
+c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
+                              c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o (memset)
+
+Allocating common symbols
+Common symbol       size              file
+
+USBFS_deviceAddress
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_ep0Mode       0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_interfaceSetting
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_SCB
+                    0x4               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+USBFS_hidIdleRate   0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+USBFS_currentTD     0xc               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_device        0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_interfaceNumber
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_ep0Toggle     0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_deviceStatus  0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_BUF
+                    0x4               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+USBFS_configurationChanged
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_configuration
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_transferState
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_interfaceStatus
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_interfaceClass
+                    0x4               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_EP            0x6c              .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_hidIdleTimer  0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+USBFS_lastPacketSize
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_hidProtocol   0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+dieTemperature      0x2               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+USBFS_ep0Count      0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_interfaceSettingLast
+                    0x1               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+USBFS_transferByteCount
+                    0x2               .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+
+Discarded input sections
+
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crti.o
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crti.o
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crti.o
+ .data          0x00000000        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+ .text          0x00000000       0x74 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o
+ .ARM.extab     0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o
+ .ARM.exidx     0x00000000        0x8 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\main.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .data          0x00000000        0x4 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .text._exit    0x00000000       0x14 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .text._sbrk    0x00000000       0x50 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text.CYCONFIGCPYCODE
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text.SetAnalogRoutingPumps
+                0x00000000       0x28 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_Stop
+                0x00000000       0xcc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_CheckActivity
+                0x00000000       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_IsConfigurationChanged
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_GetInterfaceSetting
+                0x00000000       0x24 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_GetEPState
+                0x00000000       0x2c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_GetEPCount
+                0x00000000       0x60 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_ReadOutEP
+                0x00000000       0x8c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_EnableOutEP
+                0x00000000       0x54 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_DisableOutEP
+                0x00000000       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_Force
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_SetPowerStatus
+                0x00000000       0x40 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_RWUEnabled
+                0x00000000       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_GetDeviceAddress
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_EnableSofInt
+                0x00000000       0x18 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text.USBFS_DisableSofInt
+                0x00000000       0x18 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .text.USBFS_UpdateHIDTimer
+                0x00000000       0x64 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .text.USBFS_GetProtocol
+                0x00000000       0x24 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .bss           0x00000000        0x4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .text.USBFS_SaveConfig
+                0x00000000        0xc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .text.USBFS_RestoreConfig
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .text.USBFS_Suspend
+                0x00000000      0x11c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .text.USBFS_Resume
+                0x00000000      0x100 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .text.USBFS_EpStateInit
+                0x00000000       0x68 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .text.USBFS_TerminateEP
+                0x00000000       0xb4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .text.USBFS_Dp_Write
+                0x00000000       0x3c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .text.USBFS_Dp_SetDriveMode
+                0x00000000       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .text.USBFS_Dp_Read
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .text.USBFS_Dp_ReadDataReg
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .text.USBFS_Dp_SetInterruptMode
+                0x00000000       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .bss           0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyPLL_OUT_Start
+                0x00000000       0xb0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyPLL_OUT_Stop
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyPLL_OUT_SetPQ
+                0x00000000       0x90 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyPLL_OUT_SetSource
+                0x00000000       0x54 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIMO_Start
+                0x00000000       0x94 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIMO_Stop
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyUSB_PowerOnCheck
+                0x00000000       0x60 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIMO_SetTrimValue
+                0x00000000      0x108 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIMO_SetFreq
+                0x00000000      0x1ac .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIMO_SetSource
+                0x00000000       0x8c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIMO_EnableDoubler
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIMO_DisableDoubler
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyMasterClk_SetSource
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyMasterClk_SetDivider
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyBusClk_Internal_SetDivider
+                0x00000000       0x78 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyBusClk_SetDivider
+                0x00000000       0xb4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyUsbClk_SetSource
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyILO_Start1K
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyILO_Stop1K
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyILO_Start100K
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyILO_Stop100K
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyILO_Enable33K
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyILO_Disable33K
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyILO_SetSource
+                0x00000000       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyILO_SetPowerMode
+                0x00000000       0x4c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_32KHZ_Start
+                0x00000000       0x84 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_32KHZ_Stop
+                0x00000000       0x50 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_32KHZ_ReadStatus
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_32KHZ_SetPowerMode
+                0x00000000       0xb4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_Start
+                0x00000000       0xd0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_Stop
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_EnableErrStatus
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_DisableErrStatus
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_ReadStatus
+                0x00000000       0x28 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_EnableFaultRecovery
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_DisableFaultRecovery
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_SetStartup
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_SetFbVoltage
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyXTAL_SetWdVoltage
+                0x00000000       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySoftwareReset
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyDelay  0x00000000       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyDelayFreq
+                0x00000000       0x7c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyWdtStart
+                0x00000000       0x8c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyWdtClear
+                0x00000000       0x18 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyVdLvDigitEnable
+                0x00000000       0xcc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyVdLvAnalogEnable
+                0x00000000       0xc8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyVdLvDigitDisable
+                0x00000000       0x48 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyVdLvAnalogDisable
+                0x00000000       0x40 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyVdHvAnalogEnable
+                0x00000000       0x78 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyVdHvAnalogDisable
+                0x00000000       0x2c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyVdStickyStatus
+                0x00000000       0x5c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyVdRealTimeStatus
+                0x00000000       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyDisableInts
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyEnableInts
+                0x00000000       0x28 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyFlushCache
+                0x00000000       0x58 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIntSetSysVector
+                0x00000000       0x4c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIntGetSysVector
+                0x00000000       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIntGetVector
+                0x00000000       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIntGetPriority
+                0x00000000       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyIntGetState
+                0x00000000       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySetScPumps
+                0x00000000      0x1b0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickStart
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickInit
+                0x00000000       0x68 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickEnable
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickStop
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickEnableInterrupt
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickDisableInterrupt
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickSetReload
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickGetReload
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickGetValue
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickSetClockSource
+                0x00000000       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickGetCountFlag
+                0x00000000       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickClear
+                0x00000000       0x18 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickSetCallback
+                0x00000000       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickGetCallback
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CySysTickServiceCallbacks
+                0x00000000       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text.CyGetUniqueId
+                0x00000000       0xc4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .bss           0x00000000       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .rodata        0x00000000       0x10 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmSaveClocks
+                0x00000000      0x284 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmRestoreClocks
+                0x00000000      0x300 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmAltAct
+                0x00000000       0xb8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmSleep
+                0x00000000      0x170 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmHibernate
+                0x00000000        0xc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmHibernateEx
+                0x00000000      0x158 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmReadStatus
+                0x00000000       0x5c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmHibSaveSet
+                0x00000000       0xd4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmHibRestore
+                0x00000000       0x68 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmCtwSetInterval
+                0x00000000       0x90 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmOppsSet
+                0x00000000       0x40 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmFtwSetInterval
+                0x00000000       0x90 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmHibSlpSaveSet
+                0x00000000      0x280 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmHibSlpRestore
+                0x00000000      0x188 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmHviLviSaveDisable
+                0x00000000       0xd4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text.CyPmHviLviRestore
+                0x00000000       0x54 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_Start
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_Stop
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_StopBlock
+                0x00000000       0xb0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_StandbyPower
+                0x00000000       0x40 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_SetDividerRegister
+                0x00000000      0x160 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_GetDividerRegister
+                0x00000000       0x18 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_SetModeRegister
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_ClearModeRegister
+                0x00000000       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_GetModeRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_SetSourceRegister
+                0x00000000       0xbc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_GetSourceRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_SetPhaseRegister
+                0x00000000       0x24 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text.CyScBoostClk_GetPhaseRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .bss           0x00000000        0x4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyFlash_Start
+                0x00000000       0x8c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyFlash_Stop
+                0x00000000       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CySetTempInt
+                0x00000000       0x7c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyFlashGetSpcAlgorithm
+                0x00000000       0x70 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CySetTemp
+                0x00000000       0x24 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CySetFlashEEBuffer
+                0x00000000       0x54 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyWriteRowData
+                0x00000000       0x3c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyWriteRowFull
+                0x00000000      0x158 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyFlash_SetWaitCycles
+                0x00000000       0xbc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyEEPROM_Start
+                0x00000000       0x8c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyEEPROM_Stop
+                0x00000000       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyEEPROM_ReadReserve
+                0x00000000       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text.CyEEPROM_ReadRelease
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ COMMON         0x00000000        0x2 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .bss           0x00000000        0x8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcStart
+                0x00000000       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcStop
+                0x00000000       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcReadData
+                0x00000000       0x58 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcLoadMultiByte
+                0x00000000       0xd4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcLoadRow
+                0x00000000       0x8c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcLoadRowFull
+                0x00000000       0xd0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcWriteRow
+                0x00000000       0x98 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcEraseSector
+                0x00000000       0x70 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcGetTemp
+                0x00000000       0x64 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcLock
+                0x00000000       0x68 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcUnlock
+                0x00000000       0x50 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text.CySpcGetAlgorithm
+                0x00000000       0x48 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
+ .text.__errno  0x00000000        0xc c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-exit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-exit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-exit.o)
+ .text.exit     0x00000000       0x28 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-exit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+ .data.impure_data
+                0x00000000       0x60 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+ .data._impure_ptr
+                0x00000000        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+ .rodata.str1.1
+                0x00000000        0x2 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+ .rodata._global_impure_ptr
+                0x00000000        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtend.o
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtend.o
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtend.o
+ .text          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtn.o
+ .data          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtn.o
+ .bss           0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+rom              0x00000000         0x00040000         xr
+ram              0x1fff8000         0x00010000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crti.o
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o
+START GROUP
+LOAD .\CortexM3\ARM_GCC_493\Debug\main.o
+LOAD .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+LOAD .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+LOAD .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a
+LOAD C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_493\Debug\CyComponentLibrary.a
+END GROUP
+START GROUP
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libc_nano.a
+END GROUP
+START GROUP
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libc_nano.a
+END GROUP
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtend.o
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtn.o
+START GROUP
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m\libgcc.a
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libc.a
+LOAD c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libnosys.a
+END GROUP
+                0x00000000                CY_APPL_ORIGIN = 0x0
+                0x00000100                CY_FLASH_ROW_SIZE = 0x100
+                0x00000020                CY_ECC_ROW_SIZE = 0x20
+                0x00000000                CY_EE_IN_BTLDR = 0x0
+                0x00000000                CY_APPL_LOADABLE = 0x0
+                0x00000800                CY_EE_SIZE = 0x800
+                0x00000001                CY_APPL_NUM = 0x1
+                0x00000001                CY_APPL_MAX = 0x1
+                0x00000040                CY_METADATA_SIZE = 0x40
+                0x00000000                CY_APPL_LOADABLE = 0x0
+                0x00000000                CY_CHECKSUM_EXCLUDE_SIZE = ALIGN (0x0, CY_FLASH_ROW_SIZE)
+                0x1fff8210                PROVIDE (__cy_heap_start, _end)
+                0x00000001                PROVIDE (__cy_region_num, ((__cy_regions_end - __cy_regions) / 0x10))
+                0x20008000                PROVIDE (__cy_stack, (ORIGIN (ram) + 0x10000))
+                0x20007800                PROVIDE (__cy_heap_end, (__cy_stack - 0x800))
+
+.cybootloader   0x00000000        0x0
+ *(.cybootloader)
+                0x00000000                appl1_start = CY_APPL_ORIGIN?CY_APPL_ORIGIN:ALIGN (CY_FLASH_ROW_SIZE)
+                0x0001ff00                appl2_start = (appl1_start + ALIGN ((((0x40000 - appl1_start) - (0x2 * CY_FLASH_ROW_SIZE)) / 0x2), CY_FLASH_ROW_SIZE))
+                0x00000000                appl_start = (CY_APPL_NUM == 0x1)?appl1_start:appl2_start
+                0x00000000                ecc_offset = ((appl_start / CY_FLASH_ROW_SIZE) * CY_ECC_ROW_SIZE)
+                0x00000000                ee_offset = (CY_APPL_LOADABLE && ! (CY_EE_IN_BTLDR))?((CY_EE_SIZE / CY_APPL_MAX) * (CY_APPL_NUM - 0x1)):0x0
+                0x00000800                ee_size = (CY_APPL_LOADABLE && ! (CY_EE_IN_BTLDR))?(CY_EE_SIZE / CY_APPL_MAX):CY_EE_SIZE
+                0x00000000                PROVIDE (CY_ECC_OFFSET, ecc_offset)
+
+.text           0x00000000     0x251e
+ CREATE_OBJECT_SYMBOLS
+                0x00000000                PROVIDE (__cy_interrupt_vector, RomVectors)
+ *(.romvectors)
+ .romvectors    0x00000000       0x10 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+                0x00000000                RomVectors
+                0x00000001                ASSERT ((. != __cy_interrupt_vector), No interrupt vector)
+                0x00000001                ASSERT (CY_APPL_ORIGIN?(SIZEOF (.cybootloader) <= CY_APPL_ORIGIN):0x1, Wrong image location)
+                0x00000010                PROVIDE (__cy_reset, Reset)
+ *(.text.Reset)
+ .text.Reset    0x00000010       0x18 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+                0x00000010                Reset
+                0x00000001                ASSERT ((. != __cy_reset), No reset code)
+ *(.dma_init)
+                0x00000001                ASSERT ((((appl_start + .) <= 0x10000) || 0x1), DMA Init must be within the first 64k of flash)
+ *(.text .text.* .gnu.linkonce.t.*)
+ .text          0x00000028       0x5c c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+ .text.main     0x00000084       0x74 .\CortexM3\ARM_GCC_493\Debug\main.o
+                0x00000084                main
+ .text.IntDefaultHandler
+                0x000000f8        0x8 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+                0x000000f8                IntDefaultHandler
+ .text.Start_c  0x00000100       0x98 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+                0x00000100                Start_c
+ .text.initialize_psoc
+                0x00000198       0x8c .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+                0x00000198                initialize_psoc
+ .text.CYMEMZERO
+                0x00000224       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text.CYCONFIGCPY
+                0x00000240       0x1c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text.CyClockStartupError
+                0x0000025c        0xc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text.cfg_write_bytes32
+                0x00000268       0x74 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text.ClockSetup
+                0x000002dc       0xec .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text.AnalogSetDefault
+                0x000003c8       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .text.cyfitter_cfg
+                0x0000040c      0x118 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+                0x0000040c                cyfitter_cfg
+ .text.USBFS_Start
+                0x00000524       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                0x00000524                USBFS_Start
+ .text.USBFS_Init
+                0x0000055c      0x178 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                0x0000055c                USBFS_Init
+ .text.USBFS_InitComponent
+                0x000006d4      0x110 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                0x000006d4                USBFS_InitComponent
+ .text.USBFS_ReInitComponent
+                0x000007e4       0x88 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                0x000007e4                USBFS_ReInitComponent
+ .text.USBFS_GetConfiguration
+                0x0000086c       0x18 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                0x0000086c                USBFS_GetConfiguration
+ .text.USBFS_LoadInEP
+                0x00000884       0xf8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                0x00000884                USBFS_LoadInEP
+ .text.USBFS_GetEPAckState
+                0x0000097c       0x40 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                0x0000097c                USBFS_GetEPAckState
+ .text.USBFS_EP_0_ISR
+                0x000009bc       0xf8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x000009bc                USBFS_EP_0_ISR
+ .text.USBFS_HandleSetup
+                0x00000ab4       0x88 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000ab4                USBFS_HandleSetup
+ .text.USBFS_HandleIN
+                0x00000b3c       0x4c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000b3c                USBFS_HandleIN
+ .text.USBFS_HandleOUT
+                0x00000b88       0x58 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000b88                USBFS_HandleOUT
+ .text.USBFS_LoadEP0
+                0x00000be0       0xd0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000be0                USBFS_LoadEP0
+ .text.USBFS_InitControlRead
+                0x00000cb0       0x70 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000cb0                USBFS_InitControlRead
+ .text.USBFS_InitZeroLengthControlTransfer
+                0x00000d20       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000d20                USBFS_InitZeroLengthControlTransfer
+ .text.USBFS_ControlReadDataStage
+                0x00000d64        0xc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000d64                USBFS_ControlReadDataStage
+ .text.USBFS_ControlReadStatusStage
+                0x00000d70       0x40 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000d70                USBFS_ControlReadStatusStage
+ .text.USBFS_InitControlWrite
+                0x00000db0       0x64 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000db0                USBFS_InitControlWrite
+ .text.USBFS_ControlWriteDataStage
+                0x00000e14       0xb4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000e14                USBFS_ControlWriteDataStage
+ .text.USBFS_ControlWriteStatusStage
+                0x00000ec8       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000ec8                USBFS_ControlWriteStatusStage
+ .text.USBFS_InitNoDataControlTransfer
+                0x00000ee8       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000ee8                USBFS_InitNoDataControlTransfer
+ .text.USBFS_NoDataControlStatusStage
+                0x00000f20       0x48 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000f20                USBFS_NoDataControlStatusStage
+ .text.USBFS_UpdateStatusBlock
+                0x00000f68       0x40 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000f68                USBFS_UpdateStatusBlock
+ .text.USBFS_InitializeStatusBlock
+                0x00000fa8       0x34 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x00000fa8                USBFS_InitializeStatusBlock
+ .text.USBFS_EP_1_ISR
+                0x00000fdc       0x54 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+                0x00000fdc                USBFS_EP_1_ISR
+ .text.USBFS_SOF_ISR
+                0x00001030        0xc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+                0x00001030                USBFS_SOF_ISR
+ .text.USBFS_BUS_RESET_ISR
+                0x0000103c        0xc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+                0x0000103c                USBFS_BUS_RESET_ISR
+ .text.USBFS_DispatchHIDClassRqst
+                0x00001048      0x1d0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+                0x00001048                USBFS_DispatchHIDClassRqst
+ .text.USBFS_FindHidClassDecriptor
+                0x00001218       0x7c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+                0x00001218                USBFS_FindHidClassDecriptor
+ .text.USBFS_FindReportDescriptor
+                0x00001294       0x90 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+                0x00001294                USBFS_FindReportDescriptor
+ .text.USBFS_FindReport
+                0x00001324       0xcc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+                0x00001324                USBFS_FindReport
+ .text.USBFS_DP_ISR
+                0x000013f0        0xc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+                0x000013f0                USBFS_DP_ISR
+ .text.USBFS_SerialNumString
+                0x000013fc       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x000013fc                USBFS_SerialNumString
+ .text.USBFS_HandleStandardRqst
+                0x00001440      0x4a0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x00001440                USBFS_HandleStandardRqst
+ .text.USBFS_ConfigReg
+                0x000018e0      0x11c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x000018e0                USBFS_ConfigReg
+ .text.USBFS_Config
+                0x000019fc      0x318 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x000019fc                USBFS_Config
+ .text.USBFS_ConfigAltChanged
+                0x00001d14      0x23c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x00001d14                USBFS_ConfigAltChanged
+ .text.USBFS_GetConfigTablePtr
+                0x00001f50       0x54 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x00001f50                USBFS_GetConfigTablePtr
+ .text.USBFS_GetDeviceTablePtr
+                0x00001fa4       0x24 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x00001fa4                USBFS_GetDeviceTablePtr
+ .text.USBFS_GetInterfaceClassTablePtr
+                0x00001fc8       0x4c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x00001fc8                USBFS_GetInterfaceClassTablePtr
+ .text.USBFS_SetEndpointHalt
+                0x00002014       0xdc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x00002014                USBFS_SetEndpointHalt
+ .text.USBFS_ClearEndpointHalt
+                0x000020f0      0x130 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x000020f0                USBFS_ClearEndpointHalt
+ .text.USBFS_ValidateAlternateSetting
+                0x00002220       0x70 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                0x00002220                USBFS_ValidateAlternateSetting
+ .text.USBFS_HandleVendorRqst
+                0x00002290       0x54 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+                0x00002290                USBFS_HandleVendorRqst
+ .text.USBFS_Dp_ClearInterrupt
+                0x000022e4       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+                0x000022e4                USBFS_Dp_ClearInterrupt
+ *fill*         0x00002304        0x4 
+ .text          0x00002308       0x58 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+                0x00002308                CyDelayCycles
+                0x00002346                CyEnterCriticalSection
+                0x0000234e                CyExitCriticalSection
+ .text.CyHalt   0x00002360       0x18 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+                0x00002360                CyHalt
+ .text.CyDelayUs
+                0x00002378       0x24 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+                0x00002378                CyDelayUs
+ .text.CyIntSetVector
+                0x0000239c       0x50 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+                0x0000239c                CyIntSetVector
+ .text.CyIntSetPriority
+                0x000023ec       0x44 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+                0x000023ec                CyIntSetPriority
+ .text.USBFS_DispatchClassRqst
+                0x00002430       0x7c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+                0x00002430                USBFS_DispatchClassRqst
+ .text.__libc_init_array
+                0x000024ac       0x4c c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
+                0x000024ac                __libc_init_array
+ .text.memcpy   0x000024f8       0x16 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy.o)
+                0x000024f8                memcpy
+ .text.memset   0x0000250e       0x10 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
+                0x0000250e                memset
+ *(.plt)
+ *(.gnu.warning)
+ *(.glue_7t)
+ .glue_7t       0x00000000        0x0 linker stubs
+ *(.glue_7)
+ .glue_7        0x00000000        0x0 linker stubs
+ *(.vfp11_veneer)
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+ *(.bootloader)
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+ *(.gcc_except_table)
+
+.v4_bx          0x00002520        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x00002520        0x0
+ .iplt          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame       0x00002520        0x4
+ *(.eh_frame)
+ .eh_frame      0x00002520        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+ .eh_frame      0x00002520        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtend.o
+                0x00002524                PROVIDE (__exidx_start, .)
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x00002524                __exidx_end = .
+
+.rodata         0x00002524      0x1e4
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata        0x00002524       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .rodata        0x00002554      0x17c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+                0x00002554                USBFS_DEVICE0_DESCR
+                0x00002568                USBFS_DEVICE0_CONFIGURATION0_DESCR
+                0x0000258c                USBFS_STRING_DESCRIPTORS
+                0x000025cc                USBFS_SN_STRING_DESCRIPTOR
+                0x000025d0                USBFS_HIDREPORT_DESCRIPTOR1
+                0x0000260c                USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE
+                0x00002618                USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE
+                0x00002640                USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE
+                0x00002648                USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+                0x00002650                USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+                0x00002654                USBFS_DEVICE0_CONFIGURATION0_TABLE
+                0x00002674                USBFS_DEVICE0_TABLE
+                0x0000268c                USBFS_TABLE
+                0x00002694                USBFS_MSOS_DESCRIPTOR
+                0x000026a8                USBFS_MSOS_CONFIGURATION_DESCR
+                0x000026d0                . = ALIGN (0x4)
+ *(.init)
+ .init          0x000026d0        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crti.o
+                0x000026d0                _init
+ .init          0x000026d4        0x8 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtn.o
+                0x000026dc                . = ALIGN (0x4)
+                0x000026dc                __preinit_array_start = .
+ *(.preinit_array)
+                0x000026dc                __preinit_array_end = .
+                0x000026dc                . = ALIGN (0x4)
+                0x000026dc                __init_array_start = .
+ *(SORT(.init_array.*))
+ *(.init_array)
+ .init_array    0x000026dc        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+ .init_array    0x000026e0        0x4 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+                0x000026e4                __init_array_end = .
+                0x000026e4                . = ALIGN (0x4)
+ *(.fini)
+ .fini          0x000026e4        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crti.o
+                0x000026e4                _fini
+ .fini          0x000026e8        0x8 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtn.o
+                0x000026f0                . = ALIGN (0x4)
+                0x000026f0                __fini_array_start = .
+ *(.fini_array)
+ .fini_array    0x000026f0        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+ *(SORT(.fini_array.*))
+                0x000026f4                __fini_array_end = .
+                0x000026f4                . = ALIGN (0x4)
+ *crtbegin.o(.ctors)
+ *(EXCLUDE_FILE(*crtend.o) .ctors)
+ *(SORT(.ctors.*))
+ *crtend.o(.ctors)
+                0x000026f4                . = ALIGN (0x4)
+ *crtbegin.o(.dtors)
+ *(EXCLUDE_FILE(*crtend.o) .dtors)
+ *(SORT(.dtors.*))
+ *crtend.o(.dtors)
+                0x000026f4                . = ALIGN (0x4)
+                0x000026f4                __cy_regions = .
+                0x000026f4        0x4 LONG 0x2708 __cy_region_init_ram
+                0x000026f8        0x4 LONG 0x1fff8108 __cy_region_start_data
+                0x000026fc        0x4 LONG 0x28 __cy_region_init_size_ram
+                0x00002700        0x4 LONG 0xe0 __cy_region_zero_size_ram
+                0x00002704                __cy_regions_end = .
+                0x00002708                . = ALIGN (0x8)
+ *fill*         0x00002704        0x4 
+                0x00002708                _etext = .
+
+.cy_checksum_exclude
+                0x00002708        0x0
+ *(.cy_checksum_exclude)
+
+.ramvectors     0x1fff8000      0x100
+                0x1fff8000                __cy_region_start_ram = .
+ *(.ramvectors)
+ .ramvectors    0x1fff8000      0x100 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+                0x1fff8000                CyRamVectors
+
+.noinit         0x1fff8100        0x5
+ *(.noinit)
+ .noinit        0x1fff8100        0x4 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .noinit        0x1fff8104        0x1 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+                0x1fff8104                CyResetStatus
+
+.data           0x1fff8108       0x28 load address 0x00002708
+                0x1fff8108                __cy_region_start_data = .
+ *(.jcr)
+ .jcr           0x1fff8108        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+ .jcr           0x1fff8108        0x4 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtend.o
+ *(.got.plt)
+ *(.got)
+ *(.shdata)
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0x1fff810c       0x10 .\CortexM3\ARM_GCC_493\Debug\main.o
+                0x1fff810c                bSNstring
+ .data          0x1fff811c       0x10 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+                0x1fff811c                cydelay_freq_hz
+                0x1fff8120                cydelay_freq_khz
+                0x1fff8124                cydelay_freq_mhz
+                0x1fff8128                cydelay_32k_ms
+                0x1fff8130                . = ALIGN (0x8)
+ *fill*         0x1fff812c        0x4 
+ *(.ram)
+                0x1fff8130                _edata = .
+
+.igot.plt       0x1fff8130        0x0 load address 0x00002730
+ .igot.plt      0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+
+.bss            0x1fff8130       0xe0 load address 0x00002730
+                0x1fff8130                PROVIDE (__bss_start__, .)
+ *(.shbss)
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0x1fff8130       0x1c c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+ .bss           0x1fff814c        0x4 .\CortexM3\ARM_GCC_493\Debug\main.o
+                0x1fff814c                mouseData
+ .bss           0x1fff8150        0x1 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                0x1fff8150                USBFS_initVar
+ *fill*         0x1fff8151        0x3 
+ .bss           0x1fff8154        0xc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ *(COMMON)
+ COMMON         0x1fff8160       0x98 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                0x1fff8160                USBFS_deviceAddress
+                0x1fff8161                USBFS_ep0Mode
+                0x1fff8164                USBFS_interfaceSetting
+                0x1fff8168                USBFS_currentTD
+                0x1fff8174                USBFS_device
+                0x1fff8175                USBFS_interfaceNumber
+                0x1fff8176                USBFS_ep0Toggle
+                0x1fff8177                USBFS_deviceStatus
+                0x1fff8178                USBFS_configurationChanged
+                0x1fff8179                USBFS_configuration
+                0x1fff817a                USBFS_transferState
+                0x1fff817c                USBFS_interfaceStatus
+                0x1fff8180                USBFS_interfaceClass
+                0x1fff8184                USBFS_EP
+                0x1fff81f0                USBFS_lastPacketSize
+                0x1fff81f1                USBFS_ep0Count
+                0x1fff81f4                USBFS_interfaceSettingLast
+                0x1fff81f6                USBFS_transferByteCount
+ COMMON         0x1fff81f8        0x9 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+                0x1fff81f8                USBFS_hidIdleRate
+                0x1fff81fc                USBFS_hidIdleTimer
+                0x1fff8200                USBFS_hidProtocol
+ *fill*         0x1fff8201        0x3 
+ COMMON         0x1fff8204        0x8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+                0x1fff8204                USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_SCB
+                0x1fff8208                USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_BUF
+                0x1fff8210                . = ALIGN (0x8)
+ *fill*         0x1fff820c        0x4 
+ *(.ram.b)
+                0x1fff8210                _end = .
+                0x1fff8210                __end = .
+                0x1fff8210                PROVIDE (end, .)
+                0x1fff8210                PROVIDE (__bss_end__, .)
+                0x00002708                __cy_region_init_ram = LOADADDR (.data)
+                0x00000028                __cy_region_init_size_ram = (_edata - ADDR (.data))
+                0x000000e0                __cy_region_zero_size_ram = (_end - _edata)
+
+.heap           0x1fff8210       0x80 load address 0x00002730
+                0x1fff8210                . = _end
+                0x1fff8290                . = (. + 0x80)
+ *fill*         0x1fff8210       0x80 
+                0x1fff8290                __cy_heap_limit = .
+
+.stack          0x20007800      0x800
+                0x20007800                __cy_stack_limit = .
+                0x20008000                . = (. + 0x800)
+ *fill*         0x20007800      0x800 
+                0x00000001                ASSERT ((__cy_stack_limit >= __cy_heap_limit), region RAM overflowed with stack)
+                0x00000000                cy_checksum_exclude_size = (CY_APPL_LOADABLE == 0x1)?SIZEOF (.cy_checksum_exclude):0x0
+                0x00000001                ASSERT ((cy_checksum_exclude_size <= CY_CHECKSUM_EXCLUDE_SIZE), CY_BOOT: Section .cy_checksum_exclude size exceedes specified limit.)
+
+.cyloadermeta
+ *(.cyloadermeta)
+
+.cyloadablemeta
+ *(.cyloadablemeta)
+
+.cyconfigecc    0x80000000       0x68
+ *(.cyconfigecc)
+ .cyconfigecc   0x80000000       0x68 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+                0x80000000                cy_meta_configecc
+
+.cycustnvl      0x90000000        0x4
+ *(.cycustnvl)
+ .cycustnvl     0x90000000        0x4 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+                0x90000000                cy_meta_custnvl
+
+.cywolatch      0x90100000        0x4
+ *(.cywolatch)
+ .cywolatch     0x90100000        0x4 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+                0x90100000                cy_meta_wonvl
+
+.cyeeprom       0x90200000        0x0
+ *(.cyeeprom)
+                0x00000001                ASSERT ((. <= ((0x90200000 + ee_offset) + ee_size)), .cyeeprom data will not fit in EEPROM)
+
+.cyflashprotect
+                0x90400000      0x100
+ *(.cyflashprotect)
+ .cyflashprotect
+                0x90400000      0x100 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+                0x90400000                cy_meta_flashprotect
+
+.cymeta         0x90500000        0xc
+ *(.cymeta)
+ .cymeta        0x90500000        0xc .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+                0x90500000                cy_metadata
+
+.rel.dyn        0x00002730        0x0 load address 0x9050000c
+ .rel.iplt      0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x8e8
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 .\CortexM3\ARM_GCC_493\Debug\main.o
+ .debug_aranges
+                0x00000020       0x18 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .debug_aranges
+                0x00000038       0x48 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .debug_aranges
+                0x00000080       0x60 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .debug_aranges
+                0x000000e0       0xc8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .debug_aranges
+                0x000001a8       0x98 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .debug_aranges
+                0x00000240       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .debug_aranges
+                0x00000270       0x48 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .debug_aranges
+                0x000002b8       0x40 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .debug_aranges
+                0x000002f8       0x80 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .debug_aranges
+                0x00000378       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .debug_aranges
+                0x00000398       0x48 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .debug_aranges
+                0x000003e0       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+ .debug_aranges
+                0x00000400      0x2a0 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .debug_aranges
+                0x000006a0       0x98 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .debug_aranges
+                0x00000738       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .debug_aranges
+                0x00000758       0x18 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .debug_aranges
+                0x00000770       0x80 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .debug_aranges
+                0x000007f0       0x80 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .debug_aranges
+                0x00000870       0x78 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x00000000     0x4cda
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000      0x131 .\CortexM3\ARM_GCC_493\Debug\main.o
+ .debug_info    0x00000131      0x13a .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .debug_info    0x0000026b      0x319 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .debug_info    0x00000584      0x393 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .debug_info    0x00000917      0x73b .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .debug_info    0x00001052      0x521 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .debug_info    0x00001573      0x20d .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .debug_info    0x00001780      0x374 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .debug_info    0x00001af4      0x186 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .debug_info    0x00001c7a      0x8f7 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .debug_info    0x00002571      0x19d .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .debug_info    0x0000270e      0x171 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .debug_info    0x0000287f       0x8a .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+ .debug_info    0x00002909      0xe6d .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .debug_info    0x00003776      0x562 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .debug_info    0x00003cd8      0x1bc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .debug_info    0x00003e94      0x3e8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .debug_info    0x0000427c      0x299 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .debug_info    0x00004515      0x36c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .debug_info    0x00004881      0x459 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+
+.debug_abbrev   0x00000000     0x16c4
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0xa8 .\CortexM3\ARM_GCC_493\Debug\main.o
+ .debug_abbrev  0x000000a8       0x5d .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .debug_abbrev  0x00000105      0x1b6 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .debug_abbrev  0x000002bb      0x19d .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .debug_abbrev  0x00000458      0x1f3 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .debug_abbrev  0x0000064b      0x161 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .debug_abbrev  0x000007ac       0xfd .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .debug_abbrev  0x000008a9      0x15e .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .debug_abbrev  0x00000a07       0xd1 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .debug_abbrev  0x00000ad8      0x1e2 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .debug_abbrev  0x00000cba       0xc5 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .debug_abbrev  0x00000d7f       0x90 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .debug_abbrev  0x00000e0f       0x14 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+ .debug_abbrev  0x00000e23      0x217 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .debug_abbrev  0x0000103a      0x161 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .debug_abbrev  0x0000119b       0xc5 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .debug_abbrev  0x00001260       0xbb .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .debug_abbrev  0x0000131b      0x11d .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .debug_abbrev  0x00001438      0x120 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .debug_abbrev  0x00001558      0x16c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+
+.debug_line     0x00000000     0x26cb
+ *(.debug_line)
+ .debug_line    0x00000000      0x17b .\CortexM3\ARM_GCC_493\Debug\main.o
+ .debug_line    0x0000017b       0x53 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .debug_line    0x000001ce      0x1d6 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .debug_line    0x000003a4      0x1eb .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .debug_line    0x0000058f      0x316 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .debug_line    0x000008a5      0x218 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .debug_line    0x00000abd       0xb2 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .debug_line    0x00000b6f      0x17a .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .debug_line    0x00000ce9       0xe4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .debug_line    0x00000dcd      0x426 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .debug_line    0x000011f3       0x8b .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .debug_line    0x0000127e       0xbe .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .debug_line    0x0000133c       0x7f .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+ .debug_line    0x000013bb      0x89f .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .debug_line    0x00001c5a      0x381 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .debug_line    0x00001fdb       0x8f .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .debug_line    0x0000206a       0x5f .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .debug_line    0x000020c9      0x1e4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .debug_line    0x000022ad      0x207 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .debug_line    0x000024b4      0x217 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+
+.debug_frame    0x00000000     0x22ec
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x30 .\CortexM3\ARM_GCC_493\Debug\main.o
+ .debug_frame   0x00000030       0xd8 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .debug_frame   0x00000108      0x16c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .debug_frame   0x00000274      0x380 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .debug_frame   0x000005f4      0x23c .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .debug_frame   0x00000830       0x74 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .debug_frame   0x000008a4      0x100 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .debug_frame   0x000009a4       0xbc .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .debug_frame   0x00000a60      0x220 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .debug_frame   0x00000c80       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .debug_frame   0x00000cb8       0xf4 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .debug_frame   0x00000dac      0xc10 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .debug_frame   0x000019bc      0x234 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .debug_frame   0x00001bf0       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .debug_frame   0x00001c28      0x200 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .debug_frame   0x00001e28      0x210 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .debug_frame   0x00002038      0x1f8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .debug_frame   0x00002230       0x20 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
+ .debug_frame   0x00002250       0x28 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-exit.o)
+ .debug_frame   0x00002278       0x2c c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
+ .debug_frame   0x000022a4       0x28 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy.o)
+ .debug_frame   0x000022cc       0x20 c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
+
+.debug_str      0x00000000     0x2379
+ *(.debug_str)
+ .debug_str     0x00000000      0x175 .\CortexM3\ARM_GCC_493\Debug\main.o
+                                0x1bb (size before relaxing)
+ .debug_str     0x00000175       0x77 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+                                0x1e4 (size before relaxing)
+ .debug_str     0x000001ec      0x13e .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+                                0x2c5 (size before relaxing)
+ .debug_str     0x0000032a      0x15e .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+                                0x2f1 (size before relaxing)
+ .debug_str     0x00000488      0x3fa .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+                                0x59d (size before relaxing)
+ .debug_str     0x00000882      0x2d6 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+                                0x59a (size before relaxing)
+ .debug_str     0x00000b58       0x58 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+                                0x283 (size before relaxing)
+ .debug_str     0x00000bb0      0x10e .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+                                0x361 (size before relaxing)
+ .debug_str     0x00000cbe       0x9e .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+                                0x247 (size before relaxing)
+ .debug_str     0x00000d5c      0x2e2 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+                                0x70d (size before relaxing)
+ .debug_str     0x0000103e       0x5b .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+                                0x257 (size before relaxing)
+ .debug_str     0x00001099       0xb2 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+                                0x22d (size before relaxing)
+ .debug_str     0x0000114b      0x815 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+                                0x9e4 (size before relaxing)
+ .debug_str     0x00001960      0x367 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+                                0x525 (size before relaxing)
+ .debug_str     0x00001cc7       0x3d .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+                                0x271 (size before relaxing)
+ .debug_str     0x00001d04      0x228 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+                                0x4d4 (size before relaxing)
+ .debug_str     0x00001f2c      0x1e5 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+                                0x369 (size before relaxing)
+ .debug_str     0x00002111      0x147 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+                                0x2e4 (size before relaxing)
+ .debug_str     0x00002258      0x121 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+                                0x2e1 (size before relaxing)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_ranges   0x00000000      0x788
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x10 .\CortexM3\ARM_GCC_493\Debug\main.o
+ .debug_ranges  0x00000010       0x38 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .debug_ranges  0x00000048       0x50 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .debug_ranges  0x00000098       0xb8 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .debug_ranges  0x00000150       0x88 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .debug_ranges  0x000001d8       0x20 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .debug_ranges  0x000001f8       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .debug_ranges  0x00000230       0x30 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .debug_ranges  0x00000260       0x70 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .debug_ranges  0x000002d0       0x10 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .debug_ranges  0x000002e0       0x38 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .debug_ranges  0x00000318      0x290 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .debug_ranges  0x000005a8       0x88 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .debug_ranges  0x00000630       0x10 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .debug_ranges  0x00000640       0x70 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .debug_ranges  0x000006b0       0x70 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .debug_ranges  0x00000720       0x68 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+
+.comment        0x00000000       0x70
+ .comment       0x00000000       0x70 .\CortexM3\ARM_GCC_493\Debug\main.o
+                                 0x71 (size before relaxing)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.note.gnu.arm.ident
+ *(.note.gnu.arm.ident)
+
+.ARM.attributes
+                0x00000000       0x29
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x00000000       0x1d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crti.o
+ .ARM.attributes
+                0x0000001d       0x2d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtbegin.o
+ .ARM.attributes
+                0x0000004a       0x1b c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m/crt0.o
+ .ARM.attributes
+                0x00000065       0x33 .\CortexM3\ARM_GCC_493\Debug\main.o
+ .ARM.attributes
+                0x00000098       0x33 .\CortexM3\ARM_GCC_493\Debug\cymetadata.o
+ .ARM.attributes
+                0x000000cb       0x33 .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o
+ .ARM.attributes
+                0x000000fe       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyfitter_cfg.o)
+ .ARM.attributes
+                0x00000131       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS.o)
+ .ARM.attributes
+                0x00000164       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_drv.o)
+ .ARM.attributes
+                0x00000197       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_episr.o)
+ .ARM.attributes
+                0x000001ca       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_hid.o)
+ .ARM.attributes
+                0x000001fd       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_pm.o)
+ .ARM.attributes
+                0x00000230       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_std.o)
+ .ARM.attributes
+                0x00000263       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_vnd.o)
+ .ARM.attributes
+                0x00000296       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_Dp.o)
+ .ARM.attributes
+                0x000002c9       0x21 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyBootAsmGnu.o)
+ .ARM.attributes
+                0x000002ea       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyLib.o)
+ .ARM.attributes
+                0x0000031d       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(cyPm.o)
+ .ARM.attributes
+                0x00000350       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_cls.o)
+ .ARM.attributes
+                0x00000383       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(USBFS_descr.o)
+ .ARM.attributes
+                0x000003b6       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyScBoostClk.o)
+ .ARM.attributes
+                0x000003e9       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CyFlash.o)
+ .ARM.attributes
+                0x0000041c       0x33 .\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.a(CySpc.o)
+ .ARM.attributes
+                0x0000044f       0x2d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-errno.o)
+ .ARM.attributes
+                0x0000047c       0x2d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-exit.o)
+ .ARM.attributes
+                0x000004a9       0x2d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-impure.o)
+ .ARM.attributes
+                0x000004d6       0x2d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-init.o)
+ .ARM.attributes
+                0x00000503       0x2d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memcpy.o)
+ .ARM.attributes
+                0x00000530       0x2d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7-m\libg_nano.a(lib_a-memset.o)
+ .ARM.attributes
+                0x0000055d       0x2d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtend.o
+ .ARM.attributes
+                0x0000058a       0x1d c:/program files (x86)/cypress/psoc creator/3.3/psoc creator/import/gnu/arm/4.9.3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7-m/crtn.o
+
+/DISCARD/
+ *(.note.GNU-stack)
+OUTPUT(.\CortexM3\ARM_GCC_493\Debug\USBFS_HID01.elf elf32-littlearm)

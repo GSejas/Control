@@ -1,0 +1,1283 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"main.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.startup.main,"ax",%progbits
+  19              		.align	1
+  20              		.global	main
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	main, %function
+  24              	main:
+  25              	.LFB63:
+  26              		.file 1 ".\\main.c"
+   1:.\main.c      **** ///*******************************************************************************
+   2:.\main.c      **** //* File: main.c
+   3:.\main.c      **** //
+   4:.\main.c      **** 
+   5:.\main.c      **** #include <device.h>
+   6:.\main.c      **** #include "stdio.h"
+   7:.\main.c      **** 
+   8:.\main.c      **** #define MAX_SAMPLE                  8
+   9:.\main.c      **** 
+  10:.\main.c      **** int main(void)
+  11:.\main.c      **** {
+  27              		.loc 1 11 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 16
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 30B5     		push	{r4, r5, lr}
+  33              		.cfi_def_cfa_offset 12
+  34              		.cfi_offset 4, -12
+  35              		.cfi_offset 5, -8
+  36              		.cfi_offset 14, -4
+  37 0002 85B0     		sub	sp, sp, #20
+  38              		.cfi_def_cfa_offset 32
+  12:.\main.c      ****     /* Variable to hold ADC count */
+  13:.\main.c      ****     int32 voltCount = 0;
+  14:.\main.c      ****     
+  15:.\main.c      ****     /* Variable to hold the result in millivolts converted from ADC counts */
+  16:.\main.c      **** 
+  17:.\main.c      ****     /* Variable to count number of samples collected from ADC */
+  18:.\main.c      ****     uint8 sampleCount = 0;
+  19:.\main.c      **** 	
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 2
+
+
+  20:.\main.c      ****     /* Variable to hold cumulative samples */
+  21:.\main.c      ****     int32 voltSamples = 0;
+  22:.\main.c      **** 	
+  23:.\main.c      ****     /* Variable to hold the average volts for 8 samples */
+  24:.\main.c      ****     uint32 averageVolts = 0;
+  25:.\main.c      **** 	
+  26:.\main.c      ****     /* Character array to hold the micro volts*/
+  27:.\main.c      ****     char displayStr[15] = {'\0'};
+  39              		.loc 1 27 0
+  40 0004 6846     		mov	r0, sp
+  41 0006 0021     		movs	r1, #0
+  42 0008 0F22     		movs	r2, #15
+  43 000a FFF7FEFF 		bl	memset
+  44              	.LVL1:
+  28:.\main.c      ****     
+  29:.\main.c      ****     CYGlobalIntEnable;
+  45              		.loc 1 29 0
+  46              	@ 29 ".\main.c" 1
+  47 000e 62B6     		CPSIE   i
+  48              	@ 0 "" 2
+  30:.\main.c      ****     VDAC8_1_Start();
+  49              		.loc 1 30 0
+  50              		.thumb
+  51 0010 FFF7FEFF 		bl	VDAC8_1_Start
+  52              	.LVL2:
+  31:.\main.c      ****     /* Start ADC and start conversion */
+  32:.\main.c      ****     ADC_Start();
+  53              		.loc 1 32 0
+  54 0014 FFF7FEFF 		bl	ADC_Start
+  55              	.LVL3:
+  33:.\main.c      ****     ADC_StartConvert();
+  56              		.loc 1 33 0
+  57 0018 FFF7FEFF 		bl	ADC_StartConvert
+  58              	.LVL4:
+  34:.\main.c      **** 
+  35:.\main.c      ****     /* Start LCD and set position */
+  36:.\main.c      ****     LCD_Start();
+  59              		.loc 1 36 0
+  60 001c FFF7FEFF 		bl	LCD_Start
+  61              	.LVL5:
+  37:.\main.c      ****     LCD_Position(0,1);
+  62              		.loc 1 37 0
+  63 0020 0020     		movs	r0, #0
+  64 0022 0121     		movs	r1, #1
+  65 0024 FFF7FEFF 		bl	LCD_Position
+  66              	.LVL6:
+  38:.\main.c      ****     LCD_PrintString("ADC input volt");
+  67              		.loc 1 38 0
+  68 0028 0E48     		ldr	r0, .L7
+  69              	.LVL7:
+  70              	.L5:
+  71 002a FFF7FEFF 		bl	LCD_PrintString
+  72              	.LVL8:
+  11:.\main.c      ****     /* Variable to hold ADC count */
+  73              		.loc 1 11 0
+  74 002e 0824     		movs	r4, #8
+  75 0030 0025     		movs	r5, #0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 3
+
+
+  76              	.LVL9:
+  77              	.L2:
+  39:.\main.c      ****     
+  40:.\main.c      ****     while(1)
+  41:.\main.c      ****     {
+  42:.\main.c      ****         /* Read ADC count and convert to milli volts */
+  43:.\main.c      ****         ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+  78              		.loc 1 43 0
+  79 0032 0020     		movs	r0, #0
+  80 0034 FFF7FEFF 		bl	ADC_IsEndConversion
+  81              	.LVL10:
+  44:.\main.c      ****         voltCount = ADC_GetResult16();
+  82              		.loc 1 44 0
+  83 0038 FFF7FEFF 		bl	ADC_GetResult16
+  84              	.LVL11:
+  85 003c 013C     		subs	r4, r4, #1
+  86              	.LVL12:
+  45:.\main.c      **** //        mVolts = ADC_CountsTo_mVolts(voltCount);
+  46:.\main.c      **** //        
+  47:.\main.c      ****         /* Add the current ADC reading to the cumulated samples*/
+  48:.\main.c      ****         voltSamples = voltSamples + voltCount;
+  49:.\main.c      **** 
+  50:.\main.c      ****         sampleCount++;
+  51:.\main.c      **** 
+  52:.\main.c      ****         /* If 8 samples have been collected then average the samples and update the display*/
+  53:.\main.c      ****         if(sampleCount == MAX_SAMPLE)
+  87              		.loc 1 53 0
+  88 003e 14F0FF04 		ands	r4, r4, #255
+  48:.\main.c      **** 
+  89              		.loc 1 48 0
+  90 0042 0544     		add	r5, r5, r0
+  91              	.LVL13:
+  92              		.loc 1 53 0
+  93 0044 F5D1     		bne	.L2
+  54:.\main.c      ****         {
+  55:.\main.c      ****             averageVolts = voltSamples >> 3;
+  94              		.loc 1 55 0
+  95 0046 ED10     		asrs	r5, r5, #3
+  96              	.LVL14:
+  56:.\main.c      ****             voltSamples = 0;
+  57:.\main.c      ****             sampleCount = 0;
+  58:.\main.c      ****             sprintf(displayStr,"    %4ld mV",averageVolts);
+  97              		.loc 1 58 0
+  98 0048 0749     		ldr	r1, .L7+4
+  99 004a 2A46     		mov	r2, r5
+ 100 004c 6846     		mov	r0, sp
+ 101              	.LVL15:
+ 102 004e FFF7FEFF 		bl	sprintf
+ 103              	.LVL16:
+  59:.\main.c      ****             VDAC8_1_SetValue(averageVolts);
+ 104              		.loc 1 59 0
+ 105 0052 E8B2     		uxtb	r0, r5
+ 106 0054 FFF7FEFF 		bl	VDAC8_1_SetValue
+ 107              	.LVL17:
+  60:.\main.c      ****             LCD_Position(1,0);
+ 108              		.loc 1 60 0
+ 109 0058 0120     		movs	r0, #1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 4
+
+
+ 110 005a 2146     		mov	r1, r4
+ 111 005c FFF7FEFF 		bl	LCD_Position
+ 112              	.LVL18:
+  61:.\main.c      ****             LCD_PrintString(displayStr);
+ 113              		.loc 1 61 0
+ 114 0060 6846     		mov	r0, sp
+ 115 0062 E2E7     		b	.L5
+ 116              	.L8:
+ 117              		.align	2
+ 118              	.L7:
+ 119 0064 00000000 		.word	.LC0
+ 120 0068 0F000000 		.word	.LC1
+ 121              		.cfi_endproc
+ 122              	.LFE63:
+ 123              		.size	main, .-main
+ 124              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 125              	.LC0:
+ 126 0000 41444320 		.ascii	"ADC input volt\000"
+ 126      696E7075 
+ 126      7420766F 
+ 126      6C7400
+ 127              	.LC1:
+ 128 000f 20202020 		.ascii	"    %4ld mV\000"
+ 128      25346C64 
+ 128      206D5600 
+ 129              		.text
+ 130              	.Letext0:
+ 131              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 132              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 133              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 134              		.file 5 "Generated_Source\\PSoC5/VDAC8_1.h"
+ 135              		.file 6 "Generated_Source\\PSoC5/ADC.h"
+ 136              		.file 7 "Generated_Source\\PSoC5/LCD.h"
+ 137              		.file 8 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 138              		.file 9 "Generated_Source\\PSoC5/core_cm3.h"
+ 139              		.section	.debug_info,"",%progbits
+ 140              	.Ldebug_info0:
+ 141 0000 EC020000 		.4byte	0x2ec
+ 142 0004 0400     		.2byte	0x4
+ 143 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 144 000a 04       		.byte	0x4
+ 145 000b 01       		.uleb128 0x1
+ 146 000c E3010000 		.4byte	.LASF34
+ 147 0010 01       		.byte	0x1
+ 148 0011 3B000000 		.4byte	.LASF35
+ 149 0015 3B010000 		.4byte	.LASF36
+ 150 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 151 001d 00000000 		.4byte	0
+ 152 0021 00000000 		.4byte	.Ldebug_line0
+ 153 0025 02       		.uleb128 0x2
+ 154 0026 01       		.byte	0x1
+ 155 0027 06       		.byte	0x6
+ 156 0028 7A020000 		.4byte	.LASF0
+ 157 002c 02       		.uleb128 0x2
+ 158 002d 01       		.byte	0x1
+ 159 002e 08       		.byte	0x8
+ 160 002f 5A000000 		.4byte	.LASF1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 5
+
+
+ 161 0033 02       		.uleb128 0x2
+ 162 0034 02       		.byte	0x2
+ 163 0035 05       		.byte	0x5
+ 164 0036 D9010000 		.4byte	.LASF2
+ 165 003a 02       		.uleb128 0x2
+ 166 003b 02       		.byte	0x2
+ 167 003c 07       		.byte	0x7
+ 168 003d 21000000 		.4byte	.LASF3
+ 169 0041 03       		.uleb128 0x3
+ 170 0042 0A000000 		.4byte	.LASF9
+ 171 0046 02       		.byte	0x2
+ 172 0047 3F       		.byte	0x3f
+ 173 0048 4C000000 		.4byte	0x4c
+ 174 004c 02       		.uleb128 0x2
+ 175 004d 04       		.byte	0x4
+ 176 004e 05       		.byte	0x5
+ 177 004f 71020000 		.4byte	.LASF4
+ 178 0053 02       		.uleb128 0x2
+ 179 0054 04       		.byte	0x4
+ 180 0055 07       		.byte	0x7
+ 181 0056 E9000000 		.4byte	.LASF5
+ 182 005a 02       		.uleb128 0x2
+ 183 005b 08       		.byte	0x8
+ 184 005c 05       		.byte	0x5
+ 185 005d BB010000 		.4byte	.LASF6
+ 186 0061 02       		.uleb128 0x2
+ 187 0062 08       		.byte	0x8
+ 188 0063 07       		.byte	0x7
+ 189 0064 24010000 		.4byte	.LASF7
+ 190 0068 04       		.uleb128 0x4
+ 191 0069 04       		.byte	0x4
+ 192 006a 05       		.byte	0x5
+ 193 006b 696E7400 		.ascii	"int\000"
+ 194 006f 02       		.uleb128 0x2
+ 195 0070 04       		.byte	0x4
+ 196 0071 07       		.byte	0x7
+ 197 0072 17010000 		.4byte	.LASF8
+ 198 0076 03       		.uleb128 0x3
+ 199 0077 AA010000 		.4byte	.LASF10
+ 200 007b 03       		.byte	0x3
+ 201 007c 2C       		.byte	0x2c
+ 202 007d 41000000 		.4byte	0x41
+ 203 0081 05       		.uleb128 0x5
+ 204 0082 54000000 		.4byte	.LASF11
+ 205 0086 04       		.byte	0x4
+ 206 0087 3801     		.2byte	0x138
+ 207 0089 2C000000 		.4byte	0x2c
+ 208 008d 05       		.uleb128 0x5
+ 209 008e 10010000 		.4byte	.LASF12
+ 210 0092 04       		.byte	0x4
+ 211 0093 3A01     		.2byte	0x13a
+ 212 0095 53000000 		.4byte	0x53
+ 213 0099 05       		.uleb128 0x5
+ 214 009a 8B000000 		.4byte	.LASF13
+ 215 009e 04       		.byte	0x4
+ 216 009f 3C01     		.2byte	0x13c
+ 217 00a1 33000000 		.4byte	0x33
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 6
+
+
+ 218 00a5 05       		.uleb128 0x5
+ 219 00a6 A5000000 		.4byte	.LASF14
+ 220 00aa 04       		.byte	0x4
+ 221 00ab 3D01     		.2byte	0x13d
+ 222 00ad 4C000000 		.4byte	0x4c
+ 223 00b1 02       		.uleb128 0x2
+ 224 00b2 04       		.byte	0x4
+ 225 00b3 04       		.byte	0x4
+ 226 00b4 44000000 		.4byte	.LASF15
+ 227 00b8 02       		.uleb128 0x2
+ 228 00b9 08       		.byte	0x8
+ 229 00ba 04       		.byte	0x4
+ 230 00bb 34000000 		.4byte	.LASF16
+ 231 00bf 05       		.uleb128 0x5
+ 232 00c0 85000000 		.4byte	.LASF17
+ 233 00c4 04       		.byte	0x4
+ 234 00c5 4901     		.2byte	0x149
+ 235 00c7 CB000000 		.4byte	0xcb
+ 236 00cb 02       		.uleb128 0x2
+ 237 00cc 01       		.byte	0x1
+ 238 00cd 08       		.byte	0x8
+ 239 00ce C9010000 		.4byte	.LASF18
+ 240 00d2 02       		.uleb128 0x2
+ 241 00d3 04       		.byte	0x4
+ 242 00d4 07       		.byte	0x7
+ 243 00d5 B2010000 		.4byte	.LASF19
+ 244 00d9 06       		.uleb128 0x6
+ 245 00da 04       		.byte	0x4
+ 246 00db 07       		.uleb128 0x7
+ 247 00dc 04       		.byte	0x4
+ 248 00dd CB000000 		.4byte	0xcb
+ 249 00e1 07       		.uleb128 0x7
+ 250 00e2 04       		.byte	0x4
+ 251 00e3 E7000000 		.4byte	0xe7
+ 252 00e7 08       		.uleb128 0x8
+ 253 00e8 CB000000 		.4byte	0xcb
+ 254 00ec 09       		.uleb128 0x9
+ 255 00ed FB000000 		.4byte	.LASF37
+ 256 00f1 01       		.byte	0x1
+ 257 00f2 0A       		.byte	0xa
+ 258 00f3 68000000 		.4byte	0x68
+ 259 00f7 00000000 		.4byte	.LFB63
+ 260 00fb 6C000000 		.4byte	.LFE63-.LFB63
+ 261 00ff 01       		.uleb128 0x1
+ 262 0100 9C       		.byte	0x9c
+ 263 0101 1B020000 		.4byte	0x21b
+ 264 0105 0A       		.uleb128 0xa
+ 265 0106 00000000 		.4byte	.LASF20
+ 266 010a 01       		.byte	0x1
+ 267 010b 0D       		.byte	0xd
+ 268 010c A5000000 		.4byte	0xa5
+ 269 0110 00000000 		.4byte	.LLST0
+ 270 0114 0A       		.uleb128 0xa
+ 271 0115 68000000 		.4byte	.LASF21
+ 272 0119 01       		.byte	0x1
+ 273 011a 12       		.byte	0x12
+ 274 011b 81000000 		.4byte	0x81
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 7
+
+
+ 275 011f 25000000 		.4byte	.LLST1
+ 276 0123 0A       		.uleb128 0xa
+ 277 0124 C9000000 		.4byte	.LASF22
+ 278 0128 01       		.byte	0x1
+ 279 0129 15       		.byte	0x15
+ 280 012a A5000000 		.4byte	0xa5
+ 281 012e 54000000 		.4byte	.LLST2
+ 282 0132 0A       		.uleb128 0xa
+ 283 0133 14000000 		.4byte	.LASF23
+ 284 0137 01       		.byte	0x1
+ 285 0138 18       		.byte	0x18
+ 286 0139 8D000000 		.4byte	0x8d
+ 287 013d 7F000000 		.4byte	.LLST3
+ 288 0141 0B       		.uleb128 0xb
+ 289 0142 CE010000 		.4byte	.LASF24
+ 290 0146 01       		.byte	0x1
+ 291 0147 1B       		.byte	0x1b
+ 292 0148 1B020000 		.4byte	0x21b
+ 293 014c 02       		.uleb128 0x2
+ 294 014d 91       		.byte	0x91
+ 295 014e 60       		.sleb128 -32
+ 296 014f 0C       		.uleb128 0xc
+ 297 0150 0E000000 		.4byte	.LVL1
+ 298 0154 3C020000 		.4byte	0x23c
+ 299 0158 6D010000 		.4byte	0x16d
+ 300 015c 0D       		.uleb128 0xd
+ 301 015d 01       		.uleb128 0x1
+ 302 015e 52       		.byte	0x52
+ 303 015f 01       		.uleb128 0x1
+ 304 0160 3F       		.byte	0x3f
+ 305 0161 0D       		.uleb128 0xd
+ 306 0162 01       		.uleb128 0x1
+ 307 0163 51       		.byte	0x51
+ 308 0164 01       		.uleb128 0x1
+ 309 0165 30       		.byte	0x30
+ 310 0166 0D       		.uleb128 0xd
+ 311 0167 01       		.uleb128 0x1
+ 312 0168 50       		.byte	0x50
+ 313 0169 02       		.uleb128 0x2
+ 314 016a 7D       		.byte	0x7d
+ 315 016b 00       		.sleb128 0
+ 316 016c 00       		.byte	0
+ 317 016d 0E       		.uleb128 0xe
+ 318 016e 14000000 		.4byte	.LVL2
+ 319 0172 59020000 		.4byte	0x259
+ 320 0176 0E       		.uleb128 0xe
+ 321 0177 18000000 		.4byte	.LVL3
+ 322 017b 60020000 		.4byte	0x260
+ 323 017f 0E       		.uleb128 0xe
+ 324 0180 1C000000 		.4byte	.LVL4
+ 325 0184 67020000 		.4byte	0x267
+ 326 0188 0E       		.uleb128 0xe
+ 327 0189 20000000 		.4byte	.LVL5
+ 328 018d 6E020000 		.4byte	0x26e
+ 329 0191 0C       		.uleb128 0xc
+ 330 0192 28000000 		.4byte	.LVL6
+ 331 0196 75020000 		.4byte	0x275
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 8
+
+
+ 332 019a A9010000 		.4byte	0x1a9
+ 333 019e 0D       		.uleb128 0xd
+ 334 019f 01       		.uleb128 0x1
+ 335 01a0 51       		.byte	0x51
+ 336 01a1 01       		.uleb128 0x1
+ 337 01a2 31       		.byte	0x31
+ 338 01a3 0D       		.uleb128 0xd
+ 339 01a4 01       		.uleb128 0x1
+ 340 01a5 50       		.byte	0x50
+ 341 01a6 01       		.uleb128 0x1
+ 342 01a7 30       		.byte	0x30
+ 343 01a8 00       		.byte	0
+ 344 01a9 0E       		.uleb128 0xe
+ 345 01aa 2E000000 		.4byte	.LVL8
+ 346 01ae 8B020000 		.4byte	0x28b
+ 347 01b2 0C       		.uleb128 0xc
+ 348 01b3 38000000 		.4byte	.LVL10
+ 349 01b7 A7020000 		.4byte	0x2a7
+ 350 01bb C5010000 		.4byte	0x1c5
+ 351 01bf 0D       		.uleb128 0xd
+ 352 01c0 01       		.uleb128 0x1
+ 353 01c1 50       		.byte	0x50
+ 354 01c2 01       		.uleb128 0x1
+ 355 01c3 30       		.byte	0x30
+ 356 01c4 00       		.byte	0
+ 357 01c5 0E       		.uleb128 0xe
+ 358 01c6 3C000000 		.4byte	.LVL11
+ 359 01ca BC020000 		.4byte	0x2bc
+ 360 01ce 0C       		.uleb128 0xc
+ 361 01cf 52000000 		.4byte	.LVL16
+ 362 01d3 C7020000 		.4byte	0x2c7
+ 363 01d7 F1010000 		.4byte	0x1f1
+ 364 01db 0D       		.uleb128 0xd
+ 365 01dc 01       		.uleb128 0x1
+ 366 01dd 52       		.byte	0x52
+ 367 01de 02       		.uleb128 0x2
+ 368 01df 75       		.byte	0x75
+ 369 01e0 00       		.sleb128 0
+ 370 01e1 0D       		.uleb128 0xd
+ 371 01e2 01       		.uleb128 0x1
+ 372 01e3 51       		.byte	0x51
+ 373 01e4 05       		.uleb128 0x5
+ 374 01e5 03       		.byte	0x3
+ 375 01e6 0F000000 		.4byte	.LC1
+ 376 01ea 0D       		.uleb128 0xd
+ 377 01eb 01       		.uleb128 0x1
+ 378 01ec 50       		.byte	0x50
+ 379 01ed 02       		.uleb128 0x2
+ 380 01ee 7D       		.byte	0x7d
+ 381 01ef 00       		.sleb128 0
+ 382 01f0 00       		.byte	0
+ 383 01f1 0C       		.uleb128 0xc
+ 384 01f2 58000000 		.4byte	.LVL17
+ 385 01f6 E2020000 		.4byte	0x2e2
+ 386 01fa 05020000 		.4byte	0x205
+ 387 01fe 0D       		.uleb128 0xd
+ 388 01ff 01       		.uleb128 0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 9
+
+
+ 389 0200 50       		.byte	0x50
+ 390 0201 02       		.uleb128 0x2
+ 391 0202 75       		.byte	0x75
+ 392 0203 00       		.sleb128 0
+ 393 0204 00       		.byte	0
+ 394 0205 0F       		.uleb128 0xf
+ 395 0206 60000000 		.4byte	.LVL18
+ 396 020a 75020000 		.4byte	0x275
+ 397 020e 0D       		.uleb128 0xd
+ 398 020f 01       		.uleb128 0x1
+ 399 0210 51       		.byte	0x51
+ 400 0211 02       		.uleb128 0x2
+ 401 0212 74       		.byte	0x74
+ 402 0213 00       		.sleb128 0
+ 403 0214 0D       		.uleb128 0xd
+ 404 0215 01       		.uleb128 0x1
+ 405 0216 50       		.byte	0x50
+ 406 0217 01       		.uleb128 0x1
+ 407 0218 31       		.byte	0x31
+ 408 0219 00       		.byte	0
+ 409 021a 00       		.byte	0
+ 410 021b 10       		.uleb128 0x10
+ 411 021c CB000000 		.4byte	0xcb
+ 412 0220 2B020000 		.4byte	0x22b
+ 413 0224 11       		.uleb128 0x11
+ 414 0225 D2000000 		.4byte	0xd2
+ 415 0229 0E       		.byte	0xe
+ 416 022a 00       		.byte	0
+ 417 022b 12       		.uleb128 0x12
+ 418 022c D5000000 		.4byte	.LASF38
+ 419 0230 09       		.byte	0x9
+ 420 0231 5506     		.2byte	0x655
+ 421 0233 37020000 		.4byte	0x237
+ 422 0237 13       		.uleb128 0x13
+ 423 0238 76000000 		.4byte	0x76
+ 424 023c 14       		.uleb128 0x14
+ 425 023d E2000000 		.4byte	.LASF29
+ 426 0241 D9000000 		.4byte	0xd9
+ 427 0245 59020000 		.4byte	0x259
+ 428 0249 15       		.uleb128 0x15
+ 429 024a D9000000 		.4byte	0xd9
+ 430 024e 15       		.uleb128 0x15
+ 431 024f 68000000 		.4byte	0x68
+ 432 0253 15       		.uleb128 0x15
+ 433 0254 D2000000 		.4byte	0xd2
+ 434 0258 00       		.byte	0
+ 435 0259 16       		.uleb128 0x16
+ 436 025a AB000000 		.4byte	.LASF25
+ 437 025e 05       		.byte	0x5
+ 438 025f 33       		.byte	0x33
+ 439 0260 16       		.uleb128 0x16
+ 440 0261 A0010000 		.4byte	.LASF26
+ 441 0265 06       		.byte	0x6
+ 442 0266 34       		.byte	0x34
+ 443 0267 16       		.uleb128 0x16
+ 444 0268 74000000 		.4byte	.LASF27
+ 445 026c 06       		.byte	0x6
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 10
+
+
+ 446 026d D1       		.byte	0xd1
+ 447 026e 16       		.uleb128 0x16
+ 448 026f 4A000000 		.4byte	.LASF28
+ 449 0273 07       		.byte	0x7
+ 450 0274 38       		.byte	0x38
+ 451 0275 17       		.uleb128 0x17
+ 452 0276 82010000 		.4byte	.LASF30
+ 453 027a 07       		.byte	0x7
+ 454 027b 3D       		.byte	0x3d
+ 455 027c 8B020000 		.4byte	0x28b
+ 456 0280 15       		.uleb128 0x15
+ 457 0281 81000000 		.4byte	0x81
+ 458 0285 15       		.uleb128 0x15
+ 459 0286 81000000 		.4byte	0x81
+ 460 028a 00       		.byte	0
+ 461 028b 17       		.uleb128 0x17
+ 462 028c 00010000 		.4byte	.LASF31
+ 463 0290 07       		.byte	0x7
+ 464 0291 3C       		.byte	0x3c
+ 465 0292 9C020000 		.4byte	0x29c
+ 466 0296 15       		.uleb128 0x15
+ 467 0297 9C020000 		.4byte	0x29c
+ 468 029b 00       		.byte	0
+ 469 029c 07       		.uleb128 0x7
+ 470 029d 04       		.byte	0x4
+ 471 029e A2020000 		.4byte	0x2a2
+ 472 02a2 08       		.uleb128 0x8
+ 473 02a3 BF000000 		.4byte	0xbf
+ 474 02a7 18       		.uleb128 0x18
+ 475 02a8 91000000 		.4byte	.LASF32
+ 476 02ac 06       		.byte	0x6
+ 477 02ad 39       		.byte	0x39
+ 478 02ae 81000000 		.4byte	0x81
+ 479 02b2 BC020000 		.4byte	0x2bc
+ 480 02b6 15       		.uleb128 0x15
+ 481 02b7 81000000 		.4byte	0x81
+ 482 02bb 00       		.byte	0
+ 483 02bc 19       		.uleb128 0x19
+ 484 02bd B9000000 		.4byte	.LASF39
+ 485 02c1 06       		.byte	0x6
+ 486 02c2 3B       		.byte	0x3b
+ 487 02c3 99000000 		.4byte	0x99
+ 488 02c7 18       		.uleb128 0x18
+ 489 02c8 86020000 		.4byte	.LASF33
+ 490 02cc 08       		.byte	0x8
+ 491 02cd DE       		.byte	0xde
+ 492 02ce 68000000 		.4byte	0x68
+ 493 02d2 E2020000 		.4byte	0x2e2
+ 494 02d6 15       		.uleb128 0x15
+ 495 02d7 DB000000 		.4byte	0xdb
+ 496 02db 15       		.uleb128 0x15
+ 497 02dc E1000000 		.4byte	0xe1
+ 498 02e0 1A       		.uleb128 0x1a
+ 499 02e1 00       		.byte	0
+ 500 02e2 1B       		.uleb128 0x1b
+ 501 02e3 8F010000 		.4byte	.LASF40
+ 502 02e7 05       		.byte	0x5
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 11
+
+
+ 503 02e8 37       		.byte	0x37
+ 504 02e9 15       		.uleb128 0x15
+ 505 02ea 81000000 		.4byte	0x81
+ 506 02ee 00       		.byte	0
+ 507 02ef 00       		.byte	0
+ 508              		.section	.debug_abbrev,"",%progbits
+ 509              	.Ldebug_abbrev0:
+ 510 0000 01       		.uleb128 0x1
+ 511 0001 11       		.uleb128 0x11
+ 512 0002 01       		.byte	0x1
+ 513 0003 25       		.uleb128 0x25
+ 514 0004 0E       		.uleb128 0xe
+ 515 0005 13       		.uleb128 0x13
+ 516 0006 0B       		.uleb128 0xb
+ 517 0007 03       		.uleb128 0x3
+ 518 0008 0E       		.uleb128 0xe
+ 519 0009 1B       		.uleb128 0x1b
+ 520 000a 0E       		.uleb128 0xe
+ 521 000b 55       		.uleb128 0x55
+ 522 000c 17       		.uleb128 0x17
+ 523 000d 11       		.uleb128 0x11
+ 524 000e 01       		.uleb128 0x1
+ 525 000f 10       		.uleb128 0x10
+ 526 0010 17       		.uleb128 0x17
+ 527 0011 00       		.byte	0
+ 528 0012 00       		.byte	0
+ 529 0013 02       		.uleb128 0x2
+ 530 0014 24       		.uleb128 0x24
+ 531 0015 00       		.byte	0
+ 532 0016 0B       		.uleb128 0xb
+ 533 0017 0B       		.uleb128 0xb
+ 534 0018 3E       		.uleb128 0x3e
+ 535 0019 0B       		.uleb128 0xb
+ 536 001a 03       		.uleb128 0x3
+ 537 001b 0E       		.uleb128 0xe
+ 538 001c 00       		.byte	0
+ 539 001d 00       		.byte	0
+ 540 001e 03       		.uleb128 0x3
+ 541 001f 16       		.uleb128 0x16
+ 542 0020 00       		.byte	0
+ 543 0021 03       		.uleb128 0x3
+ 544 0022 0E       		.uleb128 0xe
+ 545 0023 3A       		.uleb128 0x3a
+ 546 0024 0B       		.uleb128 0xb
+ 547 0025 3B       		.uleb128 0x3b
+ 548 0026 0B       		.uleb128 0xb
+ 549 0027 49       		.uleb128 0x49
+ 550 0028 13       		.uleb128 0x13
+ 551 0029 00       		.byte	0
+ 552 002a 00       		.byte	0
+ 553 002b 04       		.uleb128 0x4
+ 554 002c 24       		.uleb128 0x24
+ 555 002d 00       		.byte	0
+ 556 002e 0B       		.uleb128 0xb
+ 557 002f 0B       		.uleb128 0xb
+ 558 0030 3E       		.uleb128 0x3e
+ 559 0031 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 12
+
+
+ 560 0032 03       		.uleb128 0x3
+ 561 0033 08       		.uleb128 0x8
+ 562 0034 00       		.byte	0
+ 563 0035 00       		.byte	0
+ 564 0036 05       		.uleb128 0x5
+ 565 0037 16       		.uleb128 0x16
+ 566 0038 00       		.byte	0
+ 567 0039 03       		.uleb128 0x3
+ 568 003a 0E       		.uleb128 0xe
+ 569 003b 3A       		.uleb128 0x3a
+ 570 003c 0B       		.uleb128 0xb
+ 571 003d 3B       		.uleb128 0x3b
+ 572 003e 05       		.uleb128 0x5
+ 573 003f 49       		.uleb128 0x49
+ 574 0040 13       		.uleb128 0x13
+ 575 0041 00       		.byte	0
+ 576 0042 00       		.byte	0
+ 577 0043 06       		.uleb128 0x6
+ 578 0044 0F       		.uleb128 0xf
+ 579 0045 00       		.byte	0
+ 580 0046 0B       		.uleb128 0xb
+ 581 0047 0B       		.uleb128 0xb
+ 582 0048 00       		.byte	0
+ 583 0049 00       		.byte	0
+ 584 004a 07       		.uleb128 0x7
+ 585 004b 0F       		.uleb128 0xf
+ 586 004c 00       		.byte	0
+ 587 004d 0B       		.uleb128 0xb
+ 588 004e 0B       		.uleb128 0xb
+ 589 004f 49       		.uleb128 0x49
+ 590 0050 13       		.uleb128 0x13
+ 591 0051 00       		.byte	0
+ 592 0052 00       		.byte	0
+ 593 0053 08       		.uleb128 0x8
+ 594 0054 26       		.uleb128 0x26
+ 595 0055 00       		.byte	0
+ 596 0056 49       		.uleb128 0x49
+ 597 0057 13       		.uleb128 0x13
+ 598 0058 00       		.byte	0
+ 599 0059 00       		.byte	0
+ 600 005a 09       		.uleb128 0x9
+ 601 005b 2E       		.uleb128 0x2e
+ 602 005c 01       		.byte	0x1
+ 603 005d 3F       		.uleb128 0x3f
+ 604 005e 19       		.uleb128 0x19
+ 605 005f 03       		.uleb128 0x3
+ 606 0060 0E       		.uleb128 0xe
+ 607 0061 3A       		.uleb128 0x3a
+ 608 0062 0B       		.uleb128 0xb
+ 609 0063 3B       		.uleb128 0x3b
+ 610 0064 0B       		.uleb128 0xb
+ 611 0065 27       		.uleb128 0x27
+ 612 0066 19       		.uleb128 0x19
+ 613 0067 49       		.uleb128 0x49
+ 614 0068 13       		.uleb128 0x13
+ 615 0069 11       		.uleb128 0x11
+ 616 006a 01       		.uleb128 0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 13
+
+
+ 617 006b 12       		.uleb128 0x12
+ 618 006c 06       		.uleb128 0x6
+ 619 006d 40       		.uleb128 0x40
+ 620 006e 18       		.uleb128 0x18
+ 621 006f 9742     		.uleb128 0x2117
+ 622 0071 19       		.uleb128 0x19
+ 623 0072 01       		.uleb128 0x1
+ 624 0073 13       		.uleb128 0x13
+ 625 0074 00       		.byte	0
+ 626 0075 00       		.byte	0
+ 627 0076 0A       		.uleb128 0xa
+ 628 0077 34       		.uleb128 0x34
+ 629 0078 00       		.byte	0
+ 630 0079 03       		.uleb128 0x3
+ 631 007a 0E       		.uleb128 0xe
+ 632 007b 3A       		.uleb128 0x3a
+ 633 007c 0B       		.uleb128 0xb
+ 634 007d 3B       		.uleb128 0x3b
+ 635 007e 0B       		.uleb128 0xb
+ 636 007f 49       		.uleb128 0x49
+ 637 0080 13       		.uleb128 0x13
+ 638 0081 02       		.uleb128 0x2
+ 639 0082 17       		.uleb128 0x17
+ 640 0083 00       		.byte	0
+ 641 0084 00       		.byte	0
+ 642 0085 0B       		.uleb128 0xb
+ 643 0086 34       		.uleb128 0x34
+ 644 0087 00       		.byte	0
+ 645 0088 03       		.uleb128 0x3
+ 646 0089 0E       		.uleb128 0xe
+ 647 008a 3A       		.uleb128 0x3a
+ 648 008b 0B       		.uleb128 0xb
+ 649 008c 3B       		.uleb128 0x3b
+ 650 008d 0B       		.uleb128 0xb
+ 651 008e 49       		.uleb128 0x49
+ 652 008f 13       		.uleb128 0x13
+ 653 0090 02       		.uleb128 0x2
+ 654 0091 18       		.uleb128 0x18
+ 655 0092 00       		.byte	0
+ 656 0093 00       		.byte	0
+ 657 0094 0C       		.uleb128 0xc
+ 658 0095 898201   		.uleb128 0x4109
+ 659 0098 01       		.byte	0x1
+ 660 0099 11       		.uleb128 0x11
+ 661 009a 01       		.uleb128 0x1
+ 662 009b 31       		.uleb128 0x31
+ 663 009c 13       		.uleb128 0x13
+ 664 009d 01       		.uleb128 0x1
+ 665 009e 13       		.uleb128 0x13
+ 666 009f 00       		.byte	0
+ 667 00a0 00       		.byte	0
+ 668 00a1 0D       		.uleb128 0xd
+ 669 00a2 8A8201   		.uleb128 0x410a
+ 670 00a5 00       		.byte	0
+ 671 00a6 02       		.uleb128 0x2
+ 672 00a7 18       		.uleb128 0x18
+ 673 00a8 9142     		.uleb128 0x2111
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 14
+
+
+ 674 00aa 18       		.uleb128 0x18
+ 675 00ab 00       		.byte	0
+ 676 00ac 00       		.byte	0
+ 677 00ad 0E       		.uleb128 0xe
+ 678 00ae 898201   		.uleb128 0x4109
+ 679 00b1 00       		.byte	0
+ 680 00b2 11       		.uleb128 0x11
+ 681 00b3 01       		.uleb128 0x1
+ 682 00b4 31       		.uleb128 0x31
+ 683 00b5 13       		.uleb128 0x13
+ 684 00b6 00       		.byte	0
+ 685 00b7 00       		.byte	0
+ 686 00b8 0F       		.uleb128 0xf
+ 687 00b9 898201   		.uleb128 0x4109
+ 688 00bc 01       		.byte	0x1
+ 689 00bd 11       		.uleb128 0x11
+ 690 00be 01       		.uleb128 0x1
+ 691 00bf 31       		.uleb128 0x31
+ 692 00c0 13       		.uleb128 0x13
+ 693 00c1 00       		.byte	0
+ 694 00c2 00       		.byte	0
+ 695 00c3 10       		.uleb128 0x10
+ 696 00c4 01       		.uleb128 0x1
+ 697 00c5 01       		.byte	0x1
+ 698 00c6 49       		.uleb128 0x49
+ 699 00c7 13       		.uleb128 0x13
+ 700 00c8 01       		.uleb128 0x1
+ 701 00c9 13       		.uleb128 0x13
+ 702 00ca 00       		.byte	0
+ 703 00cb 00       		.byte	0
+ 704 00cc 11       		.uleb128 0x11
+ 705 00cd 21       		.uleb128 0x21
+ 706 00ce 00       		.byte	0
+ 707 00cf 49       		.uleb128 0x49
+ 708 00d0 13       		.uleb128 0x13
+ 709 00d1 2F       		.uleb128 0x2f
+ 710 00d2 0B       		.uleb128 0xb
+ 711 00d3 00       		.byte	0
+ 712 00d4 00       		.byte	0
+ 713 00d5 12       		.uleb128 0x12
+ 714 00d6 34       		.uleb128 0x34
+ 715 00d7 00       		.byte	0
+ 716 00d8 03       		.uleb128 0x3
+ 717 00d9 0E       		.uleb128 0xe
+ 718 00da 3A       		.uleb128 0x3a
+ 719 00db 0B       		.uleb128 0xb
+ 720 00dc 3B       		.uleb128 0x3b
+ 721 00dd 05       		.uleb128 0x5
+ 722 00de 49       		.uleb128 0x49
+ 723 00df 13       		.uleb128 0x13
+ 724 00e0 3F       		.uleb128 0x3f
+ 725 00e1 19       		.uleb128 0x19
+ 726 00e2 3C       		.uleb128 0x3c
+ 727 00e3 19       		.uleb128 0x19
+ 728 00e4 00       		.byte	0
+ 729 00e5 00       		.byte	0
+ 730 00e6 13       		.uleb128 0x13
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 15
+
+
+ 731 00e7 35       		.uleb128 0x35
+ 732 00e8 00       		.byte	0
+ 733 00e9 49       		.uleb128 0x49
+ 734 00ea 13       		.uleb128 0x13
+ 735 00eb 00       		.byte	0
+ 736 00ec 00       		.byte	0
+ 737 00ed 14       		.uleb128 0x14
+ 738 00ee 2E       		.uleb128 0x2e
+ 739 00ef 01       		.byte	0x1
+ 740 00f0 3F       		.uleb128 0x3f
+ 741 00f1 19       		.uleb128 0x19
+ 742 00f2 03       		.uleb128 0x3
+ 743 00f3 0E       		.uleb128 0xe
+ 744 00f4 27       		.uleb128 0x27
+ 745 00f5 19       		.uleb128 0x19
+ 746 00f6 49       		.uleb128 0x49
+ 747 00f7 13       		.uleb128 0x13
+ 748 00f8 34       		.uleb128 0x34
+ 749 00f9 19       		.uleb128 0x19
+ 750 00fa 3C       		.uleb128 0x3c
+ 751 00fb 19       		.uleb128 0x19
+ 752 00fc 01       		.uleb128 0x1
+ 753 00fd 13       		.uleb128 0x13
+ 754 00fe 00       		.byte	0
+ 755 00ff 00       		.byte	0
+ 756 0100 15       		.uleb128 0x15
+ 757 0101 05       		.uleb128 0x5
+ 758 0102 00       		.byte	0
+ 759 0103 49       		.uleb128 0x49
+ 760 0104 13       		.uleb128 0x13
+ 761 0105 00       		.byte	0
+ 762 0106 00       		.byte	0
+ 763 0107 16       		.uleb128 0x16
+ 764 0108 2E       		.uleb128 0x2e
+ 765 0109 00       		.byte	0
+ 766 010a 3F       		.uleb128 0x3f
+ 767 010b 19       		.uleb128 0x19
+ 768 010c 03       		.uleb128 0x3
+ 769 010d 0E       		.uleb128 0xe
+ 770 010e 3A       		.uleb128 0x3a
+ 771 010f 0B       		.uleb128 0xb
+ 772 0110 3B       		.uleb128 0x3b
+ 773 0111 0B       		.uleb128 0xb
+ 774 0112 27       		.uleb128 0x27
+ 775 0113 19       		.uleb128 0x19
+ 776 0114 3C       		.uleb128 0x3c
+ 777 0115 19       		.uleb128 0x19
+ 778 0116 00       		.byte	0
+ 779 0117 00       		.byte	0
+ 780 0118 17       		.uleb128 0x17
+ 781 0119 2E       		.uleb128 0x2e
+ 782 011a 01       		.byte	0x1
+ 783 011b 3F       		.uleb128 0x3f
+ 784 011c 19       		.uleb128 0x19
+ 785 011d 03       		.uleb128 0x3
+ 786 011e 0E       		.uleb128 0xe
+ 787 011f 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 16
+
+
+ 788 0120 0B       		.uleb128 0xb
+ 789 0121 3B       		.uleb128 0x3b
+ 790 0122 0B       		.uleb128 0xb
+ 791 0123 27       		.uleb128 0x27
+ 792 0124 19       		.uleb128 0x19
+ 793 0125 3C       		.uleb128 0x3c
+ 794 0126 19       		.uleb128 0x19
+ 795 0127 01       		.uleb128 0x1
+ 796 0128 13       		.uleb128 0x13
+ 797 0129 00       		.byte	0
+ 798 012a 00       		.byte	0
+ 799 012b 18       		.uleb128 0x18
+ 800 012c 2E       		.uleb128 0x2e
+ 801 012d 01       		.byte	0x1
+ 802 012e 3F       		.uleb128 0x3f
+ 803 012f 19       		.uleb128 0x19
+ 804 0130 03       		.uleb128 0x3
+ 805 0131 0E       		.uleb128 0xe
+ 806 0132 3A       		.uleb128 0x3a
+ 807 0133 0B       		.uleb128 0xb
+ 808 0134 3B       		.uleb128 0x3b
+ 809 0135 0B       		.uleb128 0xb
+ 810 0136 27       		.uleb128 0x27
+ 811 0137 19       		.uleb128 0x19
+ 812 0138 49       		.uleb128 0x49
+ 813 0139 13       		.uleb128 0x13
+ 814 013a 3C       		.uleb128 0x3c
+ 815 013b 19       		.uleb128 0x19
+ 816 013c 01       		.uleb128 0x1
+ 817 013d 13       		.uleb128 0x13
+ 818 013e 00       		.byte	0
+ 819 013f 00       		.byte	0
+ 820 0140 19       		.uleb128 0x19
+ 821 0141 2E       		.uleb128 0x2e
+ 822 0142 00       		.byte	0
+ 823 0143 3F       		.uleb128 0x3f
+ 824 0144 19       		.uleb128 0x19
+ 825 0145 03       		.uleb128 0x3
+ 826 0146 0E       		.uleb128 0xe
+ 827 0147 3A       		.uleb128 0x3a
+ 828 0148 0B       		.uleb128 0xb
+ 829 0149 3B       		.uleb128 0x3b
+ 830 014a 0B       		.uleb128 0xb
+ 831 014b 27       		.uleb128 0x27
+ 832 014c 19       		.uleb128 0x19
+ 833 014d 49       		.uleb128 0x49
+ 834 014e 13       		.uleb128 0x13
+ 835 014f 3C       		.uleb128 0x3c
+ 836 0150 19       		.uleb128 0x19
+ 837 0151 00       		.byte	0
+ 838 0152 00       		.byte	0
+ 839 0153 1A       		.uleb128 0x1a
+ 840 0154 18       		.uleb128 0x18
+ 841 0155 00       		.byte	0
+ 842 0156 00       		.byte	0
+ 843 0157 00       		.byte	0
+ 844 0158 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 17
+
+
+ 845 0159 2E       		.uleb128 0x2e
+ 846 015a 01       		.byte	0x1
+ 847 015b 3F       		.uleb128 0x3f
+ 848 015c 19       		.uleb128 0x19
+ 849 015d 03       		.uleb128 0x3
+ 850 015e 0E       		.uleb128 0xe
+ 851 015f 3A       		.uleb128 0x3a
+ 852 0160 0B       		.uleb128 0xb
+ 853 0161 3B       		.uleb128 0x3b
+ 854 0162 0B       		.uleb128 0xb
+ 855 0163 27       		.uleb128 0x27
+ 856 0164 19       		.uleb128 0x19
+ 857 0165 3C       		.uleb128 0x3c
+ 858 0166 19       		.uleb128 0x19
+ 859 0167 00       		.byte	0
+ 860 0168 00       		.byte	0
+ 861 0169 00       		.byte	0
+ 862              		.section	.debug_loc,"",%progbits
+ 863              	.Ldebug_loc0:
+ 864              	.LLST0:
+ 865 0000 00000000 		.4byte	.LVL0
+ 866 0004 2A000000 		.4byte	.LVL7
+ 867 0008 0200     		.2byte	0x2
+ 868 000a 30       		.byte	0x30
+ 869 000b 9F       		.byte	0x9f
+ 870 000c 3C000000 		.4byte	.LVL11
+ 871 0010 4E000000 		.4byte	.LVL15
+ 872 0014 0700     		.2byte	0x7
+ 873 0016 70       		.byte	0x70
+ 874 0017 00       		.sleb128 0
+ 875 0018 40       		.byte	0x40
+ 876 0019 24       		.byte	0x24
+ 877 001a 40       		.byte	0x40
+ 878 001b 26       		.byte	0x26
+ 879 001c 9F       		.byte	0x9f
+ 880 001d 00000000 		.4byte	0
+ 881 0021 00000000 		.4byte	0
+ 882              	.LLST1:
+ 883 0025 00000000 		.4byte	.LVL0
+ 884 0029 32000000 		.4byte	.LVL9
+ 885 002d 0200     		.2byte	0x2
+ 886 002f 30       		.byte	0x30
+ 887 0030 9F       		.byte	0x9f
+ 888 0031 32000000 		.4byte	.LVL9
+ 889 0035 3E000000 		.4byte	.LVL12
+ 890 0039 0500     		.2byte	0x5
+ 891 003b 38       		.byte	0x38
+ 892 003c 74       		.byte	0x74
+ 893 003d 00       		.sleb128 0
+ 894 003e 1C       		.byte	0x1c
+ 895 003f 9F       		.byte	0x9f
+ 896 0040 48000000 		.4byte	.LVL14
+ 897 0044 6C000000 		.4byte	.LFE63
+ 898 0048 0200     		.2byte	0x2
+ 899 004a 30       		.byte	0x30
+ 900 004b 9F       		.byte	0x9f
+ 901 004c 00000000 		.4byte	0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 18
+
+
+ 902 0050 00000000 		.4byte	0
+ 903              	.LLST2:
+ 904 0054 00000000 		.4byte	.LVL0
+ 905 0058 32000000 		.4byte	.LVL9
+ 906 005c 0200     		.2byte	0x2
+ 907 005e 30       		.byte	0x30
+ 908 005f 9F       		.byte	0x9f
+ 909 0060 32000000 		.4byte	.LVL9
+ 910 0064 48000000 		.4byte	.LVL14
+ 911 0068 0100     		.2byte	0x1
+ 912 006a 55       		.byte	0x55
+ 913 006b 48000000 		.4byte	.LVL14
+ 914 006f 6C000000 		.4byte	.LFE63
+ 915 0073 0200     		.2byte	0x2
+ 916 0075 30       		.byte	0x30
+ 917 0076 9F       		.byte	0x9f
+ 918 0077 00000000 		.4byte	0
+ 919 007b 00000000 		.4byte	0
+ 920              	.LLST3:
+ 921 007f 00000000 		.4byte	.LVL0
+ 922 0083 2A000000 		.4byte	.LVL7
+ 923 0087 0200     		.2byte	0x2
+ 924 0089 30       		.byte	0x30
+ 925 008a 9F       		.byte	0x9f
+ 926 008b 48000000 		.4byte	.LVL14
+ 927 008f 6C000000 		.4byte	.LFE63
+ 928 0093 0100     		.2byte	0x1
+ 929 0095 55       		.byte	0x55
+ 930 0096 00000000 		.4byte	0
+ 931 009a 00000000 		.4byte	0
+ 932              		.section	.debug_aranges,"",%progbits
+ 933 0000 1C000000 		.4byte	0x1c
+ 934 0004 0200     		.2byte	0x2
+ 935 0006 00000000 		.4byte	.Ldebug_info0
+ 936 000a 04       		.byte	0x4
+ 937 000b 00       		.byte	0
+ 938 000c 0000     		.2byte	0
+ 939 000e 0000     		.2byte	0
+ 940 0010 00000000 		.4byte	.LFB63
+ 941 0014 6C000000 		.4byte	.LFE63-.LFB63
+ 942 0018 00000000 		.4byte	0
+ 943 001c 00000000 		.4byte	0
+ 944              		.section	.debug_ranges,"",%progbits
+ 945              	.Ldebug_ranges0:
+ 946 0000 00000000 		.4byte	.LFB63
+ 947 0004 6C000000 		.4byte	.LFE63
+ 948 0008 00000000 		.4byte	0
+ 949 000c 00000000 		.4byte	0
+ 950              		.section	.debug_line,"",%progbits
+ 951              	.Ldebug_line0:
+ 952 0000 A3010000 		.section	.debug_str,"MS",%progbits,1
+ 952      02007301 
+ 952      00000201 
+ 952      FB0E0D00 
+ 952      01010101 
+ 953              	.LASF20:
+ 954 0000 766F6C74 		.ascii	"voltCount\000"
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 19
+
+
+ 954      436F756E 
+ 954      7400
+ 955              	.LASF9:
+ 956 000a 5F5F696E 		.ascii	"__int32_t\000"
+ 956      7433325F 
+ 956      7400
+ 957              	.LASF23:
+ 958 0014 61766572 		.ascii	"averageVolts\000"
+ 958      61676556 
+ 958      6F6C7473 
+ 958      00
+ 959              	.LASF3:
+ 960 0021 73686F72 		.ascii	"short unsigned int\000"
+ 960      7420756E 
+ 960      7369676E 
+ 960      65642069 
+ 960      6E7400
+ 961              	.LASF16:
+ 962 0034 646F7562 		.ascii	"double\000"
+ 962      6C6500
+ 963              	.LASF35:
+ 964 003b 2E5C6D61 		.ascii	".\\main.c\000"
+ 964      696E2E63 
+ 964      00
+ 965              	.LASF15:
+ 966 0044 666C6F61 		.ascii	"float\000"
+ 966      7400
+ 967              	.LASF28:
+ 968 004a 4C43445F 		.ascii	"LCD_Start\000"
+ 968      53746172 
+ 968      7400
+ 969              	.LASF11:
+ 970 0054 75696E74 		.ascii	"uint8\000"
+ 970      3800
+ 971              	.LASF1:
+ 972 005a 756E7369 		.ascii	"unsigned char\000"
+ 972      676E6564 
+ 972      20636861 
+ 972      7200
+ 973              	.LASF21:
+ 974 0068 73616D70 		.ascii	"sampleCount\000"
+ 974      6C65436F 
+ 974      756E7400 
+ 975              	.LASF27:
+ 976 0074 4144435F 		.ascii	"ADC_StartConvert\000"
+ 976      53746172 
+ 976      74436F6E 
+ 976      76657274 
+ 976      00
+ 977              	.LASF17:
+ 978 0085 63686172 		.ascii	"char8\000"
+ 978      3800
+ 979              	.LASF13:
+ 980 008b 696E7431 		.ascii	"int16\000"
+ 980      3600
+ 981              	.LASF32:
+ 982 0091 4144435F 		.ascii	"ADC_IsEndConversion\000"
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 20
+
+
+ 982      4973456E 
+ 982      64436F6E 
+ 982      76657273 
+ 982      696F6E00 
+ 983              	.LASF14:
+ 984 00a5 696E7433 		.ascii	"int32\000"
+ 984      3200
+ 985              	.LASF25:
+ 986 00ab 56444143 		.ascii	"VDAC8_1_Start\000"
+ 986      385F315F 
+ 986      53746172 
+ 986      7400
+ 987              	.LASF39:
+ 988 00b9 4144435F 		.ascii	"ADC_GetResult16\000"
+ 988      47657452 
+ 988      6573756C 
+ 988      74313600 
+ 989              	.LASF22:
+ 990 00c9 766F6C74 		.ascii	"voltSamples\000"
+ 990      53616D70 
+ 990      6C657300 
+ 991              	.LASF38:
+ 992 00d5 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 992      52784275 
+ 992      66666572 
+ 992      00
+ 993              	.LASF29:
+ 994 00e2 6D656D73 		.ascii	"memset\000"
+ 994      657400
+ 995              	.LASF5:
+ 996 00e9 6C6F6E67 		.ascii	"long unsigned int\000"
+ 996      20756E73 
+ 996      69676E65 
+ 996      6420696E 
+ 996      7400
+ 997              	.LASF37:
+ 998 00fb 6D61696E 		.ascii	"main\000"
+ 998      00
+ 999              	.LASF31:
+ 1000 0100 4C43445F 		.ascii	"LCD_PrintString\000"
+ 1000      5072696E 
+ 1000      74537472 
+ 1000      696E6700 
+ 1001              	.LASF12:
+ 1002 0110 75696E74 		.ascii	"uint32\000"
+ 1002      333200
+ 1003              	.LASF8:
+ 1004 0117 756E7369 		.ascii	"unsigned int\000"
+ 1004      676E6564 
+ 1004      20696E74 
+ 1004      00
+ 1005              	.LASF7:
+ 1006 0124 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1006      206C6F6E 
+ 1006      6720756E 
+ 1006      7369676E 
+ 1006      65642069 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 21
+
+
+ 1007              	.LASF36:
+ 1008 013b 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\voltageDisplay_SAR_AD"
+ 1008      6F63756D 
+ 1008      656E746F 
+ 1008      735C5053 
+ 1008      6F432043 
+ 1009 016b 435C5644 		.ascii	"C\\VDAC8(SAR-POT).cydsn\000"
+ 1009      41433828 
+ 1009      5341522D 
+ 1009      504F5429 
+ 1009      2E637964 
+ 1010              	.LASF30:
+ 1011 0182 4C43445F 		.ascii	"LCD_Position\000"
+ 1011      506F7369 
+ 1011      74696F6E 
+ 1011      00
+ 1012              	.LASF40:
+ 1013 018f 56444143 		.ascii	"VDAC8_1_SetValue\000"
+ 1013      385F315F 
+ 1013      53657456 
+ 1013      616C7565 
+ 1013      00
+ 1014              	.LASF26:
+ 1015 01a0 4144435F 		.ascii	"ADC_Start\000"
+ 1015      53746172 
+ 1015      7400
+ 1016              	.LASF10:
+ 1017 01aa 696E7433 		.ascii	"int32_t\000"
+ 1017      325F7400 
+ 1018              	.LASF19:
+ 1019 01b2 73697A65 		.ascii	"sizetype\000"
+ 1019      74797065 
+ 1019      00
+ 1020              	.LASF6:
+ 1021 01bb 6C6F6E67 		.ascii	"long long int\000"
+ 1021      206C6F6E 
+ 1021      6720696E 
+ 1021      7400
+ 1022              	.LASF18:
+ 1023 01c9 63686172 		.ascii	"char\000"
+ 1023      00
+ 1024              	.LASF24:
+ 1025 01ce 64697370 		.ascii	"displayStr\000"
+ 1025      6C617953 
+ 1025      747200
+ 1026              	.LASF2:
+ 1027 01d9 73686F72 		.ascii	"short int\000"
+ 1027      7420696E 
+ 1027      7400
+ 1028              	.LASF34:
+ 1029 01e3 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1029      4320342E 
+ 1029      392E3320 
+ 1029      32303135 
+ 1029      30333033 
+ 1030 0216 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 1030      20726576 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\cc5u1hPd.s 			page 22
+
+
+ 1030      6973696F 
+ 1030      6E203232 
+ 1030      31323230 
+ 1031 0249 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1031      66756E63 
+ 1031      74696F6E 
+ 1031      2D736563 
+ 1031      74696F6E 
+ 1032              	.LASF4:
+ 1033 0271 6C6F6E67 		.ascii	"long int\000"
+ 1033      20696E74 
+ 1033      00
+ 1034              	.LASF0:
+ 1035 027a 7369676E 		.ascii	"signed char\000"
+ 1035      65642063 
+ 1035      68617200 
+ 1036              	.LASF33:
+ 1037 0286 73707269 		.ascii	"sprintf\000"
+ 1037      6E746600 
+ 1038              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

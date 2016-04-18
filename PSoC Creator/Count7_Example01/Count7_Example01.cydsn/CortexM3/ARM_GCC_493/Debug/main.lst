@@ -1,0 +1,647 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"main.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.rodata
+  19              		.align	2
+  20              	.LC0:
+  21 0000 53544154 		.ascii	"STATUS = 0x\000"
+  21      5553203D 
+  21      20307800 
+  22              		.align	2
+  23              	.LC1:
+  24 000c 434F554E 		.ascii	"COUNT =  0x\000"
+  24      54203D20 
+  24      20307800 
+  25              		.section	.text.main,"ax",%progbits
+  26              		.align	2
+  27              		.global	main
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	main, %function
+  31              	main:
+  32              	.LFB63:
+  33              		.file 1 ".\\main.c"
+   1:.\main.c      **** /*******************************************************************************
+   2:.\main.c      **** * File Name: main.c
+   3:.\main.c      **** *
+   4:.\main.c      **** * Version: 1.0
+   5:.\main.c      **** *
+   6:.\main.c      **** * Description:
+   7:.\main.c      **** *  This is the source code for the datasheet example of the Count7 component.
+   8:.\main.c      **** *
+   9:.\main.c      **** * Note:
+  10:.\main.c      **** *
+  11:.\main.c      **** ********************************************************************************
+  12:.\main.c      **** * Copyright 2013-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\main.c      **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\main.c      **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\main.c      **** * the software package with which this file was provided.
+  16:.\main.c      **** *******************************************************************************/
+  17:.\main.c      **** #include <project.h>
+  18:.\main.c      **** 
+  19:.\main.c      **** #define LCD_REFRESH_PERIOD      100u
+  20:.\main.c      **** 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 2
+
+
+  21:.\main.c      **** /*******************************************************************************
+  22:.\main.c      **** * Function Name: main
+  23:.\main.c      **** ********************************************************************************
+  24:.\main.c      **** *
+  25:.\main.c      **** * Summary:
+  26:.\main.c      **** *  The main function performs the following tasks:
+  27:.\main.c      **** *   1. Starts all the components
+  28:.\main.c      **** *   2. Prints out the count value onto the LCD with a user defined refresh rate
+  29:.\main.c      **** *
+  30:.\main.c      **** * Parameters:
+  31:.\main.c      **** *  None
+  32:.\main.c      **** *
+  33:.\main.c      **** * Return:
+  34:.\main.c      **** *  None
+  35:.\main.c      **** *
+  36:.\main.c      **** * Reentrant:
+  37:.\main.c      **** *  No
+  38:.\main.c      **** *
+  39:.\main.c      **** *******************************************************************************/
+  40:.\main.c      **** int main()
+  41:.\main.c      **** {
+  34              		.loc 1 41 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 8
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 82B0     		sub	sp, sp, #8
+  43              		.cfi_def_cfa_offset 16
+  44 0004 00AF     		add	r7, sp, #0
+  45              		.cfi_def_cfa_register 7
+  42:.\main.c      ****     /* Initialize the display refresh rate */
+  43:.\main.c      ****     uint8 refreshRate = LCD_REFRESH_PERIOD - 1u;
+  46              		.loc 1 43 0
+  47 0006 6323     		movs	r3, #99
+  48 0008 FB71     		strb	r3, [r7, #7]
+  44:.\main.c      ****     uint8 count;
+  45:.\main.c      ****     uint8 status;
+  46:.\main.c      ****     
+  47:.\main.c      ****     /* Start components */
+  48:.\main.c      ****     LCD_Start();
+  49              		.loc 1 48 0
+  50 000a FFF7FEFF 		bl	LCD_Start
+  49:.\main.c      ****     Count7_Start();
+  51              		.loc 1 49 0
+  52 000e FFF7FEFF 		bl	Count7_Start
+  50:.\main.c      ****     
+  51:.\main.c      ****     LCD_PrintString("STATUS = 0x");
+  53              		.loc 1 51 0
+  54 0012 1948     		ldr	r0, .L5
+  55 0014 FFF7FEFF 		bl	LCD_PrintString
+  52:.\main.c      ****     LCD_Position(1u,0u);
+  56              		.loc 1 52 0
+  57 0018 0120     		movs	r0, #1
+  58 001a 0021     		movs	r1, #0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 3
+
+
+  59 001c FFF7FEFF 		bl	LCD_Position
+  53:.\main.c      ****     LCD_PrintString("COUNT =  0x");
+  60              		.loc 1 53 0
+  61 0020 1648     		ldr	r0, .L5+4
+  62 0022 FFF7FEFF 		bl	LCD_PrintString
+  63              	.L4:
+  54:.\main.c      ****     
+  55:.\main.c      ****     for(;;)
+  56:.\main.c      ****     {
+  57:.\main.c      ****         if(0u != refreshRate)
+  64              		.loc 1 57 0
+  65 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  66 0028 002B     		cmp	r3, #0
+  67 002a 03D0     		beq	.L2
+  58:.\main.c      ****         {
+  59:.\main.c      ****             refreshRate--;
+  68              		.loc 1 59 0
+  69 002c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  70 002e 013B     		subs	r3, r3, #1
+  71 0030 FB71     		strb	r3, [r7, #7]
+  72 0032 1DE0     		b	.L3
+  73              	.L2:
+  60:.\main.c      ****         }
+  61:.\main.c      ****         else
+  62:.\main.c      ****         {
+  63:.\main.c      ****             /* Update count value on LCD */
+  64:.\main.c      ****             refreshRate = LCD_REFRESH_PERIOD - 1u;
+  74              		.loc 1 64 0
+  75 0034 6323     		movs	r3, #99
+  76 0036 FB71     		strb	r3, [r7, #7]
+  65:.\main.c      ****             
+  66:.\main.c      ****             /* Stop Count7 prior reading count value */
+  67:.\main.c      ****             Count7_Stop();
+  77              		.loc 1 67 0
+  78 0038 FFF7FEFF 		bl	Count7_Stop
+  68:.\main.c      ****             count = Count7_ReadCounter();
+  79              		.loc 1 68 0
+  80 003c FFF7FEFF 		bl	Count7_ReadCounter
+  81 0040 0346     		mov	r3, r0
+  82 0042 BB71     		strb	r3, [r7, #6]
+  69:.\main.c      ****             status = Status_Read();
+  83              		.loc 1 69 0
+  84 0044 FFF7FEFF 		bl	Status_Read
+  85 0048 0346     		mov	r3, r0
+  86 004a 7B71     		strb	r3, [r7, #5]
+  70:.\main.c      ****             Count7_Enable();
+  87              		.loc 1 70 0
+  88 004c FFF7FEFF 		bl	Count7_Enable
+  71:.\main.c      ****             
+  72:.\main.c      ****             /* Print out status register value */ 
+  73:.\main.c      ****             LCD_Position(0u, 11u);
+  89              		.loc 1 73 0
+  90 0050 0020     		movs	r0, #0
+  91 0052 0B21     		movs	r1, #11
+  92 0054 FFF7FEFF 		bl	LCD_Position
+  74:.\main.c      ****             LCD_PrintInt8(status);
+  93              		.loc 1 74 0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 4
+
+
+  94 0058 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+  95 005a 1846     		mov	r0, r3
+  96 005c FFF7FEFF 		bl	LCD_PrintInt8
+  75:.\main.c      ****             
+  76:.\main.c      ****             /* Print out count value */ 
+  77:.\main.c      ****             LCD_Position(1u, 11u);
+  97              		.loc 1 77 0
+  98 0060 0120     		movs	r0, #1
+  99 0062 0B21     		movs	r1, #11
+ 100 0064 FFF7FEFF 		bl	LCD_Position
+  78:.\main.c      ****             LCD_PrintInt8(count);
+ 101              		.loc 1 78 0
+ 102 0068 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 103 006a 1846     		mov	r0, r3
+ 104 006c FFF7FEFF 		bl	LCD_PrintInt8
+ 105              	.L3:
+  79:.\main.c      ****         }
+  80:.\main.c      ****         CyDelay(1u);
+ 106              		.loc 1 80 0
+ 107 0070 0120     		movs	r0, #1
+ 108 0072 FFF7FEFF 		bl	CyDelay
+  81:.\main.c      ****     }
+ 109              		.loc 1 81 0
+ 110 0076 D6E7     		b	.L4
+ 111              	.L6:
+ 112              		.align	2
+ 113              	.L5:
+ 114 0078 00000000 		.word	.LC0
+ 115 007c 0C000000 		.word	.LC1
+ 116              		.cfi_endproc
+ 117              	.LFE63:
+ 118              		.size	main, .-main
+ 119              		.text
+ 120              	.Letext0:
+ 121              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 122              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 123              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 124              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 125              		.section	.debug_info,"",%progbits
+ 126              	.Ldebug_info0:
+ 127 0000 FB000000 		.4byte	0xfb
+ 128 0004 0400     		.2byte	0x4
+ 129 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 130 000a 04       		.byte	0x4
+ 131 000b 01       		.uleb128 0x1
+ 132 000c DA000000 		.4byte	.LASF19
+ 133 0010 01       		.byte	0x1
+ 134 0011 68010000 		.4byte	.LASF20
+ 135 0015 2E000000 		.4byte	.LASF21
+ 136 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 137 001d 00000000 		.4byte	0
+ 138 0021 00000000 		.4byte	.Ldebug_line0
+ 139 0025 02       		.uleb128 0x2
+ 140 0026 01       		.byte	0x1
+ 141 0027 06       		.byte	0x6
+ 142 0028 85010000 		.4byte	.LASF0
+ 143 002c 02       		.uleb128 0x2
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 5
+
+
+ 144 002d 01       		.byte	0x1
+ 145 002e 08       		.byte	0x8
+ 146 002f B8000000 		.4byte	.LASF1
+ 147 0033 02       		.uleb128 0x2
+ 148 0034 02       		.byte	0x2
+ 149 0035 05       		.byte	0x5
+ 150 0036 A1010000 		.4byte	.LASF2
+ 151 003a 02       		.uleb128 0x2
+ 152 003b 02       		.byte	0x2
+ 153 003c 07       		.byte	0x7
+ 154 003d 0E000000 		.4byte	.LASF3
+ 155 0041 03       		.uleb128 0x3
+ 156 0042 91010000 		.4byte	.LASF9
+ 157 0046 02       		.byte	0x2
+ 158 0047 3F       		.byte	0x3f
+ 159 0048 4C000000 		.4byte	0x4c
+ 160 004c 02       		.uleb128 0x2
+ 161 004d 04       		.byte	0x4
+ 162 004e 05       		.byte	0x5
+ 163 004f D1000000 		.4byte	.LASF4
+ 164 0053 02       		.uleb128 0x2
+ 165 0054 04       		.byte	0x4
+ 166 0055 07       		.byte	0x7
+ 167 0056 8F000000 		.4byte	.LASF5
+ 168 005a 02       		.uleb128 0x2
+ 169 005b 08       		.byte	0x8
+ 170 005c 05       		.byte	0x5
+ 171 005d 00000000 		.4byte	.LASF6
+ 172 0061 02       		.uleb128 0x2
+ 173 0062 08       		.byte	0x8
+ 174 0063 07       		.byte	0x7
+ 175 0064 A1000000 		.4byte	.LASF7
+ 176 0068 04       		.uleb128 0x4
+ 177 0069 04       		.byte	0x4
+ 178 006a 05       		.byte	0x5
+ 179 006b 696E7400 		.ascii	"int\000"
+ 180 006f 02       		.uleb128 0x2
+ 181 0070 04       		.byte	0x4
+ 182 0071 07       		.byte	0x7
+ 183 0072 21000000 		.4byte	.LASF8
+ 184 0076 03       		.uleb128 0x3
+ 185 0077 AB010000 		.4byte	.LASF10
+ 186 007b 03       		.byte	0x3
+ 187 007c 2C       		.byte	0x2c
+ 188 007d 41000000 		.4byte	0x41
+ 189 0081 05       		.uleb128 0x5
+ 190 0082 89000000 		.4byte	.LASF11
+ 191 0086 04       		.byte	0x4
+ 192 0087 3801     		.2byte	0x138
+ 193 0089 2C000000 		.4byte	0x2c
+ 194 008d 02       		.uleb128 0x2
+ 195 008e 04       		.byte	0x4
+ 196 008f 04       		.byte	0x4
+ 197 0090 9B010000 		.4byte	.LASF12
+ 198 0094 02       		.uleb128 0x2
+ 199 0095 08       		.byte	0x8
+ 200 0096 04       		.byte	0x4
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 6
+
+
+ 201 0097 71010000 		.4byte	.LASF13
+ 202 009b 02       		.uleb128 0x2
+ 203 009c 01       		.byte	0x1
+ 204 009d 08       		.byte	0x8
+ 205 009e C6000000 		.4byte	.LASF14
+ 206 00a2 02       		.uleb128 0x2
+ 207 00a3 04       		.byte	0x4
+ 208 00a4 07       		.byte	0x7
+ 209 00a5 B3010000 		.4byte	.LASF15
+ 210 00a9 06       		.uleb128 0x6
+ 211 00aa 7D000000 		.4byte	.LASF22
+ 212 00ae 01       		.byte	0x1
+ 213 00af 28       		.byte	0x28
+ 214 00b0 68000000 		.4byte	0x68
+ 215 00b4 00000000 		.4byte	.LFB63
+ 216 00b8 80000000 		.4byte	.LFE63-.LFB63
+ 217 00bc 01       		.uleb128 0x1
+ 218 00bd 9C       		.byte	0x9c
+ 219 00be ED000000 		.4byte	0xed
+ 220 00c2 07       		.uleb128 0x7
+ 221 00c3 71000000 		.4byte	.LASF16
+ 222 00c7 01       		.byte	0x1
+ 223 00c8 2B       		.byte	0x2b
+ 224 00c9 81000000 		.4byte	0x81
+ 225 00cd 02       		.uleb128 0x2
+ 226 00ce 91       		.byte	0x91
+ 227 00cf 77       		.sleb128 -9
+ 228 00d0 07       		.uleb128 0x7
+ 229 00d1 CB000000 		.4byte	.LASF17
+ 230 00d5 01       		.byte	0x1
+ 231 00d6 2C       		.byte	0x2c
+ 232 00d7 81000000 		.4byte	0x81
+ 233 00db 02       		.uleb128 0x2
+ 234 00dc 91       		.byte	0x91
+ 235 00dd 76       		.sleb128 -10
+ 236 00de 07       		.uleb128 0x7
+ 237 00df 82000000 		.4byte	.LASF18
+ 238 00e3 01       		.byte	0x1
+ 239 00e4 2D       		.byte	0x2d
+ 240 00e5 81000000 		.4byte	0x81
+ 241 00e9 02       		.uleb128 0x2
+ 242 00ea 91       		.byte	0x91
+ 243 00eb 75       		.sleb128 -11
+ 244 00ec 00       		.byte	0
+ 245 00ed 08       		.uleb128 0x8
+ 246 00ee 78010000 		.4byte	.LASF23
+ 247 00f2 05       		.byte	0x5
+ 248 00f3 5506     		.2byte	0x655
+ 249 00f5 F9000000 		.4byte	0xf9
+ 250 00f9 09       		.uleb128 0x9
+ 251 00fa 76000000 		.4byte	0x76
+ 252 00fe 00       		.byte	0
+ 253              		.section	.debug_abbrev,"",%progbits
+ 254              	.Ldebug_abbrev0:
+ 255 0000 01       		.uleb128 0x1
+ 256 0001 11       		.uleb128 0x11
+ 257 0002 01       		.byte	0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 7
+
+
+ 258 0003 25       		.uleb128 0x25
+ 259 0004 0E       		.uleb128 0xe
+ 260 0005 13       		.uleb128 0x13
+ 261 0006 0B       		.uleb128 0xb
+ 262 0007 03       		.uleb128 0x3
+ 263 0008 0E       		.uleb128 0xe
+ 264 0009 1B       		.uleb128 0x1b
+ 265 000a 0E       		.uleb128 0xe
+ 266 000b 55       		.uleb128 0x55
+ 267 000c 17       		.uleb128 0x17
+ 268 000d 11       		.uleb128 0x11
+ 269 000e 01       		.uleb128 0x1
+ 270 000f 10       		.uleb128 0x10
+ 271 0010 17       		.uleb128 0x17
+ 272 0011 00       		.byte	0
+ 273 0012 00       		.byte	0
+ 274 0013 02       		.uleb128 0x2
+ 275 0014 24       		.uleb128 0x24
+ 276 0015 00       		.byte	0
+ 277 0016 0B       		.uleb128 0xb
+ 278 0017 0B       		.uleb128 0xb
+ 279 0018 3E       		.uleb128 0x3e
+ 280 0019 0B       		.uleb128 0xb
+ 281 001a 03       		.uleb128 0x3
+ 282 001b 0E       		.uleb128 0xe
+ 283 001c 00       		.byte	0
+ 284 001d 00       		.byte	0
+ 285 001e 03       		.uleb128 0x3
+ 286 001f 16       		.uleb128 0x16
+ 287 0020 00       		.byte	0
+ 288 0021 03       		.uleb128 0x3
+ 289 0022 0E       		.uleb128 0xe
+ 290 0023 3A       		.uleb128 0x3a
+ 291 0024 0B       		.uleb128 0xb
+ 292 0025 3B       		.uleb128 0x3b
+ 293 0026 0B       		.uleb128 0xb
+ 294 0027 49       		.uleb128 0x49
+ 295 0028 13       		.uleb128 0x13
+ 296 0029 00       		.byte	0
+ 297 002a 00       		.byte	0
+ 298 002b 04       		.uleb128 0x4
+ 299 002c 24       		.uleb128 0x24
+ 300 002d 00       		.byte	0
+ 301 002e 0B       		.uleb128 0xb
+ 302 002f 0B       		.uleb128 0xb
+ 303 0030 3E       		.uleb128 0x3e
+ 304 0031 0B       		.uleb128 0xb
+ 305 0032 03       		.uleb128 0x3
+ 306 0033 08       		.uleb128 0x8
+ 307 0034 00       		.byte	0
+ 308 0035 00       		.byte	0
+ 309 0036 05       		.uleb128 0x5
+ 310 0037 16       		.uleb128 0x16
+ 311 0038 00       		.byte	0
+ 312 0039 03       		.uleb128 0x3
+ 313 003a 0E       		.uleb128 0xe
+ 314 003b 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 8
+
+
+ 315 003c 0B       		.uleb128 0xb
+ 316 003d 3B       		.uleb128 0x3b
+ 317 003e 05       		.uleb128 0x5
+ 318 003f 49       		.uleb128 0x49
+ 319 0040 13       		.uleb128 0x13
+ 320 0041 00       		.byte	0
+ 321 0042 00       		.byte	0
+ 322 0043 06       		.uleb128 0x6
+ 323 0044 2E       		.uleb128 0x2e
+ 324 0045 01       		.byte	0x1
+ 325 0046 3F       		.uleb128 0x3f
+ 326 0047 19       		.uleb128 0x19
+ 327 0048 03       		.uleb128 0x3
+ 328 0049 0E       		.uleb128 0xe
+ 329 004a 3A       		.uleb128 0x3a
+ 330 004b 0B       		.uleb128 0xb
+ 331 004c 3B       		.uleb128 0x3b
+ 332 004d 0B       		.uleb128 0xb
+ 333 004e 49       		.uleb128 0x49
+ 334 004f 13       		.uleb128 0x13
+ 335 0050 11       		.uleb128 0x11
+ 336 0051 01       		.uleb128 0x1
+ 337 0052 12       		.uleb128 0x12
+ 338 0053 06       		.uleb128 0x6
+ 339 0054 40       		.uleb128 0x40
+ 340 0055 18       		.uleb128 0x18
+ 341 0056 9642     		.uleb128 0x2116
+ 342 0058 19       		.uleb128 0x19
+ 343 0059 01       		.uleb128 0x1
+ 344 005a 13       		.uleb128 0x13
+ 345 005b 00       		.byte	0
+ 346 005c 00       		.byte	0
+ 347 005d 07       		.uleb128 0x7
+ 348 005e 34       		.uleb128 0x34
+ 349 005f 00       		.byte	0
+ 350 0060 03       		.uleb128 0x3
+ 351 0061 0E       		.uleb128 0xe
+ 352 0062 3A       		.uleb128 0x3a
+ 353 0063 0B       		.uleb128 0xb
+ 354 0064 3B       		.uleb128 0x3b
+ 355 0065 0B       		.uleb128 0xb
+ 356 0066 49       		.uleb128 0x49
+ 357 0067 13       		.uleb128 0x13
+ 358 0068 02       		.uleb128 0x2
+ 359 0069 18       		.uleb128 0x18
+ 360 006a 00       		.byte	0
+ 361 006b 00       		.byte	0
+ 362 006c 08       		.uleb128 0x8
+ 363 006d 34       		.uleb128 0x34
+ 364 006e 00       		.byte	0
+ 365 006f 03       		.uleb128 0x3
+ 366 0070 0E       		.uleb128 0xe
+ 367 0071 3A       		.uleb128 0x3a
+ 368 0072 0B       		.uleb128 0xb
+ 369 0073 3B       		.uleb128 0x3b
+ 370 0074 05       		.uleb128 0x5
+ 371 0075 49       		.uleb128 0x49
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 9
+
+
+ 372 0076 13       		.uleb128 0x13
+ 373 0077 3F       		.uleb128 0x3f
+ 374 0078 19       		.uleb128 0x19
+ 375 0079 3C       		.uleb128 0x3c
+ 376 007a 19       		.uleb128 0x19
+ 377 007b 00       		.byte	0
+ 378 007c 00       		.byte	0
+ 379 007d 09       		.uleb128 0x9
+ 380 007e 35       		.uleb128 0x35
+ 381 007f 00       		.byte	0
+ 382 0080 49       		.uleb128 0x49
+ 383 0081 13       		.uleb128 0x13
+ 384 0082 00       		.byte	0
+ 385 0083 00       		.byte	0
+ 386 0084 00       		.byte	0
+ 387              		.section	.debug_aranges,"",%progbits
+ 388 0000 1C000000 		.4byte	0x1c
+ 389 0004 0200     		.2byte	0x2
+ 390 0006 00000000 		.4byte	.Ldebug_info0
+ 391 000a 04       		.byte	0x4
+ 392 000b 00       		.byte	0
+ 393 000c 0000     		.2byte	0
+ 394 000e 0000     		.2byte	0
+ 395 0010 00000000 		.4byte	.LFB63
+ 396 0014 80000000 		.4byte	.LFE63-.LFB63
+ 397 0018 00000000 		.4byte	0
+ 398 001c 00000000 		.4byte	0
+ 399              		.section	.debug_ranges,"",%progbits
+ 400              	.Ldebug_ranges0:
+ 401 0000 00000000 		.4byte	.LFB63
+ 402 0004 80000000 		.4byte	.LFE63
+ 403 0008 00000000 		.4byte	0
+ 404 000c 00000000 		.4byte	0
+ 405              		.section	.debug_line,"",%progbits
+ 406              	.Ldebug_line0:
+ 407 0000 71010000 		.section	.debug_str,"MS",%progbits,1
+ 407      02004901 
+ 407      00000201 
+ 407      FB0E0D00 
+ 407      01010101 
+ 408              	.LASF6:
+ 409 0000 6C6F6E67 		.ascii	"long long int\000"
+ 409      206C6F6E 
+ 409      6720696E 
+ 409      7400
+ 410              	.LASF3:
+ 411 000e 73686F72 		.ascii	"short unsigned int\000"
+ 411      7420756E 
+ 411      7369676E 
+ 411      65642069 
+ 411      6E7400
+ 412              	.LASF8:
+ 413 0021 756E7369 		.ascii	"unsigned int\000"
+ 413      676E6564 
+ 413      20696E74 
+ 413      00
+ 414              	.LASF21:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 10
+
+
+ 415 002e 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\Count7_Example01\\Cou"
+ 415      6F63756D 
+ 415      656E746F 
+ 415      735C5053 
+ 415      6F432043 
+ 416 005d 6E74375F 		.ascii	"nt7_Example01.cydsn\000"
+ 416      4578616D 
+ 416      706C6530 
+ 416      312E6379 
+ 416      64736E00 
+ 417              	.LASF16:
+ 418 0071 72656672 		.ascii	"refreshRate\000"
+ 418      65736852 
+ 418      61746500 
+ 419              	.LASF22:
+ 420 007d 6D61696E 		.ascii	"main\000"
+ 420      00
+ 421              	.LASF18:
+ 422 0082 73746174 		.ascii	"status\000"
+ 422      757300
+ 423              	.LASF11:
+ 424 0089 75696E74 		.ascii	"uint8\000"
+ 424      3800
+ 425              	.LASF5:
+ 426 008f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 426      20756E73 
+ 426      69676E65 
+ 426      6420696E 
+ 426      7400
+ 427              	.LASF7:
+ 428 00a1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 428      206C6F6E 
+ 428      6720756E 
+ 428      7369676E 
+ 428      65642069 
+ 429              	.LASF1:
+ 430 00b8 756E7369 		.ascii	"unsigned char\000"
+ 430      676E6564 
+ 430      20636861 
+ 430      7200
+ 431              	.LASF14:
+ 432 00c6 63686172 		.ascii	"char\000"
+ 432      00
+ 433              	.LASF17:
+ 434 00cb 636F756E 		.ascii	"count\000"
+ 434      7400
+ 435              	.LASF4:
+ 436 00d1 6C6F6E67 		.ascii	"long int\000"
+ 436      20696E74 
+ 436      00
+ 437              	.LASF19:
+ 438 00da 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 438      4320342E 
+ 438      392E3320 
+ 438      32303135 
+ 438      30333033 
+ 439 010d 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccDDNmCf.s 			page 11
+
+
+ 439      20726576 
+ 439      6973696F 
+ 439      6E203232 
+ 439      31323230 
+ 440 0140 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 440      66756E63 
+ 440      74696F6E 
+ 440      2D736563 
+ 440      74696F6E 
+ 441              	.LASF20:
+ 442 0168 2E5C6D61 		.ascii	".\\main.c\000"
+ 442      696E2E63 
+ 442      00
+ 443              	.LASF13:
+ 444 0171 646F7562 		.ascii	"double\000"
+ 444      6C6500
+ 445              	.LASF23:
+ 446 0178 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 446      52784275 
+ 446      66666572 
+ 446      00
+ 447              	.LASF0:
+ 448 0185 7369676E 		.ascii	"signed char\000"
+ 448      65642063 
+ 448      68617200 
+ 449              	.LASF9:
+ 450 0191 5F5F696E 		.ascii	"__int32_t\000"
+ 450      7433325F 
+ 450      7400
+ 451              	.LASF12:
+ 452 019b 666C6F61 		.ascii	"float\000"
+ 452      7400
+ 453              	.LASF2:
+ 454 01a1 73686F72 		.ascii	"short int\000"
+ 454      7420696E 
+ 454      7400
+ 455              	.LASF10:
+ 456 01ab 696E7433 		.ascii	"int32_t\000"
+ 456      325F7400 
+ 457              	.LASF15:
+ 458 01b3 73697A65 		.ascii	"sizetype\000"
+ 458      74797065 
+ 458      00
+ 459              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

@@ -1,0 +1,8 @@
+G:\Documentos\PSoC Creator\USBFS_UART01\USBFS_UART01.cydsn\USBFS_UART01.cyprj|4e619214-bf19-4646-a6f7-ad095d6bb5f6
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|e2dc714c-4605-4ce7-8490-f3f485d3bd3e
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|f98bc0b1-80ee-4e22-8806-641c975a2610
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|a895fe4c-1917-484f-8fde-d290936105ef
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|df13205e-adf2-41f9-8748-10c2aa98ed7a
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|036c4f88-9279-4950-8f20-af1c79ffaea5
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\dev\psoc3\AnalogDevice\PSoC35AnalogDevice.cylib\PSoC35AnalogDevice.cyprj|301c9874-34cf-4c44-a963-289c852757a9
+G:\Documentos\PSoC Creator\USBFS_UART01\Design01.cydsn\Design01.cyprj|badadfe7-43d7-4ab8-b0e1-cb004ccb8d48

@@ -1,0 +1,16 @@
+dont_use_io iocell 1 0
+dont_use_io iocell 1 1
+set_location "\Count7:Counter7\" count7cell 0 5 7 
+set_location "\Debouncer:DEBOUNCER[0]:d_sync_0\" macrocell 0 5 0 2
+set_location "\Debouncer:DEBOUNCER[0]:d_sync_1\" macrocell 0 5 0 1
+set_location "Net_86" macrocell 0 5 0 0
+set_io "\LCD:LCDPort(4)\" iocell 2 4
+set_location "ClockBlock" clockblockcell -1 -1 0
+set_io "SW2(0)" iocell 6 1
+set_io "\LCD:LCDPort(6)\" iocell 2 6
+set_io "\LCD:LCDPort(5)\" iocell 2 5
+set_io "\LCD:LCDPort(2)\" iocell 2 2
+set_location "\Status:sts:sts_reg\" statuscell 1 5 3 
+set_io "\LCD:LCDPort(1)\" iocell 2 1
+set_io "\LCD:LCDPort(0)\" iocell 2 0
+set_io "\LCD:LCDPort(3)\" iocell 2 3

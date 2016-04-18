@@ -1,0 +1,805 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"main.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.rodata
+  19              		.align	2
+  20              	.LC0:
+  21 0000 41444320 		.ascii	"ADC input volt\000"
+  21      696E7075 
+  21      7420766F 
+  21      6C7400
+  22 000f 00       		.align	2
+  23              	.LC1:
+  24 0010 20202020 		.ascii	"    %4ld mV\000"
+  24      25346C64 
+  24      206D5600 
+  25              		.section	.text.main,"ax",%progbits
+  26              		.align	2
+  27              		.global	main
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	main, %function
+  31              	main:
+  32              	.LFB56:
+  33              		.file 1 ".\\main.c"
+   1:.\main.c      **** /******************************************************************************
+   2:.\main.c      **** * File Name: Main.c
+   3:.\main.c      **** *
+   4:.\main.c      **** * Version 1.1
+   5:.\main.c      **** *
+   6:.\main.c      **** * Description:
+   7:.\main.c      **** * This file contains the main function for the voltage Display test.
+   8:.\main.c      **** *
+   9:.\main.c      **** * Note:
+  10:.\main.c      **** *
+  11:.\main.c      **** * Code tested with:
+  12:.\main.c      **** * PSoC Creator: 3.0
+  13:.\main.c      **** * Device Tested With: CY8C5868AXI-LP035
+  14:.\main.c      **** * Compiler    : ARMGCC 4.4.1, ARM RVDS Generic, ARM MDK Generic
+  15:.\main.c      **** *
+  16:.\main.c      **** ********************************************************************************
+  17:.\main.c      **** * Copyright (2013), Cypress Semiconductor Corporation. All Rights Reserved.
+  18:.\main.c      **** ********************************************************************************
+  19:.\main.c      **** * This software is owned by Cypress Semiconductor Corporation (Cypress)
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 2
+
+
+  20:.\main.c      **** * and is protected by and subject to worldwide patent protection (United
+  21:.\main.c      **** * States and foreign), United States copyright laws and international treaty
+  22:.\main.c      **** * provisions. Cypress hereby grants to licensee a personal, non-exclusive,
+  23:.\main.c      **** * non-transferable license to copy, use, modify, create derivative works of,
+  24:.\main.c      **** * and compile the Cypress Source Code and derivative works for the sole
+  25:.\main.c      **** * purpose of creating custom software in support of licensee product to be
+  26:.\main.c      **** * used only in conjunction with a Cypress integrated circuit as specified in
+  27:.\main.c      **** * the applicable agreement. Any reproduction, modification, translation,
+  28:.\main.c      **** * compilation, or representation of this software except as specified above 
+  29:.\main.c      **** * is prohibited without the express written permission of Cypress.
+  30:.\main.c      **** *
+  31:.\main.c      **** * Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH 
+  32:.\main.c      **** * REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  33:.\main.c      **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  34:.\main.c      **** * Cypress reserves the right to make changes without further notice to the 
+  35:.\main.c      **** * materials described herein. Cypress does not assume any liability arising out 
+  36:.\main.c      **** * of the application or use of any product or circuit described herein. Cypress 
+  37:.\main.c      **** * does not authorize its products for use as critical components in life-support 
+  38:.\main.c      **** * systems where a malfunction or failure may reasonably be expected to result in 
+  39:.\main.c      **** * significant injury to the user. The inclusion of Cypress' product in a life-
+  40:.\main.c      **** * support systems application implies that the manufacturer assumes all risk of 
+  41:.\main.c      **** * such use and in doing so indemnifies Cypress against all charges. 
+  42:.\main.c      **** *
+  43:.\main.c      **** * Use of this Software may be limited by and subject to the applicable Cypress
+  44:.\main.c      **** * software license agreement. 
+  45:.\main.c      **** *******************************************************************************/
+  46:.\main.c      **** 
+  47:.\main.c      **** /******************************************************************************
+  48:.\main.c      **** *                           THEORY OF OPERATION
+  49:.\main.c      **** * This project demonstrates how ADC is used to read the input voltage at 
+  50:.\main.c      **** * it's input and display it on the LCD.
+  51:.\main.c      **** * 
+  52:.\main.c      **** * The Potentiometer is connected to the input of the SAR ADC. ADC is 
+  53:.\main.c      **** * configured with 12 bit of resolution to measure the input voltage with 
+  54:.\main.c      **** * higher accuracy. ADC count is converted back to micro volts and 8 samples are 
+  55:.\main.c      **** * collected. After that the average of 8 samples is calculated and displayed
+  56:.\main.c      **** * on the LCD. 
+  57:.\main.c      **** *
+  58:.\main.c      **** * Hardware connection on the Kit
+  59:.\main.c      **** * Potentiometer - PORT 6[5] 
+  60:.\main.c      **** * LCD - PORT 2[0..6]
+  61:.\main.c      **** *******************************************************************************/
+  62:.\main.c      **** #include <device.h>
+  63:.\main.c      **** #include "stdio.h"
+  64:.\main.c      **** 
+  65:.\main.c      **** #define MAX_SAMPLE                  8
+  66:.\main.c      **** 
+  67:.\main.c      **** int main(void)
+  68:.\main.c      **** {
+  34              		.loc 1 68 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 32
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 3
+
+
+  42 0002 88B0     		sub	sp, sp, #32
+  43              		.cfi_def_cfa_offset 40
+  44 0004 00AF     		add	r7, sp, #0
+  45              		.cfi_def_cfa_register 7
+  69:.\main.c      ****     /* Variable to hold ADC count */
+  70:.\main.c      ****     int32 voltCount = 0;
+  46              		.loc 1 70 0
+  47 0006 0023     		movs	r3, #0
+  48 0008 7B61     		str	r3, [r7, #20]
+  71:.\main.c      ****     
+  72:.\main.c      ****     /* Variable to hold the result in millivolts converted from ADC counts */
+  73:.\main.c      **** 
+  74:.\main.c      ****     /* Variable to count number of samples collected from ADC */
+  75:.\main.c      ****     uint8 sampleCount = 0;
+  49              		.loc 1 75 0
+  50 000a 0023     		movs	r3, #0
+  51 000c FB77     		strb	r3, [r7, #31]
+  76:.\main.c      **** 	
+  77:.\main.c      ****     /* Variable to hold cumulative samples */
+  78:.\main.c      ****     int32 voltSamples = 0;
+  52              		.loc 1 78 0
+  53 000e 0023     		movs	r3, #0
+  54 0010 BB61     		str	r3, [r7, #24]
+  79:.\main.c      **** 	
+  80:.\main.c      ****     /* Variable to hold the average volts for 8 samples */
+  81:.\main.c      ****     uint32 averageVolts = 0;
+  55              		.loc 1 81 0
+  56 0012 0023     		movs	r3, #0
+  57 0014 3B61     		str	r3, [r7, #16]
+  82:.\main.c      **** 	
+  83:.\main.c      ****     /* Character array to hold the micro volts*/
+  84:.\main.c      ****     char displayStr[15] = {'\0'};
+  58              		.loc 1 84 0
+  59 0016 3B46     		mov	r3, r7
+  60 0018 0022     		movs	r2, #0
+  61 001a 1A60     		str	r2, [r3]
+  62 001c 0433     		adds	r3, r3, #4
+  63 001e 0022     		movs	r2, #0
+  64 0020 1A60     		str	r2, [r3]
+  65 0022 0433     		adds	r3, r3, #4
+  66 0024 0022     		movs	r2, #0
+  67 0026 1A60     		str	r2, [r3]
+  68 0028 0433     		adds	r3, r3, #4
+  69 002a 0022     		movs	r2, #0
+  70 002c 1A80     		strh	r2, [r3]	@ movhi
+  71 002e 0233     		adds	r3, r3, #2
+  72 0030 0022     		movs	r2, #0
+  73 0032 1A70     		strb	r2, [r3]
+  74 0034 0133     		adds	r3, r3, #1
+  85:.\main.c      ****     
+  86:.\main.c      ****     CYGlobalIntEnable;
+  75              		.loc 1 86 0
+  76              	@ 86 ".\main.c" 1
+  77 0036 62B6     		CPSIE   i
+  78              	@ 0 "" 2
+  87:.\main.c      ****     
+  88:.\main.c      ****     clock_1_Enable();    
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 4
+
+
+  79              		.loc 1 88 0
+  80              		.thumb
+  81 0038 FFF7FEFF 		bl	clock_1_Start
+  89:.\main.c      ****     
+  90:.\main.c      ****     PWM_1_Start(); 
+  82              		.loc 1 90 0
+  83 003c FFF7FEFF 		bl	PWM_1_Start
+  91:.\main.c      ****     
+  92:.\main.c      ****     /* Start ADC and start conversion */
+  93:.\main.c      ****     ADC_Start();
+  84              		.loc 1 93 0
+  85 0040 FFF7FEFF 		bl	ADC_Start
+  94:.\main.c      ****     ADC_StartConvert();
+  86              		.loc 1 94 0
+  87 0044 FFF7FEFF 		bl	ADC_StartConvert
+  95:.\main.c      **** 
+  96:.\main.c      ****     /* Start LCD and set position */
+  97:.\main.c      ****     LCD_Start();
+  88              		.loc 1 97 0
+  89 0048 FFF7FEFF 		bl	LCD_Start
+  98:.\main.c      ****     LCD_Position(0,1);
+  90              		.loc 1 98 0
+  91 004c 0020     		movs	r0, #0
+  92 004e 0121     		movs	r1, #1
+  93 0050 FFF7FEFF 		bl	LCD_Position
+  99:.\main.c      ****     LCD_PrintString("ADC input volt");
+  94              		.loc 1 99 0
+  95 0054 1748     		ldr	r0, .L4
+  96 0056 FFF7FEFF 		bl	LCD_PrintString
+  97              	.L3:
+ 100:.\main.c      ****     
+ 101:.\main.c      **** //    uint8 PWM_V =0x00u;
+ 102:.\main.c      **** //    Control_Reg_1_Write(0x0Fu);
+ 103:.\main.c      ****     //PWM_1_WritePeriod(0x01u);
+ 104:.\main.c      ****     while(1)
+ 105:.\main.c      ****     {
+ 106:.\main.c      ****         /* Read ADC count and convert to milli volts */
+ 107:.\main.c      ****         ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+  98              		.loc 1 107 0
+  99 005a 0020     		movs	r0, #0
+ 100 005c FFF7FEFF 		bl	ADC_IsEndConversion
+ 108:.\main.c      ****         voltCount = ADC_GetResult16();
+ 101              		.loc 1 108 0
+ 102 0060 FFF7FEFF 		bl	ADC_GetResult16
+ 103 0064 0346     		mov	r3, r0
+ 104 0066 7B61     		str	r3, [r7, #20]
+ 109:.\main.c      **** //        mVolts = ADC_CountsTo_mVolts(voltCount);
+ 110:.\main.c      **** //        
+ 111:.\main.c      ****         /* Add the current ADC reading to the cumulated samples*/
+ 112:.\main.c      ****         voltSamples = voltSamples + voltCount;
+ 105              		.loc 1 112 0
+ 106 0068 BA69     		ldr	r2, [r7, #24]
+ 107 006a 7B69     		ldr	r3, [r7, #20]
+ 108 006c 1344     		add	r3, r3, r2
+ 109 006e BB61     		str	r3, [r7, #24]
+ 113:.\main.c      **** 
+ 114:.\main.c      ****         sampleCount++;
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 5
+
+
+ 110              		.loc 1 114 0
+ 111 0070 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 112 0072 0133     		adds	r3, r3, #1
+ 113 0074 FB77     		strb	r3, [r7, #31]
+ 115:.\main.c      **** 
+ 116:.\main.c      ****         /* If 8 samples have been collected then average the samples and update the display*/
+ 117:.\main.c      ****         if(sampleCount == MAX_SAMPLE)
+ 114              		.loc 1 117 0
+ 115 0076 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 116 0078 082B     		cmp	r3, #8
+ 117 007a 19D1     		bne	.L2
+ 118:.\main.c      ****         {
+ 119:.\main.c      ****             averageVolts = voltSamples >> 3;
+ 118              		.loc 1 119 0
+ 119 007c BB69     		ldr	r3, [r7, #24]
+ 120 007e DB10     		asrs	r3, r3, #3
+ 121 0080 3B61     		str	r3, [r7, #16]
+ 120:.\main.c      ****             voltSamples = 0;
+ 122              		.loc 1 120 0
+ 123 0082 0023     		movs	r3, #0
+ 124 0084 BB61     		str	r3, [r7, #24]
+ 121:.\main.c      ****             sampleCount = 0;
+ 125              		.loc 1 121 0
+ 126 0086 0023     		movs	r3, #0
+ 127 0088 FB77     		strb	r3, [r7, #31]
+ 122:.\main.c      **** 
+ 123:.\main.c      ****             /* Convert milli volts to string and display on the LCD. sprintf()
+ 124:.\main.c      ****             *  function is standard library function defined in the stdio.h 
+ 125:.\main.c      ****             *  header file */
+ 126:.\main.c      **** //            PWM_V = averageVolts;
+ 127:.\main.c      ****             sprintf(displayStr,"    %4ld mV",averageVolts);
+ 128              		.loc 1 127 0
+ 129 008a 3B46     		mov	r3, r7
+ 130 008c 1846     		mov	r0, r3
+ 131 008e 0A49     		ldr	r1, .L4+4
+ 132 0090 3A69     		ldr	r2, [r7, #16]
+ 133 0092 FFF7FEFF 		bl	sprintf
+ 128:.\main.c      ****             PWM_1_WriteCompare(averageVolts);
+ 134              		.loc 1 128 0
+ 135 0096 3B69     		ldr	r3, [r7, #16]
+ 136 0098 DBB2     		uxtb	r3, r3
+ 137 009a 1846     		mov	r0, r3
+ 138 009c FFF7FEFF 		bl	PWM_1_WriteCompare
+ 129:.\main.c      **** //            Control_Reg_1_Write(PWM_V);
+ 130:.\main.c      ****             LCD_Position(1,0);
+ 139              		.loc 1 130 0
+ 140 00a0 0120     		movs	r0, #1
+ 141 00a2 0021     		movs	r1, #0
+ 142 00a4 FFF7FEFF 		bl	LCD_Position
+ 131:.\main.c      ****             LCD_PrintString(displayStr);
+ 143              		.loc 1 131 0
+ 144 00a8 3B46     		mov	r3, r7
+ 145 00aa 1846     		mov	r0, r3
+ 146 00ac FFF7FEFF 		bl	LCD_PrintString
+ 147              	.L2:
+ 132:.\main.c      ****         }	
+ 133:.\main.c      ****     }
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 6
+
+
+ 148              		.loc 1 133 0
+ 149 00b0 D3E7     		b	.L3
+ 150              	.L5:
+ 151 00b2 00BF     		.align	2
+ 152              	.L4:
+ 153 00b4 00000000 		.word	.LC0
+ 154 00b8 10000000 		.word	.LC1
+ 155              		.cfi_endproc
+ 156              	.LFE56:
+ 157              		.size	main, .-main
+ 158              		.text
+ 159              	.Letext0:
+ 160              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 161              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 162              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 163              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 164              		.section	.debug_info,"",%progbits
+ 165              	.Ldebug_info0:
+ 166 0000 3C010000 		.4byte	0x13c
+ 167 0004 0400     		.2byte	0x4
+ 168 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 169 000a 04       		.byte	0x4
+ 170 000b 01       		.uleb128 0x1
+ 171 000c AF000000 		.4byte	.LASF23
+ 172 0010 01       		.byte	0x1
+ 173 0011 3D010000 		.4byte	.LASF24
+ 174 0015 58010000 		.4byte	.LASF25
+ 175 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 176 001d 00000000 		.4byte	0
+ 177 0021 00000000 		.4byte	.Ldebug_line0
+ 178 0025 02       		.uleb128 0x2
+ 179 0026 01       		.byte	0x1
+ 180 0027 06       		.byte	0x6
+ 181 0028 B4010000 		.4byte	.LASF0
+ 182 002c 02       		.uleb128 0x2
+ 183 002d 01       		.byte	0x1
+ 184 002e 08       		.byte	0x8
+ 185 002f 89000000 		.4byte	.LASF1
+ 186 0033 02       		.uleb128 0x2
+ 187 0034 02       		.byte	0x2
+ 188 0035 05       		.byte	0x5
+ 189 0036 D5010000 		.4byte	.LASF2
+ 190 003a 02       		.uleb128 0x2
+ 191 003b 02       		.byte	0x2
+ 192 003c 07       		.byte	0x7
+ 193 003d 69000000 		.4byte	.LASF3
+ 194 0041 03       		.uleb128 0x3
+ 195 0042 C0010000 		.4byte	.LASF9
+ 196 0046 02       		.byte	0x2
+ 197 0047 3F       		.byte	0x3f
+ 198 0048 4C000000 		.4byte	0x4c
+ 199 004c 02       		.uleb128 0x2
+ 200 004d 04       		.byte	0x4
+ 201 004e 05       		.byte	0x5
+ 202 004f A6000000 		.4byte	.LASF4
+ 203 0053 02       		.uleb128 0x2
+ 204 0054 04       		.byte	0x4
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 7
+
+
+ 205 0055 07       		.byte	0x7
+ 206 0056 40000000 		.4byte	.LASF5
+ 207 005a 02       		.uleb128 0x2
+ 208 005b 08       		.byte	0x8
+ 209 005c 05       		.byte	0x5
+ 210 005d 00000000 		.4byte	.LASF6
+ 211 0061 02       		.uleb128 0x2
+ 212 0062 08       		.byte	0x8
+ 213 0063 07       		.byte	0x7
+ 214 0064 52000000 		.4byte	.LASF7
+ 215 0068 04       		.uleb128 0x4
+ 216 0069 04       		.byte	0x4
+ 217 006a 05       		.byte	0x5
+ 218 006b 696E7400 		.ascii	"int\000"
+ 219 006f 02       		.uleb128 0x2
+ 220 0070 04       		.byte	0x4
+ 221 0071 07       		.byte	0x7
+ 222 0072 15000000 		.4byte	.LASF8
+ 223 0076 03       		.uleb128 0x3
+ 224 0077 DF010000 		.4byte	.LASF10
+ 225 007b 03       		.byte	0x3
+ 226 007c 2C       		.byte	0x2c
+ 227 007d 41000000 		.4byte	0x41
+ 228 0081 03       		.uleb128 0x3
+ 229 0082 3A000000 		.4byte	.LASF11
+ 230 0086 04       		.byte	0x4
+ 231 0087 5B       		.byte	0x5b
+ 232 0088 2C000000 		.4byte	0x2c
+ 233 008c 03       		.uleb128 0x3
+ 234 008d 0E000000 		.4byte	.LASF12
+ 235 0091 04       		.byte	0x4
+ 236 0092 5D       		.byte	0x5d
+ 237 0093 53000000 		.4byte	0x53
+ 238 0097 03       		.uleb128 0x3
+ 239 0098 F0010000 		.4byte	.LASF13
+ 240 009c 04       		.byte	0x4
+ 241 009d 60       		.byte	0x60
+ 242 009e 4C000000 		.4byte	0x4c
+ 243 00a2 02       		.uleb128 0x2
+ 244 00a3 04       		.byte	0x4
+ 245 00a4 04       		.byte	0x4
+ 246 00a5 CF010000 		.4byte	.LASF14
+ 247 00a9 02       		.uleb128 0x2
+ 248 00aa 08       		.byte	0x8
+ 249 00ab 04       		.byte	0x4
+ 250 00ac 51010000 		.4byte	.LASF15
+ 251 00b0 02       		.uleb128 0x2
+ 252 00b1 01       		.byte	0x1
+ 253 00b2 08       		.byte	0x8
+ 254 00b3 97000000 		.4byte	.LASF16
+ 255 00b7 02       		.uleb128 0x2
+ 256 00b8 04       		.byte	0x4
+ 257 00b9 07       		.byte	0x7
+ 258 00ba E7010000 		.4byte	.LASF17
+ 259 00be 05       		.uleb128 0x5
+ 260 00bf CA010000 		.4byte	.LASF26
+ 261 00c3 01       		.byte	0x1
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 8
+
+
+ 262 00c4 43       		.byte	0x43
+ 263 00c5 68000000 		.4byte	0x68
+ 264 00c9 00000000 		.4byte	.LFB56
+ 265 00cd BC000000 		.4byte	.LFE56-.LFB56
+ 266 00d1 01       		.uleb128 0x1
+ 267 00d2 9C       		.byte	0x9c
+ 268 00d3 1E010000 		.4byte	0x11e
+ 269 00d7 06       		.uleb128 0x6
+ 270 00d8 9C000000 		.4byte	.LASF18
+ 271 00dc 01       		.byte	0x1
+ 272 00dd 46       		.byte	0x46
+ 273 00de 97000000 		.4byte	0x97
+ 274 00e2 02       		.uleb128 0x2
+ 275 00e3 91       		.byte	0x91
+ 276 00e4 6C       		.sleb128 -20
+ 277 00e5 06       		.uleb128 0x6
+ 278 00e6 22000000 		.4byte	.LASF19
+ 279 00ea 01       		.byte	0x1
+ 280 00eb 4B       		.byte	0x4b
+ 281 00ec 81000000 		.4byte	0x81
+ 282 00f0 02       		.uleb128 0x2
+ 283 00f1 91       		.byte	0x91
+ 284 00f2 77       		.sleb128 -9
+ 285 00f3 06       		.uleb128 0x6
+ 286 00f4 2E000000 		.4byte	.LASF20
+ 287 00f8 01       		.byte	0x1
+ 288 00f9 4E       		.byte	0x4e
+ 289 00fa 97000000 		.4byte	0x97
+ 290 00fe 02       		.uleb128 0x2
+ 291 00ff 91       		.byte	0x91
+ 292 0100 70       		.sleb128 -16
+ 293 0101 06       		.uleb128 0x6
+ 294 0102 7C000000 		.4byte	.LASF21
+ 295 0106 01       		.byte	0x1
+ 296 0107 51       		.byte	0x51
+ 297 0108 8C000000 		.4byte	0x8c
+ 298 010c 02       		.uleb128 0x2
+ 299 010d 91       		.byte	0x91
+ 300 010e 68       		.sleb128 -24
+ 301 010f 06       		.uleb128 0x6
+ 302 0110 46010000 		.4byte	.LASF22
+ 303 0114 01       		.byte	0x1
+ 304 0115 54       		.byte	0x54
+ 305 0116 1E010000 		.4byte	0x11e
+ 306 011a 02       		.uleb128 0x2
+ 307 011b 91       		.byte	0x91
+ 308 011c 58       		.sleb128 -40
+ 309 011d 00       		.byte	0
+ 310 011e 07       		.uleb128 0x7
+ 311 011f B0000000 		.4byte	0xb0
+ 312 0123 2E010000 		.4byte	0x12e
+ 313 0127 08       		.uleb128 0x8
+ 314 0128 B7000000 		.4byte	0xb7
+ 315 012c 0E       		.byte	0xe
+ 316 012d 00       		.byte	0
+ 317 012e 09       		.uleb128 0x9
+ 318 012f A7010000 		.4byte	.LASF27
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 9
+
+
+ 319 0133 05       		.byte	0x5
+ 320 0134 1606     		.2byte	0x616
+ 321 0136 3A010000 		.4byte	0x13a
+ 322 013a 0A       		.uleb128 0xa
+ 323 013b 76000000 		.4byte	0x76
+ 324 013f 00       		.byte	0
+ 325              		.section	.debug_abbrev,"",%progbits
+ 326              	.Ldebug_abbrev0:
+ 327 0000 01       		.uleb128 0x1
+ 328 0001 11       		.uleb128 0x11
+ 329 0002 01       		.byte	0x1
+ 330 0003 25       		.uleb128 0x25
+ 331 0004 0E       		.uleb128 0xe
+ 332 0005 13       		.uleb128 0x13
+ 333 0006 0B       		.uleb128 0xb
+ 334 0007 03       		.uleb128 0x3
+ 335 0008 0E       		.uleb128 0xe
+ 336 0009 1B       		.uleb128 0x1b
+ 337 000a 0E       		.uleb128 0xe
+ 338 000b 55       		.uleb128 0x55
+ 339 000c 17       		.uleb128 0x17
+ 340 000d 11       		.uleb128 0x11
+ 341 000e 01       		.uleb128 0x1
+ 342 000f 10       		.uleb128 0x10
+ 343 0010 17       		.uleb128 0x17
+ 344 0011 00       		.byte	0
+ 345 0012 00       		.byte	0
+ 346 0013 02       		.uleb128 0x2
+ 347 0014 24       		.uleb128 0x24
+ 348 0015 00       		.byte	0
+ 349 0016 0B       		.uleb128 0xb
+ 350 0017 0B       		.uleb128 0xb
+ 351 0018 3E       		.uleb128 0x3e
+ 352 0019 0B       		.uleb128 0xb
+ 353 001a 03       		.uleb128 0x3
+ 354 001b 0E       		.uleb128 0xe
+ 355 001c 00       		.byte	0
+ 356 001d 00       		.byte	0
+ 357 001e 03       		.uleb128 0x3
+ 358 001f 16       		.uleb128 0x16
+ 359 0020 00       		.byte	0
+ 360 0021 03       		.uleb128 0x3
+ 361 0022 0E       		.uleb128 0xe
+ 362 0023 3A       		.uleb128 0x3a
+ 363 0024 0B       		.uleb128 0xb
+ 364 0025 3B       		.uleb128 0x3b
+ 365 0026 0B       		.uleb128 0xb
+ 366 0027 49       		.uleb128 0x49
+ 367 0028 13       		.uleb128 0x13
+ 368 0029 00       		.byte	0
+ 369 002a 00       		.byte	0
+ 370 002b 04       		.uleb128 0x4
+ 371 002c 24       		.uleb128 0x24
+ 372 002d 00       		.byte	0
+ 373 002e 0B       		.uleb128 0xb
+ 374 002f 0B       		.uleb128 0xb
+ 375 0030 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 10
+
+
+ 376 0031 0B       		.uleb128 0xb
+ 377 0032 03       		.uleb128 0x3
+ 378 0033 08       		.uleb128 0x8
+ 379 0034 00       		.byte	0
+ 380 0035 00       		.byte	0
+ 381 0036 05       		.uleb128 0x5
+ 382 0037 2E       		.uleb128 0x2e
+ 383 0038 01       		.byte	0x1
+ 384 0039 3F       		.uleb128 0x3f
+ 385 003a 19       		.uleb128 0x19
+ 386 003b 03       		.uleb128 0x3
+ 387 003c 0E       		.uleb128 0xe
+ 388 003d 3A       		.uleb128 0x3a
+ 389 003e 0B       		.uleb128 0xb
+ 390 003f 3B       		.uleb128 0x3b
+ 391 0040 0B       		.uleb128 0xb
+ 392 0041 27       		.uleb128 0x27
+ 393 0042 19       		.uleb128 0x19
+ 394 0043 49       		.uleb128 0x49
+ 395 0044 13       		.uleb128 0x13
+ 396 0045 11       		.uleb128 0x11
+ 397 0046 01       		.uleb128 0x1
+ 398 0047 12       		.uleb128 0x12
+ 399 0048 06       		.uleb128 0x6
+ 400 0049 40       		.uleb128 0x40
+ 401 004a 18       		.uleb128 0x18
+ 402 004b 9642     		.uleb128 0x2116
+ 403 004d 19       		.uleb128 0x19
+ 404 004e 01       		.uleb128 0x1
+ 405 004f 13       		.uleb128 0x13
+ 406 0050 00       		.byte	0
+ 407 0051 00       		.byte	0
+ 408 0052 06       		.uleb128 0x6
+ 409 0053 34       		.uleb128 0x34
+ 410 0054 00       		.byte	0
+ 411 0055 03       		.uleb128 0x3
+ 412 0056 0E       		.uleb128 0xe
+ 413 0057 3A       		.uleb128 0x3a
+ 414 0058 0B       		.uleb128 0xb
+ 415 0059 3B       		.uleb128 0x3b
+ 416 005a 0B       		.uleb128 0xb
+ 417 005b 49       		.uleb128 0x49
+ 418 005c 13       		.uleb128 0x13
+ 419 005d 02       		.uleb128 0x2
+ 420 005e 18       		.uleb128 0x18
+ 421 005f 00       		.byte	0
+ 422 0060 00       		.byte	0
+ 423 0061 07       		.uleb128 0x7
+ 424 0062 01       		.uleb128 0x1
+ 425 0063 01       		.byte	0x1
+ 426 0064 49       		.uleb128 0x49
+ 427 0065 13       		.uleb128 0x13
+ 428 0066 01       		.uleb128 0x1
+ 429 0067 13       		.uleb128 0x13
+ 430 0068 00       		.byte	0
+ 431 0069 00       		.byte	0
+ 432 006a 08       		.uleb128 0x8
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 11
+
+
+ 433 006b 21       		.uleb128 0x21
+ 434 006c 00       		.byte	0
+ 435 006d 49       		.uleb128 0x49
+ 436 006e 13       		.uleb128 0x13
+ 437 006f 2F       		.uleb128 0x2f
+ 438 0070 0B       		.uleb128 0xb
+ 439 0071 00       		.byte	0
+ 440 0072 00       		.byte	0
+ 441 0073 09       		.uleb128 0x9
+ 442 0074 34       		.uleb128 0x34
+ 443 0075 00       		.byte	0
+ 444 0076 03       		.uleb128 0x3
+ 445 0077 0E       		.uleb128 0xe
+ 446 0078 3A       		.uleb128 0x3a
+ 447 0079 0B       		.uleb128 0xb
+ 448 007a 3B       		.uleb128 0x3b
+ 449 007b 05       		.uleb128 0x5
+ 450 007c 49       		.uleb128 0x49
+ 451 007d 13       		.uleb128 0x13
+ 452 007e 3F       		.uleb128 0x3f
+ 453 007f 19       		.uleb128 0x19
+ 454 0080 3C       		.uleb128 0x3c
+ 455 0081 19       		.uleb128 0x19
+ 456 0082 00       		.byte	0
+ 457 0083 00       		.byte	0
+ 458 0084 0A       		.uleb128 0xa
+ 459 0085 35       		.uleb128 0x35
+ 460 0086 00       		.byte	0
+ 461 0087 49       		.uleb128 0x49
+ 462 0088 13       		.uleb128 0x13
+ 463 0089 00       		.byte	0
+ 464 008a 00       		.byte	0
+ 465 008b 00       		.byte	0
+ 466              		.section	.debug_aranges,"",%progbits
+ 467 0000 1C000000 		.4byte	0x1c
+ 468 0004 0200     		.2byte	0x2
+ 469 0006 00000000 		.4byte	.Ldebug_info0
+ 470 000a 04       		.byte	0x4
+ 471 000b 00       		.byte	0
+ 472 000c 0000     		.2byte	0
+ 473 000e 0000     		.2byte	0
+ 474 0010 00000000 		.4byte	.LFB56
+ 475 0014 BC000000 		.4byte	.LFE56-.LFB56
+ 476 0018 00000000 		.4byte	0
+ 477 001c 00000000 		.4byte	0
+ 478              		.section	.debug_ranges,"",%progbits
+ 479              	.Ldebug_ranges0:
+ 480 0000 00000000 		.4byte	.LFB56
+ 481 0004 BC000000 		.4byte	.LFE56
+ 482 0008 00000000 		.4byte	0
+ 483 000c 00000000 		.4byte	0
+ 484              		.section	.debug_line,"",%progbits
+ 485              	.Ldebug_line0:
+ 486 0000 79010000 		.section	.debug_str,"MS",%progbits,1
+ 486      02004901 
+ 486      00000201 
+ 486      FB0E0D00 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 12
+
+
+ 486      01010101 
+ 487              	.LASF6:
+ 488 0000 6C6F6E67 		.ascii	"long long int\000"
+ 488      206C6F6E 
+ 488      6720696E 
+ 488      7400
+ 489              	.LASF12:
+ 490 000e 75696E74 		.ascii	"uint32\000"
+ 490      333200
+ 491              	.LASF8:
+ 492 0015 756E7369 		.ascii	"unsigned int\000"
+ 492      676E6564 
+ 492      20696E74 
+ 492      00
+ 493              	.LASF19:
+ 494 0022 73616D70 		.ascii	"sampleCount\000"
+ 494      6C65436F 
+ 494      756E7400 
+ 495              	.LASF20:
+ 496 002e 766F6C74 		.ascii	"voltSamples\000"
+ 496      53616D70 
+ 496      6C657300 
+ 497              	.LASF11:
+ 498 003a 75696E74 		.ascii	"uint8\000"
+ 498      3800
+ 499              	.LASF5:
+ 500 0040 6C6F6E67 		.ascii	"long unsigned int\000"
+ 500      20756E73 
+ 500      69676E65 
+ 500      6420696E 
+ 500      7400
+ 501              	.LASF7:
+ 502 0052 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 502      206C6F6E 
+ 502      6720756E 
+ 502      7369676E 
+ 502      65642069 
+ 503              	.LASF3:
+ 504 0069 73686F72 		.ascii	"short unsigned int\000"
+ 504      7420756E 
+ 504      7369676E 
+ 504      65642069 
+ 504      6E7400
+ 505              	.LASF21:
+ 506 007c 61766572 		.ascii	"averageVolts\000"
+ 506      61676556 
+ 506      6F6C7473 
+ 506      00
+ 507              	.LASF1:
+ 508 0089 756E7369 		.ascii	"unsigned char\000"
+ 508      676E6564 
+ 508      20636861 
+ 508      7200
+ 509              	.LASF16:
+ 510 0097 63686172 		.ascii	"char\000"
+ 510      00
+ 511              	.LASF18:
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 13
+
+
+ 512 009c 766F6C74 		.ascii	"voltCount\000"
+ 512      436F756E 
+ 512      7400
+ 513              	.LASF4:
+ 514 00a6 6C6F6E67 		.ascii	"long int\000"
+ 514      20696E74 
+ 514      00
+ 515              	.LASF23:
+ 516 00af 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 516      4320342E 
+ 516      392E3320 
+ 516      32303135 
+ 516      30333033 
+ 517 00e2 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 517      20726576 
+ 517      6973696F 
+ 517      6E203232 
+ 517      31323230 
+ 518 0115 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 518      66756E63 
+ 518      74696F6E 
+ 518      2D736563 
+ 518      74696F6E 
+ 519              	.LASF24:
+ 520 013d 2E5C6D61 		.ascii	".\\main.c\000"
+ 520      696E2E63 
+ 520      00
+ 521              	.LASF22:
+ 522 0146 64697370 		.ascii	"displayStr\000"
+ 522      6C617953 
+ 522      747200
+ 523              	.LASF15:
+ 524 0151 646F7562 		.ascii	"double\000"
+ 524      6C6500
+ 525              	.LASF25:
+ 526 0158 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\voltageDisplay_SAR_AD"
+ 526      6F63756D 
+ 526      656E746F 
+ 526      735C5053 
+ 526      6F432043 
+ 527 0188 435C566F 		.ascii	"C\\VoltageDisplay_SAR_ADC.cydsn\000"
+ 527      6C746167 
+ 527      65446973 
+ 527      706C6179 
+ 527      5F534152 
+ 528              	.LASF27:
+ 529 01a7 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 529      52784275 
+ 529      66666572 
+ 529      00
+ 530              	.LASF0:
+ 531 01b4 7369676E 		.ascii	"signed char\000"
+ 531      65642063 
+ 531      68617200 
+ 532              	.LASF9:
+ 533 01c0 5F5F696E 		.ascii	"__int32_t\000"
+ 533      7433325F 
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccex61rT.s 			page 14
+
+
+ 533      7400
+ 534              	.LASF26:
+ 535 01ca 6D61696E 		.ascii	"main\000"
+ 535      00
+ 536              	.LASF14:
+ 537 01cf 666C6F61 		.ascii	"float\000"
+ 537      7400
+ 538              	.LASF2:
+ 539 01d5 73686F72 		.ascii	"short int\000"
+ 539      7420696E 
+ 539      7400
+ 540              	.LASF10:
+ 541 01df 696E7433 		.ascii	"int32_t\000"
+ 541      325F7400 
+ 542              	.LASF17:
+ 543 01e7 73697A65 		.ascii	"sizetype\000"
+ 543      74797065 
+ 543      00
+ 544              	.LASF13:
+ 545 01f0 696E7433 		.ascii	"int32\000"
+ 545      3200
+ 546              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

@@ -1,0 +1,4 @@
+Circuit: * G:\Documentos\Semestre I 2016\Control\Componentes\Draft3.asc
+
+Fatal Error: Unknown subcircuit called in:
+   xu1 vpwm 0 n001 0 vout lm124

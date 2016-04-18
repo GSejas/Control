@@ -1,0 +1,1 @@
+'G:\Documentos\PSoC Creator\PWM_BasicTest01\PWM_BasicTest02.cydsn\main.c' -o .o -T C_FILE -I 'G:\Documentos\PSoC Creator\PWM_BasicTest01\PWM_BasicTest02.cydsn' -I 'G:\Documentos\PSoC Creator\PWM_BasicTest01\PWM_BasicTest02.cydsn\Generated_Source\PSoC5' -f 'G:\Documentos\PSoC Creator\PWM_BasicTest01\PWM_BasicTest02.cydsn\ARM_GCC_493\Debug\.deps\C_FILE.d'

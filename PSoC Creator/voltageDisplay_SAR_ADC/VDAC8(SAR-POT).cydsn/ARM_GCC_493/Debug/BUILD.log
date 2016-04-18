@@ -1,0 +1,60 @@
+--------------- Build Started: 04/17/2016 10:57:34 Project: VDAC8(SAR-POT), Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+cydsfit.exe -.appdatapath "C:\Users\Rolando\AppData\Local\Cypress Semiconductor\PSoC Creator\3.3" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p "G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\VDAC8(SAR-POT).cyprj" -d CY8C5868AXI-LP035 -s "G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\Generated_Source\PSoC5" -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE
+Elaborating Design...
+ADD: sdb.M0065: information: Analog terminal "Pin_1.analog_0" on TopDesign is unconnected.
+ * G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\TopDesign\TopDesign.cysch (Signal: Net_51)
+ * G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\TopDesign\TopDesign.cysch (Shape_72.1)
+ADD: sdb.M0065: information: Analog terminal "VDAC8_1.vOut" on TopDesign is unconnected.
+ * G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\TopDesign\TopDesign.cysch (Signal: Net_33)
+ * G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\TopDesign\TopDesign.cysch (Shape_18)
+ * G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\TopDesign\TopDesign.cysch (Shape_19)
+ * G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\TopDesign\TopDesign.cysch (Shape_7.12)
+HDL Generation ...
+Synthesis ...
+Place and Route ...
+Tech mapping ...
+Analog Placement ...
+Info: apr.M0002: Analog signal "Net_33" is connected to one terminal only. (App=cydsfit)
+Log: apr.M0058: The analog placement iterative improvement is 49% done. (App=cydsfit)
+Log: apr.M0058: The analog placement iterative improvement is 68% done. (App=cydsfit)
+Log: apr.M0058: The analog placement iterative improvement is 86% done. (App=cydsfit)
+Analog Routing ...
+Analog Code Generation ...
+Digital Placement ...
+Digital Routing ...
+Bitstream Generation ...
+Static timing analysis ...
+API Generation ...
+Dependency Generation ...
+Clean Temporary Files ...
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/main.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\main.c -o .\ARM_GCC_493\Debug\main.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/cyfitter_cfg.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\cyfitter_cfg.c -o .\ARM_GCC_493\Debug\cyfitter_cfg.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/cymetadata.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\cymetadata.c -o .\ARM_GCC_493\Debug\cymetadata.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/VDAC8_1.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\VDAC8_1.c -o .\ARM_GCC_493\Debug\VDAC8_1.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/VDAC8_1_PM.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\VDAC8_1_PM.c -o .\ARM_GCC_493\Debug\VDAC8_1_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/Pin_1.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\Pin_1.c -o .\ARM_GCC_493\Debug\Pin_1.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/VoltInput.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\VoltInput.c -o .\ARM_GCC_493\Debug\VoltInput.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/LCD.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\LCD.c -o .\ARM_GCC_493\Debug\LCD.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/LCD_PM.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\LCD_PM.c -o .\ARM_GCC_493\Debug\LCD_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/ADC.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\ADC.c -o .\ARM_GCC_493\Debug\ADC.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/ADC_INT.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\ADC_INT.c -o .\ARM_GCC_493\Debug\ADC_INT.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/ADC_PM.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\ADC_PM.c -o .\ARM_GCC_493\Debug\ADC_PM.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/LCD_LCDPort.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\LCD_LCDPort.c -o .\ARM_GCC_493\Debug\LCD_LCDPort.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/ADC_IRQ.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\ADC_IRQ.c -o .\ARM_GCC_493\Debug\ADC_IRQ.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/ADC_theACLK.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\ADC_theACLK.c -o .\ARM_GCC_493\Debug\ADC_theACLK.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/Cm3Start.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\Cm3Start.c -o .\ARM_GCC_493\Debug\Cm3Start.o
+arm-none-eabi-as.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -alh=.\ARM_GCC_493\Debug/CyBootAsmGnu.lst -g -o .\ARM_GCC_493\Debug\CyBootAsmGnu.o .\Generated_Source\PSoC5\CyBootAsmGnu.s
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/CyDmac.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\CyDmac.c -o .\ARM_GCC_493\Debug\CyDmac.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/CyFlash.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\CyFlash.c -o .\ARM_GCC_493\Debug\CyFlash.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/CyLib.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\CyLib.c -o .\ARM_GCC_493\Debug\CyLib.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/cyPm.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\cyPm.c -o .\ARM_GCC_493\Debug\cyPm.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/CySpc.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\CySpc.c -o .\ARM_GCC_493\Debug\CySpc.o
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\ARM_GCC_493\Debug/cyutils.lst -g -ffunction-sections -Os -ffat-lto-objects -c .\Generated_Source\PSoC5\cyutils.c -o .\ARM_GCC_493\Debug\cyutils.o
+arm-none-eabi-ar.exe -rs .\ARM_GCC_493\Debug\VDAC8(SAR-POT).a .\ARM_GCC_493\Debug\cyfitter_cfg.o .\ARM_GCC_493\Debug\VDAC8_1.o .\ARM_GCC_493\Debug\VDAC8_1_PM.o .\ARM_GCC_493\Debug\Pin_1.o .\ARM_GCC_493\Debug\VoltInput.o .\ARM_GCC_493\Debug\LCD.o .\ARM_GCC_493\Debug\LCD_PM.o .\ARM_GCC_493\Debug\ADC.o .\ARM_GCC_493\Debug\ADC_INT.o .\ARM_GCC_493\Debug\ADC_PM.o .\ARM_GCC_493\Debug\LCD_LCDPort.o .\ARM_GCC_493\Debug\ADC_IRQ.o .\ARM_GCC_493\Debug\ADC_theACLK.o .\ARM_GCC_493\Debug\CyBootAsmGnu.o .\ARM_GCC_493\Debug\CyDmac.o .\ARM_GCC_493\Debug\CyFlash.o .\ARM_GCC_493\Debug\CyLib.o .\ARM_GCC_493\Debug\cyPm.o .\ARM_GCC_493\Debug\CySpc.o .\ARM_GCC_493\Debug\cyutils.o
+arm-none-eabi-ar.exe: creating .\ARM_GCC_493\Debug\VDAC8(SAR-POT).a
+arm-none-eabi-gcc.exe -Wl,--start-group -o .\ARM_GCC_493\Debug\VDAC8(SAR-POT).elf .\ARM_GCC_493\Debug\main.o .\ARM_GCC_493\Debug\cymetadata.o .\ARM_GCC_493\Debug\Cm3Start.o .\ARM_GCC_493\Debug\VDAC8(SAR-POT).a "C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_493\Debug\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -g -ffunction-sections -Os -L Generated_Source\PSoC5 -Wl,-Map,.\ARM_GCC_493\Debug/VDAC8(SAR-POT).map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -Wl,--end-group
+cyelftool.exe -C "G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\ARM_GCC_493\Debug\VDAC8(SAR-POT).elf" --flash_row_size 256 --flash_size 262144
+cyelftool.exe -S "G:\Documentos\PSoC Creator\voltageDisplay_SAR_ADC\VDAC8(SAR-POT).cydsn\ARM_GCC_493\Debug\VDAC8(SAR-POT).elf"
+Flash used: 5120 of 262144 bytes (2,0 %).
+SRAM used: 2621 of 65536 bytes (4,0 %). Stack: 2048 bytes. Heap: 128 bytes.
+--------------- Build Succeeded: 04/17/2016 10:58:22 ---------------

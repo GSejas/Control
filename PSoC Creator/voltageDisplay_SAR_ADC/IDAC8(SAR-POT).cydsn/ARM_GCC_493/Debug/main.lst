@@ -1,0 +1,771 @@
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"main.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.rodata
+  19              		.align	2
+  20              	.LC0:
+  21 0000 41444320 		.ascii	"ADC input volt\000"
+  21      696E7075 
+  21      7420766F 
+  21      6C7400
+  22 000f 00       		.align	2
+  23              	.LC1:
+  24 0010 20202020 		.ascii	"    %4ld mV\000"
+  24      25346C64 
+  24      206D5600 
+  25              		.section	.text.main,"ax",%progbits
+  26              		.align	2
+  27              		.global	main
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	main, %function
+  31              	main:
+  32              	.LFB63:
+  33              		.file 1 ".\\main.c"
+   1:.\main.c      **** ///*******************************************************************************
+   2:.\main.c      **** //* File: main.c
+   3:.\main.c      **** /*******************************************************************************
+   4:.\main.c      **** * Function Name: main
+   5:.\main.c      **** ********************************************************************************
+   6:.\main.c      **** *
+   7:.\main.c      **** * Summary:
+   8:.\main.c      **** *  Main function performs following functions:
+   9:.\main.c      **** *   1: Initializes the LCD and clears the display
+  10:.\main.c      **** *   2: Start the IDAC
+  11:.\main.c      **** *   3: IDAC range is set to 255uA and value to 100
+  12:.\main.c      **** *   4: Prints test name on LCD
+  13:.\main.c      **** *
+  14:.\main.c      **** * Parameters:
+  15:.\main.c      **** *  None.
+  16:.\main.c      **** *
+  17:.\main.c      **** * Return:
+  18:.\main.c      **** *  None.
+  19:.\main.c      **** *
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 2
+
+
+  20:.\main.c      **** *******************************************************************************/
+  21:.\main.c      **** #include <device.h>
+  22:.\main.c      **** #include "stdio.h"
+  23:.\main.c      **** 
+  24:.\main.c      **** #define MAX_SAMPLE                  8
+  25:.\main.c      **** 
+  26:.\main.c      **** int main(void)
+  27:.\main.c      **** {
+  34              		.loc 1 27 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 32
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 88B0     		sub	sp, sp, #32
+  43              		.cfi_def_cfa_offset 40
+  44 0004 00AF     		add	r7, sp, #0
+  45              		.cfi_def_cfa_register 7
+  28:.\main.c      ****     /* Variable to hold ADC count */
+  29:.\main.c      ****     int32 voltCount = 0;
+  46              		.loc 1 29 0
+  47 0006 0023     		movs	r3, #0
+  48 0008 7B61     		str	r3, [r7, #20]
+  30:.\main.c      ****     
+  31:.\main.c      ****     /* Variable to hold the result in millivolts converted from ADC counts */
+  32:.\main.c      **** 
+  33:.\main.c      ****     /* Variable to count number of samples collected from ADC */
+  34:.\main.c      ****     uint8 sampleCount = 0;
+  49              		.loc 1 34 0
+  50 000a 0023     		movs	r3, #0
+  51 000c FB77     		strb	r3, [r7, #31]
+  35:.\main.c      **** 	
+  36:.\main.c      ****     /* Variable to hold cumulative samples */
+  37:.\main.c      ****     int32 voltSamples = 0;
+  52              		.loc 1 37 0
+  53 000e 0023     		movs	r3, #0
+  54 0010 BB61     		str	r3, [r7, #24]
+  38:.\main.c      **** 	
+  39:.\main.c      ****     /* Variable to hold the average volts for 8 samples */
+  40:.\main.c      ****     uint32 averageVolts = 0;
+  55              		.loc 1 40 0
+  56 0012 0023     		movs	r3, #0
+  57 0014 3B61     		str	r3, [r7, #16]
+  41:.\main.c      **** 	
+  42:.\main.c      ****     /* Character array to hold the micro volts*/
+  43:.\main.c      ****     char displayStr[15] = {'\0'};
+  58              		.loc 1 43 0
+  59 0016 3B46     		mov	r3, r7
+  60 0018 0022     		movs	r2, #0
+  61 001a 1A60     		str	r2, [r3]
+  62 001c 0433     		adds	r3, r3, #4
+  63 001e 0022     		movs	r2, #0
+  64 0020 1A60     		str	r2, [r3]
+  65 0022 0433     		adds	r3, r3, #4
+  66 0024 0022     		movs	r2, #0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 3
+
+
+  67 0026 1A60     		str	r2, [r3]
+  68 0028 0433     		adds	r3, r3, #4
+  69 002a 0022     		movs	r2, #0
+  70 002c 1A80     		strh	r2, [r3]	@ movhi
+  71 002e 0233     		adds	r3, r3, #2
+  72 0030 0022     		movs	r2, #0
+  73 0032 1A70     		strb	r2, [r3]
+  74 0034 0133     		adds	r3, r3, #1
+  44:.\main.c      ****     
+  45:.\main.c      ****     /* Start the IDAC component */
+  46:.\main.c      ****     IDAC8_1_Start();             
+  75              		.loc 1 46 0
+  76 0036 FFF7FEFF 		bl	IDAC8_1_Start
+  47:.\main.c      **** 
+  48:.\main.c      ****     /* Sets the IDAC full scale range to 255uA */
+  49:.\main.c      ****     IDAC8_1_SetRange(IDAC8_1_RANGE_255uA);    
+  77              		.loc 1 49 0
+  78 003a 0420     		movs	r0, #4
+  79 003c FFF7FEFF 		bl	IDAC8_1_SetRange
+  50:.\main.c      ****     
+  51:.\main.c      ****     /* Start ADC and start conversion */
+  52:.\main.c      ****     ADC_Start();
+  80              		.loc 1 52 0
+  81 0040 FFF7FEFF 		bl	ADC_Start
+  53:.\main.c      ****     ADC_StartConvert();
+  82              		.loc 1 53 0
+  83 0044 FFF7FEFF 		bl	ADC_StartConvert
+  54:.\main.c      **** 
+  55:.\main.c      ****     /* Start LCD and set position */
+  56:.\main.c      ****     LCD_Start();
+  84              		.loc 1 56 0
+  85 0048 FFF7FEFF 		bl	LCD_Start
+  57:.\main.c      ****     LCD_Position(0,1);
+  86              		.loc 1 57 0
+  87 004c 0020     		movs	r0, #0
+  88 004e 0121     		movs	r1, #1
+  89 0050 FFF7FEFF 		bl	LCD_Position
+  58:.\main.c      ****     LCD_PrintString("ADC input volt");
+  90              		.loc 1 58 0
+  91 0054 1748     		ldr	r0, .L4
+  92 0056 FFF7FEFF 		bl	LCD_PrintString
+  93              	.L3:
+  59:.\main.c      ****     
+  60:.\main.c      **** //    uint8 PWM_V =0x00u;
+  61:.\main.c      **** //    Control_Reg_1_Write(0x0Fu);
+  62:.\main.c      ****     //PWM_1_WritePeriod(0x01u);
+  63:.\main.c      ****     while(1)
+  64:.\main.c      ****     {
+  65:.\main.c      ****         /* Read ADC count and convert to milli volts */
+  66:.\main.c      ****         ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+  94              		.loc 1 66 0
+  95 005a 0020     		movs	r0, #0
+  96 005c FFF7FEFF 		bl	ADC_IsEndConversion
+  67:.\main.c      ****         voltCount = ADC_GetResult16();
+  97              		.loc 1 67 0
+  98 0060 FFF7FEFF 		bl	ADC_GetResult16
+  99 0064 0346     		mov	r3, r0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 4
+
+
+ 100 0066 7B61     		str	r3, [r7, #20]
+  68:.\main.c      **** //        mVolts = ADC_CountsTo_mVolts(voltCount);
+  69:.\main.c      **** //        
+  70:.\main.c      ****         /* Add the current ADC reading to the cumulated samples*/
+  71:.\main.c      ****         voltSamples = voltSamples + voltCount;
+ 101              		.loc 1 71 0
+ 102 0068 BA69     		ldr	r2, [r7, #24]
+ 103 006a 7B69     		ldr	r3, [r7, #20]
+ 104 006c 1344     		add	r3, r3, r2
+ 105 006e BB61     		str	r3, [r7, #24]
+  72:.\main.c      **** 
+  73:.\main.c      ****         sampleCount++;
+ 106              		.loc 1 73 0
+ 107 0070 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 108 0072 0133     		adds	r3, r3, #1
+ 109 0074 FB77     		strb	r3, [r7, #31]
+  74:.\main.c      **** 
+  75:.\main.c      ****         /* If 8 samples have been collected then average the samples and update the display*/
+  76:.\main.c      ****         if(sampleCount == MAX_SAMPLE)
+ 110              		.loc 1 76 0
+ 111 0076 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 112 0078 082B     		cmp	r3, #8
+ 113 007a 19D1     		bne	.L2
+  77:.\main.c      ****         {
+  78:.\main.c      ****             averageVolts = voltSamples >> 3;
+ 114              		.loc 1 78 0
+ 115 007c BB69     		ldr	r3, [r7, #24]
+ 116 007e DB10     		asrs	r3, r3, #3
+ 117 0080 3B61     		str	r3, [r7, #16]
+  79:.\main.c      ****             voltSamples = 0;
+ 118              		.loc 1 79 0
+ 119 0082 0023     		movs	r3, #0
+ 120 0084 BB61     		str	r3, [r7, #24]
+  80:.\main.c      ****             sampleCount = 0;
+ 121              		.loc 1 80 0
+ 122 0086 0023     		movs	r3, #0
+ 123 0088 FB77     		strb	r3, [r7, #31]
+  81:.\main.c      **** 
+  82:.\main.c      ****             /* Convert milli volts to string and display on the LCD. sprintf()
+  83:.\main.c      ****             *  function is standard library function defined in the stdio.h 
+  84:.\main.c      ****             *  header file */
+  85:.\main.c      **** //            PWM_V = averageVolts;
+  86:.\main.c      ****             sprintf(displayStr,"    %4ld mV",averageVolts);
+ 124              		.loc 1 86 0
+ 125 008a 3B46     		mov	r3, r7
+ 126 008c 1846     		mov	r0, r3
+ 127 008e 0A49     		ldr	r1, .L4+4
+ 128 0090 3A69     		ldr	r2, [r7, #16]
+ 129 0092 FFF7FEFF 		bl	sprintf
+  87:.\main.c      ****             
+  88:.\main.c      ****             IDAC8_1_SetValue(averageVolts);
+ 130              		.loc 1 88 0
+ 131 0096 3B69     		ldr	r3, [r7, #16]
+ 132 0098 DBB2     		uxtb	r3, r3
+ 133 009a 1846     		mov	r0, r3
+ 134 009c FFF7FEFF 		bl	IDAC8_1_SetValue
+  89:.\main.c      ****             
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 5
+
+
+  90:.\main.c      ****             LCD_Position(1,0);
+ 135              		.loc 1 90 0
+ 136 00a0 0120     		movs	r0, #1
+ 137 00a2 0021     		movs	r1, #0
+ 138 00a4 FFF7FEFF 		bl	LCD_Position
+  91:.\main.c      ****             LCD_PrintString(displayStr);
+ 139              		.loc 1 91 0
+ 140 00a8 3B46     		mov	r3, r7
+ 141 00aa 1846     		mov	r0, r3
+ 142 00ac FFF7FEFF 		bl	LCD_PrintString
+ 143              	.L2:
+  92:.\main.c      ****         }	
+  93:.\main.c      ****     }
+ 144              		.loc 1 93 0
+ 145 00b0 D3E7     		b	.L3
+ 146              	.L5:
+ 147 00b2 00BF     		.align	2
+ 148              	.L4:
+ 149 00b4 00000000 		.word	.LC0
+ 150 00b8 10000000 		.word	.LC1
+ 151              		.cfi_endproc
+ 152              	.LFE63:
+ 153              		.size	main, .-main
+ 154              		.text
+ 155              	.Letext0:
+ 156              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 157              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\3.3\\psoc creator\\import\\gnu\\arm\\4.9.
+ 158              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 159              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 160              		.section	.debug_info,"",%progbits
+ 161              	.Ldebug_info0:
+ 162 0000 3F010000 		.4byte	0x13f
+ 163 0004 0400     		.2byte	0x4
+ 164 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 165 000a 04       		.byte	0x4
+ 166 000b 01       		.uleb128 0x1
+ 167 000c AF000000 		.4byte	.LASF23
+ 168 0010 01       		.byte	0x1
+ 169 0011 3D010000 		.4byte	.LASF24
+ 170 0015 86010000 		.4byte	.LASF25
+ 171 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 172 001d 00000000 		.4byte	0
+ 173 0021 00000000 		.4byte	.Ldebug_line0
+ 174 0025 02       		.uleb128 0x2
+ 175 0026 01       		.byte	0x1
+ 176 0027 06       		.byte	0x6
+ 177 0028 65010000 		.4byte	.LASF0
+ 178 002c 02       		.uleb128 0x2
+ 179 002d 01       		.byte	0x1
+ 180 002e 08       		.byte	0x8
+ 181 002f 89000000 		.4byte	.LASF1
+ 182 0033 02       		.uleb128 0x2
+ 183 0034 02       		.byte	0x2
+ 184 0035 05       		.byte	0x5
+ 185 0036 CD010000 		.4byte	.LASF2
+ 186 003a 02       		.uleb128 0x2
+ 187 003b 02       		.byte	0x2
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 6
+
+
+ 188 003c 07       		.byte	0x7
+ 189 003d 69000000 		.4byte	.LASF3
+ 190 0041 03       		.uleb128 0x3
+ 191 0042 71010000 		.4byte	.LASF9
+ 192 0046 02       		.byte	0x2
+ 193 0047 3F       		.byte	0x3f
+ 194 0048 4C000000 		.4byte	0x4c
+ 195 004c 02       		.uleb128 0x2
+ 196 004d 04       		.byte	0x4
+ 197 004e 05       		.byte	0x5
+ 198 004f A6000000 		.4byte	.LASF4
+ 199 0053 02       		.uleb128 0x2
+ 200 0054 04       		.byte	0x4
+ 201 0055 07       		.byte	0x7
+ 202 0056 40000000 		.4byte	.LASF5
+ 203 005a 02       		.uleb128 0x2
+ 204 005b 08       		.byte	0x8
+ 205 005c 05       		.byte	0x5
+ 206 005d 00000000 		.4byte	.LASF6
+ 207 0061 02       		.uleb128 0x2
+ 208 0062 08       		.byte	0x8
+ 209 0063 07       		.byte	0x7
+ 210 0064 52000000 		.4byte	.LASF7
+ 211 0068 04       		.uleb128 0x4
+ 212 0069 04       		.byte	0x4
+ 213 006a 05       		.byte	0x5
+ 214 006b 696E7400 		.ascii	"int\000"
+ 215 006f 02       		.uleb128 0x2
+ 216 0070 04       		.byte	0x4
+ 217 0071 07       		.byte	0x7
+ 218 0072 15000000 		.4byte	.LASF8
+ 219 0076 03       		.uleb128 0x3
+ 220 0077 D7010000 		.4byte	.LASF10
+ 221 007b 03       		.byte	0x3
+ 222 007c 2C       		.byte	0x2c
+ 223 007d 41000000 		.4byte	0x41
+ 224 0081 05       		.uleb128 0x5
+ 225 0082 3A000000 		.4byte	.LASF11
+ 226 0086 04       		.byte	0x4
+ 227 0087 3801     		.2byte	0x138
+ 228 0089 2C000000 		.4byte	0x2c
+ 229 008d 05       		.uleb128 0x5
+ 230 008e 0E000000 		.4byte	.LASF12
+ 231 0092 04       		.byte	0x4
+ 232 0093 3A01     		.2byte	0x13a
+ 233 0095 53000000 		.4byte	0x53
+ 234 0099 05       		.uleb128 0x5
+ 235 009a E8010000 		.4byte	.LASF13
+ 236 009e 04       		.byte	0x4
+ 237 009f 3D01     		.2byte	0x13d
+ 238 00a1 4C000000 		.4byte	0x4c
+ 239 00a5 02       		.uleb128 0x2
+ 240 00a6 04       		.byte	0x4
+ 241 00a7 04       		.byte	0x4
+ 242 00a8 80010000 		.4byte	.LASF14
+ 243 00ac 02       		.uleb128 0x2
+ 244 00ad 08       		.byte	0x8
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 7
+
+
+ 245 00ae 04       		.byte	0x4
+ 246 00af 51010000 		.4byte	.LASF15
+ 247 00b3 02       		.uleb128 0x2
+ 248 00b4 01       		.byte	0x1
+ 249 00b5 08       		.byte	0x8
+ 250 00b6 97000000 		.4byte	.LASF16
+ 251 00ba 02       		.uleb128 0x2
+ 252 00bb 04       		.byte	0x4
+ 253 00bc 07       		.byte	0x7
+ 254 00bd DF010000 		.4byte	.LASF17
+ 255 00c1 06       		.uleb128 0x6
+ 256 00c2 7B010000 		.4byte	.LASF26
+ 257 00c6 01       		.byte	0x1
+ 258 00c7 1A       		.byte	0x1a
+ 259 00c8 68000000 		.4byte	0x68
+ 260 00cc 00000000 		.4byte	.LFB63
+ 261 00d0 BC000000 		.4byte	.LFE63-.LFB63
+ 262 00d4 01       		.uleb128 0x1
+ 263 00d5 9C       		.byte	0x9c
+ 264 00d6 21010000 		.4byte	0x121
+ 265 00da 07       		.uleb128 0x7
+ 266 00db 9C000000 		.4byte	.LASF18
+ 267 00df 01       		.byte	0x1
+ 268 00e0 1D       		.byte	0x1d
+ 269 00e1 99000000 		.4byte	0x99
+ 270 00e5 02       		.uleb128 0x2
+ 271 00e6 91       		.byte	0x91
+ 272 00e7 6C       		.sleb128 -20
+ 273 00e8 07       		.uleb128 0x7
+ 274 00e9 22000000 		.4byte	.LASF19
+ 275 00ed 01       		.byte	0x1
+ 276 00ee 22       		.byte	0x22
+ 277 00ef 81000000 		.4byte	0x81
+ 278 00f3 02       		.uleb128 0x2
+ 279 00f4 91       		.byte	0x91
+ 280 00f5 77       		.sleb128 -9
+ 281 00f6 07       		.uleb128 0x7
+ 282 00f7 2E000000 		.4byte	.LASF20
+ 283 00fb 01       		.byte	0x1
+ 284 00fc 25       		.byte	0x25
+ 285 00fd 99000000 		.4byte	0x99
+ 286 0101 02       		.uleb128 0x2
+ 287 0102 91       		.byte	0x91
+ 288 0103 70       		.sleb128 -16
+ 289 0104 07       		.uleb128 0x7
+ 290 0105 7C000000 		.4byte	.LASF21
+ 291 0109 01       		.byte	0x1
+ 292 010a 28       		.byte	0x28
+ 293 010b 8D000000 		.4byte	0x8d
+ 294 010f 02       		.uleb128 0x2
+ 295 0110 91       		.byte	0x91
+ 296 0111 68       		.sleb128 -24
+ 297 0112 07       		.uleb128 0x7
+ 298 0113 46010000 		.4byte	.LASF22
+ 299 0117 01       		.byte	0x1
+ 300 0118 2B       		.byte	0x2b
+ 301 0119 21010000 		.4byte	0x121
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 8
+
+
+ 302 011d 02       		.uleb128 0x2
+ 303 011e 91       		.byte	0x91
+ 304 011f 58       		.sleb128 -40
+ 305 0120 00       		.byte	0
+ 306 0121 08       		.uleb128 0x8
+ 307 0122 B3000000 		.4byte	0xb3
+ 308 0126 31010000 		.4byte	0x131
+ 309 012a 09       		.uleb128 0x9
+ 310 012b BA000000 		.4byte	0xba
+ 311 012f 0E       		.byte	0xe
+ 312 0130 00       		.byte	0
+ 313 0131 0A       		.uleb128 0xa
+ 314 0132 58010000 		.4byte	.LASF27
+ 315 0136 05       		.byte	0x5
+ 316 0137 5506     		.2byte	0x655
+ 317 0139 3D010000 		.4byte	0x13d
+ 318 013d 0B       		.uleb128 0xb
+ 319 013e 76000000 		.4byte	0x76
+ 320 0142 00       		.byte	0
+ 321              		.section	.debug_abbrev,"",%progbits
+ 322              	.Ldebug_abbrev0:
+ 323 0000 01       		.uleb128 0x1
+ 324 0001 11       		.uleb128 0x11
+ 325 0002 01       		.byte	0x1
+ 326 0003 25       		.uleb128 0x25
+ 327 0004 0E       		.uleb128 0xe
+ 328 0005 13       		.uleb128 0x13
+ 329 0006 0B       		.uleb128 0xb
+ 330 0007 03       		.uleb128 0x3
+ 331 0008 0E       		.uleb128 0xe
+ 332 0009 1B       		.uleb128 0x1b
+ 333 000a 0E       		.uleb128 0xe
+ 334 000b 55       		.uleb128 0x55
+ 335 000c 17       		.uleb128 0x17
+ 336 000d 11       		.uleb128 0x11
+ 337 000e 01       		.uleb128 0x1
+ 338 000f 10       		.uleb128 0x10
+ 339 0010 17       		.uleb128 0x17
+ 340 0011 00       		.byte	0
+ 341 0012 00       		.byte	0
+ 342 0013 02       		.uleb128 0x2
+ 343 0014 24       		.uleb128 0x24
+ 344 0015 00       		.byte	0
+ 345 0016 0B       		.uleb128 0xb
+ 346 0017 0B       		.uleb128 0xb
+ 347 0018 3E       		.uleb128 0x3e
+ 348 0019 0B       		.uleb128 0xb
+ 349 001a 03       		.uleb128 0x3
+ 350 001b 0E       		.uleb128 0xe
+ 351 001c 00       		.byte	0
+ 352 001d 00       		.byte	0
+ 353 001e 03       		.uleb128 0x3
+ 354 001f 16       		.uleb128 0x16
+ 355 0020 00       		.byte	0
+ 356 0021 03       		.uleb128 0x3
+ 357 0022 0E       		.uleb128 0xe
+ 358 0023 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 9
+
+
+ 359 0024 0B       		.uleb128 0xb
+ 360 0025 3B       		.uleb128 0x3b
+ 361 0026 0B       		.uleb128 0xb
+ 362 0027 49       		.uleb128 0x49
+ 363 0028 13       		.uleb128 0x13
+ 364 0029 00       		.byte	0
+ 365 002a 00       		.byte	0
+ 366 002b 04       		.uleb128 0x4
+ 367 002c 24       		.uleb128 0x24
+ 368 002d 00       		.byte	0
+ 369 002e 0B       		.uleb128 0xb
+ 370 002f 0B       		.uleb128 0xb
+ 371 0030 3E       		.uleb128 0x3e
+ 372 0031 0B       		.uleb128 0xb
+ 373 0032 03       		.uleb128 0x3
+ 374 0033 08       		.uleb128 0x8
+ 375 0034 00       		.byte	0
+ 376 0035 00       		.byte	0
+ 377 0036 05       		.uleb128 0x5
+ 378 0037 16       		.uleb128 0x16
+ 379 0038 00       		.byte	0
+ 380 0039 03       		.uleb128 0x3
+ 381 003a 0E       		.uleb128 0xe
+ 382 003b 3A       		.uleb128 0x3a
+ 383 003c 0B       		.uleb128 0xb
+ 384 003d 3B       		.uleb128 0x3b
+ 385 003e 05       		.uleb128 0x5
+ 386 003f 49       		.uleb128 0x49
+ 387 0040 13       		.uleb128 0x13
+ 388 0041 00       		.byte	0
+ 389 0042 00       		.byte	0
+ 390 0043 06       		.uleb128 0x6
+ 391 0044 2E       		.uleb128 0x2e
+ 392 0045 01       		.byte	0x1
+ 393 0046 3F       		.uleb128 0x3f
+ 394 0047 19       		.uleb128 0x19
+ 395 0048 03       		.uleb128 0x3
+ 396 0049 0E       		.uleb128 0xe
+ 397 004a 3A       		.uleb128 0x3a
+ 398 004b 0B       		.uleb128 0xb
+ 399 004c 3B       		.uleb128 0x3b
+ 400 004d 0B       		.uleb128 0xb
+ 401 004e 27       		.uleb128 0x27
+ 402 004f 19       		.uleb128 0x19
+ 403 0050 49       		.uleb128 0x49
+ 404 0051 13       		.uleb128 0x13
+ 405 0052 11       		.uleb128 0x11
+ 406 0053 01       		.uleb128 0x1
+ 407 0054 12       		.uleb128 0x12
+ 408 0055 06       		.uleb128 0x6
+ 409 0056 40       		.uleb128 0x40
+ 410 0057 18       		.uleb128 0x18
+ 411 0058 9642     		.uleb128 0x2116
+ 412 005a 19       		.uleb128 0x19
+ 413 005b 01       		.uleb128 0x1
+ 414 005c 13       		.uleb128 0x13
+ 415 005d 00       		.byte	0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 10
+
+
+ 416 005e 00       		.byte	0
+ 417 005f 07       		.uleb128 0x7
+ 418 0060 34       		.uleb128 0x34
+ 419 0061 00       		.byte	0
+ 420 0062 03       		.uleb128 0x3
+ 421 0063 0E       		.uleb128 0xe
+ 422 0064 3A       		.uleb128 0x3a
+ 423 0065 0B       		.uleb128 0xb
+ 424 0066 3B       		.uleb128 0x3b
+ 425 0067 0B       		.uleb128 0xb
+ 426 0068 49       		.uleb128 0x49
+ 427 0069 13       		.uleb128 0x13
+ 428 006a 02       		.uleb128 0x2
+ 429 006b 18       		.uleb128 0x18
+ 430 006c 00       		.byte	0
+ 431 006d 00       		.byte	0
+ 432 006e 08       		.uleb128 0x8
+ 433 006f 01       		.uleb128 0x1
+ 434 0070 01       		.byte	0x1
+ 435 0071 49       		.uleb128 0x49
+ 436 0072 13       		.uleb128 0x13
+ 437 0073 01       		.uleb128 0x1
+ 438 0074 13       		.uleb128 0x13
+ 439 0075 00       		.byte	0
+ 440 0076 00       		.byte	0
+ 441 0077 09       		.uleb128 0x9
+ 442 0078 21       		.uleb128 0x21
+ 443 0079 00       		.byte	0
+ 444 007a 49       		.uleb128 0x49
+ 445 007b 13       		.uleb128 0x13
+ 446 007c 2F       		.uleb128 0x2f
+ 447 007d 0B       		.uleb128 0xb
+ 448 007e 00       		.byte	0
+ 449 007f 00       		.byte	0
+ 450 0080 0A       		.uleb128 0xa
+ 451 0081 34       		.uleb128 0x34
+ 452 0082 00       		.byte	0
+ 453 0083 03       		.uleb128 0x3
+ 454 0084 0E       		.uleb128 0xe
+ 455 0085 3A       		.uleb128 0x3a
+ 456 0086 0B       		.uleb128 0xb
+ 457 0087 3B       		.uleb128 0x3b
+ 458 0088 05       		.uleb128 0x5
+ 459 0089 49       		.uleb128 0x49
+ 460 008a 13       		.uleb128 0x13
+ 461 008b 3F       		.uleb128 0x3f
+ 462 008c 19       		.uleb128 0x19
+ 463 008d 3C       		.uleb128 0x3c
+ 464 008e 19       		.uleb128 0x19
+ 465 008f 00       		.byte	0
+ 466 0090 00       		.byte	0
+ 467 0091 0B       		.uleb128 0xb
+ 468 0092 35       		.uleb128 0x35
+ 469 0093 00       		.byte	0
+ 470 0094 49       		.uleb128 0x49
+ 471 0095 13       		.uleb128 0x13
+ 472 0096 00       		.byte	0
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 11
+
+
+ 473 0097 00       		.byte	0
+ 474 0098 00       		.byte	0
+ 475              		.section	.debug_aranges,"",%progbits
+ 476 0000 1C000000 		.4byte	0x1c
+ 477 0004 0200     		.2byte	0x2
+ 478 0006 00000000 		.4byte	.Ldebug_info0
+ 479 000a 04       		.byte	0x4
+ 480 000b 00       		.byte	0
+ 481 000c 0000     		.2byte	0
+ 482 000e 0000     		.2byte	0
+ 483 0010 00000000 		.4byte	.LFB63
+ 484 0014 BC000000 		.4byte	.LFE63-.LFB63
+ 485 0018 00000000 		.4byte	0
+ 486 001c 00000000 		.4byte	0
+ 487              		.section	.debug_ranges,"",%progbits
+ 488              	.Ldebug_ranges0:
+ 489 0000 00000000 		.4byte	.LFB63
+ 490 0004 BC000000 		.4byte	.LFE63
+ 491 0008 00000000 		.4byte	0
+ 492 000c 00000000 		.4byte	0
+ 493              		.section	.debug_line,"",%progbits
+ 494              	.Ldebug_line0:
+ 495 0000 77010000 		.section	.debug_str,"MS",%progbits,1
+ 495      02004901 
+ 495      00000201 
+ 495      FB0E0D00 
+ 495      01010101 
+ 496              	.LASF6:
+ 497 0000 6C6F6E67 		.ascii	"long long int\000"
+ 497      206C6F6E 
+ 497      6720696E 
+ 497      7400
+ 498              	.LASF12:
+ 499 000e 75696E74 		.ascii	"uint32\000"
+ 499      333200
+ 500              	.LASF8:
+ 501 0015 756E7369 		.ascii	"unsigned int\000"
+ 501      676E6564 
+ 501      20696E74 
+ 501      00
+ 502              	.LASF19:
+ 503 0022 73616D70 		.ascii	"sampleCount\000"
+ 503      6C65436F 
+ 503      756E7400 
+ 504              	.LASF20:
+ 505 002e 766F6C74 		.ascii	"voltSamples\000"
+ 505      53616D70 
+ 505      6C657300 
+ 506              	.LASF11:
+ 507 003a 75696E74 		.ascii	"uint8\000"
+ 507      3800
+ 508              	.LASF5:
+ 509 0040 6C6F6E67 		.ascii	"long unsigned int\000"
+ 509      20756E73 
+ 509      69676E65 
+ 509      6420696E 
+ 509      7400
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 12
+
+
+ 510              	.LASF7:
+ 511 0052 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 511      206C6F6E 
+ 511      6720756E 
+ 511      7369676E 
+ 511      65642069 
+ 512              	.LASF3:
+ 513 0069 73686F72 		.ascii	"short unsigned int\000"
+ 513      7420756E 
+ 513      7369676E 
+ 513      65642069 
+ 513      6E7400
+ 514              	.LASF21:
+ 515 007c 61766572 		.ascii	"averageVolts\000"
+ 515      61676556 
+ 515      6F6C7473 
+ 515      00
+ 516              	.LASF1:
+ 517 0089 756E7369 		.ascii	"unsigned char\000"
+ 517      676E6564 
+ 517      20636861 
+ 517      7200
+ 518              	.LASF16:
+ 519 0097 63686172 		.ascii	"char\000"
+ 519      00
+ 520              	.LASF18:
+ 521 009c 766F6C74 		.ascii	"voltCount\000"
+ 521      436F756E 
+ 521      7400
+ 522              	.LASF4:
+ 523 00a6 6C6F6E67 		.ascii	"long int\000"
+ 523      20696E74 
+ 523      00
+ 524              	.LASF23:
+ 525 00af 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 525      4320342E 
+ 525      392E3320 
+ 525      32303135 
+ 525      30333033 
+ 526 00e2 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 526      20726576 
+ 526      6973696F 
+ 526      6E203232 
+ 526      31323230 
+ 527 0115 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 527      66756E63 
+ 527      74696F6E 
+ 527      2D736563 
+ 527      74696F6E 
+ 528              	.LASF24:
+ 529 013d 2E5C6D61 		.ascii	".\\main.c\000"
+ 529      696E2E63 
+ 529      00
+ 530              	.LASF22:
+ 531 0146 64697370 		.ascii	"displayStr\000"
+ 531      6C617953 
+ 531      747200
+ARM GAS  C:\Users\Rolando\AppData\Local\Temp\ccB2EOfe.s 			page 13
+
+
+ 532              	.LASF15:
+ 533 0151 646F7562 		.ascii	"double\000"
+ 533      6C6500
+ 534              	.LASF27:
+ 535 0158 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 535      52784275 
+ 535      66666572 
+ 535      00
+ 536              	.LASF0:
+ 537 0165 7369676E 		.ascii	"signed char\000"
+ 537      65642063 
+ 537      68617200 
+ 538              	.LASF9:
+ 539 0171 5F5F696E 		.ascii	"__int32_t\000"
+ 539      7433325F 
+ 539      7400
+ 540              	.LASF26:
+ 541 017b 6D61696E 		.ascii	"main\000"
+ 541      00
+ 542              	.LASF14:
+ 543 0180 666C6F61 		.ascii	"float\000"
+ 543      7400
+ 544              	.LASF25:
+ 545 0186 473A5C44 		.ascii	"G:\\Documentos\\PSoC Creator\\voltageDisplay_SAR_AD"
+ 545      6F63756D 
+ 545      656E746F 
+ 545      735C5053 
+ 545      6F432043 
+ 546 01b6 435C4944 		.ascii	"C\\IDAC8(SAR-POT).cydsn\000"
+ 546      41433828 
+ 546      5341522D 
+ 546      504F5429 
+ 546      2E637964 
+ 547              	.LASF2:
+ 548 01cd 73686F72 		.ascii	"short int\000"
+ 548      7420696E 
+ 548      7400
+ 549              	.LASF10:
+ 550 01d7 696E7433 		.ascii	"int32_t\000"
+ 550      325F7400 
+ 551              	.LASF17:
+ 552 01df 73697A65 		.ascii	"sizetype\000"
+ 552      74797065 
+ 552      00
+ 553              	.LASF13:
+ 554 01e8 696E7433 		.ascii	"int32\000"
+ 554      3200
+ 555              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
